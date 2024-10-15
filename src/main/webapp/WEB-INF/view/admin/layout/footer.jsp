@@ -82,7 +82,13 @@
             "targets": [1], // Ví dụ cho cột thứ hai
             "visible": true // hiện cột
         }
+      
     ],
+    "autoFill": { // Cấu hình cho tính năng AutoFill
+        "columns": [0, 1], // Chỉ định các cột nào có thể sử dụng AutoFill
+      
+    },
+
     "initComplete": function () { // Hàm sẽ chạy khi DataTable đã khởi tạo xong
         // Bạn có thể thêm mã JavaScript tùy chỉnh ở đây nếu cần
     }

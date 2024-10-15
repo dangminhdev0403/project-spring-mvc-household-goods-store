@@ -1,5 +1,5 @@
-<%@page contentType="text/html" pageEncoding="UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page contentType="text/html" pageEncoding="UTF-8" %> <%@ taglib prefix="c"
+uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="sidebar" data-background-color="dark">
   <div class="sidebar-logo">
     <!-- Logo Header -->
@@ -50,8 +50,8 @@
           <div class="collapse" id="base">
             <ul class="nav nav-collapse">
               <li>
-                <a href="/admin/user">
-                  <span class="sub-item">Danh sách User</span>
+                <a href="/admin/users">
+                  <span class="sub-item">Danh sách người dùng</span>
                 </a>
               </li>
             </ul>

@@ -1,8 +1,11 @@
 package com.minh.teashop.domain;
 
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Entity;
+
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 
@@ -18,19 +21,24 @@ public class User {
     private int phone;
     private String address;
 
-    
+    @ManyToOne
+    @JoinColumn(name = "role_id")
+    private Role role;
 
     public User() {
     }
 
-    public User(long user_id, String name, String password, String email, int phone, String address) {
+    public User(long user_id, String name, String password, String email, int phone, String address,Role role) {
         this.user_id = user_id;
         this.name = name;
         this.password = password;
         this.email = email;
         this.phone = phone;
         this.address = address;
+        this.role = role ;
+
     }
+    
 
     public long getUser_id() {
         return user_id;
@@ -79,5 +87,15 @@ public class User {
     public void setAddress(String address) {
         this.address = address;
     }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+ 
 
 }
