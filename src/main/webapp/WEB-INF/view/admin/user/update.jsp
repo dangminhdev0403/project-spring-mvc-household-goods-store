@@ -61,7 +61,7 @@ uri="http://www.springframework.org/tags/form" %>
                     type="password"
                     class="form-control"
                     id="password"
-                    placeholder="Password"  path="password"
+                    placeholder="Password"  path="password" disabled = "true"
                   />
                 </div>
                 <div class="form-group">

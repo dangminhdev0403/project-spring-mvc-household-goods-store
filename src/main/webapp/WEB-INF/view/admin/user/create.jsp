@@ -32,80 +32,110 @@ uri="http://www.springframework.org/tags/form" %>
           <div class="card-header">
             <div class="card-title">Thêm mới người dùng</div>
           </div>
-          <form:form action="/admin/users/create"
-          modelAttribute="newUser" class="row" enctype="multipart/form-data">
-          <div class="card-body">
-            
-            <div class="row">
-             
+          <form:form
+            action="/admin/users/create"
+            modelAttribute="newUser"
+            class="row"
+            enctype="multipart/form-data"
+          >
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-6 col-lg-6">
+                  <c:set var="errorEmail">
+                    <form:errors path="email" cssClass="text-danger" />
+                 </c:set>
+                  <div class="form-group  ${not empty errorEmail ? 'has-error' : ''} ">
+                   
+                    <label for="email2">Email</label>
+                    <form:input
+                      type="email"
+                      class="form-control"
+                      id="email2"
+                      placeholder="Enter Email"
+                      path="email"
+                    />
 
-             
-              <div class="col-md-6 col-lg-6">
-                <div class="form-group">
-                  <label for="email2">Email</label>
-                  <form:input
-                    type="email"
-                    class="form-control"
-                    id="email2"
-                    placeholder="Enter Email"  path="email"
-                  />
+                    ${errorEmail}
+                  </div>
+                  <c:set var="errorPassword">
+                    <form:errors path="password" cssClass="text-danger" />
+                 </c:set>
+                  <div class="form-group  ${not empty errorPassword ? 'has-error' : ''}">
+                    <label for="password">Mật khẩu</label>
+                    <form:input
+                      type="password"
+                      class="form-control"
+                      id="password"
+                      placeholder="Password"
+                      path="password"
+                    />
+                    ${errorPassword}
+                  </div>
+                  <div class="form-group">
+                    <label for="defaultSelect">Quyền</label>
+                    <form:select
+                      class="form-select form-control"
+                      id="defaultSelect"
+                      path="role.name"
+                    >
+                      <form:option value="ADMIN">Admin</form:option>
+                      <form:option value="CUSTOMER">Customer</form:option>
+                    </form:select>
+                  </div>
                 </div>
-                <div class="form-group">
-                  <label for="password">Mật khẩu</label>
-                  <form:input
-                    type="password"
-                    class="form-control"
-                    id="password"
-                    placeholder="Password"  path="password"
-                  />
-                </div>
-                <div class="form-group">
-                  <label for="defaultSelect">Quyền</label>
-                  <form:select class="form-select form-control" id="defaultSelect" path="role.name" >
-                    <form:option value="ADMIN">Admin</form:option>
-                    <form:option value="CUSTOMER">Customer</form:option>
-                  </form:select>
+                <div class="col-md-6 col-lg-6">
+                  <c:set var="errorName">
+                    <form:errors path="name" cssClass="text-danger" />
+                 </c:set>
+                  <div class="form-group  ${not empty errorName ? 'has-error' : ''}">
+                    <label for="fullname">Họ Tên</label>
+                    <form:input
+                      type="text"
+                      class="form-control"
+                      id="fullname"
+                      placeholder="Nhập Họ và Tên"
+                      path="name"
+                    />
+                    ${errorName}
+                  </div>
+
+                  <c:set var="erroraddress">
+                    <form:errors path="address" cssClass="text-danger" />
+                 </c:set>
+                  <div class="form-group  ${not empty erroraddress ? 'has-error' : ''}">
+                    
+                    <label for="address">Địa chỉ</label>
+                    <form:input
+                      type="address"
+                      class="form-control"
+                      id="address"
+                      placeholder="Địa chỉ"
+                      path="address"
+                    />
+                    ${erroraddress}
+                  </div>
+                  <c:set var="errorphone">
+                    <form:errors path="phone" cssClass="text-danger" />
+                 </c:set>
+                  <div class="form-group  ${not empty errorphone? 'has-error' : ''}">
+                    <label for="phone">Số điện thoại</label>
+                    <form:input
+                      type="phone"
+                      class="form-control"
+                      id="phone"
+                      placeholder="Nhập số điện thoại"
+                      path="phone"
+                    />
+                    ${errorphone}
+                  </div>
                 </div>
               </div>
-              <div class="col-md-6 col-lg-6">
-                <div class="form-group">
-                  <label for="fullname">Họ Tên</label>
-                  <form:input
-                    type="text"
-                    class="form-control"
-                    id="fullname"
-                    placeholder="Nhập Họ và Tên" path="name"
-                  />
-                </div>
-                <div class="form-group">
-                  <label for="address">Địa chỉ</label>
-                  <form:input
-                    type="address"
-                    class="form-control"
-                    id="address"
-                    placeholder="Địa chỉ" path="address"
-                  />
-                </div>
-                <div class="form-group">
-                  <label for="phone">Số điện thoại</label>
-                  <form:input
-                    type="phone"
-                    class="form-control"
-                    id="phone"
-                    placeholder="Nhập số điện thoại"  path="phone"
-                  />
-                </div>
-              </div>
-           
             </div>
-          </div>
-          <div class="card-action">
-            <button class="btn btn-success">Xác nhận</button>
-            <a href="/admin/users" class="btn btn-danger">Trờ về</a>
-          </div>
+            <div class="card-action">
+              <button class="btn btn-success">Xác nhận</button>
+              <a href="/admin/users" class="btn btn-danger">Trờ về</a>
+            </div>
           </form:form>
-         
-      
         </div>
       </div>
     </div>

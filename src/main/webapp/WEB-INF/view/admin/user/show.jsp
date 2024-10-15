@@ -27,7 +27,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
             <div class="d-flex align-items-center">
               <h4 class="card-title">Danh sách người dùng</h4>
               <a
-                href="/admin/user/create"
+                href="/admin/users/create"
                 class="btn btn-primary btn-round ms-auto"
               >
                 <i class="fa fa-plus"></i>
