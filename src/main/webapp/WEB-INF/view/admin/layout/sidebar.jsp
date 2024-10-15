@@ -4,7 +4,7 @@
   <div class="sidebar-logo">
     <!-- Logo Header -->
     <div class="logo-header" data-background-color="dark">
-      <a href="admin" class="logo">
+      <a href="/admin" class="logo">
         <h1 class="text-light">Admin</h1>
       </a>
       <div class="nav-toggle">

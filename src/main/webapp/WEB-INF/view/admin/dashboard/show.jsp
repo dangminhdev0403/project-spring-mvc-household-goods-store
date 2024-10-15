@@ -57,7 +57,7 @@
             <div class="logo-header" data-background-color="dark">
               <a href="index.html" class="logo">
                 <img
-                  src="assets/img/kaiadmin/logo_light.svg"
+                  src="/img/kaiadmin/logo_light.svg"
                   alt="navbar brand"
                   class="navbar-brand"
                   height="20"
@@ -142,7 +142,7 @@
                           <a href="#">
                             <div class="notif-img">
                               <img
-                                src="assets/img/jm_denis.jpg"
+                                src="/img/jm_denis.jpg"
                                 alt="Img Profile"
                               />
                             </div>
@@ -155,7 +155,7 @@
                           <a href="#">
                             <div class="notif-img">
                               <img
-                                src="assets/img/chadengle.jpg"
+                                src="/img/chadengle.jpg"
                                 alt="Img Profile"
                               />
                             </div>
@@ -168,7 +168,7 @@
                           <a href="#">
                             <div class="notif-img">
                               <img
-                                src="assets/img/mlane.jpg"
+                                src="/img/mlane.jpg"
                                 alt="Img Profile"
                               />
                             </div>
@@ -183,7 +183,7 @@
                           <a href="#">
                             <div class="notif-img">
                               <img
-                                src="assets/img/talha.jpg"
+                                src="/img/talha.jpg"
                                 alt="Img Profile"
                               />
                             </div>
@@ -251,7 +251,7 @@
                           <a href="#">
                             <div class="notif-img">
                               <img
-                                src="assets/img/profile2.jpg"
+                                src="/img/profile2.jpg"
                                 alt="Img Profile"
                               />
                             </div>
@@ -369,7 +369,7 @@
                   >
                     <div class="avatar-sm">
                       <img
-                        src="assets/img/profile.jpg"
+                        src="/img/profile.jpg"
                         alt="..."
                         class="avatar-img rounded-circle"
                       />
@@ -385,7 +385,7 @@
                         <div class="user-box">
                           <div class="avatar-lg">
                             <img
-                              src="assets/img/profile.jpg"
+                              src="/img/profile.jpg"
                               alt="image profile"
                               class="avatar-img rounded"
                             />
@@ -421,6 +421,7 @@
         </div>
 
         <div class="container">
+
           <div class="page-inner">
             <div
               class="d-flex align-items-left align-items-md-center flex-column flex-md-row pt-2 pb-4"
@@ -429,6 +430,7 @@
                 <h3 class="fw-bold mb-3">Dashboard</h3>
               </div>
             </div>
+
             <div class="row">
               <div class="col-sm-6 col-md-3">
                 <div class="card card-stats card-round">
@@ -637,7 +639,7 @@
                       <div class="item-list">
                         <div class="avatar">
                           <img
-                            src="assets/img/jm_denis.jpg"
+                            src="/img/jm_denis.jpg"
                             alt="..."
                             class="avatar-img rounded-circle"
                           />
@@ -674,7 +676,7 @@
                       <div class="item-list">
                         <div class="avatar">
                           <img
-                            src="assets/img/talha.jpg"
+                            src="/img/talha.jpg"
                             alt="..."
                             class="avatar-img rounded-circle"
                           />
@@ -693,7 +695,7 @@
                       <div class="item-list">
                         <div class="avatar">
                           <img
-                            src="assets/img/chadengle.jpg"
+                            src="/img/chadengle.jpg"
                             alt="..."
                             class="avatar-img rounded-circle"
                           />
@@ -907,6 +909,7 @@
             </div>
           </div>
         </div>
+        
       </div>
       <!-- End Custom template -->
     </div>
