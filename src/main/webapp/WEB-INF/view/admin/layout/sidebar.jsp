@@ -44,7 +44,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
         <li class="nav-item">
           <a data-bs-toggle="collapse" href="#base">
             <i class="fas fas fa-users"></i>
-            <p>Quản lí User</p>
+            <p>Quản lí người dùng</p>
             <span class="caret"></span>
           </a>
           <div class="collapse" id="base">
@@ -52,6 +52,22 @@ uri="http://java.sun.com/jsp/jstl/core" %>
               <li>
                 <a href="/admin/users">
                   <span class="sub-item">Danh sách người dùng</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a data-bs-toggle="collapse" href="#categories">
+            <i class="fas fas fa-users"></i>
+            <p>Quản lí danh mục</p>
+            <span class="caret"></span>
+          </a>
+          <div class="collapse" id="categories">
+            <ul class="nav nav-collapse">
+              <li>
+                <a href="/admin/categories">
+                  <span class="sub-item">Bảng danh mục </span>
                 </a>
               </li>
             </ul>
