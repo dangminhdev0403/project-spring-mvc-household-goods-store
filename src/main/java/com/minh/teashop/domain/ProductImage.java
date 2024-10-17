@@ -1,16 +1,11 @@
 package com.minh.teashop.domain;
 
-import java.util.List;
-
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,22 +16,15 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "product_images")
 @Entity
-@Table(name = "products")
-public class Product {
+public class ProductImage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long product_id;
+    private long id;
     private String name;
 
-    @Column(columnDefinition = "LONGTEXT")
-    private String description;
-    private Double price;
-    private long stock;
-
     @ManyToOne
-    @JoinColumn(name = "category_id")
-    private Category category;
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
-    List<ProductImage> productImages;
+    @JoinColumn(name = "product_id")
+    private Product product;
 }

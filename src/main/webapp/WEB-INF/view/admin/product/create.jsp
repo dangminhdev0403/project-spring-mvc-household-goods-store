@@ -16,13 +16,13 @@ uri="http://www.springframework.org/tags/form" %>
           <i class="icon-arrow-right"></i>
         </li>
         <li class="nav-item">
-          <a href="/admin/users">Quản lí sản phẩm</a>
+          <a href="/admin/products">Quản lí sản phẩm</a>
         </li>
         <li class="separator">
           <i class="icon-arrow-right"></i>
         </li>
         <li class="nav-item">
-          <a href="/admin/users/create">Thêm mới sản phẩm</a>
+          <a href="/admin/products/create">Thêm mới sản phẩm</a>
         </li>
       </ul>
     </div>
@@ -69,19 +69,7 @@ uri="http://www.springframework.org/tags/form" %>
                    
                   </div>
 
-                  <div class="form-group">
-                   
-                    <label for="descProduct">Mô tả</label>
-                    <form:textarea
-                      
-                      class="form-control"
-                      id="descProduct"
-                      placeholder="Nhập mô tả"
-                      path="description"
-                    />
-
-                   
-                  </div>
+                
               
               </div>
               <div class="col-md-6 col-lg-4">
@@ -114,11 +102,49 @@ uri="http://www.springframework.org/tags/form" %>
                   </c:forEach>
 
                   </form:select>
-
+                 
 
                  
                 </div>
               </div>
+              <div class="col-md-6 col-lg-4">
+              
+                   
+                  <div class="form-group">
+                   
+                    <label for="descProduct">Mô tả</label>
+                    <form:textarea
+                      
+                      class="form-control"
+                      id="descProduct"
+                      placeholder="Nhập mô tả"
+                      path="description"
+                    />
+
+                   
+                  </div>
+                 
+
+                 
+             
+            </div>
+            
+              <div class="col-12 col-lg-4 ">
+                <div class="form-group">
+
+                  <label for="avatarImg">Ảnh sản phẩm</label>
+                  <input  class="form-control upload-img" type="file" id="productsImg" 
+                  accept=".png, .jpg, .jpeg" name="productsImg" multiple/>
+
+               
+
+                <div class="preview-container form-group">
+                    <button type="button" class="close-btn border-0 bg-danger rounded-circle text-white removeImage" ><i class="fas fa-times"></i></button>
+                    <img class="imagePreview" src="" alt="Preview" style="max-width: 283px; display: none;">
+                </div>
+                </div>
+              </div>
+            </div>
             </div>
             <div class="card-action">
               <button class="btn btn-success">Xác nhận</button>

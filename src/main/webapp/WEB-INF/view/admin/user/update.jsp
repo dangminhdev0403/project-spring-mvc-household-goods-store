@@ -101,7 +101,27 @@ uri="http://www.springframework.org/tags/form" %>
                   />
                 </div>
               </div>
-           
+              <div class="col-md-6 col-lg-4 ">
+                <div class="form-group">
+
+                  <label for="avatarImg">Avatar</label>
+                  <input  class="form-control upload-img" type="file" id="avatarImg" 
+                  accept=".png, .jpg, .jpeg" name="avatarImg" />
+
+                <div class="form-control border-0 ">
+               
+
+                    <img class="imagePreviewold" src="/upload/avatar/${newUser.avatar}" alt="Preview" style="max-width: 283px; display: block;">
+  
+                  </div>
+
+                <div class="preview-container form-group">
+                  <h6 class="imageInfo" style="display: none;">Avatar mới</h6>
+                    <button type="button" class="close-btn border-0 bg-danger rounded-circle text-white removeImage" ><i class="fas fa-times"></i></button>
+                    <img class="imagePreview" src="" alt="Preview" style="max-width: 283px; display: none;">
+                </div>
+                </div>
+              </div>
             </div>
           </div>
           <div class="card-action">
@@ -109,7 +129,7 @@ uri="http://www.springframework.org/tags/form" %>
             <a href="/admin/users" class="btn btn-danger">Trờ về</a>
           </div>
           </form:form>
-         
+ 
       
         </div>
       </div>

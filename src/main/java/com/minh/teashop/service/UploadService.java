@@ -50,4 +50,39 @@ public class UploadService {
         }
         return finalName;
     }
+
+    public boolean handleDeleteFile(String fileName, String targetFolder) {
+        String rootPath = this.servletContext.getRealPath("/resources/upload");
+
+        try {
+            // Đường dẫn tới thư mục target
+            File dir = new File(rootPath + File.separator + targetFolder);
+
+            if (!dir.exists()) {
+                System.out.println("Thư mục không tồn tại.");
+                return false;
+            }
+
+            // Đường dẫn tới file cần xóa
+            File serverFile = new File(dir.getAbsolutePath() + File.separator + fileName);
+
+            // Kiểm tra xem file có tồn tại không
+            if (serverFile.exists()) {
+                if (serverFile.delete()) {
+                    // System.out.println("File đã được xóa thành công.");
+                    return true; // Xóa thành công
+                } else {
+                    // System.out.println("Không thể xóa file.");
+                    return false; // Xóa thất bại
+                }
+            } else {
+                // System.out.println("File không tồn tại.");
+                return false; // File không tồn tại
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false; // Xóa thất bại do lỗi
+        }
+    }
+
 }

@@ -80,10 +80,15 @@ public class UserController {
     }
 
     @PostMapping("/admin/users/update")
-    public String updateUser(Model model, @ModelAttribute("newUser") User user) {
+    public String updateUser(Model model, @ModelAttribute("newUser") User user ,@RequestParam("avatarImg") MultipartFile file) {
         User currentUser = this.userService.getUserById(user.getUser_id());
 
         if (currentUser != null) {
+            if(!file.isEmpty()){
+                this.uploadService.handleDeleteFile(currentUser.getAvatar(), "avatar");
+                String newAvatar = this.uploadService.handleSaveUploadFile(file, "avatar") ;
+                currentUser.setAvatar(newAvatar);
+            }
             currentUser.setAddress(user.getAddress());
             currentUser.setName(user.getName());
             currentUser.setPhone(user.getPhone());

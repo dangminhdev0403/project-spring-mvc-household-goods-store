@@ -49,6 +49,7 @@
                   <thead>
                     <tr>
                       <th>Tên</th>
+                      <th>Danh mục</th>
                       <th>Giá</th>
                       <th>Số lượng</th>
                       <th style="width: 10%">Action</th>
@@ -59,7 +60,19 @@
                     <c:forEach var="product" items="${listProducts}">
                       <tr>
                         <td>${product.name}</td>
-                        <td>  <fmt:formatNumber value="${product.price}" pattern="#,##0.000"/> đ  </td>
+                        <td>${product.category.name}</td>
+                        <td> 
+                          <c:choose> 
+                           <c:when test="${product.price != null}">
+                          <c:if test="${product.price % 1 != 0}"> 
+                              <fmt:formatNumber value="${product.price}" pattern="#,##0.000"/> đ
+                          </c:if>
+                          <c:if test="${product.price % 1 == 0}">
+                              <fmt:formatNumber value="${product.price}" pattern="#,##0"/> đ
+                          </c:if>
+                      </c:when>
+                    </c:choose>
+                      </td>
                         <td>${product.stock}</td>
   
                         <td>

@@ -16,7 +16,7 @@ uri="http://www.springframework.org/tags/form" %>
           <i class="icon-arrow-right"></i>
         </li>
         <li class="nav-item">
-          <a href="/admin/products">Quản lí người dùng</a>
+          <a href="/admin/users">Quản lí người dùng</a>
         </li>
         <li class="separator">
           <i class="icon-arrow-right"></i>
@@ -33,8 +33,8 @@ uri="http://www.springframework.org/tags/form" %>
             <div class="card-title">Thêm mới người dùng</div>
           </div>
           <form:form
-            action="/admin/product/create"
-            modelAttribute="newProduct"
+            action="/admin/users/create"
+            modelAttribute="newUser"
             class="row"
             enctype="multipart/form-data"
           >
@@ -132,7 +132,7 @@ uri="http://www.springframework.org/tags/form" %>
                 <div class="col-md-6 col-lg-4 ">
                   <div class="form-group">
 
-                    <label for="avatarImg">Hình ảnh sản phẩm</label>
+                    <label for="avatarImg">Avatar</label>
                     <input  class="form-control upload-img" type="file" id="avatarImg" 
                     accept=".png, .jpg, .jpeg" name="avatarImg" />
                    

@@ -105,6 +105,7 @@ $(document).ready(function() {
         const fileInput = document.querySelector(".form-control.upload-img");
         const imagePreview = document.querySelector(".imagePreview");
         const removeImageBtn = document.querySelector(".removeImage");
+        const imageInfo = document.querySelector(".imageInfo");
 
 
     // Hiển thị ảnh khi chọn file
@@ -118,6 +119,7 @@ $(document).ready(function() {
                     imagePreview.src = e.target.result;
                     imagePreview.style.display = 'block';
                     removeImageBtn.style.display = 'block'; // Hiện nút "X" khi có ảnh
+                    imageInfo.style.display = 'block'; // Hiện nút "X" khi có ảnh
                 }
 
                 reader.readAsDataURL(file);
@@ -130,8 +132,44 @@ $(document).ready(function() {
             imagePreview.src = '';
             imagePreview.style.display = 'none';
             removeImageBtn.style.display = 'none';
+            imageInfo.style.display = 'none'; // Hiện nút "X" khi có ảnh
+
             fileInput.value = ''; // Reset input file
         });
+
+        function formatNumber(value) {
+    return new Intl.NumberFormat('en-US', {
+        maximumFractionDigits: 0, // Số chữ số thập phân tối đa
+        minimumFractionDigits: 0 // Không có chữ số thập phân
+    }).format(value);
+}
+
+
+
+
 </script>
++
+<script>
+  // Giả sử đây là cách bạn chọn input
+let priceProductElement = document.querySelector(".form-control.priceProduct");
+let priceProduct = priceProductElement.value.replace(/,/g, ''); // Lấy giá trị và xóa dấu phẩy
+
+// Chuyển đổi chuỗi thành số
+let numericPriceProduct = Number(priceProduct);
+
+// Kiểm tra nếu là số hợp lệ
+if (!isNaN(numericPriceProduct)) {
+    let formattedPriceProduct = formatNumber(numericPriceProduct);
+    priceProductElement.value = formattedPriceProduct;
+    console.log(formattedPriceProduct);
+} else {
+    console.log("Giá trị không hợp lệ.");
+}
+
+function formatNumber(value) {
+        return value.toString(); // Trả về chuỗi của giá trị
+    }
+</script>
+
 </body>
 </html>
