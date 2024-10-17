@@ -69,16 +69,26 @@ public class ProductController {
 
     @GetMapping("/admin/product/delete/{id}")
     public String getMethodName(Model model, @PathVariable long id) {
-        this.productService.handleDeleteCategory(id);
+      Optional<Product> product = this.productService.fetchProductById(id);
+      if(product.isPresent()){
+        List<ProductImage> listImages = this.productImageService.getImagesByProduct(product.get());
+        if(!listImages.isEmpty()){
+            for(ProductImage image : listImages){
+                this.uploadService.handleDeleteFile(image.getName(), "products");
+            }
+        }
+      }
+
+        this.productService.handleDeleteProduct(id);
         return "redirect:/admin/products";
     }
 
     @PostMapping("/admin/product/create")
     public String handleCreateProduct(@ModelAttribute("newProduct") Product product,
             @RequestParam("productsImg") MultipartFile[] files) {
-        Product newProduct = this.productService.handleCreateAProduct(product);
+        Product newProduct = this.productService.handleSaveProduct(product);
 
-        if (files.length != 0) {
+        if (files.length != 0 && files[0].getOriginalFilename() != "") {
             for (int i = 0; i < files.length; i++) {
                 // upload file
                 String imageProduct = this.uploadService.handleSaveUploadFile(files[i], "products");
@@ -93,16 +103,36 @@ public class ProductController {
     }
 
     @PostMapping("/admin/product/update")
-    public String handleUpdateProduct(@ModelAttribute("newProduct") Product product) {
+    public String handleUpdateProduct(@ModelAttribute("newProduct") Product product,
+            @RequestParam("productsImg") MultipartFile[] files) {
         Product currentProduct = this.productService.fetchProductById(product.getProduct_id()).get();
         if (currentProduct != null) {
+            if (files.length != 0 && files[0].getOriginalFilename() != "") {
+                List<ProductImage> listImagesCurrent = this.productImageService.getImagesByProduct(currentProduct);
+                for (ProductImage image : listImagesCurrent) {
+
+                    this.uploadService.handleDeleteFile(image.getName(), "products");
+                    this.productImageService.handleDeleteImage(image);
+
+                }
+                for (int i = 0; i < files.length; i++) {
+                    // upload file
+                    String imageProduct = this.uploadService.handleSaveUploadFile(files[i], "products");
+                    ProductImage image = new ProductImage();
+                    image.setName(imageProduct);
+                    image.setProduct(currentProduct);
+
+                    this.productImageService.handleSaveImage(image);
+                }
+
+            }
 
             currentProduct.setName(product.getName());
             currentProduct.setCategory(product.getCategory());
             currentProduct.setDescription(product.getDescription());
             currentProduct.setStock(product.getStock());
             currentProduct.setPrice(product.getPrice());
-            this.productService.handleCreateAProduct(product);
+            this.productService.handleSaveProduct(currentProduct); // Thay đổi ở đây
         }
 
         return "redirect:/admin/products";

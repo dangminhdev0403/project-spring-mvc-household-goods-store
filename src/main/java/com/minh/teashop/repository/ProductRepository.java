@@ -7,5 +7,4 @@ import com.minh.teashop.domain.Product;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
-    
 }
