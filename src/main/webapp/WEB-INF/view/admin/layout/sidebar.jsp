@@ -54,12 +54,17 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                   <span class="sub-item">Danh sách người dùng</span>
                 </a>
               </li>
+              <li>
+                <a href="/admin/users/create">
+                  <span class="sub-item">Thêm người dùng</span>
+                </a>
+              </li>
             </ul>
           </div>
         </li>
         <li class="nav-item">
           <a data-bs-toggle="collapse" href="#categories">
-            <i class="fas fas fa-users"></i>
+            <i class="fas fa-list"></i>
             <p>Quản lí danh mục</p>
             <span class="caret"></span>
           </a>
@@ -68,6 +73,11 @@ uri="http://java.sun.com/jsp/jstl/core" %>
               <li>
                 <a href="/admin/categories">
                   <span class="sub-item">Bảng danh mục </span>
+                </a>
+              </li>
+              <li>
+                <a href="/admin/categories/create">
+                  <span class="sub-item">Tạo mới danh mục </span>
                 </a>
               </li>
             </ul>
@@ -82,8 +92,13 @@ uri="http://java.sun.com/jsp/jstl/core" %>
           <div class="collapse" id="product">
             <ul class="nav nav-collapse">
               <li>
-                <a href="/admin/product">
+                <a href="/admin/products">
                   <span class="sub-item">Danh sách Sản Phẩm</span>
+                </a>
+              </li>
+              <li>
+                <a href="/admin/product/create">
+                  <span class="sub-item">Thêm mới Sản Phẩm</span>
                 </a>
               </li>
             </ul>

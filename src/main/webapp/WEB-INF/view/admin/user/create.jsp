@@ -16,13 +16,13 @@ uri="http://www.springframework.org/tags/form" %>
           <i class="icon-arrow-right"></i>
         </li>
         <li class="nav-item">
-          <a href="/admin/users">Quản lí người dùng</a>
+          <a href="/admin/products">Quản lí người dùng</a>
         </li>
         <li class="separator">
           <i class="icon-arrow-right"></i>
         </li>
         <li class="nav-item">
-          <a href="/admin/users/create">Thêm mới người dùng</a>
+          <a href="/admin/product/create">Thêm mới người dùng</a>
         </li>
       </ul>
     </div>
@@ -33,14 +33,14 @@ uri="http://www.springframework.org/tags/form" %>
             <div class="card-title">Thêm mới người dùng</div>
           </div>
           <form:form
-            action="/admin/users/create"
-            modelAttribute="newUser"
+            action="/admin/product/create"
+            modelAttribute="newProduct"
             class="row"
             enctype="multipart/form-data"
           >
             <div class="card-body">
               <div class="row">
-                <div class="col-md-6 col-lg-6">
+                <div class="col-md-6 col-lg-4">
                   <c:set var="errorEmail">
                     <form:errors path="email" cssClass="text-danger" />
                  </c:set>
@@ -83,7 +83,7 @@ uri="http://www.springframework.org/tags/form" %>
                     </form:select>
                   </div>
                 </div>
-                <div class="col-md-6 col-lg-6">
+                <div class="col-md-6 col-lg-4">
                   <c:set var="errorName">
                     <form:errors path="name" cssClass="text-danger" />
                  </c:set>
@@ -127,6 +127,20 @@ uri="http://www.springframework.org/tags/form" %>
                       path="phone"
                     />
                     ${errorphone}
+                  </div>
+                </div>
+                <div class="col-md-6 col-lg-4 ">
+                  <div class="form-group">
+
+                    <label for="avatarImg">Hình ảnh sản phẩm</label>
+                    <input  class="form-control upload-img" type="file" id="avatarImg" 
+                    accept=".png, .jpg, .jpeg" name="avatarImg" />
+                   
+
+                  <div class="preview-container form-group">
+                      <button type="button" class="close-btn border-0 bg-danger rounded-circle text-white removeImage" ><i class="fas fa-times"></i></button>
+                      <img class="imagePreview" src="" alt="Preview" style="max-width: 283px; display: none;">
+                  </div>
                   </div>
                 </div>
               </div>

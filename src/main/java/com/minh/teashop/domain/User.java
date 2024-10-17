@@ -1,18 +1,15 @@
 package com.minh.teashop.domain;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import jakarta.persistence.Entity;
-
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 
 @Entity
 @Table(name = "users")
@@ -21,7 +18,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long user_id;
 
-    @NotNull(message = "Không được để trống tên")
+    @NotNull()
     @Size(min = 3, message = "Tên phải có tối thiểu 3 ký tự")
     private String name;
 
@@ -29,13 +26,13 @@ public class User {
     @Size(min = 2, message = "Mật khẩu phải có tối thiểu 2 ký tự")
     private String password;
 
-    @NotNull(message = "email không được để trống")
-    @NotBlank(message = "Email không được để trống")
     @Email(message = "Email không đúng định dạng", regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")
     private String email;
 
+    @Size(min = 10, message = "Số điện thoại phải có ít nhất 10 chữ số")
     private String phone;
     private String address;
+    private String avatar;
 
     @ManyToOne
     @JoinColumn(name = "role_id")
@@ -44,15 +41,16 @@ public class User {
     public User() {
     }
 
-    public User(long user_id, String name, String password, String email, String phone, String address, Role role) {
+    public User(long user_id, String name, String password, String email, String phone, String address, String avatar,
+            Role role) {
         this.user_id = user_id;
         this.name = name;
         this.password = password;
         this.email = email;
         this.phone = phone;
         this.address = address;
+        this.avatar = avatar;
         this.role = role;
-
     }
 
     public long getUser_id() {
@@ -87,8 +85,6 @@ public class User {
         this.email = email;
     }
 
-  
-
     public String getAddress() {
         return address;
     }
@@ -111,6 +107,14 @@ public class User {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
 }

@@ -100,5 +100,38 @@ $(document).ready(function() {
     $('.datatable-common').DataTable(dataTableCommonSettings);
 });
 </script>
+
+<script>
+        const fileInput = document.querySelector(".form-control.upload-img");
+        const imagePreview = document.querySelector(".imagePreview");
+        const removeImageBtn = document.querySelector(".removeImage");
+
+
+    // Hiển thị ảnh khi chọn file
+    fileInput.addEventListener('change', function() {
+            const file = this.files[0];
+            
+            if (file) {
+                const reader = new FileReader();
+
+                reader.onload = function(e) {
+                    imagePreview.src = e.target.result;
+                    imagePreview.style.display = 'block';
+                    removeImageBtn.style.display = 'block'; // Hiện nút "X" khi có ảnh
+                }
+
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Gỡ bỏ ảnh xem trước và reset input
+        removeImageBtn.addEventListener('click', function() {
+
+            imagePreview.src = '';
+            imagePreview.style.display = 'none';
+            removeImageBtn.style.display = 'none';
+            fileInput.value = ''; // Reset input file
+        });
+</script>
 </body>
 </html>

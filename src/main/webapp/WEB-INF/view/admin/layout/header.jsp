@@ -47,7 +47,28 @@
 .dataTables_length select {
  text-align: center;
 }
+
+
+.form-group .preview-container {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .close-btn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: transparent;
+    color: red;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+    display: none;
+    color: #1269db;
+  }
+  
     </style>
+
   </head>
   <body>
    <div class="wrapper">

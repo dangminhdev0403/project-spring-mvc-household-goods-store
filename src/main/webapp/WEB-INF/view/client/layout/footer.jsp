@@ -8,7 +8,7 @@ uri="http://www.springframework.org/tags/form" %>
             <div class="footer__col">
                 <!-- Logo -->
                 <a href="./" class="logo footer__logo">
-                    <img src="./assets/icons/logo.svg" alt="grocerymart" class="logo__img" />
+                    <img src="client/assets/icons/logo.svg" alt="grocerymart" class="logo__img" />
                     <h1 class="logo__title">grocerymart</h1>
                 </a>
                 <p class="footer__desc">
@@ -113,19 +113,19 @@ uri="http://www.springframework.org/tags/form" %>
     
             <div class="footer__socials">
                 <a href="#!" class="footer__social-link footer__social-link--facebook">
-                    <img src="./assets/icons/facebook.svg" alt="" class="footer__social-icon" />
+                    <img src="client/assets/icons/facebook.svg" alt="" class="footer__social-icon" />
                 </a>
                 <a href="#!" class="footer__social-link footer__social-link--youtube">
-                    <img src="./assets/icons/youtube.svg" alt="" class="footer__social-icon" />
+                    <img src="client/assets/icons/youtube.svg" alt="" class="footer__social-icon" />
                 </a>
                 <a href="#!" class="footer__social-link footer__social-link--tiktok">
-                    <img src="./assets/icons/tiktok.svg" alt="" class="footer__social-icon" />
+                    <img src="client/assets/icons/tiktok.svg" alt="" class="footer__social-icon" />
                 </a>
                 <a href="#!" class="footer__social-link footer__social-link--twitter">
-                    <img src="./assets/icons/twitter.svg" alt="" class="footer__social-icon" />
+                    <img src="client/assets/icons/twitter.svg" alt="" class="footer__social-icon" />
                 </a>
                 <a href="#!" class="footer__social-link footer__social-link--linkedin">
-                    <img src="./assets/icons/linkedin.svg" alt="" class="footer__social-icon" />
+                    <img src="client/assets/icons/linkedin.svg" alt="" class="footer__social-icon" />
                 </a>
             </div>
         </div>
