@@ -12,32 +12,32 @@ uri="http://www.springframework.org/tags/form" %>
     <link
       rel="apple-touch-icon"
       sizes="76x76"
-      href="client/assets/favicon/apple-touch-icon.png"
+      href="/client/assets/favicon/apple-touch-icon.png"
     />
     <link
       rel="icon"
       type="image/png"
       sizes="32x32"
-      href="client/assets/favicon/favicon-32x32.png"
+      href="/client/assets/favicon/favicon-32x32.png"
     />
     <link
       rel="icon"
       type="image/png"
       sizes="16x16"
-      href="client/assets/favicon/favicon-16x16.png"
+      href="/client/assets/favicon/favicon-16x16.png"
     />
-    <link rel="manifest" href="client/assets/favicon/site.webmanifest" />
+    <link rel="manifest" href="/client/assets/favicon/site.webmanifest" />
     <meta name="msapplication-TileColor" content="#da532c" />
     <meta name="theme-color" content="#ffffff" />
 
     <!-- Fonts -->
-    <link rel="stylesheet" href="client/assets/fonts/stylesheet.css" />
+    <link rel="stylesheet" href="/client/assets/fonts/stylesheet.css" />
 
     <!-- Styles -->
-    <link rel="stylesheet" href="client/assets/css/main.css" />
+    <link rel="stylesheet" href="/client/assets/css/main.css" />
 
     <!-- Scripts -->
-    <script src="client/assets/js/scripts.js"></script>
+    <script src="/client/assets/js/scripts.js"></script>
   </head>
   <body>
     
@@ -47,29 +47,29 @@ uri="http://www.springframework.org/tags/form" %>
             <div class="top-bar">
                 <!-- More -->
                 <button class="top-bar__more d-none d-lg-block js-toggle" toggle-target="#navbar">
-                    <img  src="client/assets/icons/more.svg" alt="" class="icon top-bar__more-icon" />
+                    <img src="/client/assets/icons/more.svg" alt="" class="icon top-bar__more-icon" />
                 </button>
         
                 <!-- Logo -->
-                <a href="client/" class="logo top-bar__logo">
-                    <img  src="client/assets/icons/logo.svg" alt="grocerymart" class="logo__img top-bar__logo-img" />
+                <a href="./" class="logo top-bar__logo">
+                    <img src="/client/assets/icons/logo.svg" alt="grocerymart" class="logo__img top-bar__logo-img" />
                     <h1 class="logo__title top-bar__logo-title">grocerymart</h1>
                 </a>
         
                 <!-- Navbar -->
                 <nav id="navbar" class="navbar hide">
                     <button class="navbar__close-btn js-toggle" toggle-target="#navbar">
-                        <img class="icon"  src="client/assets/icons/arrow-left.svg" alt="" />
+                        <img class="icon" src="/client/assets/icons/arrow-left.svg" alt="" />
                     </button>
         
-                    <a href="client/checkout.html" class="nav-btn d-none d-md-flex">
-                        <img  src="client/assets/icons/buy.svg" alt="" class="nav-btn__icon icon" />
+                    <a href="./checkout.html" class="nav-btn d-none d-md-flex">
+                        <img src="/client/assets/icons/buy.svg" alt="" class="nav-btn__icon icon" />
                         <span class="nav-btn__title">Cart</span>
                         <span class="nav-btn__qnt">3</span>
                     </a>
         
                     <a href="#!" class="nav-btn d-none d-md-flex">
-                        <img  src="client/assets/icons/heart.svg" alt="" class="nav-btn__icon icon" />
+                        <img src="/client/assets/icons/heart.svg" alt="" class="nav-btn__icon icon" />
                         <span class="nav-btn__title">Favorite</span>
                         <span class="nav-btn__qnt">3</span>
                     </a>
@@ -78,7 +78,7 @@ uri="http://www.springframework.org/tags/form" %>
                         <li class="navbar__item">
                             <a href="#!" class="navbar__link">
                                 Departments
-                                <img  src="client/assets/icons/arrow-down.svg" alt="" class="icon navbar__arrow" />
+                                <img src="/client/assets/icons/arrow-down.svg" alt="" class="icon navbar__arrow" />
                             </a>
                             <div class="dropdown js-dropdown">
                                 <div class="dropdown__inner">
@@ -88,12 +88,12 @@ uri="http://www.springframework.org/tags/form" %>
                                             <div class="menu-column">
                                                 <div class="menu-column__icon d-lg-none">
                                                     <img
-                                                         src="client/assets/img/category/cate-1.1.svg"
+                                                        src="/client/assets/img/category/cate-1.1.svg"
                                                         alt=""
                                                         class="menu-column__icon-1"
                                                     />
                                                     <img
-                                                         src="client/assets/img/category/cate-1.2.svg"
+                                                        src="/client/assets/img/category/cate-1.2.svg"
                                                         alt=""
                                                         class="menu-column__icon-2"
                                                     />
@@ -112,12 +112,12 @@ uri="http://www.springframework.org/tags/form" %>
                                                                     <div class="menu-column">
                                                                         <div class="menu-column__icon">
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-4.1.svg"
+                                                                                src="/client/assets/img/category/cate-4.1.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-1"
                                                                             />
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-4.2.svg"
+                                                                                src="/client/assets/img/category/cate-4.2.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-2"
                                                                             />
@@ -160,12 +160,12 @@ uri="http://www.springframework.org/tags/form" %>
                                                                     <div class="menu-column">
                                                                         <div class="menu-column__icon">
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-2.1.svg"
+                                                                                src="/client/assets/img/category/cate-2.1.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-1"
                                                                             />
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-2.2.svg"
+                                                                                src="/client/assets/img/category/cate-2.2.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-2"
                                                                             />
@@ -220,12 +220,12 @@ uri="http://www.springframework.org/tags/form" %>
                                                                     <div class="menu-column">
                                                                         <div class="menu-column__icon">
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-1.1.svg"
+                                                                                src="/client/assets/img/category/cate-1.1.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-1"
                                                                             />
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-1.2.svg"
+                                                                                src="/client/assets/img/category/cate-1.2.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-2"
                                                                             />
@@ -300,12 +300,12 @@ uri="http://www.springframework.org/tags/form" %>
                                                                     <div class="menu-column">
                                                                         <div class="menu-column__icon">
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-6.1.svg"
+                                                                                src="/client/assets/img/category/cate-6.1.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-1"
                                                                             />
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-6.2.svg"
+                                                                                src="/client/assets/img/category/cate-6.2.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-2"
                                                                             />
@@ -358,12 +358,12 @@ uri="http://www.springframework.org/tags/form" %>
                                                                     <div class="menu-column">
                                                                         <div class="menu-column__icon">
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-5.1.svg"
+                                                                                src="/client/assets/img/category/cate-5.1.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-1"
                                                                             />
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-5.2.svg"
+                                                                                src="/client/assets/img/category/cate-5.2.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-2"
                                                                             />
@@ -413,12 +413,12 @@ uri="http://www.springframework.org/tags/form" %>
                                                                     <div class="menu-column">
                                                                         <div class="menu-column__icon">
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-2.1.svg"
+                                                                                src="/client/assets/img/category/cate-2.1.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-1"
                                                                             />
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-2.2.svg"
+                                                                                src="/client/assets/img/category/cate-2.2.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-2"
                                                                             />
@@ -471,12 +471,12 @@ uri="http://www.springframework.org/tags/form" %>
                                                                     <div class="menu-column">
                                                                         <div class="menu-column__icon">
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-3.1.svg"
+                                                                                src="/client/assets/img/category/cate-3.1.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-1"
                                                                             />
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-3.2.svg"
+                                                                                src="/client/assets/img/category/cate-3.2.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-2"
                                                                             />
@@ -521,12 +521,12 @@ uri="http://www.springframework.org/tags/form" %>
                                                                     <div class="menu-column">
                                                                         <div class="menu-column__icon">
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-4.1.svg"
+                                                                                src="/client/assets/img/category/cate-4.1.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-1"
                                                                             />
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-4.2.svg"
+                                                                                src="/client/assets/img/category/cate-4.2.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-2"
                                                                             />
@@ -606,12 +606,12 @@ uri="http://www.springframework.org/tags/form" %>
                                                                     <div class="menu-column">
                                                                         <div class="menu-column__icon">
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-5.1.svg"
+                                                                                src="/client/assets/img/category/cate-5.1.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-1"
                                                                             />
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-5.2.svg"
+                                                                                src="/client/assets/img/category/cate-5.2.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-2"
                                                                             />
@@ -644,12 +644,12 @@ uri="http://www.springframework.org/tags/form" %>
                                                                     <div class="menu-column">
                                                                         <div class="menu-column__icon">
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-6.1.svg"
+                                                                                src="/client/assets/img/category/cate-6.1.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-1"
                                                                             />
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-6.2.svg"
+                                                                                src="/client/assets/img/category/cate-6.2.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-2"
                                                                             />
@@ -716,12 +716,12 @@ uri="http://www.springframework.org/tags/form" %>
                                                                     <div class="menu-column">
                                                                         <div class="menu-column__icon">
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-5.1.svg"
+                                                                                src="/client/assets/img/category/cate-5.1.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-1"
                                                                             />
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-5.2.svg"
+                                                                                src="/client/assets/img/category/cate-5.2.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-2"
                                                                             />
@@ -764,12 +764,12 @@ uri="http://www.springframework.org/tags/form" %>
                                                                     <div class="menu-column">
                                                                         <div class="menu-column__icon">
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-4.1.svg"
+                                                                                src="/client/assets/img/category/cate-4.1.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-1"
                                                                             />
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-4.2.svg"
+                                                                                src="/client/assets/img/category/cate-4.2.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-2"
                                                                             />
@@ -814,12 +814,12 @@ uri="http://www.springframework.org/tags/form" %>
                                                                     <div class="menu-column">
                                                                         <div class="menu-column__icon">
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-3.1.svg"
+                                                                                src="/client/assets/img/category/cate-3.1.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-1"
                                                                             />
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-3.2.svg"
+                                                                                src="/client/assets/img/category/cate-3.2.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-2"
                                                                             />
@@ -867,12 +867,12 @@ uri="http://www.springframework.org/tags/form" %>
                                                                     <div class="menu-column">
                                                                         <div class="menu-column__icon">
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-2.1.svg"
+                                                                                src="/client/assets/img/category/cate-2.1.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-1"
                                                                             />
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-2.2.svg"
+                                                                                src="/client/assets/img/category/cate-2.2.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-2"
                                                                             />
@@ -922,12 +922,12 @@ uri="http://www.springframework.org/tags/form" %>
                                                                     <div class="menu-column">
                                                                         <div class="menu-column__icon">
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-6.1.svg"
+                                                                                src="/client/assets/img/category/cate-6.1.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-1"
                                                                             />
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-6.2.svg"
+                                                                                src="/client/assets/img/category/cate-6.2.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-2"
                                                                             />
@@ -979,12 +979,12 @@ uri="http://www.springframework.org/tags/form" %>
                                                                     <div class="menu-column">
                                                                         <div class="menu-column__icon">
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-6.1.svg"
+                                                                                src="/client/assets/img/category/cate-6.1.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-1"
                                                                             />
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-6.2.svg"
+                                                                                src="/client/assets/img/category/cate-6.2.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-2"
                                                                             />
@@ -1027,12 +1027,12 @@ uri="http://www.springframework.org/tags/form" %>
                                                                     <div class="menu-column">
                                                                         <div class="menu-column__icon">
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-5.1.svg"
+                                                                                src="/client/assets/img/category/cate-5.1.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-1"
                                                                             />
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-5.2.svg"
+                                                                                src="/client/assets/img/category/cate-5.2.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-2"
                                                                             />
@@ -1078,12 +1078,12 @@ uri="http://www.springframework.org/tags/form" %>
                                                                     <div class="menu-column">
                                                                         <div class="menu-column__icon">
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-4.1.svg"
+                                                                                src="/client/assets/img/category/cate-4.1.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-1"
                                                                             />
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-4.2.svg"
+                                                                                src="/client/assets/img/category/cate-4.2.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-2"
                                                                             />
@@ -1129,12 +1129,12 @@ uri="http://www.springframework.org/tags/form" %>
                                                                     <div class="menu-column">
                                                                         <div class="menu-column__icon">
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-3.1.svg"
+                                                                                src="/client/assets/img/category/cate-3.1.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-1"
                                                                             />
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-3.2.svg"
+                                                                                src="/client/assets/img/category/cate-3.2.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-2"
                                                                             />
@@ -1177,12 +1177,12 @@ uri="http://www.springframework.org/tags/form" %>
                                                                     <div class="menu-column">
                                                                         <div class="menu-column__icon">
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-2.1.svg"
+                                                                                src="/client/assets/img/category/cate-2.1.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-1"
                                                                             />
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-2.2.svg"
+                                                                                src="/client/assets/img/category/cate-2.2.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-2"
                                                                             />
@@ -1232,12 +1232,12 @@ uri="http://www.springframework.org/tags/form" %>
                                                                     <div class="menu-column">
                                                                         <div class="menu-column__icon">
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-2.1.svg"
+                                                                                src="/client/assets/img/category/cate-2.1.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-1"
                                                                             />
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-2.2.svg"
+                                                                                src="/client/assets/img/category/cate-2.2.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-2"
                                                                             />
@@ -1280,12 +1280,12 @@ uri="http://www.springframework.org/tags/form" %>
                                                                     <div class="menu-column">
                                                                         <div class="menu-column__icon">
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-4.1.svg"
+                                                                                src="/client/assets/img/category/cate-4.1.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-1"
                                                                             />
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-4.2.svg"
+                                                                                src="/client/assets/img/category/cate-4.2.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-2"
                                                                             />
@@ -1331,12 +1331,12 @@ uri="http://www.springframework.org/tags/form" %>
                                                                     <div class="menu-column">
                                                                         <div class="menu-column__icon">
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-3.1.svg"
+                                                                                src="/client/assets/img/category/cate-3.1.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-1"
                                                                             />
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-3.2.svg"
+                                                                                src="/client/assets/img/category/cate-3.2.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-2"
                                                                             />
@@ -1379,12 +1379,12 @@ uri="http://www.springframework.org/tags/form" %>
                                                                     <div class="menu-column">
                                                                         <div class="menu-column__icon">
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-5.1.svg"
+                                                                                src="/client/assets/img/category/cate-5.1.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-1"
                                                                             />
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-5.2.svg"
+                                                                                src="/client/assets/img/category/cate-5.2.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-2"
                                                                             />
@@ -1430,12 +1430,12 @@ uri="http://www.springframework.org/tags/form" %>
                                                                     <div class="menu-column">
                                                                         <div class="menu-column__icon">
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-6.1.svg"
+                                                                                src="/client/assets/img/category/cate-6.1.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-1"
                                                                             />
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-6.2.svg"
+                                                                                src="/client/assets/img/category/cate-6.2.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-2"
                                                                             />
@@ -1485,12 +1485,12 @@ uri="http://www.springframework.org/tags/form" %>
                                                                     <div class="menu-column">
                                                                         <div class="menu-column__icon">
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-4.1.svg"
+                                                                                src="/client/assets/img/category/cate-4.1.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-1"
                                                                             />
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-4.2.svg"
+                                                                                src="/client/assets/img/category/cate-4.2.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-2"
                                                                             />
@@ -1560,12 +1560,12 @@ uri="http://www.springframework.org/tags/form" %>
                                                                     <div class="menu-column">
                                                                         <div class="menu-column__icon">
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-1.1.svg"
+                                                                                src="/client/assets/img/category/cate-1.1.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-1"
                                                                             />
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-1.2.svg"
+                                                                                src="/client/assets/img/category/cate-1.2.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-2"
                                                                             />
@@ -1608,12 +1608,12 @@ uri="http://www.springframework.org/tags/form" %>
                                                                     <div class="menu-column">
                                                                         <div class="menu-column__icon">
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-2.1.svg"
+                                                                                src="/client/assets/img/category/cate-2.1.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-1"
                                                                             />
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-2.2.svg"
+                                                                                src="/client/assets/img/category/cate-2.2.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-2"
                                                                             />
@@ -1658,12 +1658,12 @@ uri="http://www.springframework.org/tags/form" %>
                                                                     <div class="menu-column">
                                                                         <div class="menu-column__icon">
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-6.1.svg"
+                                                                                src="/client/assets/img/category/cate-6.1.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-1"
                                                                             />
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-6.2.svg"
+                                                                                src="/client/assets/img/category/cate-6.2.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-2"
                                                                             />
@@ -1706,12 +1706,12 @@ uri="http://www.springframework.org/tags/form" %>
                                                                     <div class="menu-column">
                                                                         <div class="menu-column__icon">
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-5.1.svg"
+                                                                                src="/client/assets/img/category/cate-5.1.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-1"
                                                                             />
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-5.2.svg"
+                                                                                src="/client/assets/img/category/cate-5.2.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-2"
                                                                             />
@@ -1761,12 +1761,12 @@ uri="http://www.springframework.org/tags/form" %>
                                                                     <div class="menu-column">
                                                                         <div class="menu-column__icon">
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-6.1.svg"
+                                                                                src="/client/assets/img/category/cate-6.1.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-1"
                                                                             />
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-6.2.svg"
+                                                                                src="/client/assets/img/category/cate-6.2.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-2"
                                                                             />
@@ -1808,12 +1808,12 @@ uri="http://www.springframework.org/tags/form" %>
                                                                     <div class="menu-column">
                                                                         <div class="menu-column__icon">
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-5.1.svg"
+                                                                                src="/client/assets/img/category/cate-5.1.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-1"
                                                                             />
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-5.2.svg"
+                                                                                src="/client/assets/img/category/cate-5.2.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-2"
                                                                             />
@@ -1858,12 +1858,12 @@ uri="http://www.springframework.org/tags/form" %>
                                                                     <div class="menu-column">
                                                                         <div class="menu-column__icon">
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-4.1.svg"
+                                                                                src="/client/assets/img/category/cate-4.1.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-1"
                                                                             />
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-4.2.svg"
+                                                                                src="/client/assets/img/category/cate-4.2.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-2"
                                                                             />
@@ -1906,12 +1906,12 @@ uri="http://www.springframework.org/tags/form" %>
                                                                     <div class="menu-column">
                                                                         <div class="menu-column__icon">
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-3.1.svg"
+                                                                                src="/client/assets/img/category/cate-3.1.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-1"
                                                                             />
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-3.2.svg"
+                                                                                src="/client/assets/img/category/cate-3.2.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-2"
                                                                             />
@@ -1956,12 +1956,12 @@ uri="http://www.springframework.org/tags/form" %>
                                                                     <div class="menu-column">
                                                                         <div class="menu-column__icon">
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-2.1.svg"
+                                                                                src="/client/assets/img/category/cate-2.1.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-1"
                                                                             />
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-2.2.svg"
+                                                                                src="/client/assets/img/category/cate-2.2.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-2"
                                                                             />
@@ -2036,12 +2036,12 @@ uri="http://www.springframework.org/tags/form" %>
                                                                     <div class="menu-column">
                                                                         <div class="menu-column__icon">
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-4.1.svg"
+                                                                                src="/client/assets/img/category/cate-4.1.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-1"
                                                                             />
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-4.2.svg"
+                                                                                src="/client/assets/img/category/cate-4.2.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-2"
                                                                             />
@@ -2084,12 +2084,12 @@ uri="http://www.springframework.org/tags/form" %>
                                                                     <div class="menu-column">
                                                                         <div class="menu-column__icon">
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-2.1.svg"
+                                                                                src="/client/assets/img/category/cate-2.1.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-1"
                                                                             />
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-2.2.svg"
+                                                                                src="/client/assets/img/category/cate-2.2.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-2"
                                                                             />
@@ -2144,12 +2144,12 @@ uri="http://www.springframework.org/tags/form" %>
                                                                     <div class="menu-column">
                                                                         <div class="menu-column__icon">
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-1.1.svg"
+                                                                                src="/client/assets/img/category/cate-1.1.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-1"
                                                                             />
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-1.2.svg"
+                                                                                src="/client/assets/img/category/cate-1.2.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-2"
                                                                             />
@@ -2224,12 +2224,12 @@ uri="http://www.springframework.org/tags/form" %>
                                                                     <div class="menu-column">
                                                                         <div class="menu-column__icon">
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-6.1.svg"
+                                                                                src="/client/assets/img/category/cate-6.1.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-1"
                                                                             />
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-6.2.svg"
+                                                                                src="/client/assets/img/category/cate-6.2.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-2"
                                                                             />
@@ -2282,12 +2282,12 @@ uri="http://www.springframework.org/tags/form" %>
                                                                     <div class="menu-column">
                                                                         <div class="menu-column__icon">
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-5.1.svg"
+                                                                                src="/client/assets/img/category/cate-5.1.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-1"
                                                                             />
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-5.2.svg"
+                                                                                src="/client/assets/img/category/cate-5.2.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-2"
                                                                             />
@@ -2337,12 +2337,12 @@ uri="http://www.springframework.org/tags/form" %>
                                                                     <div class="menu-column">
                                                                         <div class="menu-column__icon">
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-2.1.svg"
+                                                                                src="/client/assets/img/category/cate-2.1.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-1"
                                                                             />
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-2.2.svg"
+                                                                                src="/client/assets/img/category/cate-2.2.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-2"
                                                                             />
@@ -2395,12 +2395,12 @@ uri="http://www.springframework.org/tags/form" %>
                                                                     <div class="menu-column">
                                                                         <div class="menu-column__icon">
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-3.1.svg"
+                                                                                src="/client/assets/img/category/cate-3.1.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-1"
                                                                             />
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-3.2.svg"
+                                                                                src="/client/assets/img/category/cate-3.2.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-2"
                                                                             />
@@ -2445,12 +2445,12 @@ uri="http://www.springframework.org/tags/form" %>
                                                                     <div class="menu-column">
                                                                         <div class="menu-column__icon">
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-4.1.svg"
+                                                                                src="/client/assets/img/category/cate-4.1.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-1"
                                                                             />
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-4.2.svg"
+                                                                                src="/client/assets/img/category/cate-4.2.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-2"
                                                                             />
@@ -2530,12 +2530,12 @@ uri="http://www.springframework.org/tags/form" %>
                                                                     <div class="menu-column">
                                                                         <div class="menu-column__icon">
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-5.1.svg"
+                                                                                src="/client/assets/img/category/cate-5.1.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-1"
                                                                             />
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-5.2.svg"
+                                                                                src="/client/assets/img/category/cate-5.2.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-2"
                                                                             />
@@ -2568,12 +2568,12 @@ uri="http://www.springframework.org/tags/form" %>
                                                                     <div class="menu-column">
                                                                         <div class="menu-column__icon">
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-6.1.svg"
+                                                                                src="/client/assets/img/category/cate-6.1.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-1"
                                                                             />
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-6.2.svg"
+                                                                                src="/client/assets/img/category/cate-6.2.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-2"
                                                                             />
@@ -2638,12 +2638,12 @@ uri="http://www.springframework.org/tags/form" %>
                                                                     <div class="menu-column">
                                                                         <div class="menu-column__icon">
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-5.1.svg"
+                                                                                src="/client/assets/img/category/cate-5.1.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-1"
                                                                             />
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-5.2.svg"
+                                                                                src="/client/assets/img/category/cate-5.2.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-2"
                                                                             />
@@ -2686,12 +2686,12 @@ uri="http://www.springframework.org/tags/form" %>
                                                                     <div class="menu-column">
                                                                         <div class="menu-column__icon">
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-4.1.svg"
+                                                                                src="/client/assets/img/category/cate-4.1.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-1"
                                                                             />
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-4.2.svg"
+                                                                                src="/client/assets/img/category/cate-4.2.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-2"
                                                                             />
@@ -2736,12 +2736,12 @@ uri="http://www.springframework.org/tags/form" %>
                                                                     <div class="menu-column">
                                                                         <div class="menu-column__icon">
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-3.1.svg"
+                                                                                src="/client/assets/img/category/cate-3.1.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-1"
                                                                             />
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-3.2.svg"
+                                                                                src="/client/assets/img/category/cate-3.2.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-2"
                                                                             />
@@ -2789,12 +2789,12 @@ uri="http://www.springframework.org/tags/form" %>
                                                                     <div class="menu-column">
                                                                         <div class="menu-column__icon">
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-2.1.svg"
+                                                                                src="/client/assets/img/category/cate-2.1.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-1"
                                                                             />
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-2.2.svg"
+                                                                                src="/client/assets/img/category/cate-2.2.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-2"
                                                                             />
@@ -2844,12 +2844,12 @@ uri="http://www.springframework.org/tags/form" %>
                                                                     <div class="menu-column">
                                                                         <div class="menu-column__icon">
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-6.1.svg"
+                                                                                src="/client/assets/img/category/cate-6.1.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-1"
                                                                             />
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-6.2.svg"
+                                                                                src="/client/assets/img/category/cate-6.2.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-2"
                                                                             />
@@ -2899,12 +2899,12 @@ uri="http://www.springframework.org/tags/form" %>
                                                                     <div class="menu-column">
                                                                         <div class="menu-column__icon">
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-6.1.svg"
+                                                                                src="/client/assets/img/category/cate-6.1.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-1"
                                                                             />
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-6.2.svg"
+                                                                                src="/client/assets/img/category/cate-6.2.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-2"
                                                                             />
@@ -2947,12 +2947,12 @@ uri="http://www.springframework.org/tags/form" %>
                                                                     <div class="menu-column">
                                                                         <div class="menu-column__icon">
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-5.1.svg"
+                                                                                src="/client/assets/img/category/cate-5.1.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-1"
                                                                             />
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-5.2.svg"
+                                                                                src="/client/assets/img/category/cate-5.2.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-2"
                                                                             />
@@ -2997,12 +2997,12 @@ uri="http://www.springframework.org/tags/form" %>
                                                                     <div class="menu-column">
                                                                         <div class="menu-column__icon">
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-4.1.svg"
+                                                                                src="/client/assets/img/category/cate-4.1.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-1"
                                                                             />
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-4.2.svg"
+                                                                                src="/client/assets/img/category/cate-4.2.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-2"
                                                                             />
@@ -3047,12 +3047,12 @@ uri="http://www.springframework.org/tags/form" %>
                                                                     <div class="menu-column">
                                                                         <div class="menu-column__icon">
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-3.1.svg"
+                                                                                src="/client/assets/img/category/cate-3.1.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-1"
                                                                             />
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-3.2.svg"
+                                                                                src="/client/assets/img/category/cate-3.2.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-2"
                                                                             />
@@ -3095,12 +3095,12 @@ uri="http://www.springframework.org/tags/form" %>
                                                                     <div class="menu-column">
                                                                         <div class="menu-column__icon">
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-2.1.svg"
+                                                                                src="/client/assets/img/category/cate-2.1.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-1"
                                                                             />
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-2.2.svg"
+                                                                                src="/client/assets/img/category/cate-2.2.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-2"
                                                                             />
@@ -3150,12 +3150,12 @@ uri="http://www.springframework.org/tags/form" %>
                                                                     <div class="menu-column">
                                                                         <div class="menu-column__icon">
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-2.1.svg"
+                                                                                src="/client/assets/img/category/cate-2.1.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-1"
                                                                             />
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-2.2.svg"
+                                                                                src="/client/assets/img/category/cate-2.2.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-2"
                                                                             />
@@ -3198,12 +3198,12 @@ uri="http://www.springframework.org/tags/form" %>
                                                                     <div class="menu-column">
                                                                         <div class="menu-column__icon">
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-4.1.svg"
+                                                                                src="/client/assets/img/category/cate-4.1.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-1"
                                                                             />
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-4.2.svg"
+                                                                                src="/client/assets/img/category/cate-4.2.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-2"
                                                                             />
@@ -3248,12 +3248,12 @@ uri="http://www.springframework.org/tags/form" %>
                                                                     <div class="menu-column">
                                                                         <div class="menu-column__icon">
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-3.1.svg"
+                                                                                src="/client/assets/img/category/cate-3.1.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-1"
                                                                             />
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-3.2.svg"
+                                                                                src="/client/assets/img/category/cate-3.2.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-2"
                                                                             />
@@ -3296,12 +3296,12 @@ uri="http://www.springframework.org/tags/form" %>
                                                                     <div class="menu-column">
                                                                         <div class="menu-column__icon">
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-5.1.svg"
+                                                                                src="/client/assets/img/category/cate-5.1.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-1"
                                                                             />
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-5.2.svg"
+                                                                                src="/client/assets/img/category/cate-5.2.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-2"
                                                                             />
@@ -3346,12 +3346,12 @@ uri="http://www.springframework.org/tags/form" %>
                                                                     <div class="menu-column">
                                                                         <div class="menu-column__icon">
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-6.1.svg"
+                                                                                src="/client/assets/img/category/cate-6.1.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-1"
                                                                             />
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-6.2.svg"
+                                                                                src="/client/assets/img/category/cate-6.2.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-2"
                                                                             />
@@ -3403,12 +3403,12 @@ uri="http://www.springframework.org/tags/form" %>
                                                                     <div class="menu-column">
                                                                         <div class="menu-column__icon">
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-4.1.svg"
+                                                                                src="/client/assets/img/category/cate-4.1.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-1"
                                                                             />
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-4.2.svg"
+                                                                                src="/client/assets/img/category/cate-4.2.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-2"
                                                                             />
@@ -3478,12 +3478,12 @@ uri="http://www.springframework.org/tags/form" %>
                                                                     <div class="menu-column">
                                                                         <div class="menu-column__icon">
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-1.1.svg"
+                                                                                src="/client/assets/img/category/cate-1.1.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-1"
                                                                             />
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-1.2.svg"
+                                                                                src="/client/assets/img/category/cate-1.2.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-2"
                                                                             />
@@ -3526,12 +3526,12 @@ uri="http://www.springframework.org/tags/form" %>
                                                                     <div class="menu-column">
                                                                         <div class="menu-column__icon">
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-2.1.svg"
+                                                                                src="/client/assets/img/category/cate-2.1.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-1"
                                                                             />
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-2.2.svg"
+                                                                                src="/client/assets/img/category/cate-2.2.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-2"
                                                                             />
@@ -3576,12 +3576,12 @@ uri="http://www.springframework.org/tags/form" %>
                                                                     <div class="menu-column">
                                                                         <div class="menu-column__icon">
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-6.1.svg"
+                                                                                src="/client/assets/img/category/cate-6.1.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-1"
                                                                             />
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-6.2.svg"
+                                                                                src="/client/assets/img/category/cate-6.2.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-2"
                                                                             />
@@ -3624,12 +3624,12 @@ uri="http://www.springframework.org/tags/form" %>
                                                                     <div class="menu-column">
                                                                         <div class="menu-column__icon">
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-5.1.svg"
+                                                                                src="/client/assets/img/category/cate-5.1.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-1"
                                                                             />
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-5.2.svg"
+                                                                                src="/client/assets/img/category/cate-5.2.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-2"
                                                                             />
@@ -3679,12 +3679,12 @@ uri="http://www.springframework.org/tags/form" %>
                                                                     <div class="menu-column">
                                                                         <div class="menu-column__icon">
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-6.1.svg"
+                                                                                src="/client/assets/img/category/cate-6.1.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-1"
                                                                             />
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-6.2.svg"
+                                                                                src="/client/assets/img/category/cate-6.2.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-2"
                                                                             />
@@ -3727,12 +3727,12 @@ uri="http://www.springframework.org/tags/form" %>
                                                                     <div class="menu-column">
                                                                         <div class="menu-column__icon">
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-5.1.svg"
+                                                                                src="/client/assets/img/category/cate-5.1.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-1"
                                                                             />
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-5.2.svg"
+                                                                                src="/client/assets/img/category/cate-5.2.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-2"
                                                                             />
@@ -3777,12 +3777,12 @@ uri="http://www.springframework.org/tags/form" %>
                                                                     <div class="menu-column">
                                                                         <div class="menu-column__icon">
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-4.1.svg"
+                                                                                src="/client/assets/img/category/cate-4.1.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-1"
                                                                             />
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-4.2.svg"
+                                                                                src="/client/assets/img/category/cate-4.2.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-2"
                                                                             />
@@ -3825,12 +3825,12 @@ uri="http://www.springframework.org/tags/form" %>
                                                                     <div class="menu-column">
                                                                         <div class="menu-column__icon">
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-3.1.svg"
+                                                                                src="/client/assets/img/category/cate-3.1.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-1"
                                                                             />
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-3.2.svg"
+                                                                                src="/client/assets/img/category/cate-3.2.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-2"
                                                                             />
@@ -3875,12 +3875,12 @@ uri="http://www.springframework.org/tags/form" %>
                                                                     <div class="menu-column">
                                                                         <div class="menu-column__icon">
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-2.1.svg"
+                                                                                src="/client/assets/img/category/cate-2.1.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-1"
                                                                             />
                                                                             <img
-                                                                                 src="client/assets/img/category/cate-2.2.svg"
+                                                                                src="/client/assets/img/category/cate-2.2.svg"
                                                                                 alt=""
                                                                                 class="menu-column__icon-2"
                                                                             />
@@ -3957,7 +3957,7 @@ uri="http://www.springframework.org/tags/form" %>
                         <li class="navbar__item">
                             <a href="#!" class="navbar__link">
                                 Grocery
-                                <img  src="client/assets/icons/arrow-down.svg" alt="" class="icon navbar__arrow" />
+                                <img src="/client/assets/icons/arrow-down.svg" alt="" class="icon navbar__arrow" />
                             </a>
                             <div class="dropdown js-dropdown">
                                 <div class="dropdown__inner">
@@ -3968,12 +3968,12 @@ uri="http://www.springframework.org/tags/form" %>
                                                 <div class="menu-column">
                                                     <div class="menu-column__icon">
                                                         <img
-                                                             src="client/assets/img/category/cate-7.1.svg"
+                                                            src="/client/assets/img/category/cate-7.1.svg"
                                                             alt=""
                                                             class="menu-column__icon-1"
                                                         />
                                                         <img
-                                                             src="client/assets/img/category/cate-7.2.svg"
+                                                            src="/client/assets/img/category/cate-7.2.svg"
                                                             alt=""
                                                             class="menu-column__icon-2"
                                                         />
@@ -4000,12 +4000,12 @@ uri="http://www.springframework.org/tags/form" %>
                                                 <div class="menu-column">
                                                     <div class="menu-column__icon">
                                                         <img
-                                                             src="client/assets/img/category/cate-8.1.svg"
+                                                            src="/client/assets/img/category/cate-8.1.svg"
                                                             alt=""
                                                             class="menu-column__icon-1"
                                                         />
                                                         <img
-                                                             src="client/assets/img/category/cate-8.2.svg"
+                                                            src="/client/assets/img/category/cate-8.2.svg"
                                                             alt=""
                                                             class="menu-column__icon-2"
                                                         />
@@ -4052,12 +4052,12 @@ uri="http://www.springframework.org/tags/form" %>
                                                 <div class="menu-column">
                                                     <div class="menu-column__icon">
                                                         <img
-                                                             src="client/assets/img/category/cate-9.1.svg"
+                                                            src="/client/assets/img/category/cate-9.1.svg"
                                                             alt=""
                                                             class="menu-column__icon-1"
                                                         />
                                                         <img
-                                                             src="client/assets/img/category/cate-9.2.svg"
+                                                            src="/client/assets/img/category/cate-9.2.svg"
                                                             alt=""
                                                             class="menu-column__icon-2"
                                                         />
@@ -4099,12 +4099,12 @@ uri="http://www.springframework.org/tags/form" %>
                                                 <div class="menu-column">
                                                     <div class="menu-column__icon">
                                                         <img
-                                                             src="client/assets/img/category/cate-10.1.svg"
+                                                            src="/client/assets/img/category/cate-10.1.svg"
                                                             alt=""
                                                             class="menu-column__icon-1"
                                                         />
                                                         <img
-                                                             src="client/assets/img/category/cate-10.2.svg"
+                                                            src="/client/assets/img/category/cate-10.2.svg"
                                                             alt=""
                                                             class="menu-column__icon-2"
                                                         />
@@ -4133,12 +4133,12 @@ uri="http://www.springframework.org/tags/form" %>
                                                 <div class="menu-column">
                                                     <div class="menu-column__icon">
                                                         <img
-                                                             src="client/assets/img/category/cate-11.1.svg"
+                                                            src="/client/assets/img/category/cate-11.1.svg"
                                                             alt=""
                                                             class="menu-column__icon-1"
                                                         />
                                                         <img
-                                                             src="client/assets/img/category/cate-11.2.svg"
+                                                            src="/client/assets/img/category/cate-11.2.svg"
                                                             alt=""
                                                             class="menu-column__icon-2"
                                                         />
@@ -4171,12 +4171,12 @@ uri="http://www.springframework.org/tags/form" %>
                                                 <div class="menu-column">
                                                     <div class="menu-column__icon">
                                                         <img
-                                                             src="client/assets/img/category/cate-12.1.svg"
+                                                            src="/client/assets/img/category/cate-12.1.svg"
                                                             alt=""
                                                             class="menu-column__icon-1"
                                                         />
                                                         <img
-                                                             src="client/assets/img/category/cate-12.2.svg"
+                                                            src="/client/assets/img/category/cate-12.2.svg"
                                                             alt=""
                                                             class="menu-column__icon-2"
                                                         />
@@ -4217,12 +4217,12 @@ uri="http://www.springframework.org/tags/form" %>
                                                 <div class="menu-column">
                                                     <div class="menu-column__icon">
                                                         <img
-                                                             src="client/assets/img/category/cate-13.1.svg"
+                                                            src="/client/assets/img/category/cate-13.1.svg"
                                                             alt=""
                                                             class="menu-column__icon-1"
                                                         />
                                                         <img
-                                                             src="client/assets/img/category/cate-13.2.svg"
+                                                            src="/client/assets/img/category/cate-13.2.svg"
                                                             alt=""
                                                             class="menu-column__icon-2"
                                                         />
@@ -4252,12 +4252,12 @@ uri="http://www.springframework.org/tags/form" %>
                                                 <div class="menu-column">
                                                     <div class="menu-column__icon">
                                                         <img
-                                                             src="client/assets/img/category/cate-14.1.svg"
+                                                            src="/client/assets/img/category/cate-14.1.svg"
                                                             alt=""
                                                             class="menu-column__icon-1"
                                                         />
                                                         <img
-                                                             src="client/assets/img/category/cate-14.2.svg"
+                                                            src="/client/assets/img/category/cate-14.2.svg"
                                                             alt=""
                                                             class="menu-column__icon-2"
                                                         />
@@ -4303,7 +4303,7 @@ uri="http://www.springframework.org/tags/form" %>
                         <li class="navbar__item">
                             <a href="#!" class="navbar__link">
                                 Beauty
-                                <img  src="client/assets/icons/arrow-down.svg" alt="" class="icon navbar__arrow" />
+                                <img src="/client/assets/icons/arrow-down.svg" alt="" class="icon navbar__arrow" />
                             </a>
                             <div class="dropdown js-dropdown">
                                 <div class="dropdown__inner">
@@ -4314,12 +4314,12 @@ uri="http://www.springframework.org/tags/form" %>
                                                 <div class="menu-column">
                                                     <div class="menu-column__icon">
                                                         <img
-                                                             src="client/assets/img/category/cate-7.1.svg"
+                                                            src="/client/assets/img/category/cate-7.1.svg"
                                                             alt=""
                                                             class="menu-column__icon-1"
                                                         />
                                                         <img
-                                                             src="client/assets/img/category/cate-7.2.svg"
+                                                            src="/client/assets/img/category/cate-7.2.svg"
                                                             alt=""
                                                             class="menu-column__icon-2"
                                                         />
@@ -4360,12 +4360,12 @@ uri="http://www.springframework.org/tags/form" %>
                                                 <div class="menu-column">
                                                     <div class="menu-column__icon">
                                                         <img
-                                                             src="client/assets/img/category/cate-15.1.svg"
+                                                            src="/client/assets/img/category/cate-15.1.svg"
                                                             alt=""
                                                             class="menu-column__icon-1"
                                                         />
                                                         <img
-                                                             src="client/assets/img/category/cate-15.2.svg"
+                                                            src="/client/assets/img/category/cate-15.2.svg"
                                                             alt=""
                                                             class="menu-column__icon-2"
                                                         />
@@ -4402,12 +4402,12 @@ uri="http://www.springframework.org/tags/form" %>
                                                 <div class="menu-column">
                                                     <div class="menu-column__icon">
                                                         <img
-                                                             src="client/assets/img/category/cate-16.1.svg"
+                                                            src="/client/assets/img/category/cate-16.1.svg"
                                                             alt=""
                                                             class="menu-column__icon-1"
                                                         />
                                                         <img
-                                                             src="client/assets/img/category/cate-16.2.svg"
+                                                            src="/client/assets/img/category/cate-16.2.svg"
                                                             alt=""
                                                             class="menu-column__icon-2"
                                                         />
@@ -4449,12 +4449,12 @@ uri="http://www.springframework.org/tags/form" %>
                                                 <div class="menu-column">
                                                     <div class="menu-column__icon">
                                                         <img
-                                                             src="client/assets/img/category/cate-17.1.svg"
+                                                            src="/client/assets/img/category/cate-17.1.svg"
                                                             alt=""
                                                             class="menu-column__icon-1"
                                                         />
                                                         <img
-                                                             src="client/assets/img/category/cate-17.2.svg"
+                                                            src="/client/assets/img/category/cate-17.2.svg"
                                                             alt=""
                                                             class="menu-column__icon-2"
                                                         />
@@ -4483,12 +4483,12 @@ uri="http://www.springframework.org/tags/form" %>
                                                 <div class="menu-column">
                                                     <div class="menu-column__icon">
                                                         <img
-                                                             src="client/assets/img/category/cate-18.1.svg"
+                                                            src="/client/assets/img/category/cate-18.1.svg"
                                                             alt=""
                                                             class="menu-column__icon-1"
                                                         />
                                                         <img
-                                                             src="client/assets/img/category/cate-18.2.svg"
+                                                            src="/client/assets/img/category/cate-18.2.svg"
                                                             alt=""
                                                             class="menu-column__icon-2"
                                                         />
@@ -4529,12 +4529,12 @@ uri="http://www.springframework.org/tags/form" %>
                                                 <div class="menu-column">
                                                     <div class="menu-column__icon">
                                                         <img
-                                                             src="client/assets/img/category/cate-19.1.svg"
+                                                            src="/client/assets/img/category/cate-19.1.svg"
                                                             alt=""
                                                             class="menu-column__icon-1"
                                                         />
                                                         <img
-                                                             src="client/assets/img/category/cate-19.2.svg"
+                                                            src="/client/assets/img/category/cate-19.2.svg"
                                                             alt=""
                                                             class="menu-column__icon-2"
                                                         />
@@ -4589,8 +4589,222 @@ uri="http://www.springframework.org/tags/form" %>
         
                 <!-- Actions -->
                 <div class="top-act">
-                    <a href="client/sign-in.html" class="btn btn--text d-md-none">Sign In</a>
-                    <a href="client/sign-up.html" class="top-act__sign-up btn btn--primary">Sign Up</a>
+                    <div class="top-act__group d-md-none top-act__group--single">
+                        <button class="top-act__btn">
+                            <img src="/client/assets/icons/search.svg" alt="" class="icon top-act__icon" />
+                        </button>
+                    </div>
+        
+                    <div class="top-act__group d-md-none">
+                        <div class="top-act__btn-wrap">
+                            <button class="top-act__btn">
+                                <img src="/client/assets/icons/heart.svg" alt="" class="icon top-act__icon" />
+                                <span class="top-act__title">03</span>
+                            </button>
+        
+                            <!-- Dropdown -->
+                            <div class="act-dropdown">
+                                <div class="act-dropdown__inner">
+                                    <img src="/client/assets/icons/arrow-up.png" alt="" class="act-dropdown__arrow" />
+                                    <div class="act-dropdown__top">
+                                        <h2 class="act-dropdown__title">You have 3 item(s)</h2>
+                                        <a href="./favourite.html" class="act-dropdown__view-all">See All</a>
+                                    </div>
+                                    <div class="row row-cols-3 gx-2 act-dropdown__list">
+                                        <!-- Cart preview item 1 -->
+                                        <div class="col">
+                                            <article class="cart-preview-item">
+                                                <div class="cart-preview-item__img-wrap">
+                                                    <img
+                                                        src="/client/assets/img/product/item-1.png"
+                                                        alt=""
+                                                        class="cart-preview-item__thumb"
+                                                    />
+                                                </div>
+                                                <h3 class="cart-preview-item__title">Lavazza Coffee Blends</h3>
+                                                <p class="cart-preview-item__price">$329.00</p>
+                                            </article>
+                                        </div>
+        
+                                        <!-- Cart preview item 2 -->
+                                        <div class="col">
+                                            <article class="cart-preview-item">
+                                                <div class="cart-preview-item__img-wrap">
+                                                    <img
+                                                        src="/client/assets/img/product/item-2.png"
+                                                        alt=""
+                                                        class="cart-preview-item__thumb"
+                                                    />
+                                                </div>
+                                                <h3 class="cart-preview-item__title">Coffee Beans Espresso</h3>
+                                                <p class="cart-preview-item__price">$39.99</p>
+                                            </article>
+                                        </div>
+        
+                                        <!-- Cart preview item 3 -->
+                                        <div class="col">
+                                            <article class="cart-preview-item">
+                                                <div class="cart-preview-item__img-wrap">
+                                                    <img
+                                                        src="/client/assets/img/product/item-3.png"
+                                                        alt=""
+                                                        class="cart-preview-item__thumb"
+                                                    />
+                                                </div>
+                                                <h3 class="cart-preview-item__title">Qualità Oro Mountain</h3>
+                                                <p class="cart-preview-item__price">$47.00</p>
+                                            </article>
+                                        </div>
+                                    </div>
+                                    <div class="act-dropdown__separate"></div>
+                                    <div class="act-dropdown__checkout">
+                                        <a
+                                            href="./checkout.html"
+                                            class="btn btn--primary btn--rounded act-dropdown__checkout-btn"
+                                        >
+                                            Check Out All
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+        
+                        <div class="top-act__separate"></div>
+        
+                        <div class="top-act__btn-wrap">
+                            <button class="top-act__btn">
+                                <img src="/client/assets/icons/buy.svg" alt="" class="icon top-act__icon" />
+                                <span class="top-act__title">$65.42</span>
+                            </button>
+        
+                            <!-- Dropdown -->
+                            <div class="act-dropdown">
+                                <div class="act-dropdown__inner">
+                                    <img src="/client/assets/icons/arrow-up.png" alt="" class="act-dropdown__arrow" />
+                                    <div class="act-dropdown__top">
+                                        <h2 class="act-dropdown__title">You have 3 item(s)</h2>
+                                        <a href="./checkout.html" class="act-dropdown__view-all">See All</a>
+                                    </div>
+                                    <div class="row row-cols-3 gx-2 act-dropdown__list">
+                                        <!-- Cart preview item 1 -->
+                                        <div class="col">
+                                            <article class="cart-preview-item">
+                                                <div class="cart-preview-item__img-wrap">
+                                                    <img
+                                                        src="/client/assets/img/product/item-1.png"
+                                                        alt=""
+                                                        class="cart-preview-item__thumb"
+                                                    />
+                                                </div>
+                                                <h3 class="cart-preview-item__title">Lavazza Coffee Blends</h3>
+                                                <p class="cart-preview-item__price">$329.00</p>
+                                            </article>
+                                        </div>
+        
+                                        <!-- Cart preview item 2 -->
+                                        <div class="col">
+                                            <article class="cart-preview-item">
+                                                <div class="cart-preview-item__img-wrap">
+                                                    <img
+                                                        src="/client/assets/img/product/item-2.png"
+                                                        alt=""
+                                                        class="cart-preview-item__thumb"
+                                                    />
+                                                </div>
+                                                <h3 class="cart-preview-item__title">Coffee Beans Espresso</h3>
+                                                <p class="cart-preview-item__price">$39.99</p>
+                                            </article>
+                                        </div>
+        
+                                        <!-- Cart preview item 3 -->
+                                        <div class="col">
+                                            <article class="cart-preview-item">
+                                                <div class="cart-preview-item__img-wrap">
+                                                    <img
+                                                        src="/client/assets/img/product/item-3.png"
+                                                        alt=""
+                                                        class="cart-preview-item__thumb"
+                                                    />
+                                                </div>
+                                                <h3 class="cart-preview-item__title">Qualità Oro Mountain</h3>
+                                                <p class="cart-preview-item__price">$47.00</p>
+                                            </article>
+                                        </div>
+                                    </div>
+                                    <div class="act-dropdown__bottom">
+                                        <div class="act-dropdown__row">
+                                            <span class="act-dropdown__label">Subtotal</span>
+                                            <span class="act-dropdown__value">$415.99</span>
+                                        </div>
+                                        <div class="act-dropdown__row">
+                                            <span class="act-dropdown__label">Texes</span>
+                                            <span class="act-dropdown__value">Free</span>
+                                        </div>
+                                        <div class="act-dropdown__row">
+                                            <span class="act-dropdown__label">Shipping</span>
+                                            <span class="act-dropdown__value">$10.00</span>
+                                        </div>
+                                        <div class="act-dropdown__row act-dropdown__row--bold">
+                                            <span class="act-dropdown__label">Total Price</span>
+                                            <span class="act-dropdown__value">$425.99</span>
+                                        </div>
+                                    </div>
+                                    <div class="act-dropdown__checkout">
+                                        <a
+                                            href="./checkout.html"
+                                            class="btn btn--primary btn--rounded act-dropdown__checkout-btn"
+                                        >
+                                            Check Out All
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <div class="top-act__user">
+                        <img src="/client/assets/img/avatar.jpg" alt="" class="top-act__avatar" />
+        
+                        <!-- Dropdown -->
+                        <div class="act-dropdown top-act__dropdown">
+                            <div class="act-dropdown__inner user-menu">
+                                <img
+                                    src="/client/assets/icons/arrow-up.png"
+                                    alt=""
+                                    class="act-dropdown__arrow top-act__dropdown-arrow"
+                                />
+        
+                                <div class="user-menu__top">
+                                    <img src="/client/assets/img/avatar.jpg" alt="" class="user-menu__avatar" />
+                                    <div>
+                                        <p class="user-menu__name">John Smith</p>
+                                        <p>@johnsmith</p>
+                                    </div>
+                                </div>
+        
+                                <ul class="user-menu__list">
+                                    <li>
+                                        <a href="./profile.html" class="user-menu__link">Profile</a>
+                                    </li>
+                                    <li>
+                                        <a href="./favourite.html" class="user-menu__link">Favourite list</a>
+                                    </li>
+                                    <li class="user-menu__separate">
+                                        <a href="#!" class="user-menu__link" id="switch-theme-btn">
+                                            <span>Dark mode</span>
+                                            <img src="/client/assets/icons/sun.svg" alt="" class="icon user-menu__icon" />
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#!" class="user-menu__link">Settings</a>
+                                    </li>
+                                    <li class="user-menu__separate">
+                                        <a href="./sign-in.html" class="user-menu__link">Logout</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
