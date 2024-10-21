@@ -2,11 +2,7 @@ package com.minh.teashop.domain;
 
 import java.util.List;
 
-import com.minh.teashop.domain.enumdomain.RoleName;
-
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -29,11 +25,10 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long role_id;
 
-    private String name ;
-    private String description ;
-    
-     @OneToMany(mappedBy = "role")
-    private List<User> users;
+    private String name;
+    private String description;
 
+    @OneToMany(mappedBy = "role")
+    private List<User> users;
 
 }

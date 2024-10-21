@@ -1,10 +1,11 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %> <%@ taglib prefix="c"
 uri="http://java.sun.com/jsp/jstl/core" %> <%@ taglib prefix="form"
-uri="http://www.springframework.org/tags/form" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+uri="http://www.springframework.org/tags/form" %> <%@ taglib
+uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <!-- Header -->
 <jsp:include page="../layout/header.jsp" />
+
 <!-- end Header -->
 
 <!-- MAIN -->
@@ -18,7 +19,7 @@ uri="http://www.springframework.org/tags/form" %>
             <picture>
               <source
                 media="(max-width: 767.98px)"
-                srcset="./assets/img/slideshow/item-1-md.png"
+                srcset="/client/assets/img/slideshow/item-1-md.png"
               />
               <img
                 src="/client/assets/img/slideshow/item-1.png"
@@ -47,7 +48,7 @@ uri="http://www.springframework.org/tags/form" %>
     <div class="row row-cols-5 row-cols-lg-2 row-cols-sm-1 g-3">
       <!--list Product -->
       <!-- tĩnh  -->
-  <!-- <c:forEach var="product" items="${listProduct}">
+      <!-- <c:forEach var="product" items="${listProduct}">
     <div class="col">
       <article class="product-card">
         <div class="product-card__img-wrap">
@@ -89,52 +90,55 @@ uri="http://www.springframework.org/tags/form" %>
       </article>
     </div>
 </c:forEach> -->
-<!-- động -->
-<c:forEach var="product" items="${listProduct}">
-  <div class="col">
-    <article class="product-card">
-      <div class="product-card__img-wrap">
-        <a href="/product/${product.product_id}">
-          <img
-            src="/upload/products/${product.productImages[0].name}"
-            alt="${product.productImages[0].name}"
-            class="product-card__thumb"
-          />
-        </a>
-       
-      </div>
-      <h3 class="product-card__title">
-        <a href="/product/${product.product_id}">
-                    ${product.name}</a>
-        
-      </h3>
-      <p class="product-card__brand">${product.category.name}</p>
-      <div class="product-card__row">
-        <span class="product-card__price">
+      <!-- động -->
+      <c:forEach var="product" items="${listProduct}">
+        <div class="col">
+          <article class="product-card">
+            <div class="product-card__img-wrap">
+              <a href="/product/${product.product_id}">
+                <img
+                  src="/upload/products/${product.productImages[0].name}"
+                  alt="${product.productImages[0].name}"
+                  class="product-card__thumb"
+                />
+              </a>
+            </div>
+            <h3 class="product-card__title">
+              <a href="/product/${product.product_id}"> ${product.name}</a>
+            </h3>
+            <p class="product-card__brand">${product.category.name}</p>
+            <div class="product-card__row">
+              <span class="product-card__price">
+                <c:choose>
+                  <c:when test="${product.price != null}">
+                    <c:if test="${product.price % 1 != 0}">
+                      <fmt:formatNumber
+                        value="${product.price}"
+                        pattern="#,##0.000"
+                      />
+                      đ
+                    </c:if>
+                    <c:if test="${product.price % 1 == 0}">
+                      <fmt:formatNumber
+                        value="${product.price}"
+                        pattern="#,##0"
+                      />
+                      đ
+                    </c:if>
+                  </c:when>
+                </c:choose>
+              </span>
 
-          <c:choose> 
-            <c:when test="${product.price != null}">
-           <c:if test="${product.price % 1 != 0}"> 
-               <fmt:formatNumber value="${product.price}" pattern="#,##0.000"/> đ
-           </c:if>
-           <c:if test="${product.price % 1 == 0}">
-               <fmt:formatNumber value="${product.price}" pattern="#,##0"/> đ
-           </c:if>
-       </c:when>
-     </c:choose>
-
-        </span>
-        
-        <img
-          src="/client/assets/icons/star.svg"
-          alt=""
-          class="product-card__star"
-        />
-        <span class="product-card__score">4.3</span>
-      </div>
-    </article>
-  </div>
-</c:forEach>
+              <img
+                src="/client/assets/icons/star.svg"
+                alt=""
+                class="product-card__star"
+              />
+              <span class="product-card__score">4.3</span>
+            </div>
+          </article>
+        </div>
+      </c:forEach>
     </div>
   </section>
 </main>

@@ -1,14 +1,18 @@
 package com.minh.teashop.domain.dto;
 
+import com.minh.teashop.service.validator.RegisterChecked;
 
+import jakarta.validation.constraints.Email;
 
+@RegisterChecked
 public class RegisterDTO {
     private String fisrtName;
     private String lastName;
-  
+
+    @Email(message = "Email không hợp lệ", regexp = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")
     private String email;
     private String password;
-    private String comfirmPassword;
+    private String confirmPassword;
 
     public String getFisrtName() {
         return fisrtName;
@@ -42,12 +46,12 @@ public class RegisterDTO {
         this.password = password;
     }
 
-    public String getComfirmPassword() {
-        return comfirmPassword;
+    public String getConfirmPassword() {
+        return confirmPassword;
     }
 
-    public void setComfirmPassword(String comfirmPassword) {
-        this.comfirmPassword = comfirmPassword;
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
     }
 
 }

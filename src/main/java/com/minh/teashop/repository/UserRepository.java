@@ -13,5 +13,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @SuppressWarnings("null")
     List<User> findAll();
     User findById(long id); // null
-    
+    User findByEmail(String email);
+    boolean existsByEmail(String email);    
+
+
 }

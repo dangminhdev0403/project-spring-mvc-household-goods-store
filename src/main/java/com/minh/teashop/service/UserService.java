@@ -6,7 +6,8 @@ import org.springframework.stereotype.Service;
 
 import com.minh.teashop.domain.Role;
 import com.minh.teashop.domain.User;
-import com.minh.teashop.domain.enumdomain.RoleName;
+import com.minh.teashop.domain.dto.RegisterDTO;
+import com.minh.teashop.domain.mapper.UserMapper;
 import com.minh.teashop.repository.RoleRepository;
 import com.minh.teashop.repository.UserRepository;
 
@@ -15,8 +16,11 @@ public class UserService {
     UserRepository userRepository;
 
     RoleRepository roleRepository;
+        private final UserMapper userMapper;
 
-    public UserService(UserRepository userRepository, RoleRepository roleRepository) {
+
+    public UserService(UserRepository userRepository, RoleRepository roleRepository, UserMapper userMapper) {
+        this.userMapper = userMapper;
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
     }
@@ -36,11 +40,22 @@ public class UserService {
         return this.roleRepository.findByName(newName);
 
     }
-    public User getUserById(long id){
 
-        return this.userRepository.findById(id) ;
+    public User getUserById(long id) {
+
+        return this.userRepository.findById(id);
     }
+
     public void deleteAUser(long id) {
         this.userRepository.deleteById(id);
     }
+
+    public User registerUser(RegisterDTO registerDTO){
+        return this.userMapper.registerDTOtoUser(registerDTO);
+    }
+
+    public boolean checkEmailExist(String email){
+        return this.userRepository.existsByEmail(email);
+   }
+
 }

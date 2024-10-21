@@ -1,3 +1,5 @@
+
+
 const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
 
@@ -17,12 +19,21 @@ function load(selector, path) {
     }
 
     fetch(path)
-        .then((res) => res.text())
+        .then((res) => {
+            if (!res.ok) {
+                throw new Error(`HTTP error! status: ${res.status}`);
+            }
+            return res.text();
+        })
         .then((html) => {
             if (html !== cached) {
                 $(selector).innerHTML = html;
                 localStorage.setItem(path, html);
             }
+        })
+        .catch(error => {
+            console.error('Error loading template:', error);
+            $(selector).innerHTML = `<p>Error loading template.</p>`;
         })
         .finally(() => {
             window.dispatchEvent(new Event("template-loaded"));
