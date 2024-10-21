@@ -70,14 +70,40 @@ uri="http://www.springframework.org/tags/form" %>
             "Chúng tôi rất vui khi bạn trở lại! Bạn có quyền truy cập vào tất cả
             thông tin trước đây của mình."
           </p>
-          <form action="./index-logined.html" class="form auth__form">
+          <form action="/login" method="post" class="form auth__form">
+            <c:if test="${param.error != null}">
+              <p
+                class="form__error"
+                style="display: block; font-size: 1.8rem; text-align: center"
+              >
+                Thông tin đăng nhập không chính xác
+              </p>
+            </c:if>
+            <c:if test="${param.logout != null}">
+              <p
+                class="form__success"
+                style="
+                  display: block;
+                  font-size: 1.8rem;
+                  color: rgb(22, 192, 22);
+                "
+              >
+                Đăng xuất thành công!
+              </p>
+            </c:if>
+            <input
+              type="hidden"
+              name="${_csrf.parameterName}"
+              value="${_csrf.token}"
+            />
+
             <div class="form__group has-error">
               <div class="form__text-input">
                 <input
                   type="email"
-                  name=""
-                  id=""
-                  placeholder="Email"
+                  name="username"
+                  id="emailLogin"
+                  placeholder="Nhập email"
                   class="form__input"
                   autofocus
                   required
@@ -93,18 +119,15 @@ uri="http://www.springframework.org/tags/form" %>
                   class="form__input-icon-error"
                 />
               </div>
-              <p class="form__error">Email không đúng định dạng</p>
             </div>
             <div class="form__group">
               <div class="form__text-input">
                 <input
                   type="password"
-                  name=""
+                  name="password"
                   id=""
-                  placeholder="Mật khẩu"
+                  placeholder="Nhập Mật khẩu"
                   class="form__input"
-                  required
-                  minlength="6"
                 />
                 <img
                   src="client/assets/icons/lock.svg"
@@ -117,7 +140,6 @@ uri="http://www.springframework.org/tags/form" %>
                   class="form__input-icon-error"
                 />
               </div>
-              <p class="form__error">Mật khẩu phải có ít nhất 6 ký tự</p>
             </div>
             <div class="form__group form__group--inline">
               <label class="form__checkbox">
@@ -136,9 +158,7 @@ uri="http://www.springframework.org/tags/form" %>
               >
             </div>
             <div class="form__group auth__btn-group">
-              <button class="btn btn--primary auth__btn form__submit-btn">
-                Đăng Nhập
-              </button>
+              <button class="btn btn--primary auth__btn">Đăng Nhập</button>
               <button class="btn btn--outline auth__btn btn--no-margin">
                 <img
                   src="client/assets/icons/google.svg"

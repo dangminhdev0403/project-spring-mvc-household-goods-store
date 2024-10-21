@@ -43,7 +43,7 @@ uri="http://www.springframework.org/tags/form" %>
   <body>
     <header id="header" class="header"></header>
     <script>
-      load("#header", "/api/header-logined");
+      load("#header", "/header-logined");
     </script>
   </body>
 </html>

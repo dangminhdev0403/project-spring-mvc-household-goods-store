@@ -4708,273 +4708,286 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
       <div class="top-act__group d-md-none top-act__group--single">
         <button class="top-act__btn">
           <img
-            src="/client/assets/icons/search.svg"
+            src="client/assets/icons/search.svg"
             alt=""
             class="icon top-act__icon"
           />
         </button>
       </div>
 
-      <div class="top-act__group d-md-none">
-        <div class="top-act__btn-wrap">
-          <button class="top-act__btn">
-            <img
-              src="/client/assets/icons/heart.svg"
-              alt=""
-              class="icon top-act__icon"
-            />
-            <span class="top-act__title">03</span>
-          </button>
+      <c:if test="${not empty pageContext.request.userPrincipal}">
+        <div class="top-act__group d-md-none">
+          <div class="top-act__btn-wrap">
+            <button class="top-act__btn">
+              <img
+                href="client/assets/icons/heart.svg"
+                alt=""
+                class="icon top-act__icon"
+              />
+              <span class="top-act__title">03</span>
+            </button>
+
+            <!-- Dropdown -->
+            <div class="act-dropdown">
+              <div class="act-dropdown__inner">
+                <img
+                  href="client/assets/icons/arrow-up.png"
+                  alt=""
+                  class="act-dropdown__arrow"
+                />
+                <div class="act-dropdown__top">
+                  <h2 class="act-dropdown__title">You have 3 item(s)</h2>
+                  <a href="./favourite.html" class="act-dropdown__view-all"
+                    >See All</a
+                  >
+                </div>
+                <div class="row row-cols-3 gx-2 act-dropdown__list">
+                  <!-- Cart preview item 1 -->
+                  <div class="col">
+                    <article class="cart-preview-item">
+                      <div class="cart-preview-item__img-wrap">
+                        <img
+                          href="client/assets/img/product/item-1.png"
+                          alt=""
+                          class="cart-preview-item__thumb"
+                        />
+                      </div>
+                      <h3 class="cart-preview-item__title">
+                        Lavazza Coffee Blends
+                      </h3>
+                      <p class="cart-preview-item__price">$329.00</p>
+                    </article>
+                  </div>
+
+                  <!-- Cart preview item 2 -->
+                  <div class="col">
+                    <article class="cart-preview-item">
+                      <div class="cart-preview-item__img-wrap">
+                        <img
+                          href="client/assets/img/product/item-2.png"
+                          alt=""
+                          class="cart-preview-item__thumb"
+                        />
+                      </div>
+                      <h3 class="cart-preview-item__title">
+                        Coffee Beans Espresso
+                      </h3>
+                      <p class="cart-preview-item__price">$39.99</p>
+                    </article>
+                  </div>
+
+                  <!-- Cart preview item 3 -->
+                  <div class="col">
+                    <article class="cart-preview-item">
+                      <div class="cart-preview-item__img-wrap">
+                        <img
+                          href="client/assets/img/product/item-3.png"
+                          alt=""
+                          class="cart-preview-item__thumb"
+                        />
+                      </div>
+                      <h3 class="cart-preview-item__title">
+                        Qualità Oro Mountain
+                      </h3>
+                      <p class="cart-preview-item__price">$47.00</p>
+                    </article>
+                  </div>
+                </div>
+                <div class="act-dropdown__separate"></div>
+                <div class="act-dropdown__checkout">
+                  <a
+                    href="./checkout.html"
+                    class="btn btn--primary btn--rounded act-dropdown__checkout-btn"
+                  >
+                    Check Out All
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="top-act__separate"></div>
+
+          <div class="top-act__btn-wrap">
+            <button class="top-act__btn">
+              <img
+                href="client/assets/icons/buy.svg"
+                alt=""
+                class="icon top-act__icon"
+              />
+              <span class="top-act__title">$65.42</span>
+            </button>
+
+            <!-- Dropdown -->
+            <div class="act-dropdown">
+              <div class="act-dropdown__inner">
+                <img
+                  href="client/assets/icons/arrow-up.png"
+                  alt=""
+                  class="act-dropdown__arrow"
+                />
+                <div class="act-dropdown__top">
+                  <h2 class="act-dropdown__title">You have 3 item(s)</h2>
+                  <a href="./checkout.html" class="act-dropdown__view-all"
+                    >See All</a
+                  >
+                </div>
+                <div class="row row-cols-3 gx-2 act-dropdown__list">
+                  <!-- Cart preview item 1 -->
+                  <div class="col">
+                    <article class="cart-preview-item">
+                      <div class="cart-preview-item__img-wrap">
+                        <img
+                          href="client/assets/img/product/item-1.png"
+                          alt=""
+                          class="cart-preview-item__thumb"
+                        />
+                      </div>
+                      <h3 class="cart-preview-item__title">
+                        Lavazza Coffee Blends
+                      </h3>
+                      <p class="cart-preview-item__price">$329.00</p>
+                    </article>
+                  </div>
+
+                  <!-- Cart preview item 2 -->
+                  <div class="col">
+                    <article class="cart-preview-item">
+                      <div class="cart-preview-item__img-wrap">
+                        <img
+                          href="client/assets/img/product/item-2.png"
+                          alt=""
+                          class="cart-preview-item__thumb"
+                        />
+                      </div>
+                      <h3 class="cart-preview-item__title">
+                        Coffee Beans Espresso
+                      </h3>
+                      <p class="cart-preview-item__price">$39.99</p>
+                    </article>
+                  </div>
+
+                  <!-- Cart preview item 3 -->
+                  <div class="col">
+                    <article class="cart-preview-item">
+                      <div class="cart-preview-item__img-wrap">
+                        <img
+                          href="client/assets/img/product/item-3.png"
+                          alt=""
+                          class="cart-preview-item__thumb"
+                        />
+                      </div>
+                      <h3 class="cart-preview-item__title">
+                        Qualità Oro Mountain
+                      </h3>
+                      <p class="cart-preview-item__price">$47.00</p>
+                    </article>
+                  </div>
+                </div>
+                <div class="act-dropdown__bottom">
+                  <div class="act-dropdown__row">
+                    <span class="act-dropdown__label">Subtotal</span>
+                    <span class="act-dropdown__value">$415.99</span>
+                  </div>
+                  <div class="act-dropdown__row">
+                    <span class="act-dropdown__label">Texes</span>
+                    <span class="act-dropdown__value">Free</span>
+                  </div>
+                  <div class="act-dropdown__row">
+                    <span class="act-dropdown__label">Shipping</span>
+                    <span class="act-dropdown__value">$10.00</span>
+                  </div>
+                  <div class="act-dropdown__row act-dropdown__row--bold">
+                    <span class="act-dropdown__label">Total Price</span>
+                    <span class="act-dropdown__value">$425.99</span>
+                  </div>
+                </div>
+                <div class="act-dropdown__checkout">
+                  <a
+                    href="./checkout.html"
+                    class="btn btn--primary btn--rounded act-dropdown__checkout-btn"
+                  >
+                    Check Out All
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="top-act__user">
+          <img
+            href="client/assets/img/avatar.jpg"
+            alt=""
+            class="top-act__avatar"
+          />
 
           <!-- Dropdown -->
-          <div class="act-dropdown">
-            <div class="act-dropdown__inner">
+          <div class="act-dropdown top-act__dropdown">
+            <div class="act-dropdown__inner user-menu">
               <img
-                src="/client/assets/icons/arrow-up.png"
+                href="client/assets/icons/arrow-up.png"
                 alt=""
-                class="act-dropdown__arrow"
+                class="act-dropdown__arrow top-act__dropdown-arrow"
               />
-              <div class="act-dropdown__top">
-                <h2 class="act-dropdown__title">You have 3 item(s)</h2>
-                <a href="/client/favourite.html" class="act-dropdown__view-all"
-                  >See All</a
-                >
-              </div>
-              <div class="row row-cols-3 gx-2 act-dropdown__list">
-                <!-- Cart preview item 1 -->
-                <div class="col">
-                  <article class="cart-preview-item">
-                    <div class="cart-preview-item__img-wrap">
-                      <img
-                        src="/client/assets/img/product/item-1.png"
-                        alt=""
-                        class="cart-preview-item__thumb"
-                      />
-                    </div>
-                    <h3 class="cart-preview-item__title">
-                      Lavazza Coffee Blends
-                    </h3>
-                    <p class="cart-preview-item__price">$329.00</p>
-                  </article>
-                </div>
 
-                <!-- Cart preview item 2 -->
-                <div class="col">
-                  <article class="cart-preview-item">
-                    <div class="cart-preview-item__img-wrap">
-                      <img
-                        src="/client/assets/img/product/item-2.png"
-                        alt=""
-                        class="cart-preview-item__thumb"
-                      />
-                    </div>
-                    <h3 class="cart-preview-item__title">
-                      Coffee Beans Espresso
-                    </h3>
-                    <p class="cart-preview-item__price">$39.99</p>
-                  </article>
+              <div class="user-menu__top">
+                <img
+                  href="client/assets/img/avatar.jpg"
+                  alt=""
+                  class="user-menu__avatar"
+                />
+                <div>
+                  <p class="user-menu__name">
+                    <c:out value="${pageContext.request.userPrincipal.name}" />
+                  </p>
+                  <p>@johnsmith</p>
                 </div>
+              </div>
 
-                <!-- Cart preview item 3 -->
-                <div class="col">
-                  <article class="cart-preview-item">
-                    <div class="cart-preview-item__img-wrap">
-                      <img
-                        src="/client/assets/img/product/item-3.png"
-                        alt=""
-                        class="cart-preview-item__thumb"
-                      />
-                    </div>
-                    <h3 class="cart-preview-item__title">
-                      Qualità Oro Mountain
-                    </h3>
-                    <p class="cart-preview-item__price">$47.00</p>
-                  </article>
-                </div>
-              </div>
-              <div class="act-dropdown__separate"></div>
-              <div class="act-dropdown__checkout">
-                <a
-                  href="/client/checkout.html"
-                  class="btn btn--primary btn--rounded act-dropdown__checkout-btn"
-                >
-                  Check Out All
-                </a>
-              </div>
+              <ul class="user-menu__list">
+                <li>
+                  <a href="./profile.html" class="user-menu__link">Profile</a>
+                </li>
+                <li>
+                  <a href="./favourite.html" class="user-menu__link"
+                    >Favourite list</a
+                  >
+                </li>
+                <li class="user-menu__separate">
+                  <a href="#!" class="user-menu__link" id="switch-theme-btn">
+                    <span>Dark mode</span>
+                    <img
+                      href="client/assets/icons/sun.svg"
+                      alt=""
+                      class="icon user-menu__icon"
+                    />
+                  </a>
+                </li>
+                <li>
+                  <a href="#!" class="user-menu__link">Settings</a>
+                </li>
+                <li class="user-menu__separate">
+                  <form method="post" action="/logout">
+                    <input
+                      type="hidden"
+                      name="${_csrf.parameterName}"
+                      value="${_csrf.token}"
+                    />
+                    <button class="user-menu__link">Đăng xuất</button>
+                  </form>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
-
-        <div class="top-act__separate"></div>
-
-        <div class="top-act__btn-wrap">
-          <button class="top-act__btn">
-            <img
-              src="/client/assets/icons/buy.svg"
-              alt=""
-              class="icon top-act__icon"
-            />
-            <span class="top-act__title">$65.42</span>
-          </button>
-
-          <!-- Dropdown -->
-          <div class="act-dropdown">
-            <div class="act-dropdown__inner">
-              <img
-                src="/client/assets/icons/arrow-up.png"
-                alt=""
-                class="act-dropdown__arrow"
-              />
-              <div class="act-dropdown__top">
-                <h2 class="act-dropdown__title">You have 3 item(s)</h2>
-                <a href="/client/checkout.html" class="act-dropdown__view-all"
-                  >See All</a
-                >
-              </div>
-              <div class="row row-cols-3 gx-2 act-dropdown__list">
-                <!-- Cart preview item 1 -->
-                <div class="col">
-                  <article class="cart-preview-item">
-                    <div class="cart-preview-item__img-wrap">
-                      <img
-                        src="/client/assets/img/product/item-1.png"
-                        alt=""
-                        class="cart-preview-item__thumb"
-                      />
-                    </div>
-                    <h3 class="cart-preview-item__title">
-                      Lavazza Coffee Blends
-                    </h3>
-                    <p class="cart-preview-item__price">$329.00</p>
-                  </article>
-                </div>
-
-                <!-- Cart preview item 2 -->
-                <div class="col">
-                  <article class="cart-preview-item">
-                    <div class="cart-preview-item__img-wrap">
-                      <img
-                        src="/client/assets/img/product/item-2.png"
-                        alt=""
-                        class="cart-preview-item__thumb"
-                      />
-                    </div>
-                    <h3 class="cart-preview-item__title">
-                      Coffee Beans Espresso
-                    </h3>
-                    <p class="cart-preview-item__price">$39.99</p>
-                  </article>
-                </div>
-
-                <!-- Cart preview item 3 -->
-                <div class="col">
-                  <article class="cart-preview-item">
-                    <div class="cart-preview-item__img-wrap">
-                      <img
-                        src="/client/assets/img/product/item-3.png"
-                        alt=""
-                        class="cart-preview-item__thumb"
-                      />
-                    </div>
-                    <h3 class="cart-preview-item__title">
-                      Qualità Oro Mountain
-                    </h3>
-                    <p class="cart-preview-item__price">$47.00</p>
-                  </article>
-                </div>
-              </div>
-              <div class="act-dropdown__bottom">
-                <div class="act-dropdown__row">
-                  <span class="act-dropdown__label">Subtotal</span>
-                  <span class="act-dropdown__value">$415.99</span>
-                </div>
-                <div class="act-dropdown__row">
-                  <span class="act-dropdown__label">Texes</span>
-                  <span class="act-dropdown__value">Free</span>
-                </div>
-                <div class="act-dropdown__row">
-                  <span class="act-dropdown__label">Shipping</span>
-                  <span class="act-dropdown__value">$10.00</span>
-                </div>
-                <div class="act-dropdown__row act-dropdown__row--bold">
-                  <span class="act-dropdown__label">Total Price</span>
-                  <span class="act-dropdown__value">$425.99</span>
-                </div>
-              </div>
-              <div class="act-dropdown__checkout">
-                <a
-                  href="/client/checkout.html"
-                  class="btn btn--primary btn--rounded act-dropdown__checkout-btn"
-                >
-                  Check Out All
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="top-act__user">
-        <img
-          src="/client/assets/img/avatar.jpg"
-          alt=""
-          class="top-act__avatar"
-        />
-
-        <!-- Dropdown -->
-        <div class="act-dropdown top-act__dropdown">
-          <div class="act-dropdown__inner user-menu">
-            <img
-              src="/client/assets/icons/arrow-up.png"
-              alt=""
-              class="act-dropdown__arrow top-act__dropdown-arrow"
-            />
-
-            <div class="user-menu__top">
-              <img
-                src="/client/assets/img/avatar.jpg"
-                alt=""
-                class="user-menu__avatar"
-              />
-              <div>
-                <p class="user-menu__name">John Smith</p>
-                <p>@johnsmith</p>
-              </div>
-            </div>
-
-            <ul class="user-menu__list">
-              <li>
-                <a href="/client/profile.html" class="user-menu__link"
-                  >Profile</a
-                >
-              </li>
-              <li>
-                <a href="/client/favourite.html" class="user-menu__link"
-                  >Favourite list</a
-                >
-              </li>
-              <li class="user-menu__separate">
-                <a href="#!" class="user-menu__link" id="switch-theme-btn">
-                  <span>Dark mode</span>
-                  <img
-                    src="/client/assets/icons/sun.svg"
-                    alt=""
-                    class="icon user-menu__icon"
-                  />
-                </a>
-              </li>
-              <li>
-                <a href="#!" class="user-menu__link">Settings</a>
-              </li>
-              <li class="user-menu__separate">
-                <a href="/client/sign-in.html" class="user-menu__link"
-                  >Logout</a
-                >
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
+      </c:if>
+      <c:if test="${ empty pageContext.request.userPrincipal}">
+        <a href="/login" class="btn btn--text d-md-none">Đăng nhập</a>
+        <a href="/register" class="top-act__sign-up btn btn--primary"
+          >Đăng kí</a
+        >
+      </c:if>
     </div>
   </div>
 </div>

@@ -38,10 +38,16 @@ public class HomePageController {
 
     }
 
-    @GetMapping("/api/header-logined")
+    @GetMapping("/header-logined")
     public String getHeaderLogined(Model model) {
         // Thêm dữ liệu cần thiết vào model nếu có
         return "client/layout/header-logined"; // Tên file JSP không cần đuôi .jsp
+    }
+
+    @GetMapping("/acess-deny")
+    public String getDenyPage(Model model) {
+        // Thêm dữ liệu cần thiết vào model nếu có
+        return "client/auth/deny";
     }
 
     @GetMapping("/register")
