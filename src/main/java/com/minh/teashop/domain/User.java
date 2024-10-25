@@ -6,6 +6,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
@@ -37,12 +38,14 @@ public class User {
     @ManyToOne
     @JoinColumn(name = "role_id")
     private Role role;
+    @OneToOne(mappedBy = "user")
+    private Cart cart;
 
     public User() {
     }
 
     public User(long user_id, String name, String password, String email, String phone, String address, String avatar,
-            Role role) {
+            Role role, Cart cart) {
         this.user_id = user_id;
         this.name = name;
         this.password = password;
@@ -51,6 +54,7 @@ public class User {
         this.address = address;
         this.avatar = avatar;
         this.role = role;
+        this.cart = cart;
     }
 
     public long getUser_id() {
@@ -115,6 +119,14 @@ public class User {
 
     public void setAvatar(String avatar) {
         this.avatar = avatar;
+    }
+
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
     }
 
 }

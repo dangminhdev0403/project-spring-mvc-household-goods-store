@@ -100,7 +100,7 @@ uri="http://www.springframework.org/tags/form" %>
             <div class="form__group has-error">
               <div class="form__text-input">
                 <input
-                  type="email"
+                  type="text"
                   name="username"
                   id="emailLogin"
                   placeholder="Nhập email"
@@ -142,15 +142,7 @@ uri="http://www.springframework.org/tags/form" %>
               </div>
             </div>
             <div class="form__group form__group--inline">
-              <label class="form__checkbox">
-                <input
-                  type="checkbox"
-                  name=""
-                  id=""
-                  class="form__checkbox-input d-none"
-                />
-                <span class="form__checkbox-label">Đặt làm thẻ mặc định</span>
-              </label>
+              
               <a
                 href="client/reset-password.html"
                 class="auth__link form__pull-right"

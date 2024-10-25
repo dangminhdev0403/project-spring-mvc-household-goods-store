@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.minh.teashop.domain.User;
 import com.minh.teashop.service.UploadService;
@@ -56,7 +57,7 @@ public class UserController {
 
     @PostMapping("/admin/users/create")
     public String createNewUser(Model model, @ModelAttribute("newUser") @Valid User newUser, BindingResult bindingResult
-    ,@RequestParam("avatarImg") MultipartFile file
+    ,@RequestParam("avatarImg") MultipartFile file , RedirectAttributes  redirectAttributes
     ) {
 
         // validate
@@ -76,11 +77,13 @@ public class UserController {
         newUser.setRole(this.userService.getRoleByName(newUser.getRole().getName()));
         this.userService.handleSaveUser(newUser);
 
+        redirectAttributes.addFlashAttribute("success", "Thêm thành công");
+
         return "redirect:/admin/users";
     }
 
     @PostMapping("/admin/users/update")
-    public String updateUser(Model model, @ModelAttribute("newUser") User user ,@RequestParam("avatarImg") MultipartFile file) {
+    public String updateUser(Model model, @ModelAttribute("newUser") User user ,@RequestParam("avatarImg") MultipartFile file,RedirectAttributes  redirectAttributes) {
         User currentUser = this.userService.getUserById(user.getUser_id());
 
         if (currentUser != null) {
@@ -95,14 +98,18 @@ public class UserController {
 
             this.userService.handleSaveUser(currentUser);
         }
+        redirectAttributes.addFlashAttribute("success", "Cập nhật thành công");
+
         return "redirect:/admin/users";
 
     }
 
     @GetMapping("/admin/user/delete/{id}")
-    public String deleteUser(Model model, @PathVariable long id) {
+    public String deleteUser(Model model, @PathVariable long id,RedirectAttributes  redirectAttributes) {
         // User currentUser = this.userService.getUserById(id);
         this.userService.deleteAUser(id);
+        redirectAttributes.addFlashAttribute("success", "Xoá thành công thành công");
+
         return "redirect:/admin/users";
     }
 

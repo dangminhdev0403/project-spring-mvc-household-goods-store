@@ -4641,4 +4641,9 @@ html {
   margin-top: 30px;
 }
 
+.my-popup-class {
+  width: 600px;     /* Điều chỉnh kích thước */
+  padding: 30px;    /* Khoảng cách bên trong */
+  font-size: 1.2em; /* Điều chỉnh cỡ chữ */
+}
 /*# sourceMappingURL=main.css.map */

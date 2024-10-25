@@ -5,11 +5,13 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.session.security.web.authentication.SpringSessionRememberMeServices;
 
 import com.minh.teashop.service.CustomUserDetailsService;
 import com.minh.teashop.service.UserService;
@@ -46,6 +48,15 @@ public class SecurityConfiguration {
     }
 
     @Bean
+    public SpringSessionRememberMeServices rememberMeServices() {
+        SpringSessionRememberMeServices rememberMeServices = new SpringSessionRememberMeServices();
+        // optionally customize
+        rememberMeServices.setAlwaysRemember(true);
+        rememberMeServices.setRememberMeParameterName("remember");
+        return rememberMeServices;
+    }
+
+    @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authorize -> authorize
@@ -57,14 +68,20 @@ public class SecurityConfiguration {
                         .permitAll() // Cho phép truy cập các đường dẫn này mà không cần đăng nhập
                         .requestMatchers("admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated()) // Yêu cầu đăng nhập cho các request khác
-
+                .sessionManagement((sessionManagement) -> sessionManagement
+                        .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
+                        .invalidSessionUrl("/logout?expired")
+                        .maximumSessions(1)
+                        .maxSessionsPreventsLogin(false))
+                .logout(logout -> logout.deleteCookies("JSESSIONID").invalidateHttpSession(true))
+                .rememberMe(r -> r.rememberMeServices(rememberMeServices()))
                 .formLogin(formLogin -> formLogin
                         .loginPage("/login")
                         .failureUrl("/login?error")
                         .successHandler(CustomSuccessHandle())
                         .permitAll())
-                        // .exceptionHandling(ex -> ex.accessDeniedPage("acess-deny"))
-                .logout(logout -> logout.permitAll());
+                .exceptionHandling(ex -> ex.accessDeniedPage("/acess-deny"));
+        // .logout(logout -> logout.permitAll());
         return http.build();
     }
 

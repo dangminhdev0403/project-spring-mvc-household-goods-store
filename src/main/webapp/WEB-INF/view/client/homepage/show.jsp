@@ -144,6 +144,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 </main>
 
 <!-- Footer -->
+
 <jsp:include page="../layout/footer.jsp" />
 
 <!--end footer  -->

@@ -4938,7 +4938,7 @@
                 </li>
                 <li class="user-menu__separate">
                   <a href="#!" class="user-menu__link" id="switch-theme-btn">
-                    <span>Dark mode</span>
+                    <span>Dao diện tối</span>
                     <img
                       src="./assets/icons/sun.svg"
                       alt=""
@@ -4950,7 +4950,7 @@
                   <a href="#!" class="user-menu__link">Settings</a>
                 </li>
                 <li class="user-menu__separate">
-                  <a href="/logout"  class="user-menu__link">Đăng xuất</a>
+                  <a href="/logout" class="user-menu__link">Đăng xuất</a>
                 </li>
               </ul>
             </div>
@@ -4959,7 +4959,9 @@
       </c:if>
       <c:if test="${ empty pageContext.request.userPrincipal}">
         <a href="/login" class="btn btn--text d-md-none">Đăng nhập</a>
-        <a href="/register" class="top-act__sign-up btn btn--primary">Đăng kí</a>
+        <a href="/register" class="top-act__sign-up btn btn--primary"
+          >Đăng kí</a
+        >
       </c:if>
     </div>
   </div>

@@ -22,7 +22,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         />
         <button class="search-bar__submit">
           <img
-            src="/client/assets/icons/search.svg"
+            src="client/assets/icons/search.svg"
             alt=""
             class="search-bar__icon icon"
           />
@@ -50,7 +50,6 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
             ${product.name}
           </a>
         </li>
-       
       </ul>
     </div>
 
@@ -125,96 +124,107 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
           </div>
         </div>
         <div class="col-7 col-xl-6 col-lg-12">
-          <form action="" class="form">
-            <section class="prod-info">
-              <h1 class="prod-info__heading">${product.name}</h1>
-              <div class="row">
-                <div class="col-5 col-xxl-6 col-xl-12">
-                  <!-- review -->
-                  <!-- <div class="prod-prop">
+          <section class="prod-info">
+            <h1 class="prod-info__heading">${product.name}</h1>
+            <div class="row">
+              <div class="col-5 col-xxl-6 col-xl-12">
+                <!-- review -->
+                <!-- <div class="prod-prop">
                                         <img src="/client/assets/icons/star.svg" alt="" class="prod-prop__icon" />
                                         <h4 class="prod-prop__title">(3.5) 1100 reviews</h4>
                                     </div> -->
-                  <!-- end review -->
+                <!-- end review -->
 
-                  <div class="filter__form-group">
-                    <div class="form__select-wrap">
-                      <div class="form__select" style="--width: 146px">
-                        Số lượng
-                      </div>
-                      <div class="form__select">${product.stock}</div>
+                <div class="filter__form-group">
+                  <div class="form__select-wrap">
+                    <div class="form__select" style="--width: 146px">
+                      Số lượng
                     </div>
-                  </div>
-                  <div class="filter__form-group">
-                    <div class="form__tags">
-                      <button class="form__tag prod-info__tag">Small</button>
-                      <button class="form__tag prod-info__tag">Medium</button>
-                      <button class="form__tag prod-info__tag">Large</button>
-                    </div>
+                    <div class="form__select">${product.stock}</div>
                   </div>
                 </div>
-                <div class="col-7 col-xxl-6 col-xl-12">
-                  <div class="prod-props">
-                    <div class="prod-prop">
-                      <img
-                        src="/client/assets/icons/document.svg"
-                        alt=""
-                        class="prod-prop__icon icon"
-                      />
-                      <h4 class="prod-prop__title">Compare</h4>
+                <div class="filter__form-group">
+                  <div class="form__tags">
+                    <button class="form__tag prod-info__tag">Small</button>
+                    <button class="form__tag prod-info__tag">Medium</button>
+                    <button class="form__tag prod-info__tag">Large</button>
+                  </div>
+                </div>
+              </div>
+              <div class="col-7 col-xxl-6 col-xl-12">
+                <div class="prod-props">
+                  <div class="prod-prop">
+                    <img
+                      src="/client/assets/icons/document.svg"
+                      alt=""
+                      class="prod-prop__icon icon"
+                    />
+                    <h4 class="prod-prop__title">Compare</h4>
+                  </div>
+                  <div class="prod-prop">
+                    <img
+                      src="/client/assets/icons/buy.svg"
+                      alt=""
+                      class="prod-prop__icon icon"
+                    />
+                    <div>
+                      <h4 class="prod-prop__title">Delivery</h4>
+                      <p class="prod-prop__desc">From $6 for 1-3 days</p>
                     </div>
-                    <div class="prod-prop">
-                      <img
-                        src="/client/assets/icons/buy.svg"
-                        alt=""
-                        class="prod-prop__icon icon"
-                      />
-                      <div>
-                        <h4 class="prod-prop__title">Delivery</h4>
-                        <p class="prod-prop__desc">From $6 for 1-3 days</p>
-                      </div>
+                  </div>
+                  <div class="prod-prop">
+                    <img
+                      src="/client/assets/icons/bag.svg"
+                      alt=""
+                      class="prod-prop__icon icon"
+                    />
+                    <div>
+                      <h4 class="prod-prop__title">Pickup</h4>
+                      <p class="prod-prop__desc">Out of 2 store, today</p>
                     </div>
-                    <div class="prod-prop">
-                      <img
-                        src="/client/assets/icons/bag.svg"
-                        alt=""
-                        class="prod-prop__icon icon"
-                      />
-                      <div>
-                        <h4 class="prod-prop__title">Pickup</h4>
-                        <p class="prod-prop__desc">Out of 2 store, today</p>
-                      </div>
+                  </div>
+                  <div class="prod-info__card">
+                    <div class="prod-info__row">
+                      <span class="prod-info__price">$500.00</span>
+                      <span class="prod-info__tax">10%</span>
                     </div>
-                    <div class="prod-info__card">
-                      <div class="prod-info__row">
-                        <span class="prod-info__price">$500.00</span>
-                        <span class="prod-info__tax">10%</span>
-                      </div>
-                      <p class="prod-info__total-price">
-                        <c:choose>
-                          <c:when test="${product.price != null}">
-                            <c:if test="${product.price % 1 != 0}">
-                              <fmt:formatNumber
-                                value="${product.price}"
-                                pattern="#,##0.000"
-                              />
-                              đ
-                            </c:if>
-                            <c:if test="${product.price % 1 == 0}">
-                              <fmt:formatNumber
-                                value="${product.price}"
-                                pattern="#,##0"
-                              />
-                              đ
-                            </c:if>
-                          </c:when>
-                        </c:choose>
-                      </p>
-                      <div class="prod-info__row">
-                        <button class="btn btn--primary prod-info__add-to-cart">
-                          Add to cart
-                        </button>
-                        <button class="like-btn prod-info__like-btn">
+                    <p class="prod-info__total-price">
+                      <c:choose>
+                        <c:when test="${product.price != null}">
+                          <c:if test="${product.price % 1 != 0}">
+                            <fmt:formatNumber
+                              value="${product.price}"
+                              pattern="#,##0.000"
+                            />
+                            đ
+                          </c:if>
+                          <c:if test="${product.price % 1 == 0}">
+                            <fmt:formatNumber
+                              value="${product.price}"
+                              pattern="#,##0"
+                            />
+                            đ
+                          </c:if>
+                        </c:when>
+                      </c:choose>
+                    </p>
+                    <div class="prod-info__row">
+                      <form
+                        action="/add-product-to-cart/${product.product_id}"
+                        method="post"
+                        class="form"
+                      >
+                        <input
+                          type="hidden"
+                          name="${_csrf.parameterName}"
+                          value="${_csrf.token}"
+                        />
+                        <a type="submit" class="btn btn--primary submit" style="cursor: pointer;">
+                          Thêm vào giỏ hàng
+                        </a>
+                      </form>
+
+                      <!-- <button class="like-btn prod-info__like-btn">
                           <img
                             src="/client/assets/icons/heart.svg"
                             alt=""
@@ -225,14 +235,13 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                             alt=""
                             class="like-btn__icon--liked"
                           />
-                        </button>
-                      </div>
+                        </button> -->
                     </div>
                   </div>
                 </div>
               </div>
-            </section>
-          </form>
+            </div>
+          </section>
         </div>
       </div>
     </div>

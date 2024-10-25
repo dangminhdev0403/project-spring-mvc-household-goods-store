@@ -43,6 +43,11 @@
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link rel="stylesheet" href="/css/demo.css" />
     <style>
+      .swal-footer{
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: center;
+      }
       
 .dataTables_length select {
  text-align: center;

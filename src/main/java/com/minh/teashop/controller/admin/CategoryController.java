@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.minh.teashop.domain.Category;
 import com.minh.teashop.domain.User;
@@ -47,28 +48,33 @@ public class CategoryController {
 
     
     @GetMapping("/admin/categories/update/{id}")
-    public String getUpdateCategoryPage(Model model, @PathVariable long id) {
+    public String getUpdateCategoryPage(Model model, @PathVariable long id,RedirectAttributes redirectAttributes) {
         Category currentCategory = this.categoryService.getCategoryById(id);
         model.addAttribute("newCategory", currentCategory) ;
+        redirectAttributes.addFlashAttribute("success", "Xoá thành công");
+
         return "admin/category/update";
     }
     
 
 
     @PostMapping("/admin/categories/update")
-    public String getUpdateCategoryPage(Model model, @ModelAttribute("newCategory") Category currentCategory) {
+    public String getUpdateCategoryPage(Model model, @ModelAttribute("newCategory") Category currentCategory,RedirectAttributes redirectAttributes) {
         Category  category = this.categoryService.getCategoryById(currentCategory.getCategory_id());
         if(category != null){
             category.setName(currentCategory.getName());
             this.categoryService.handleSavCategory(category);
         }
+        redirectAttributes.addFlashAttribute("success", "Cập nhật thành công");
+
         return "redirect:/admin/categories";
     }
     
 
 
     @PostMapping("/admin/categories/create")
-    public String createCategory(Model model, @ModelAttribute("newCategory") Category newCategory) {
+    public String createCategory(Model model, @ModelAttribute("newCategory") Category newCategory ,RedirectAttributes redirectAttributes) {
+        redirectAttributes.addFlashAttribute("success", "Thêm thành công");
 
         this.categoryService.handleSavCategory(newCategory);
         return "redirect:/admin/categories";

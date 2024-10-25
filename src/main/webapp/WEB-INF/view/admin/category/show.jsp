@@ -74,14 +74,13 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                           <i class="fa fa-edit"></i>
                           </a>
                           <a  href="/admin/categories/delete/${category.category_id}"
-                            type="button"
                             data-bs-toggle="tooltip"
                             title=""
-                            class="btn btn-link btn-danger"
+                            class="btn btn-link btn-danger is-delete"
                             data-original-title="Remove"
                           >
-                            <i class="fa fa-times"></i>
-                          </a>
+                          <i class="fa fa-times is-delete"  href="/admin/categories/delete/${category.category_id}" ></i>
+                        </a>
                         </div>
                       </td>
                     </tr>

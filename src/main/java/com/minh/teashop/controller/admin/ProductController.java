@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.minh.teashop.domain.Category;
 import com.minh.teashop.domain.Product;
@@ -68,7 +69,7 @@ public class ProductController {
     }
 
     @GetMapping("/admin/product/delete/{id}")
-    public String getMethodName(Model model, @PathVariable long id) {
+    public String getMethodName(Model model, @PathVariable long id , RedirectAttributes redirectAttributes) {
       Optional<Product> product = this.productService.fetchProductById(id);
       if(product.isPresent()){
         List<ProductImage> listImages = this.productImageService.getImagesByProduct(product.get());
@@ -80,11 +81,13 @@ public class ProductController {
       }
 
         this.productService.handleDeleteProduct(id);
+        redirectAttributes.addFlashAttribute("success", "Xoá thành công");
+
         return "redirect:/admin/products";
     }
 
     @PostMapping("/admin/product/create")
-    public String handleCreateProduct(@ModelAttribute("newProduct") Product product,
+    public String handleCreateProduct(@ModelAttribute("newProduct") Product product, RedirectAttributes redirectAttributes,
             @RequestParam("productsImg") MultipartFile[] files) {
         Product newProduct = this.productService.handleSaveProduct(product);
 
@@ -99,11 +102,13 @@ public class ProductController {
                 this.productImageService.handleSaveImage(image);
             }
         }
+        redirectAttributes.addFlashAttribute("success", "Thêm thành công");
+
         return "redirect:/admin/products";
     }
 
     @PostMapping("/admin/product/update")
-    public String handleUpdateProduct(@ModelAttribute("newProduct") Product product,
+    public String handleUpdateProduct(@ModelAttribute("newProduct") Product product, RedirectAttributes redirectAttributes,
             @RequestParam("productsImg") MultipartFile[] files) {
         Product currentProduct = this.productService.fetchProductById(product.getProduct_id()).get();
         if (currentProduct != null) {
@@ -133,7 +138,10 @@ public class ProductController {
             currentProduct.setStock(product.getStock());
             currentProduct.setPrice(product.getPrice());
             this.productService.handleSaveProduct(currentProduct); // Thay đổi ở đây
+
         }
+        redirectAttributes.addFlashAttribute("success", "Cập nhật thành công");
+
 
         return "redirect:/admin/products";
     }

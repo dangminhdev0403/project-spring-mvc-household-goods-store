@@ -133,6 +133,214 @@ uri="http://www.springframework.org/tags/form" %>
     
 </footer>
 
+<!-- Thêm thẻ <p> để hiển thị thông điệp -->
+    <p id="mode-message"></p>
+
+    <script>
+    let switchBtn = document.querySelector("#switch-theme-btn");
+    let spanMode = document.querySelector("#switch-theme-btn span");
+    let modeMessage = document.getElementById("mode-message"); // Lấy thẻ <p>
+    
+    function updateModeMessage() {
+        const isDarkMode = document.querySelector("html").classList.contains("dark");
+        
+        // Cập nhật nội dung cho thẻ <p> dựa trên giao diện
+        if (isDarkMode) {
+            modeMessage.textContent = "Giao diện tối";
+        } else {
+            modeMessage.textContent = "Giao diện sáng";
+        }
+    }
+    
+    if (switchBtn) {
+        switchBtn.onclick = function () {
+            const isDark = localStorage.dark === "true";
+            document.querySelector("html").classList.toggle("dark", !isDark);
+            localStorage.setItem("dark", !isDark);
+            
+            // Cập nhật textContent cho span
+            spanMode.textContent = isDark ? "Giao diện tối" : "Giao diện sáng";
+    
+            // Cập nhật thông điệp
+            updateModeMessage();
+        };
+    
+        // Khởi tạo nội dung cho span dựa trên localStorage
+        const isDark = localStorage.dark === "true";
+        spanMode.textContent = isDark ? "Giao diện sáng" : "Giao diện tối";
+    
+        // Cập nhật thông điệp ban đầu
+        updateModeMessage();
+    }
+    </script>
+<!-- Thêm thẻ <p> để hiển thị thông điệp -->
+
+    
+        
+    
 </body>
+<!-- Thêm thẻ <p> để hiển thị thông điệp -->
+    <script>
+        function formatNumber(num) {
+          if (typeof num !== 'number' || isNaN(num)) {
+            return '0,00'; 
+          }
+      
+          const formatter = new Intl.NumberFormat('pt-BR', {
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 3,
+          });
+      
+          let formattedNumber = formatter.format(num);
+          let [integerPart, decimalPart] = formattedNumber.split(',');
+      
+          if (!decimalPart || decimalPart === '000') {
+            return integerPart;
+          }
+      
+          return `${integerPart},${decimalPart}`;
+        }
+      
+        function removeDotsAndLetters(input) {
+          return input.replace(/[^0-9]/g, '');
+        }
+      
+        function totalPrice(quantity, price) {
+          return parseFloat(quantity) * parseFloat(price);
+        }  
+      
+        let cartItems = document.querySelectorAll(".cart-item__input.quantity");
+        const printTotals = document.querySelectorAll('.sumPrice'); // Selector cho tổng giá giỏ hàng
+      
+        cartItems.forEach((cartItem) => {
+          const minusBtn = cartItem.querySelector(".minus-btn");
+          const plusBtn = cartItem.querySelector(".plus-btn");
+          const quantitySpan = cartItem.querySelector(".quantity"); 
+          const priceP = cartItem.parentElement.parentElement.querySelector(".cart-item__price-wrap");
+          let price = removeDotsAndLetters(priceP.textContent);
+          const totalP = priceP.parentElement.parentElement.querySelector(".cart-item__total-price");
+          let quantity = parseInt(quantitySpan.textContent);
+      
+          const updateTotalPrice = () => {
+            let totalProduct = totalPrice(quantity, price);
+            totalP.textContent = formatNumber(totalProduct) + " đ";
+            updateCartTotal(); // Cập nhật tổng giỏ hàng
+          };
+      
+          // Sự kiện giảm số lượng
+          minusBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+        
+            if (quantity > 1) {
+              --quantity;
+              quantitySpan.textContent = quantity;
+              updateTotalPrice();
+            }
+          });
+      
+          // Sự kiện tăng số lượng
+          plusBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            ++quantity;
+            quantitySpan.textContent = quantity;
+            updateTotalPrice();
+          });
+        });
+      
+        // Cập nhật tổng giỏ hàng
+        function updateCartTotal() {
+          let total = 0;
+          cartItems.forEach((cartItem) => {
+            const priceP = cartItem.parentElement.parentElement.querySelector(".cart-item__price-wrap");
+
+            let price = removeDotsAndLetters(priceP.textContent);
+            const totalP = priceP.parentElement.parentElement.querySelector(".cart-item__total-price");
+            let totalProduct = parseFloat(removeDotsAndLetters(totalP.textContent));
+      
+            if (!isNaN(totalProduct)) {
+              total += totalProduct;
+            }
+          });
+          
+          printTotals.forEach((printTotal) => {
+            printTotal.textContent = formatNumber(total) + " đ"; // Cập nhật tổng giá
+
+          });
+        }
+
+     
+
+      </script>
+      
+<script>
+let currentUrl = window.location.href;
+
+// Kiểm tra xem URL có chứa từ "cart" không
+
+
+
+    function submitForm(e){
+        e.preventDefault();
+        let btnSubmit = document.querySelector("a.submit");
+        let form = btnSubmit.closest("form"); // Lấy thẻ form là cha của button
+        console.log(form);
+        
+        form.submit(); // Gọi phương thức submit của form
+    }
+    let btnSubmit = document.querySelector("a.submit");
+    btnSubmit.addEventListener('click', submitForm);
+    let form = btnSubmit.closest("form"); // Lấy thẻ form là cha của button
+   
+</script>
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+     function alertAppted(e) {
+    e.preventDefault();   // Ngăn chặn hành động mặc định
+
+    let action = document.querySelector("button.is-delete");
+    let form = action.closest("form"); // Tìm form gần nhất chứa nút
+
+    swal({
+        title: "Bạn có chắc muốn xoá?",
+        text: "Dữ liệu sẽ bị xoá vĩnh viễn",
+        icon: "warning",  // Sử dụng "icon" thay vì "type"
+        buttons: {
+            cancel: {
+                text: "Huỷ bỏ",      // Tùy chỉnh nút "Huỷ bỏ"
+                visible: true,
+                className: "btn btn-danger",
+            },
+            confirm: {
+                text: "Đồng ý",
+                className: "btn btn-success",
+            },
+        },
+        reverseButtons: false,
+    }).then((willDelete) => {
+        if (willDelete) {
+         form.submit();
+        } else {
+            // Người dùng nhấn cancel
+          
+        }
+    });
+}
+
+// Chọn tất cả các phần tử có class is-delete
+let isAlertElements = document.querySelectorAll(".is-delete");
+
+// Lặp qua các phần tử và gắn sự kiện click cho từng phần tử
+isAlertElements.forEach(function (element) {
+    element.addEventListener('click', alertAppted);
+});   
+
+<c:if test="${not empty success}">
+
+swal( "Thành công" ,  "${success}" ,  "success" )
+
+    
+</c:if>
+</script>
 
 </html>

@@ -36,6 +36,7 @@
 <script src="/js/core/jquery-3.7.1.min.js"></script>
 <script src="/js/core/popper.min.js"></script>
 <script src="/js/core/bootstrap.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <!-- jQuery Scrollbar -->
 <script src="/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
@@ -169,7 +170,62 @@ if (!isNaN(numericPriceProduct)) {
 function formatNumber(value) {
         return value.toString(); // Trả về chuỗi của giá trị
     }
-</script>
 
+   
+    
+    
+ 
+</script>
+  <script>
+    
+ function alertAppted(e) {
+    e.preventDefault();   // Ngăn chặn hành động mặc định
+
+    let action = document.querySelector("a.is-delete");
+    let deleteUrl = action.getAttribute('href');
+
+    swal({
+        title: "Bạn có chắc muốn xoá?",
+        text: "Dữ liệu sẽ bị xoá vĩnh viễn",
+        icon: "warning",  // Sử dụng "icon" thay vì "type"
+        buttons: {
+            cancel: {
+                text: "Huỷ bỏ",      // Tùy chỉnh nút "Huỷ bỏ"
+                visible: true,
+                className: "btn btn-danger",
+            },
+            confirm: {
+                text: "Đồng ý",
+                className: "btn btn-success",
+            },
+        },
+        reverseButtons: false,
+    }).then((willDelete) => {
+        if (willDelete) {
+          window.location.href = deleteUrl;
+        } else {
+            // Người dùng nhấn cancel
+          
+        }
+    });
+}
+
+// Chọn tất cả các phần tử có class is-delete
+let isAlertElements = document.querySelectorAll(".is-delete");
+
+// Lặp qua các phần tử và gắn sự kiện click cho từng phần tử
+isAlertElements.forEach(function (element) {
+    element.addEventListener('click', alertAppted);
+});
+
+   
+<c:if test="${not empty success}">
+
+swal( "Thành công" ,  "${success}" ,  "success" )
+
+    
+</c:if>
+</script>
 </body>
+
 </html>

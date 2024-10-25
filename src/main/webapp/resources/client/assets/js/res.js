@@ -4,3 +4,4 @@ btnNext.addEventListener("click", clickNext);
 function clickNext() {
   authContent.classList.replace("hide", "show");
 }
+
