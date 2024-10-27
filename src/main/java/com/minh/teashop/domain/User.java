@@ -1,17 +1,22 @@
 package com.minh.teashop.domain;
 
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
 
+@AllArgsConstructor
 @Entity
 @Table(name = "users")
 public class User {
@@ -32,29 +37,21 @@ public class User {
 
     @Size(min = 10, message = "Số điện thoại phải có ít nhất 10 chữ số")
     private String phone;
-    private String address;
     private String avatar;
 
     @ManyToOne
     @JoinColumn(name = "role_id")
     private Role role;
+    @OneToMany(mappedBy = "user")
+    List<Address> address;
+
+    @OneToMany(mappedBy = "user")
+    private List<Order> orders;
+
     @OneToOne(mappedBy = "user")
     private Cart cart;
 
     public User() {
-    }
-
-    public User(long user_id, String name, String password, String email, String phone, String address, String avatar,
-            Role role, Cart cart) {
-        this.user_id = user_id;
-        this.name = name;
-        this.password = password;
-        this.email = email;
-        this.phone = phone;
-        this.address = address;
-        this.avatar = avatar;
-        this.role = role;
-        this.cart = cart;
     }
 
     public long getUser_id() {
@@ -89,14 +86,6 @@ public class User {
         this.email = email;
     }
 
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
     public Role getRole() {
         return role;
     }
@@ -127,6 +116,14 @@ public class User {
 
     public void setCart(Cart cart) {
         this.cart = cart;
+    }
+
+    public List<Address> getAddress() {
+        return address;
+    }
+
+    public void setAddress(List<Address> address) {
+        this.address = address;
     }
 
 }

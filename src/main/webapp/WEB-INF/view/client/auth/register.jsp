@@ -240,6 +240,7 @@ uri="http://www.springframework.org/tags/form" %>
         </div>
       </div>
     </main>
-  </body>
+  
   <script src="/client/assets/js/res.js"></script>
-</html>
+  <jsp:include page="../layout/footer.jsp" />
+

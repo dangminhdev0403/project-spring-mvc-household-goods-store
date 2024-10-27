@@ -172,5 +172,5 @@ uri="http://www.springframework.org/tags/form" %>
     <script>
       window.dispatchEvent(new Event("template-loaded"));
     </script>
-  </body>
-</html>
+<jsp:include page="../layout/footer.jsp" />
+

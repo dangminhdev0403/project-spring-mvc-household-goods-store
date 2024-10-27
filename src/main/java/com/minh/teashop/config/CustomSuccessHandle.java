@@ -1,10 +1,8 @@
 package com.minh.teashop.config;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +13,7 @@ import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.WebAttributes;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
-import com.minh.teashop.domain.Cart;
-import com.minh.teashop.domain.CartDetail;
 import com.minh.teashop.domain.User;
-import com.minh.teashop.service.ProductService;
 import com.minh.teashop.service.UserService;
 
 import jakarta.servlet.ServletException;
@@ -29,7 +24,6 @@ import jakarta.servlet.http.HttpSession;
 public class CustomSuccessHandle implements AuthenticationSuccessHandler {
     @Autowired
     private UserService userService;
-    private ProductService productService;
     private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 
     @Override
@@ -77,9 +71,6 @@ public class CustomSuccessHandle implements AuthenticationSuccessHandler {
 
             long sum = user.getCart() == null ? 0 : user.getCart().getSum();
 
-            Cart cart = user.getCart();
-
-           
             session.setAttribute("cartSum", sum);
 
         }

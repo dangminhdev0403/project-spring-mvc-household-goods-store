@@ -5,12 +5,18 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.minh.teashop.domain.Address;
 import com.minh.teashop.domain.Cart;
 import com.minh.teashop.domain.CartDetail;
+import com.minh.teashop.domain.Order;
+import com.minh.teashop.domain.OrderDetail;
 import com.minh.teashop.domain.Product;
 import com.minh.teashop.domain.User;
+import com.minh.teashop.domain.enumdomain.OrderStatus;
 import com.minh.teashop.repository.CartDetailRepository;
 import com.minh.teashop.repository.CartRepository;
+import com.minh.teashop.repository.OrderDetailRepository;
+import com.minh.teashop.repository.OrderRepository;
 import com.minh.teashop.repository.ProductRepository;
 
 import jakarta.servlet.http.HttpSession;
@@ -23,13 +29,18 @@ public class ProductService {
     private final CartRepository cartRepository;
     private final CartDetailRepository cartDetailRepository;
     private final UserService userService;
+    private final OrderRepository orderRepository;
+    private final OrderDetailRepository orderDetailRepository;
 
-    public ProductService(ProductRepository productRepository, CartDetailRepository cartDetailRepository,
-            CartRepository cartRepository, UserService userService) {
+    public ProductService(ProductRepository productRepository, CartRepository cartRepository,
+            CartDetailRepository cartDetailRepository, UserService userService, OrderRepository orderRepository,
+            OrderDetailRepository orderDetailRepository) {
         this.productRepository = productRepository;
         this.cartRepository = cartRepository;
         this.cartDetailRepository = cartDetailRepository;
         this.userService = userService;
+        this.orderRepository = orderRepository;
+        this.orderDetailRepository = orderDetailRepository;
     }
 
     public List<Product> getListProducts() {
@@ -101,11 +112,10 @@ public class ProductService {
 
             if (currentCart.getSum() > 0) {
                 long sum = currentCart.getSum() - 1;
-               
-                    currentCart.setSum(sum);
-                    session.setAttribute("cartSum", sum);
-                    this.cartRepository.save(currentCart);
-                
+
+                currentCart.setSum(sum);
+                session.setAttribute("cartSum", sum);
+                this.cartRepository.save(currentCart);
 
             } else {
                 this.cartRepository.deleteById(cartDetailId);
@@ -113,5 +123,55 @@ public class ProductService {
 
             }
         }
+    }
+
+    public void handleUpdateCartDetailBeforeCheckout(List<CartDetail> cartDetails) {
+        for (CartDetail cartDetail : cartDetails) {
+            Optional<CartDetail> cdOptional = this.cartDetailRepository.findById(cartDetail.getId());
+            if (cdOptional.isPresent()) {
+                CartDetail currenCartDetail = cdOptional.get();
+                currenCartDetail.setQuantity(cartDetail.getQuantity());
+                this.cartDetailRepository.save(currenCartDetail);
+            }
+        }
+
+    }
+
+    public void handlePlaceOrder(User user, HttpSession session, Address receiverAddress) {
+        // create Oder
+        Order order = new Order() ;
+        order.setUser(user);
+        order.setReceiverAddress(receiverAddress.getFullAddress());
+        order.setReceiverName(receiverAddress.getReceiverName());
+        order.setReceiverPhone(receiverAddress.getReceiverPhone());
+        order.setStatus(OrderStatus.PENDING);
+       order = this.orderRepository.save(order);
+
+       Cart cart = this.cartRepository.findByUser(user);
+       if(cart!= null){
+        List<CartDetail> cartDetails = cart.getCartDetails();
+        if(cartDetails != null){
+            for(CartDetail cd : cartDetails){
+                OrderDetail orderDetail = new OrderDetail() ;
+                orderDetail.setOrder(order);
+                orderDetail.setProduct(cd.getProduct());
+                orderDetail.setPrice(cd.getPrice());
+                orderDetail.setQuantity(cd.getQuantity());
+                
+                this.orderDetailRepository.save(orderDetail);
+                
+            }
+            for(CartDetail cd : cartDetails){
+                this.cartDetailRepository.deleteById(cd.getId());
+            }
+            this.cartRepository.delete(cart);
+           
+            session.setAttribute("cartSum", 0);
+
+
+
+
+        }
+       }
     }
 }

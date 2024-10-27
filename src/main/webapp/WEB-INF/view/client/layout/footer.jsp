@@ -4,134 +4,84 @@ uri="http://www.springframework.org/tags/form" %>
 <footer id="footer" class="footer">
     <div class="container">
         <div class="footer__row">
-            <!-- Footer column 1 -->
+            <!-- Cột 1 -->
             <div class="footer__col">
                 <!-- Logo -->
                 <a href="/client" class="logo footer__logo">
                     <img src="/client/assets/icons/logo.svg" alt="grocerymart" class="logo__img" />
-                    <h1 class="logo__title">grocerymart</h1>
+                    <h1 class="logo__title">Grocery Mart</h1>
                 </a>
                 <p class="footer__desc">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam, maxime et veniam eligendi rem
-                    voluptatibus.
+                    Grocery Mart - nơi bạn tìm thấy những sản phẩm tốt nhất cho nhu cầu hàng ngày của bạn.
                 </p>
-    
-                <p class="footer__help-text">Receive product news and updates.</p>
+
+                <p class="footer__help-text">Nhận thông tin và cập nhật sản phẩm.</p>
                 <form action="" class="footer__form">
-                    <input type="text" class="footer__input" placeholder="Email address" />
-                    <button class="btn btn--primary">SEND</button>
+                    <input type="text" class="footer__input" placeholder="Địa chỉ Email" />
+                    <button class="btn btn--primary">GỬI</button>
                 </form>
             </div>
-    
-            <!-- Footer column 2 -->
+
+            <!-- Cột 2 -->
             <div class="footer__col">
-                <h3 class="footer__heading">Shop</h3>
+                <h3 class="footer__heading">Mua sắm</h3>
                 <ul class="footer__list">
-                    <li>
-                        <a href="#!" class="footer__link">All Departments</a>
-                    </li>
-                    <li>
-                        <a href="#!" class="footer__link">Fashion Deals</a>
-                    </li>
-                    <li>
-                        <a href="#!" class="footer__link">Electronics Discounts</a>
-                    </li>
-                    <li>
-                        <a href="#!" class="footer__link">Home & Living Specials</a>
-                    </li>
-                    <li>
-                        <a href="#!" class="footer__link">Beauty Bargains</a>
-                    </li>
+                    <li><a href="#!" class="footer__link">Tất cả các ngành hàng</a></li>
+                    <li><a href="#!" class="footer__link">Khuyến mãi Thời trang</a></li>
+                    <li><a href="#!" class="footer__link">Giảm giá Điện tử</a></li>
+                    <li><a href="#!" class="footer__link">Ưu đãi Nội thất & Gia đình</a></li>
+                    <li><a href="#!" class="footer__link">Ưu đãi Sắc đẹp</a></li>
                 </ul>
             </div>
-    
-            <!-- Footer column 3 -->
+
+            <!-- Cột 3 -->
             <div class="footer__col">
-                <h3 class="footer__heading">Support</h3>
+                <h3 class="footer__heading">Hỗ trợ</h3>
                 <ul class="footer__list">
-                    <li>
-                        <a href="#!" class="footer__link">Store locator</a>
-                    </li>
-                    <li>
-                        <a href="#!" class="footer__link">Order status</a>
-                    </li>
+                    <li><a href="#!" class="footer__link">Tìm cửa hàng</a></li>
+                    <li><a href="#!" class="footer__link">Trạng thái đơn hàng</a></li>
                 </ul>
             </div>
-    
-            <!-- Footer column 4 -->
+
+            <!-- Cột 4 -->
             <div class="footer__col">
-                <h3 class="footer__heading">Company</h3>
+                <h3 class="footer__heading">Công ty</h3>
                 <ul class="footer__list">
-                    <li>
-                        <a href="#!" class="footer__link">Customer Service</a>
-                    </li>
-                    <li>
-                        <a href="#!" class="footer__link">Terms of Use</a>
-                    </li>
-                    <li>
-                        <a href="#!" class="footer__link">Privacy</a>
-                    </li>
-                    <li>
-                        <a href="#!" class="footer__link">Careers</a>
-                    </li>
-                    <li>
-                        <a href="#!" class="footer__link">About</a>
-                    </li>
-                    <li>
-                        <a href="#!" class="footer__link">Affiliates</a>
-                    </li>
+                    <li><a href="#!" class="footer__link">Dịch vụ khách hàng</a></li>
+                    <li><a href="#!" class="footer__link">Điều khoản sử dụng</a></li>
+                    <li><a href="#!" class="footer__link">Chính sách bảo mật</a></li>
+                    <li><a href="#!" class="footer__link">Tuyển dụng</a></li>
+                    <li><a href="#!" class="footer__link">Giới thiệu</a></li>
+                    <li><a href="#!" class="footer__link">Liên kết</a></li>
                 </ul>
             </div>
-    
-            <!-- Footer column 5 -->
+
+            <!-- Cột 5 -->
             <div class="footer__col">
-                <h3 class="footer__heading">Contact</h3>
+                <h3 class="footer__heading">Liên hệ</h3>
                 <ul class="footer__list">
-                    <li>
-                        <p class="footer__label">Email</p>
-                        <a href="mailto:contact@grocerymart.com" class="footer__link"> contact@grocerymart.com </a>
-                    </li>
-                    <li>
-                        <p class="footer__label">Hotline</p>
-                        <a href="tel:18008888" class="footer__link">18008888</a>
-                    </li>
-                    <li>
-                        <p class="footer__label">Address</p>
-                        <p class="footer__text">
-                            No. 11D, Lot A10, Nam Trung Yen urban area, Yen Hoa Ward, Cau Giay District, City. Hanoi
-                        </p>
-                    </li>
-                    <li>
-                        <p class="footer__label">Hours</p>
-                        <p class="footer__text">M - F 08:00am - 06:00pm</p>
-                    </li>
+                    <li><p class="footer__label">Email</p><a href="mailto:contact@grocerymart.com" class="footer__link">contact@grocerymart.com</a></li>
+                    <li><p class="footer__label">Hotline</p><a href="tel:18008888" class="footer__link">18008888</a></li>
+                    <li><p class="footer__label">Địa chỉ</p><p class="footer__text">Số 11D, Lô A10, Khu đô thị Nam Trung Yên, Phường Yên Hòa, Quận Cầu Giấy, TP. Hà Nội</p></li>
+                    <li><p class="footer__label">Giờ làm việc</p><p class="footer__text">Thứ 2 - Thứ 6 08:00 sáng - 06:00 chiều</p></li>
                 </ul>
             </div>
         </div>
+
         <div class="footer__bottom">
-            <p class="footer__copyright">© 2010 - 2025 Grocery Mart. All rights reserved.</p>
+            <p class="footer__copyright">© 2010 - 2025 Grocery Mart. Bản quyền thuộc về Grocery Mart.</p>
     
             <div class="footer__socials">
-                <a href="#!" class="footer__social-link footer__social-link--facebook">
-                    <img src="/client/assets/icons/facebook.svg" alt="" class="footer__social-icon" />
-                </a>
-                <a href="#!" class="footer__social-link footer__social-link--youtube">
-                    <img src="/client/assets/icons/youtube.svg" alt="" class="footer__social-icon" />
-                </a>
-                <a href="#!" class="footer__social-link footer__social-link--tiktok">
-                    <img src="/client/assets/icons/tiktok.svg" alt="" class="footer__social-icon" />
-                </a>
-                <a href="#!" class="footer__social-link footer__social-link--twitter">
-                    <img src="/client/assets/icons/twitter.svg" alt="" class="footer__social-icon" />
-                </a>
-                <a href="#!" class="footer__social-link footer__social-link--linkedin">
-                    <img src="/client/assets/icons/linkedin.svg" alt="" class="footer__social-icon" />
-                </a>
+                <a href="#!" class="footer__social-link footer__social-link--facebook"><img src="/client/assets/icons/facebook.svg" alt="" class="footer__social-icon" /></a>
+                <a href="#!" class="footer__social-link footer__social-link--youtube"><img src="/client/assets/icons/youtube.svg" alt="" class="footer__social-icon" /></a>
+                <a href="#!" class="footer__social-link footer__social-link--tiktok"><img src="/client/assets/icons/tiktok.svg" alt="" class="footer__social-icon" /></a>
+                <a href="#!" class="footer__social-link footer__social-link--twitter"><img src="/client/assets/icons/twitter.svg" alt="" class="footer__social-icon" /></a>
+                <a href="#!" class="footer__social-link footer__social-link--linkedin"><img src="/client/assets/icons/linkedin.svg" alt="" class="footer__social-icon" /></a>
             </div>
         </div>
     </div>
-    
 </footer>
+
 
 <!-- Thêm thẻ <p> để hiển thị thông điệp -->
     <p id="mode-message"></p>
@@ -179,103 +129,13 @@ uri="http://www.springframework.org/tags/form" %>
         
     
 </body>
+<script src="/client/assets/js/myscripts.js"></script>
+
 <!-- Thêm thẻ <p> để hiển thị thông điệp -->
-    <script>
-        function formatNumber(num) {
-          if (typeof num !== 'number' || isNaN(num)) {
-            return '0,00'; 
-          }
-      
-          const formatter = new Intl.NumberFormat('pt-BR', {
-            minimumFractionDigits: 0,
-            maximumFractionDigits: 3,
-          });
-      
-          let formattedNumber = formatter.format(num);
-          let [integerPart, decimalPart] = formattedNumber.split(',');
-      
-          if (!decimalPart || decimalPart === '000') {
-            return integerPart;
-          }
-      
-          return `${integerPart},${decimalPart}`;
-        }
-      
-        function removeDotsAndLetters(input) {
-          return input.replace(/[^0-9]/g, '');
-        }
-      
-        function totalPrice(quantity, price) {
-          return parseFloat(quantity) * parseFloat(price);
-        }  
-      
-        let cartItems = document.querySelectorAll(".cart-item__input.quantity");
-        const printTotals = document.querySelectorAll('.sumPrice'); // Selector cho tổng giá giỏ hàng
-      
-        cartItems.forEach((cartItem) => {
-          const minusBtn = cartItem.querySelector(".minus-btn");
-          const plusBtn = cartItem.querySelector(".plus-btn");
-          const quantitySpan = cartItem.querySelector(".quantity"); 
-          const priceP = cartItem.parentElement.parentElement.querySelector(".cart-item__price-wrap");
-          let price = removeDotsAndLetters(priceP.textContent);
-          const totalP = priceP.parentElement.parentElement.querySelector(".cart-item__total-price");
-          let quantity = parseInt(quantitySpan.textContent);
-      
-          const updateTotalPrice = () => {
-            let totalProduct = totalPrice(quantity, price);
-            totalP.textContent = formatNumber(totalProduct) + " đ";
-            updateCartTotal(); // Cập nhật tổng giỏ hàng
-          };
-      
-          // Sự kiện giảm số lượng
-          minusBtn.addEventListener("click", (e) => {
-            e.preventDefault();
-        
-            if (quantity > 1) {
-              --quantity;
-              quantitySpan.textContent = quantity;
-              updateTotalPrice();
-            }
-          });
-      
-          // Sự kiện tăng số lượng
-          plusBtn.addEventListener("click", (e) => {
-            e.preventDefault();
-            ++quantity;
-            quantitySpan.textContent = quantity;
-            updateTotalPrice();
-          });
-        });
-      
-        // Cập nhật tổng giỏ hàng
-        function updateCartTotal() {
-          let total = 0;
-          cartItems.forEach((cartItem) => {
-            const priceP = cartItem.parentElement.parentElement.querySelector(".cart-item__price-wrap");
-
-            let price = removeDotsAndLetters(priceP.textContent);
-            const totalP = priceP.parentElement.parentElement.querySelector(".cart-item__total-price");
-            let totalProduct = parseFloat(removeDotsAndLetters(totalP.textContent));
-      
-            if (!isNaN(totalProduct)) {
-              total += totalProduct;
-            }
-          });
-          
-          printTotals.forEach((printTotal) => {
-            printTotal.textContent = formatNumber(total) + " đ"; // Cập nhật tổng giá
-
-          });
-        }
-
-     
-
-      </script>
+    
       
 <script>
-let currentUrl = window.location.href;
 
-// Kiểm tra xem URL có chứa từ "cart" không
 
 
 
@@ -288,22 +148,25 @@ let currentUrl = window.location.href;
         form.submit(); // Gọi phương thức submit của form
     }
     let btnSubmit = document.querySelector("a.submit");
-    btnSubmit.addEventListener('click', submitForm);
-    let form = btnSubmit.closest("form"); // Lấy thẻ form là cha của button
+    if(btnSubmit){
+        btnSubmit.addEventListener('click', submitForm);
+        let form = btnSubmit.closest("form"); // Lấy thẻ form là cha của button
+    }
+   
    
 </script>
 
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>
-     function alertAppted(e) {
+     function alertAppted(e , element , notice ,message ) {
+      
     e.preventDefault();   // Ngăn chặn hành động mặc định
 
-    let action = document.querySelector("button.is-delete");
-    let form = action.closest("form"); // Tìm form gần nhất chứa nút
+    let form = element.closest("form"); // Tìm form gần nhất chứa nút
 
     swal({
-        title: "Bạn có chắc muốn xoá?",
-        text: "Dữ liệu sẽ bị xoá vĩnh viễn",
+        title: notice ,
+        text: message,
         icon: "warning",  // Sử dụng "icon" thay vì "type"
         buttons: {
             cancel: {
@@ -329,11 +192,34 @@ let currentUrl = window.location.href;
 
 // Chọn tất cả các phần tử có class is-delete
 let isAlertElements = document.querySelectorAll(".is-delete");
+let isCancels = document.querySelectorAll(".is-cancel");
 
 // Lặp qua các phần tử và gắn sự kiện click cho từng phần tử
 isAlertElements.forEach(function (element) {
-    element.addEventListener('click', alertAppted);
-});   
+    element.addEventListener('click', function (e) {
+        alertAppted(e,element, "Xác nhận", "Bạn có chắc chắn muốn xóa không?");
+    });
+}); 
+
+isCancels.forEach(function (element) {
+    element.addEventListener('click', function (e) {
+        alertAppted(e,element, "Xác nhận", "Bạn có chắc chắn muốn huỷ đơn hàng?");
+    });
+}); 
+
+
+const notice = "Xác nhận đặt hàng";
+const message = "Bạn có chắc chắn muốn đặt hàng không?";
+
+let isCheckOut = document.querySelector('#place-hoder');
+if(isCheckOut){
+    isCheckOut.addEventListener('click', function (e) {
+        alertAppted(e,isCheckOut, notice, message);
+    });
+}
+
+
+
 
 <c:if test="${not empty success}">
 

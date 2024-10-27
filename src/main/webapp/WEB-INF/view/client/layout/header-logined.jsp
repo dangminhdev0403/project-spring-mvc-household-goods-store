@@ -354,9 +354,9 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                 
                 </div>
                 <div class="act-dropdown__bottom">
-                  <div class="act-dropdown__row">
-                    <span class="act-dropdown__label">Tạm tính</span>
-                    <span class="act-dropdown__value sumPrice">
+                  <div class="act-dropdown__row" style="justify-content: space-around;">
+                    <span class="act-dropdown__label" style="font-weight: bold; font-size: 2.2rem;">Tổng:</span>
+                    <span class="act-dropdown__value sumPrice" style="font-weight: bold; font-size: 2rem;">
                       <c:choose>
                         <c:when test="${finalPrice != null}">
                           <c:if test="${finalPrice % 1 != 0}">
@@ -380,14 +380,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                     </span>
                   </div>
                  
-                  <div class="act-dropdown__row">
-                    <span class="act-dropdown__label">Phí vận chuyển</span>
-                    <span class="act-dropdown__value">$10.00</span>
-                  </div>
-                  <div class="act-dropdown__row act-dropdown__row--bold">
-                    <span class="act-dropdown__label">Tổng cộng</span>
-                    <span class="act-dropdown__value">$425.99</span>
-                  </div>
+                 
                 </div>
                 <div class="act-dropdown__checkout">
                   <a
@@ -459,8 +452,8 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                   >
                 </li>
                 <li>
-                  <a href="./favourite.html" class="user-menu__link"
-                    >Favourite list</a
+                  <a href="/order-history" class="user-menu__link"
+                    > Lịch sử mua hàng</a
                   >
                 </li>
 
