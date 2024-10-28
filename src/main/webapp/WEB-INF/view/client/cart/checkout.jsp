@@ -336,15 +336,26 @@ uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
                 <c:forEach var="ad" items="${addresses}" varStatus="sAd">
                   <input type="radio" name="addressId" value="${ad.id}" id ="address-select-${ad.id}" style="display: none;">
                 </c:forEach>
+
+                <a
+                style="cursor: pointer;"
+                id="place-hoder"
+                class="cart-info__next-btn btn btn--primary btn--rounded"
+              >
+                Đặt hàng
+              </a>
               </c:if>
-              
-              <a
+              <c:if test="${empty addresses}">
+                <a
             
-              id="place-hoder"
-              class="cart-info__next-btn btn btn--primary btn--rounded"
-            >
-              Đặt hàng
-            </a>
+                class="cart-info__next-btn btn btn--primary btn--rounded"
+                style="cursor: not-allowed; pointer-events: none; background-color: #dc3545; color: #fff;"
+
+              >
+                <h1>Thêm địa chỉ để tiếp tục</h1>
+                </a>
+              </c:if>
+             
 
             </form>
 

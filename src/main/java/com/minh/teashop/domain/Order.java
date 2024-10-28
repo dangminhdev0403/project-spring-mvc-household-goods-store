@@ -1,7 +1,9 @@
 package com.minh.teashop.domain;
 
 import java.util.List;
+import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.minh.teashop.domain.enumdomain.OrderStatus;
 
 import jakarta.persistence.Entity;
@@ -33,6 +35,10 @@ public class Order {
     private String receiverName;
     private String receiverAddress;
     private String receiverPhone;
+    
+        @JsonFormat(pattern = "dd-MM-yyyy")
+    private LocalDate orderDate; // Thêm trường để lưu ngày đặt hàng
+
 
     @Enumerated(EnumType.STRING) // Lưu trạng thái dưới dạng chuỗi
     private OrderStatus status;

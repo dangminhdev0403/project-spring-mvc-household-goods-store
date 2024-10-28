@@ -1,5 +1,6 @@
 package com.minh.teashop.service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -139,39 +140,37 @@ public class ProductService {
 
     public void handlePlaceOrder(User user, HttpSession session, Address receiverAddress) {
         // create Oder
-        Order order = new Order() ;
+        Order order = new Order();
         order.setUser(user);
         order.setReceiverAddress(receiverAddress.getFullAddress());
         order.setReceiverName(receiverAddress.getReceiverName());
         order.setReceiverPhone(receiverAddress.getReceiverPhone());
         order.setStatus(OrderStatus.PENDING);
-       order = this.orderRepository.save(order);
+        order.setOrderDate(LocalDate.now());
+        order = this.orderRepository.save(order);
 
-       Cart cart = this.cartRepository.findByUser(user);
-       if(cart!= null){
-        List<CartDetail> cartDetails = cart.getCartDetails();
-        if(cartDetails != null){
-            for(CartDetail cd : cartDetails){
-                OrderDetail orderDetail = new OrderDetail() ;
-                orderDetail.setOrder(order);
-                orderDetail.setProduct(cd.getProduct());
-                orderDetail.setPrice(cd.getPrice());
-                orderDetail.setQuantity(cd.getQuantity());
-                
-                this.orderDetailRepository.save(orderDetail);
-                
+        Cart cart = this.cartRepository.findByUser(user);
+        if (cart != null) {
+            List<CartDetail> cartDetails = cart.getCartDetails();
+            if (cartDetails != null) {
+                for (CartDetail cd : cartDetails) {
+                    OrderDetail orderDetail = new OrderDetail();
+                    orderDetail.setOrder(order);
+                    orderDetail.setProduct(cd.getProduct());
+                    orderDetail.setPrice(cd.getPrice());
+                    orderDetail.setQuantity(cd.getQuantity());
+
+                    this.orderDetailRepository.save(orderDetail);
+
+                }
+                for (CartDetail cd : cartDetails) {
+                    this.cartDetailRepository.deleteById(cd.getId());
+                }
+                this.cartRepository.delete(cart);
+
+                session.setAttribute("cartSum", 0);
+
             }
-            for(CartDetail cd : cartDetails){
-                this.cartDetailRepository.deleteById(cd.getId());
-            }
-            this.cartRepository.delete(cart);
-           
-            session.setAttribute("cartSum", 0);
-
-
-
-
         }
-       }
     }
 }

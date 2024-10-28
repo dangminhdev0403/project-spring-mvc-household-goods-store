@@ -91,10 +91,10 @@ public class UserService {
    
    }
 
-   public Order getOrder(User user){
-    Optional<Order> optional = this.orderRepository.findByUser(user);
+   public List<Order> getOrder(User user){
+    Optional<List<Order>> optional = this.orderRepository.findByUser(user);
     if(optional.isPresent()){
-        Order order = optional.get();
+        List<Order> order = optional.get();
         return order ;
     }
     return null ;

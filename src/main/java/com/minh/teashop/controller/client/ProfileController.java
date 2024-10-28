@@ -1,15 +1,14 @@
 package com.minh.teashop.controller.client;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
-import com.minh.teashop.domain.CartDetail;
 import com.minh.teashop.domain.Order;
-import com.minh.teashop.domain.OrderDetail;
 import com.minh.teashop.domain.User;
 import com.minh.teashop.service.UserService;
 
@@ -31,12 +30,18 @@ public class ProfileController {
         long id = (long) session.getAttribute("id");
         User currentUser = new User();
         currentUser.setUser_id(id);
-        Order order = this.userService.getOrder(currentUser);
+        List<Order> listOrder = this.userService.getOrder(currentUser);
 
-        List<OrderDetail> orderDetails = order == null ?  new ArrayList<OrderDetail>(): order.getOrderDetail() ;
-        model.addAttribute("orderDetails" ,orderDetails) ;
+        model.addAttribute("listOrders", listOrder);
         return "client/order/oder-history";
 
+    }
+
+    @PostMapping("/cancel-oder")
+    public String postMethodName(@RequestBody String entity) {
+        // TODO: process POST request
+
+        return entity;
     }
 
 }

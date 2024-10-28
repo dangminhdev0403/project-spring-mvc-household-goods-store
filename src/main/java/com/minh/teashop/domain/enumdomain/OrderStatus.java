@@ -1,10 +1,20 @@
 package com.minh.teashop.domain.enumdomain;
 
 public enum OrderStatus {
-    PENDING,
-    PROCESSING,
-    SHIPPED,
-    DELIVERED,
-    CANCELED,
-    RETURNED
+    PENDING("Đang chờ"),
+    PROCESSING("Đang xử lý"),
+    SHIPPING("Đang giao"),
+    DELIVERED("Đã giao"),
+    CANCELED("Đã hủy"),
+    RETURNED("Đã trả");
+
+    private final String displayName;
+
+    OrderStatus(String displayName) {
+        this.displayName = displayName;
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
 }
