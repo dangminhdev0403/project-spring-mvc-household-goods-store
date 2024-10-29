@@ -318,7 +318,7 @@ uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
             </div>
             <div class="cart-info__separate"></div>
             <div class="cart-info__row">
-              <span class="cart-item__total-price">Tổng ước tính</span>
+              <span class="cart-item__total-price">Tổng ước tính:</span>
               <span class="cart-item__total-price format-price sum-total"
                 >2000000</span
               >
@@ -332,6 +332,7 @@ uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
               name="${_csrf.parameterName}"
               value="${_csrf.token}"
             />
+            <input type="text" id ="total-place" name="total-place" style="display: block;">
               <c:if test="${not empty addresses}">
                 <c:forEach var="ad" items="${addresses}" varStatus="sAd">
                   <input type="radio" name="addressId" value="${ad.id}" id ="address-select-${ad.id}" style="display: none;">
@@ -373,9 +374,9 @@ uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
                   />
                 </div>
                 <div class="gift-item__content">
-                  <h3 class="gift-item__title">Send this order as a gift.</h3>
-                  <p class="gift-item__desc">
-                    Available items will be shipped to your gift recipient.
+                  <h3>Gửi món quà này cho người bạn yêu thương.</h3>
+                  <p>
+                      Các mặt hàng có sẵn sẽ được vận chuyển đến người nhận  của bạn.
                   </p>
                 </div>
               </article>

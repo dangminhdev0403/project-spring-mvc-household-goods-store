@@ -45,6 +45,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
               >
                 <thead>
                   <tr>
+                    <th>Mã SP</th>
                     <th>Tên</th>
                     <th>Danh mục</th>
                     <th>Giá(đã nhân hệ số)</th>
@@ -56,6 +57,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                 <tbody>
                   <c:forEach var="product" items="${listProducts}">
                     <tr>
+                      <td>${product.sku}</td>
                       <td>${product.name}</td>
                       <td>${product.category.name}</td>
                       <td>

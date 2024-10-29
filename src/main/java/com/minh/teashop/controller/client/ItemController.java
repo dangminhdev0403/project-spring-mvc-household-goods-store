@@ -129,7 +129,7 @@ public class ItemController {
     }
 
     @PostMapping("/place-oder")
-    public String handlePlaceOrder(HttpServletRequest request, @RequestParam("addressId") long idAddress,
+    public String handlePlaceOrder(HttpServletRequest request, @RequestParam("addressId") long idAddress, @RequestParam("total-place") double total ,
             RedirectAttributes redirectAttributes) {
 
         HttpSession session = request.getSession(false);
@@ -138,7 +138,7 @@ public class ItemController {
         currentUser.setUser_id(id);
         Address receiverAddress = this.userService.getAddressById(idAddress);
 
-        this.productService.handlePlaceOrder(currentUser, session, receiverAddress);
+        this.productService.handlePlaceOrder(currentUser, session, receiverAddress , total);
         redirectAttributes.addFlashAttribute("success", "Đơn hàng của bạn đã được đặt thành công!");
 
         return "redirect:/order-history";

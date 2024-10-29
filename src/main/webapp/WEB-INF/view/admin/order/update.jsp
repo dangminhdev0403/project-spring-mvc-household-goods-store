@@ -38,9 +38,8 @@ uri="http://www.springframework.org/tags/form" %>
             class="row"
             enctype="multipart/form-data"
           >
-           
-            <div class="card-body" >
-              <div class="row  mb-3" style="border-bottom: 1px solid #ebecec;">
+            <div class="card-body">
+              <div class="row mb-3" style="border-bottom: 1px solid #ebecec">
                 <div class="col-md-6 col-lg-6">
                   <div class="form-group">
                     <label for="reciver-name">Tên khách hàng</label>
@@ -64,10 +63,8 @@ uri="http://www.springframework.org/tags/form" %>
                       path="receiverPhone"
                     />
                   </div>
-                  
                 </div>
                 <div class="col-md-6 col-lg-6">
-
                   <div class="form-group">
                     <label for="oder">Địa chỉ</label>
 
@@ -94,52 +91,104 @@ uri="http://www.springframework.org/tags/form" %>
                         items="${orderStatuses}"
                         varStatus="st"
                       >
-                        <form:option value="${status}"> ${status.displayName} </form:option>
+                        <form:option value="${status}">
+                          ${status.displayName}
+                        </form:option>
                       </c:forEach>
                     </form:select>
                   </div>
-                  </div>
+                </div>
               </div>
               <div class="row">
-
-                <h6 class="card-title mt-2 ms-3  " style="font-size: 1.3rem; font-weight: 500;">Danh sách đơn mua</h6>
+                <h6
+                  class="card-title mt-2 ms-3"
+                  style="font-size: 1.3rem; font-weight: 500"
+                >
+                  Danh sách đơn mua
+                </h6>
                 <div class="col-12">
-                  <table class="table table-bordered table-head-bg-info table-bordered-bd-info mt-4">
+                  <table
+                    class="table table-bordered table-head-bg-info table-bordered-bd-info mt-4"
+                  >
                     <thead>
                       <tr>
-                        <th scope="col">ID </th>
-                        <th scope="col">First</th>
-                        <th scope="col">Last</th>
-                        <th scope="col">Handle</th>
+                        <th
+                          scope="col"
+                          style="font-size: 1.2rem; text-align: center"
+                        >
+                          Mã SP
+                        </th>
+                        <th
+                          scope="col"
+                          style="font-size: 1.2rem; text-align: center"
+                        >
+                          Số lượng
+                        </th>
+                        <th
+                          scope="col"
+                          style="font-size: 1.2rem; text-align: center"
+                        >
+                          Giá(bán ra) x1
+                        </th>
+                        <th
+                          scope="col"
+                          style="font-size: 1.2rem; text-align: center"
+                        >
+                          Tổng giá
+                        </th>
                       </tr>
                     </thead>
                     <tbody>
+                      <c:forEach
+                        var="detail"
+                        items="${orderDetails}"
+                        varStatus="st"
+                      >
+                        <tr>
+                          <td style="font-size: 1.6rem; text-align: center">
+                            ${detail.product.sku}
+                          </td>
+                          <td style="font-size: 1.6rem; text-align: center">
+                            ${detail.quantity}
+                          </td>
+                          <td
+                            style="font-size: 1.6rem; text-align: center"
+                            class="format-price"
+                          >
+                            ${detail.price}
+                          </td>
+                          <td
+                            style="font-size: 1.6rem; text-align: center"
+                            class="format-price"
+                          >
+                            ${detail.price * detail.quantity }
+                          </td>
+                        </tr>
+                      </c:forEach>
+
                       <tr>
-                        <td>1</td>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                      </tr>
-                      <tr>
-                        <td>2</td>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                      </tr>
-                      <tr>
-                        <td>3</td>
-                        <td colspan="2">Larry the Bird</td>
-                        <td>@twitter</td>
+                        <td colspan="4" class="text-center">
+                          <span class="fw-bold" style="font-size: 2.2rem"
+                            >Tổng: </span
+                          >
+                          <span
+                            class="fw-bold format-price"
+                            style="font-size: 2.2rem"
+                           
+                            >${order.totalPrice}</span
+                          >
+                        </td>
                       </tr>
                     </tbody>
                   </table>
-</div>
+                </div>
               </div>
             </div>
-           
+
             <div class="card-action">
-              <button class="btn btn-success">Xác nhận</button>
+              <button class="btn btn-primary">Xác nhận</button>
               <a href="/admin/order" class="btn btn-danger">Trờ về</a>
+              <a href="/export-excel/${order.id}" class="btn btn-success">Xuất excel</a>
             </div>
           </form:form>
         </div>

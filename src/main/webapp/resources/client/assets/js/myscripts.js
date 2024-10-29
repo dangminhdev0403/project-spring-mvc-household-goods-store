@@ -139,6 +139,8 @@ if (inputRadio1) {
   const sumPrice = document.querySelectorAll(".sum-total");
   const shipPrice = document.querySelectorAll(".shipping-price");
   sumPrice.forEach((sum) => {
+    let inputPrice = document.querySelector('input#total-place');
+    inputPrice.value = currentShip + subTotal ;
     sum.textContent = formatNumber(currentShip + subTotal);
   });
 
@@ -167,6 +169,8 @@ inputRadio.forEach((radio) => {
       const shipPrice = document.querySelectorAll(".shipping-price");
 
       sumPrice.forEach((sum) => {
+        let inputPrice = document.querySelector("input#total-place");
+        inputPrice.value = currentShip + subTotal;
         sum.textContent = formatNumber(currentShip + subTotal);
       });
 

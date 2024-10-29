@@ -150,7 +150,7 @@ public class ProductService {
 
     }
 
-    public void handlePlaceOrder(User user, HttpSession session, Address receiverAddress) {
+    public void handlePlaceOrder(User user, HttpSession session, Address receiverAddress, double total) {
         // create Oder
         Order order = new Order();
         order.setUser(user);
@@ -158,6 +158,7 @@ public class ProductService {
         order.setReceiverName(receiverAddress.getReceiverName());
         order.setReceiverPhone(receiverAddress.getReceiverPhone());
         order.setStatus(OrderStatus.PENDING);
+        order.setTotalPrice(total);
         order.setOrderDate(LocalDate.now());
         order = this.orderRepository.save(order);
 

@@ -46,6 +46,7 @@
 <script src="/js/kaiadmin.min.js"></script>
 <!-- Kaiadmin DEMO methods, don't include it in your project! -->
 <script src="/js/setting-demo2.js"></script>
+<script src="/js/myscript.js"></script>
 
 <script>
   // Định nghĩa cấu hình chung
