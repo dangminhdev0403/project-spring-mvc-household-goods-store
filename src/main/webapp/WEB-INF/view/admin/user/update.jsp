@@ -67,7 +67,6 @@ uri="http://www.springframework.org/tags/form" %>
                 <div class="form-group">
                   <label for="defaultSelect">Quyền</label>
                   <form:select class="form-select form-control" id="defaultSelect" path="role.name" >
-                    <form:option value="ADMIN">Admin</form:option>
                     <form:option value="CUSTOMER">Customer</form:option>
                   </form:select>
                 </div>
@@ -82,15 +81,7 @@ uri="http://www.springframework.org/tags/form" %>
                     placeholder="Nhập Họ và Tên" path="name"
                   />
                 </div>
-                <div class="form-group">
-                  <label for="address">Địa chỉ</label>
-                  <form:input
-                    type="address"
-                    class="form-control"
-                    id="address"
-                    placeholder="Địa chỉ" path="address"
-                  />
-                </div>
+              
                 <div class="form-group">
                   <label for="phone">Số điện thoại</label>
                   <form:input

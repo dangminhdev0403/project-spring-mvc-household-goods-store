@@ -60,13 +60,13 @@ uri="http://www.springframework.org/tags/form" %>
                     />
                   </div>
                   <div class="form-group">
-                    <label for="priceProduct">Giá</label>
+                    <label for="priceProduct">Giá gốc</label>
                     <form:input
                       type="text"
                       class="form-control priceProduct"
                       id="priceProduct"
                       placeholder="Nhập giá sản phẩm"
-                      path="price"
+                      path="fisrtPrice"
                       />
                   </div>
                 </div>
@@ -110,6 +110,22 @@ uri="http://www.springframework.org/tags/form" %>
                         path="description"
                       />
                     </div>
+
+                  </div>
+                  <div class="form-group">
+                   
+                    <label for="descProduct">Hệ số</label>
+                    <form:input
+                      
+                      class="form-control"
+                      id="factor"
+                      type="number"
+                      step="0.01" min="0" 
+                      placeholder="hệ số"
+                      path="factor"
+                    />
+
+                   
                   </div>
                 </div>
                 <div class="col-12 col-lg-4 ">
@@ -126,7 +142,7 @@ uri="http://www.springframework.org/tags/form" %>
                       <img class="imagePreview" src="" alt="Preview" style="max-width: 283px; display: none;">
                   </div>
                   </div>
-                  
+                 
                 </div>
                 <div class="row gap-2">
                    <c:if test="${not empty newProduct.productImages}">

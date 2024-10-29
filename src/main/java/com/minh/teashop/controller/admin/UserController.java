@@ -60,20 +60,20 @@ public class UserController {
     ,@RequestParam("avatarImg") MultipartFile file , RedirectAttributes  redirectAttributes
     ) {
 
-        // validate
-        // List<FieldError> errors = bindingResult.getFieldErrors();
-        // for (FieldError error : errors) {
-        // System.out.println(error.getField() + "-" + error.getDefaultMessage());
-        // }
+      
 
         if (bindingResult.hasErrors()) {
             return "/admin/user/create";
 
         }
-         String avatar  =   this.uploadService.handleSaveUploadFile(file, "avatar");
+        if(file.getOriginalFilename() != ""){
+            String avatar  =   this.uploadService.handleSaveUploadFile(file, "avatar");
+            newUser.setAvatar(avatar);
+        }
+        
         String hashPassword = this.passwordEncoder.encode(newUser.getPassword());
         newUser.setPassword(hashPassword);
-        newUser.setAvatar(avatar);
+       
         newUser.setRole(this.userService.getRoleByName(newUser.getRole().getName()));
         this.userService.handleSaveUser(newUser);
 
@@ -88,14 +88,22 @@ public class UserController {
 
         if (currentUser != null) {
             if(!file.isEmpty()){
-                this.uploadService.handleDeleteFile(currentUser.getAvatar(), "avatar");
-                String newAvatar = this.uploadService.handleSaveUploadFile(file, "avatar") ;
-                currentUser.setAvatar(newAvatar);
+
+                if(currentUser.getAvatar() != null){
+                    this.uploadService.handleDeleteFile(currentUser.getAvatar(), "avatar");
+                    String newAvatar = this.uploadService.handleSaveUploadFile(file, "avatar") ;
+                    currentUser.setAvatar(newAvatar);
+
+                }else{
+                    String newAvatar = this.uploadService.handleSaveUploadFile(file, "avatar") ;
+                    currentUser.setAvatar(newAvatar);
+
+                }
+               
             }
-            currentUser.setAddress(user.getAddress());
             currentUser.setName(user.getName());
             currentUser.setPhone(user.getPhone());
-
+            
             this.userService.handleSaveUser(currentUser);
         }
         redirectAttributes.addFlashAttribute("success", "Cập nhật thành công");
@@ -106,8 +114,11 @@ public class UserController {
 
     @GetMapping("/admin/user/delete/{id}")
     public String deleteUser(Model model, @PathVariable long id,RedirectAttributes  redirectAttributes) {
-        // User currentUser = this.userService.getUserById(id);
+        User currentUser = this.userService.getUserById(id);
+        this.uploadService.handleDeleteFile(currentUser.getAvatar(), "avatar");
+
         this.userService.deleteAUser(id);
+
         redirectAttributes.addFlashAttribute("success", "Xoá thành công thành công");
 
         return "redirect:/admin/users";

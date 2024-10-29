@@ -176,13 +176,22 @@ function formatNumber(value) {
     
  
 </script>
+
+<script>
+  <c:if test="${not empty error}">
+ 
+ swal( "Thất bại" ,  "${error}" ,  "error" )
+ 
+     
+ </c:if>
+ </script>
   <script>
     
  function alertAppted(e) {
     e.preventDefault();   // Ngăn chặn hành động mặc định
 
-    let action = document.querySelector("a.is-delete");
-    let deleteUrl = action.getAttribute('href');
+    
+    let deleteUrl = e.currentTarget.getAttribute('href');
 
     swal({
         title: "Bạn có chắc muốn xoá?",
@@ -218,14 +227,19 @@ isAlertElements.forEach(function (element) {
     element.addEventListener('click', alertAppted);
 });
 
-   
+  
+
+
+
 <c:if test="${not empty success}">
 
 swal( "Thành công" ,  "${success}" ,  "success" )
 
     
 </c:if>
+
 </script>
+
 </body>
 
 </html>

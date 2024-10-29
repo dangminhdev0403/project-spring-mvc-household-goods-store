@@ -47,7 +47,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                   <tr>
                     <th>Tên</th>
                     <th>Danh mục</th>
-                    <th>Giá</th>
+                    <th>Giá(đã nhân hệ số)</th>
                     <th>Số lượng</th>
                     <th style="width: 10%">Action</th>
                   </tr>

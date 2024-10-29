@@ -33,10 +33,17 @@ public class Product {
     private String description;
     private Double price;
     private long stock;
-
+    private Double factor;
+    private Double fisrtPrice;
+    private String sku ;
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     List<ProductImage> productImages;
+    @OneToMany(mappedBy = "product", cascade = CascadeType.PERSIST) // Chỉ giữ lại PERSIST
+    List<OrderDetail> orderDetails;
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    List<CartDetail> cartDetails;
+
 }

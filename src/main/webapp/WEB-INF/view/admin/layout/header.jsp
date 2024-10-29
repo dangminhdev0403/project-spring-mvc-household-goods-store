@@ -398,14 +398,14 @@
                   >
                     <div class="avatar-sm">
                       <img
-                        src="/img/profile.jpg"
-                        alt="..."
+                      src="/upload/avatar/${sessionScope.avatar}"
+                      alt="..."
                         class="avatar-img rounded-circle"
                       />
                     </div>
                     <span class="profile-username">
                       <span class="op-7">Hi,</span>
-                      <span class="fw-bold">Hizrian</span>
+                      <span class="fw-bold">${sessionScope.name}</span>
                     </span>
                   </a>
                   <ul class="dropdown-menu dropdown-user animated fadeIn">
@@ -438,7 +438,19 @@
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="#">Account Setting</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Logout</a>
+
+                        <form method="post" action="/logout">
+                          <input
+                            type="hidden"
+                            name="${_csrf.parameterName}"
+                            value="${_csrf.token}"
+                          />
+                          <button class="user-menu__link dropdown-item" >
+                            Đăng xuất
+                          </button>
+                          </form>
+
+                        <!-- <a class="dropdown-item" href="#">Logout</a> -->
                       </li>
                     </div>
                   </ul>

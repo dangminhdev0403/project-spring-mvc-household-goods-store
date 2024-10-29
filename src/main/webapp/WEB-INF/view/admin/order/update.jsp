@@ -103,7 +103,37 @@ uri="http://www.springframework.org/tags/form" %>
               <div class="row">
 
                 <h6 class="card-title mt-2 ms-3  " style="font-size: 1.3rem; font-weight: 500;">Danh sách đơn mua</h6>
-
+                <div class="col-12">
+                  <table class="table table-bordered table-head-bg-info table-bordered-bd-info mt-4">
+                    <thead>
+                      <tr>
+                        <th scope="col">ID </th>
+                        <th scope="col">First</th>
+                        <th scope="col">Last</th>
+                        <th scope="col">Handle</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>1</td>
+                        <td>Mark</td>
+                        <td>Otto</td>
+                        <td>@mdo</td>
+                      </tr>
+                      <tr>
+                        <td>2</td>
+                        <td>Jacob</td>
+                        <td>Thornton</td>
+                        <td>@fat</td>
+                      </tr>
+                      <tr>
+                        <td>3</td>
+                        <td colspan="2">Larry the Bird</td>
+                        <td>@twitter</td>
+                      </tr>
+                    </tbody>
+                  </table>
+</div>
               </div>
             </div>
            

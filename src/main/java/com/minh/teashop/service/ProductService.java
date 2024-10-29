@@ -49,7 +49,19 @@ public class ProductService {
         return listProducts;
     }
 
+    public String createSkuProduct(){
+
+        long count = productRepository.count() ;
+        String sku = "SP"+ count;
+
+        return sku ;
+    }
+
     public Product handleSaveProduct(Product product) {
+        if(product.getSku() == null){
+            String skuProduct = createSkuProduct();
+            product.setSku(skuProduct);
+        }
         return this.productRepository.save(product);
     }
 

@@ -47,6 +47,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                   <tr>
                     <td>STT</td>
                     <th>Tên</th>
+                    <th>Danh mục cha</th>
                   
                     <th style="width: 10%">Thao tác</th>
                   </tr>
@@ -59,6 +60,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                             ${status.index + 1}
                         </td>
                       <td>${category.name}</td>
+                      <td>${category.parent.name}</td>
                 
 
                       <td>

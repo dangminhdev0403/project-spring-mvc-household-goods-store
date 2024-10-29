@@ -5,7 +5,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="container">
   <div class="page-inner">
     <div class="page-header">
-      <h3 class="fw-bold mb-3">Quản lí user</h3>
+      <h3 class="fw-bold mb-3">Quản lí danh mục</h3>
       <ul class="breadcrumbs mb-3">
         <li class="nav-home">
           <a href="#">
@@ -16,7 +16,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
           <i class="icon-arrow-right"></i>
         </li>
         <li class="nav-item">
-          <a href="/admin/user">Quản lí người dùng</a>
+          <a href="/admin/categories-parent">Quản lí danh mục cha</a>
         </li>
       </ul>
     </div>
@@ -25,13 +25,13 @@ uri="http://java.sun.com/jsp/jstl/core" %>
         <div class="card">
           <div class="card-header">
             <div class="d-flex align-items-center">
-              <h4 class="card-title">Danh sách người dùng</h4>
+              <h4 class="card-title">Bảng danh mục cha</h4>
               <a
-                href="/admin/users/create"
+                href="/admin/categories/create"
                 class="btn btn-primary btn-round ms-auto"
               >
                 <i class="fa fa-plus"></i>
-                Thêm mới người dùng
+                Thêm mới danh mục
               </a>
             </div>
           </div>
@@ -45,38 +45,38 @@ uri="http://java.sun.com/jsp/jstl/core" %>
               >
                 <thead>
                   <tr>
+                    <td>STT</td>
                     <th>Tên</th>
-                    <th>Email</th>
+                  
                     <th style="width: 10%">Thao tác</th>
                   </tr>
                 </thead>
 
                 <tbody>
-                  <c:forEach var="user" items="${listUsers}">
+                  <c:forEach var="category" items="${listParenC}" varStatus="status">
                     <tr>
-                      <td>${user.name}</td>
-                      <td>${user.email}</td>
+                        <td>
+                            ${status.index + 1}
+                        </td>
+                      <td>${category.name}</td>
+                
 
                       <td>
                         <div class="form-button-action">
                           <a
-                            href="/admin/user/update/${user.user_id}"
-                            data-bs-toggle="tooltip"
+                          href="/admin/category-parent/update/${category.id}"
+                           
                             title=""
                             class="btn btn-link btn-primary btn-lg"
-                            data-original-title="Edit Task"
                           >
-                            <i class="fa fa-edit"></i>
+                          <i class="fa fa-edit"></i>
                           </a>
-                          <a
-                            href="/admin/user/delete/${user.user_id}"
-                            data-bs-toggle="tooltip"
+                          <a  href="/admin/category-parent/delete/${category.id}"
                             title=""
-                            class=" btn btn-link  btn-danger is-delete"
-                            data-original-title="Remove"
+                            class="btn btn-link btn-danger is-delete"
                           >
-                            <i class="fa fa-times is-delete"  href="/admin/user/delete/${user.user_id}" ></i>
-                          </a>
+                          <i class="fa fa-times is-delete"  href="/admin/category-parent/delete/${category.id}" ></i>
+                        </a>
                         </div>
                       </td>
                     </tr>

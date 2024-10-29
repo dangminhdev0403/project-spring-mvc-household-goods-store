@@ -78,7 +78,6 @@ uri="http://www.springframework.org/tags/form" %>
                       id="defaultSelect"
                       path="role.name"
                     >
-                      <form:option value="ADMIN">Admin</form:option>
                       <form:option value="CUSTOMER">Customer</form:option>
                     </form:select>
                   </div>
@@ -99,21 +98,7 @@ uri="http://www.springframework.org/tags/form" %>
                     ${errorName}
                   </div>
 
-                  <c:set var="erroraddress">
-                    <form:errors path="address" cssClass="text-danger" />
-                 </c:set>
-                  <div class="form-group  ${not empty erroraddress ? 'has-error' : ''}">
-                    
-                    <label for="address">Địa chỉ</label>
-                    <form:input
-                      type="address"
-                      class="form-control"
-                      id="address"
-                      placeholder="Địa chỉ"
-                      path="address"
-                    />
-                    ${erroraddress}
-                  </div>
+                 
                   <c:set var="errorphone">
                     <form:errors path="phone" cssClass="text-danger" />
                  </c:set>

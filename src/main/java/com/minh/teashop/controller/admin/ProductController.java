@@ -41,6 +41,7 @@ public class ProductController {
         List<Category> listCategories = this.categoryService.getAllCategories();
 
         List<Product> listProducts = this.productService.getListProducts();
+
         model.addAttribute("listProducts", listProducts);
         model.addAttribute("listCategories", listCategories);
 
@@ -69,16 +70,16 @@ public class ProductController {
     }
 
     @GetMapping("/admin/product/delete/{id}")
-    public String getMethodName(Model model, @PathVariable long id , RedirectAttributes redirectAttributes) {
-      Optional<Product> product = this.productService.fetchProductById(id);
-      if(product.isPresent()){
-        List<ProductImage> listImages = this.productImageService.getImagesByProduct(product.get());
-        if(!listImages.isEmpty()){
-            for(ProductImage image : listImages){
-                this.uploadService.handleDeleteFile(image.getName(), "products");
+    public String getMethodName(Model model, @PathVariable long id, RedirectAttributes redirectAttributes) {
+        Optional<Product> product = this.productService.fetchProductById(id);
+        if (product.isPresent()) {
+            List<ProductImage> listImages = this.productImageService.getImagesByProduct(product.get());
+            if (!listImages.isEmpty()) {
+                for (ProductImage image : listImages) {
+                    this.uploadService.handleDeleteFile(image.getName(), "products");
+                }
             }
         }
-      }
 
         this.productService.handleDeleteProduct(id);
         redirectAttributes.addFlashAttribute("success", "Xoá thành công");
@@ -87,8 +88,14 @@ public class ProductController {
     }
 
     @PostMapping("/admin/product/create")
-    public String handleCreateProduct(@ModelAttribute("newProduct") Product product, RedirectAttributes redirectAttributes,
+    public String handleCreateProduct(@ModelAttribute("newProduct") Product product,
+            RedirectAttributes redirectAttributes,
             @RequestParam("productsImg") MultipartFile[] files) {
+        if (product.getFactor() == null || product.getFactor() == 0) {
+            product.setFactor(1.0);
+        }
+        double price = product.getFactor() * product.getFisrtPrice() ;
+        product.setPrice(price);
         Product newProduct = this.productService.handleSaveProduct(product);
 
         if (files.length != 0 && files[0].getOriginalFilename() != "") {
@@ -108,7 +115,8 @@ public class ProductController {
     }
 
     @PostMapping("/admin/product/update")
-    public String handleUpdateProduct(@ModelAttribute("newProduct") Product product, RedirectAttributes redirectAttributes,
+    public String handleUpdateProduct(@ModelAttribute("newProduct") Product product,
+            RedirectAttributes redirectAttributes,
             @RequestParam("productsImg") MultipartFile[] files) {
         Product currentProduct = this.productService.fetchProductById(product.getProduct_id()).get();
         if (currentProduct != null) {
@@ -136,12 +144,18 @@ public class ProductController {
             currentProduct.setCategory(product.getCategory());
             currentProduct.setDescription(product.getDescription());
             currentProduct.setStock(product.getStock());
-            currentProduct.setPrice(product.getPrice());
+            if (product.getFactor() == null || product.getFactor() == 0) {
+                currentProduct.setFactor(1.0);
+            } else {
+                currentProduct.setFactor(product.getFactor());
+            }
+            double price = product.getFactor() * product.getFisrtPrice() ;
+            currentProduct.setFisrtPrice(product.getFisrtPrice()) ;
+            currentProduct.setPrice(price);
             this.productService.handleSaveProduct(currentProduct); // Thay đổi ở đây
 
         }
         redirectAttributes.addFlashAttribute("success", "Cập nhật thành công");
-
 
         return "redirect:/admin/products";
     }

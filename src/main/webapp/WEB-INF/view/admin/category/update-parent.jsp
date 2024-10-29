@@ -16,13 +16,13 @@ uri="http://www.springframework.org/tags/form" %>
           <i class="icon-arrow-right"></i>
         </li>
         <li class="nav-item">
-          <a href="/admin/categories">Quản lí danh mục</a>
+          <a href="/admin/categories-parent">Quản lí danh mục cha</a>
         </li>
         <li class="separator">
           <i class="icon-arrow-right"></i>
         </li>
         <li class="nav-item">
-          <a href="/admin/categories/update">Cập nhật danh mục</a>
+          <a href="/admin/category-parent/update/${newCategory.id}">Cập nhật danh mục cha</a>
         </li>
       </ul>
     </div>
@@ -30,27 +30,20 @@ uri="http://www.springframework.org/tags/form" %>
       <div class="col-md-12">
         <div class="card">
           <div class="card-header">
-            <div class="card-title">Cập nhật danh mục</div>
+            <div class="card-title">Cập nhật danh mục cha</div>
           </div>
           <form:form
-            action="/admin/categories/update"
+            action="/admin/category-parent/update/${newCategory.id}"
             modelAttribute="newCategory"
             class="row"
-            enctype="multipart/form-data"
+            method = "POST"
           >
             <div class="card-body">
               <div class="row">
                 <div class="col-md-6 col-lg-6">
                   <div class="form-group">
                     <label for="categories">Tên danh mục</label>
-                    <form:input
-                      type="text"
-                      class="form-control"
-                      id="categories"
-                      placeholder="Nhập danh mục"
-                      path="category_id"
-                      style="display: none"
-                    />
+                   
                     <form:input
                       type="text"
                       class="form-control"
@@ -59,31 +52,13 @@ uri="http://www.springframework.org/tags/form" %>
                       path="name"
                     />
                   </div>
-                  <div class="col-md-6 col-lg-6">
-                    <label for="email2">Danh mục cha</label>
-
-                    <form:select class="form-control form-select" path="parent">
-                  <form:option value="${newCategory.parent.id}">${newCategory.parent.name}</form:option>
-
-                      <c:forEach var="parent" items="${listParenC}"  >
-                        <c:if test="${parent.id != newCategory.parent.id}" >
-                          <form:option value ="${parent.id}" >
-                            ${parent.name}
-                        </form:option>
-                      </c:if>
-                     
-                  
-                    </c:forEach>
-                    <form:option value="">Không</form:option>
-
-                  </form:select>
-                </div>
+                 
                 </div>
               </div>
             </div>
             <div class="card-action">
               <button class="btn btn-success">Xác nhận</button>
-              <a href="/admin/categories" class="btn btn-danger">Trờ về</a>
+              <a href="/admin/categories-parent" class="btn btn-danger">Trờ về</a>
             </div>
           </form:form>
         </div>

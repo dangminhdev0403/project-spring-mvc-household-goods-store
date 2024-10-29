@@ -71,15 +71,17 @@ uri="http://java.sun.com/jsp/jstl/core" %>
           <div class="collapse" id="categories">
             <ul class="nav nav-collapse">
               <li>
-                <a href="/admin/categories">
-                  <span class="sub-item">Bảng danh mục </span>
+                <a href="/admin/categories-parent">
+                  <span class="sub-item">Danh mục cha </span>
                 </a>
               </li>
+              
               <li>
-                <a href="/admin/categories/create">
-                  <span class="sub-item">Tạo mới danh mục </span>
+                <a href="/admin/categories">
+                  <span class="sub-item">Danh mục con </span>
                 </a>
               </li>
+             
             </ul>
           </div>
         </li>

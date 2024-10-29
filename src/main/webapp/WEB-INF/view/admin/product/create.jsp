@@ -57,13 +57,13 @@ uri="http://www.springframework.org/tags/form" %>
                   </div>
                   <div class="form-group">
                    
-                    <label for="priceProduct">Giá</label>
+                    <label for="priceProduct">Giá gốc</label>
                     <form:input
                       type="text"
                       class="form-control"
                       id="priceProduct"
                       placeholder="Nhập giá sản phẩm"
-                      path="price"
+                      path="fisrtPrice"
                     />
 
                    
@@ -123,7 +123,21 @@ uri="http://www.springframework.org/tags/form" %>
 
                    
                   </div>
-                 
+                  <div class="form-group">
+                   
+                    <label for="descProduct">Hệ số</label>
+                    <form:input
+                      
+                      class="form-control"
+                      id="factor"
+                      type="number"
+                      step="0.01" min="0" 
+                      placeholder="hệ số"
+                      path="factor"
+                    />
+
+                   
+                  </div>
 
                  
              
