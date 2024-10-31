@@ -69,181 +69,32 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
             <div class="dropdown__inner">
               <div class="top-menu">
                 <div class="sub-menu sub-menu--not-main">
-                  <div class="sub-menu__column">
-                    <!-- Menu column 1 -->
-                    <div class="menu-column">
-                      <div class="menu-column__icon">
-                        <img
-                          src="/client/assets/img/category/cate-7.1.svg"
-                          alt=""
-                          class="menu-column__icon-1"
-                        />
-                        <img
-                          src="/client/assets/img/category/cate-7.2.svg"
-                          alt=""
-                          class="menu-column__icon-2"
-                        />
-                      </div>
-                      <div class="menu-column__content">
-                        <h2 class="menu-column__heading">
-                          <a href="#!">Featured Shops</a>
-                        </h2>
-                        <ul class="menu-column__list">
-                          <li class="menu-column__item">
-                            <a href="#!" class="menu-column__link">
-                              Pickup Today in Beauty
-                            </a>
-                          </li>
-                         
-                        </ul>
+                  
+                  <c:forEach var="category" items="${categories}">
+                    <div class="sub-menu__column">
+                      <!-- Menu column 1 -->
+                      <div class="menu-column">
+                       
+                        <div class="menu-column__content">
+                          <h2 class="menu-column__heading" >
+                            <a href="#!" style="font-size: 2.5rem;">${category.name}</a>
+                          </h2>
+                          <ul class="menu-column__list">
+                            <c:forEach var="childCategory" items="${category.children}">
+                              <li class="menu-column__item">
+                                <a href="#!" class="menu-column__link" style="font-size: 1.8rem;">${childCategory.name}</a>
+                              </li>
+                            </c:forEach>
+
+                          </ul>
+                        </div>
                       </div>
                     </div>
 
-                    <!-- Menu column 2 -->
-                    <div class="menu-column">
-                      <div class="menu-column__icon">
-                        <img
-                          src="/client/assets/img/category/cate-15.1.svg"
-                          alt=""
-                          class="menu-column__icon-1"
-                        />
-                        <img
-                          src="/client/assets/img/category/cate-15.2.svg"
-                          alt=""
-                          class="menu-column__icon-2"
-                        />
-                      </div>
-                      <div class="menu-column__content">
-                        <h2 class="menu-column__heading">
-                          <a href="#!">Trending in Beauty</a>
-                        </h2>
-                        <ul class="menu-column__list">
-                          <li class="menu-column__item">
-                            <a href="#!" class="menu-column__link"
-                              >Trending Beauty Products</a
-                            >
-                          </li>
-                         
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
+                  </c:forEach>
 
-                  <div class="sub-menu__column">
-                    <!-- Menu column 1 -->
-                    <div class="menu-column">
-                      <div class="menu-column__icon">
-                        <img
-                          src="/client/assets/img/category/cate-16.1.svg"
-                          alt=""
-                          class="menu-column__icon-1"
-                        />
-                        <img
-                          src="/client/assets/img/category/cate-16.2.svg"
-                          alt=""
-                          class="menu-column__icon-2"
-                        />
-                      </div>
-                      <div class="menu-column__content">
-                        <h2 class="menu-column__heading">
-                          <a href="#!">Featured Brands</a>
-                        </h2>
-                        <ul class="menu-column__list">
-                          <li class="menu-column__item">
-                            <a href="#!" class="menu-column__link">Shop All</a>
-                          </li>
-                        
-                        </ul>
-                      </div>
-                    </div>
 
-                    <!-- Menu column 2 -->
-                    <div class="menu-column">
-                      <div class="menu-column__icon">
-                        <img
-                          src="/client/assets/img/category/cate-17.1.svg"
-                          alt=""
-                          class="menu-column__icon-1"
-                        />
-                        <img
-                          src="/client/assets/img/category/cate-17.2.svg"
-                          alt=""
-                          class="menu-column__icon-2"
-                        />
-                      </div>
-                      <div class="menu-column__content">
-                        <h2 class="menu-column__heading">
-                          <a href="#!">Communities to Support</a>
-                        </h2>
-                        <ul class="menu-column__list">
-                          <li class="menu-column__item">
-                            <a href="#!" class="menu-column__link"
-                              >Black Owned Beauty</a
-                            >
-                          </li>
-                         
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
 
-                  <div class="sub-menu__column">
-                    <!-- Menu column 1 -->
-                    <div class="menu-column">
-                      <div class="menu-column__icon">
-                        <img
-                          src="/client/assets/img/category/cate-18.1.svg"
-                          alt=""
-                          class="menu-column__icon-1"
-                        />
-                        <img
-                          src="/client/assets/img/category/cate-18.2.svg"
-                          alt=""
-                          class="menu-column__icon-2"
-                        />
-                      </div>
-                      <div class="menu-column__content">
-                        <h2 class="menu-column__heading">
-                          <a href="#!">Premium Beauty</a>
-                        </h2>
-                        <ul class="menu-column__list">
-                          <li class="menu-column__item">
-                            <a href="#!" class="menu-column__link">Shop All</a>
-                          </li>
-                        
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="sub-menu__column">
-                    <!-- Menu column 1 -->
-                    <div class="menu-column">
-                      <div class="menu-column__icon">
-                        <img
-                          src="/client/assets/img/category/cate-19.1.svg"
-                          alt=""
-                          class="menu-column__icon-1"
-                        />
-                        <img
-                          src="/client/assets/img/category/cate-19.2.svg"
-                          alt=""
-                          class="menu-column__icon-2"
-                        />
-                      </div>
-                      <div class="menu-column__content">
-                        <h2 class="menu-column__heading">
-                          <a href="#!">Beauty</a>
-                        </h2>
-                        <ul class="menu-column__list">
-                          <li class="menu-column__item">
-                            <a href="#!" class="menu-column__link">Shop All</a>
-                          </li>
-                        
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>

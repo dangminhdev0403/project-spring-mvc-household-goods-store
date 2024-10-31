@@ -231,7 +231,11 @@ function checkIndividualInput() {
 }
 
 // Gán sự kiện cho checkbox "Chọn tất cả"
-document.querySelector(".check-all-box").addEventListener('change', checkAllInput);
+const challBox = document.querySelector(".check-all-box") ;
+if(challBox){
+  document.querySelector(".check-all-box").addEventListener('change', checkAllInput);
+
+}
 
 // Gán sự kiện cho các checkbox cá nhân
 const inputCheck = document.querySelectorAll("input.checkbox");

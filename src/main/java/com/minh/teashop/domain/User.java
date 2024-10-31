@@ -50,6 +50,24 @@ public class User {
 
     @OneToOne(mappedBy = "user")
     private Cart cart;
+    private boolean enabled;
+    
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
 
     public User() {
     }

@@ -235,7 +235,7 @@ uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
               <div class="cart-info__separate"></div>
               <div class="cart-info__row cart-info__row--bold">
                 <span>Tổng tiền</span>
-                <span class="format-price">${totalPrice}</span>
+                <span class="format-price sumPrice">${totalPrice}</span>
               </div>
               <form:form method="POST" action="/checkout" modelAttribute="cart">
                 <c:forEach

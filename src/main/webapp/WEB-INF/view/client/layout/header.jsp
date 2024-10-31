@@ -80,6 +80,9 @@ uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
         border-color: #f25961 !important;
         color: #fff;
       }
+      .sub-menu--not-main {
+        height: 100%;
+      }
     </style>
   </head>
   <body>

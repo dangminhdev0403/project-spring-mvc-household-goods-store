@@ -158,6 +158,9 @@ uri="http://www.springframework.org/tags/form" %>
 
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>
+
+
+
      function alertAppted(e , element , notice ,message ) {
       
     e.preventDefault();   // Ngăn chặn hành động mặc định
@@ -208,6 +211,15 @@ isCancels.forEach(function (element) {
 }); 
 
 
+
+<c:if test="${not empty error}">
+
+swal( "Lỗi" ,  "${error}" ,  "error" )
+
+    
+</c:if>
+
+
 const notice = "Xác nhận đặt hàng";
 const message = "Bạn có chắc chắn muốn đặt hàng không?";
 
@@ -221,12 +233,18 @@ if(isCheckOut){
 
 
 
+
+
 <c:if test="${not empty success}">
 
 swal( "Thành công" ,  "${success}" ,  "success" )
 
     
 </c:if>
+
+
+
 </script>
+
 
 </html>

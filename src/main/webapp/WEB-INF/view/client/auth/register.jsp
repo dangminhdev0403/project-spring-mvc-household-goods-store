@@ -39,6 +39,45 @@ uri="http://www.springframework.org/tags/form" %>
     <!-- Scripts -->
     <script src="client/assets/js/scripts.js"></script>
     <style>
+      .alert {
+        position: relative;
+        padding: 1rem 1rem;
+        margin-bottom: 1rem;
+        border: 1px solid transparent;
+        border-radius: 0.25rem;
+      }
+      .alert-danger {
+        text-align: center;
+        color: #842029;
+        background-color: #f8d7da;
+        border-color: #f5c2c7;
+      }
+
+      .hidden {
+        display: none !important;
+      }
+      .swal-footer {
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: center;
+      }
+      .btn-success {
+        background: #31ce36 !important;
+        border-color: #31ce36 !important;
+      }
+
+      .btn-danger {
+        background: #f25961 !important;
+        border-color: #f25961 !important;
+        color: #fff;
+      }
+      .sub-menu--not-main {
+        height: 100%;
+      }
+    </style>
+
+
+    <style>
       .form__group.invalid .form__text-input {
         border-color: #ed4337;
         background: rgba(237, 67, 55, 0.1);

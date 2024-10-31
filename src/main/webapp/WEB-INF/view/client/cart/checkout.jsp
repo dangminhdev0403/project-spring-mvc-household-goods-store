@@ -55,6 +55,17 @@ uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
     <!-- Checkout content -->
     <div class="checkout-container">
+      <c:if test="${empty cartDetails}">
+        <h1
+          class="display-2 alert alert-danger text-center"
+          style="display: block; font-size: 2.8rem"
+        >
+          Chưa có sản phẩm để thanh toán
+        </h1>
+        </c:if>
+       
+
+        <c:if test="${ not empty cartDetails}">
       <div class="row gy-xl-3">
         <div class="col-8 col-xl-12">
           <div class="cart-info">
@@ -332,7 +343,7 @@ uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
               name="${_csrf.parameterName}"
               value="${_csrf.token}"
             />
-            <input type="text" id ="total-place" name="total-place" style="display: block;">
+            <input type="text" id ="total-place" name="total-place" style="display: none;">
               <c:if test="${not empty addresses}">
                 <c:forEach var="ad" items="${addresses}" varStatus="sAd">
                   <input type="radio" name="addressId" value="${ad.id}" id ="address-select-${ad.id}" style="display: none;">
@@ -384,6 +395,7 @@ uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
           </div>
         </div>
       </div>
+      </c:if>
     </div>
   </div>
 </main>
