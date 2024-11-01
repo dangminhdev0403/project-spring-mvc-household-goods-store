@@ -92,6 +92,7 @@ public class ItemController {
         model.addAttribute("totalProduct", totalProduct);
         model.addAttribute("addresses", addresses);
         model.addAttribute("cart", cart);
+        model.addAttribute("newAddress", new Address());
         return "client/cart/checkout";
     }
 

@@ -72,4 +72,8 @@ public class CategoryService {
         this.parentCategoryRepository.delete(category);
     }
 
+    public Category  getByName(String name ){
+        return this.categoryRepository.findByName(name);
+    }
+
 }

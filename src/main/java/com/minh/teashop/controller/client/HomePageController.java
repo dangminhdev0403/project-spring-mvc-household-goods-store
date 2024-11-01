@@ -16,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.minh.teashop.domain.Cart;
 import com.minh.teashop.domain.CartDetail;
+import com.minh.teashop.domain.ParentCategory;
 import com.minh.teashop.domain.Product;
 import com.minh.teashop.domain.User;
 import com.minh.teashop.domain.dto.RegisterDTO;
@@ -39,8 +40,6 @@ public class HomePageController {
 
     private final CategoryService categoryService;
 
-   
-
     public HomePageController(ProductService productService, UserService userService, PasswordEncoder passwordEncoder,
             EmailService emailService, CategoryService categoryService) {
         this.productService = productService;
@@ -54,7 +53,6 @@ public class HomePageController {
     public String getHomePage(Model model, HttpServletRequest request) {
         List<Product> listProduct = this.productService.getListProducts();
         model.addAttribute("listProduct", listProduct);
-        HttpSession session = request.getSession(false);
         return "client/homepage/show";
 
     }
@@ -63,6 +61,9 @@ public class HomePageController {
     public String getHeaderLogined(Model model, HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         User currentUser = new User();
+
+        List<ParentCategory> categoriesp = this.categoryService.getListParentCategories();
+        model.addAttribute("categories", categoriesp);
 
         if (session != null && session.getAttribute("id") != null) {
             long userId = (long) session.getAttribute("id");
@@ -121,7 +122,7 @@ public class HomePageController {
         user.setRole(this.userService.getRoleByName("CUSTOMER"));
         user.setEnabled(false);
         User newUser = this.userService.handleSaveUser(user);
-        
+
         this.emailService.sendEmailVerify(newUser);
 
         redirectAttributes.addFlashAttribute("success", "Chúng tôi đã gửi email xác thực đến hộp thư của bạn");
@@ -130,12 +131,12 @@ public class HomePageController {
 
     }
 
-     @GetMapping("/verify")
+    @GetMapping("/verify")
     public String verifyAccount(@RequestParam("token") String token, RedirectAttributes redirectAttributes) {
 
         VerificationToken verificationToken = this.emailService.findByToken(token) == null ? null
                 : this.emailService.findByToken(token);
-      
+
         if (verificationToken == null) {
             redirectAttributes.addFlashAttribute("error", "Liên kết không tồn tại");
             return "redirect:/login";
@@ -150,7 +151,6 @@ public class HomePageController {
 
         }
 
-
         if (verificationToken.getExpiryDate().isBefore(LocalDateTime.now())) {
 
             redirectAttributes.addFlashAttribute("error", "Liên kết xác thực đã hết hạn");
@@ -164,6 +164,5 @@ public class HomePageController {
 
         return "redirect:/login";
     }
-    
 
 }

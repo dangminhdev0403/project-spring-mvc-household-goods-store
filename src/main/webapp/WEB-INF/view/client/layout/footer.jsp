@@ -139,20 +139,24 @@ uri="http://www.springframework.org/tags/form" %>
 
 
 
-    function submitForm(e){
-        e.preventDefault();
-        let btnSubmit = document.querySelector("a.submit");
-        let form = btnSubmit.closest("form"); // Lấy thẻ form là cha của button
-        console.log(form);
-        
+function submitForm(e) {
+    e.preventDefault(); // Ngăn chặn hành động mặc định của thẻ <a>
+    let btnSubmit = e.currentTarget; // Lấy nút đã được nhấn
+    let form = btnSubmit.closest("form"); // Lấy thẻ form là cha của button
+    console.log(form);
+    
+    if (form) {
         form.submit(); // Gọi phương thức submit của form
     }
-    let btnSubmit = document.querySelector("a.submit");
-    if(btnSubmit){
-        btnSubmit.addEventListener('click', submitForm);
-        let form = btnSubmit.closest("form"); // Lấy thẻ form là cha của button
-    }
-   
+}
+
+let btnSubmit = document.querySelectorAll("a.submit");
+
+if (btnSubmit) {
+    btnSubmit.forEach(btn => {
+        btn.addEventListener('click', submitForm); // Gọi hàm submitForm khi nhấn nút
+    });
+}
    
 </script>
 

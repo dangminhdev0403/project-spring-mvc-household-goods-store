@@ -62,7 +62,6 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
               </h1>
             </c:if>
             <c:if test ="${not empty listOrders}">
-              <p class="cart-info__desc">3 items</p>
 
               <div class="cart-info__check-all">
                 <div class="cart-info__continue">
@@ -85,7 +84,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
               </div>
               <div class="cart-info__list">
                 <c:forEach var="order" items="${listOrders}">
-
+                  <p>Đơn hàng " ${order.orderDate}</p>
                   <c:forEach var="orderDetail" items="${order.orderDetail}">
                   <article class="cart-item">
                     <label class="cart-info__checkbox">
@@ -139,7 +138,13 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                           ${orderDetail.price} 
                         </p>
   
-                        <form action="/can" method="post" class="cart-item__checkout-btn btn btn--primary btn--rounded">
+                        <form action="/cancel-oder" method="post" class="cart-item__checkout-btn btn btn--primary btn--rounded">
+                          <input
+                          type="hidden"
+                          name="${_csrf.parameterName}"
+                          value="${_csrf.token}"
+                        />
+                        <input type="hidden" >
                           <button
                           class="cart-item__checkout-btn btn btn--primary btn--rounded is-cancel"
                         >

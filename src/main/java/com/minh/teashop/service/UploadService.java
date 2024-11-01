@@ -8,6 +8,8 @@ import java.io.IOException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.minh.teashop.domain.upload.UploadResponse;
+
 import jakarta.servlet.ServletContext;
 
 @Service
@@ -21,12 +23,13 @@ public class UploadService {
         this.servletContext = servletContext;
     }
 
-    public String handleSaveUploadFile(MultipartFile file, String targetFolder) {
-        // don't upload file
+    public UploadResponse handleSaveUploadFile(MultipartFile file, String targetFolder) {
         if (file.isEmpty())
-            return "";
+            return null;
         // relative path: absolute path
-        String rootPath = this.servletContext.getRealPath("/resources/upload");
+        String serverUrl = "http://localhost:8080"; 
+        String realPath = "/resources/upload";
+        String rootPath = this.servletContext.getRealPath(realPath);
         String finalName = "";
         try {
             byte[] bytes = file.getBytes();
@@ -48,9 +51,14 @@ public class UploadService {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return finalName;
+
+        String url = serverUrl + realPath + "/" + targetFolder + "/" + finalName;
+        return new UploadResponse(finalName, url) ;
     }
 
+   
+    
+    
     public boolean handleDeleteFile(String fileName, String targetFolder) {
         String rootPath = this.servletContext.getRealPath("/resources/upload");
 
@@ -84,5 +92,4 @@ public class UploadService {
             return false; // Xóa thất bại do lỗi
         }
     }
-
 }

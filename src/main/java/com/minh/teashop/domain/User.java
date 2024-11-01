@@ -38,6 +38,8 @@ public class User {
     @Size(min = 10, message = "Số điện thoại phải có ít nhất 10 chữ số")
     private String phone;
     private String avatar;
+    private String urlAvatar ;
+
 
     @ManyToOne
     @JoinColumn(name = "role_id")
@@ -142,6 +144,14 @@ public class User {
 
     public void setAddress(List<Address> address) {
         this.address = address;
+    }
+
+    public String getUrlAvatar() {
+        return urlAvatar;
+    }
+
+    public void setUrlAvatar(String urlAvatar) {
+        this.urlAvatar = urlAvatar;
     }
 
 }

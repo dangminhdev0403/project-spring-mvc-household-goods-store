@@ -1,14 +1,24 @@
 package com.minh.teashop.service;
 
-import java.time.LocalDate;
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.minh.teashop.domain.Address;
 import com.minh.teashop.domain.Cart;
 import com.minh.teashop.domain.CartDetail;
+import com.minh.teashop.domain.Category;
 import com.minh.teashop.domain.Order;
 import com.minh.teashop.domain.OrderDetail;
 import com.minh.teashop.domain.Product;
@@ -32,16 +42,20 @@ public class ProductService {
     private final UserService userService;
     private final OrderRepository orderRepository;
     private final OrderDetailRepository orderDetailRepository;
+    private final CategoryService categoryService ;
+
+    
 
     public ProductService(ProductRepository productRepository, CartRepository cartRepository,
             CartDetailRepository cartDetailRepository, UserService userService, OrderRepository orderRepository,
-            OrderDetailRepository orderDetailRepository) {
+            OrderDetailRepository orderDetailRepository, CategoryService categoryService) {
         this.productRepository = productRepository;
         this.cartRepository = cartRepository;
         this.cartDetailRepository = cartDetailRepository;
         this.userService = userService;
         this.orderRepository = orderRepository;
         this.orderDetailRepository = orderDetailRepository;
+        this.categoryService = categoryService;
     }
 
     public List<Product> getListProducts() {
@@ -49,16 +63,16 @@ public class ProductService {
         return listProducts;
     }
 
-    public String createSkuProduct(){
+    public String createSkuProduct() {
 
-        long count = productRepository.count() ;
-        String sku = "SP"+ count;
+        long count = productRepository.count();
+        String sku = "SP" + count;
 
-        return sku ;
+        return sku;
     }
 
     public Product handleSaveProduct(Product product) {
-        if(product.getSku() == null){
+        if (product.getSku() == null) {
             String skuProduct = createSkuProduct();
             product.setSku(skuProduct);
         }
@@ -159,7 +173,7 @@ public class ProductService {
         order.setReceiverPhone(receiverAddress.getReceiverPhone());
         order.setStatus(OrderStatus.PENDING);
         order.setTotalPrice(total);
-        order.setOrderDate(LocalDate.now());
+        order.setOrderDate(LocalDateTime.now());
         order = this.orderRepository.save(order);
 
         Cart cart = this.cartRepository.findByUser(user);
@@ -186,4 +200,88 @@ public class ProductService {
             }
         }
     }
+
+    public void saveProductsFromExcel(MultipartFile file) throws IOException {
+        List<Product> products = new ArrayList<>();
+    
+        try (Workbook workbook = new XSSFWorkbook(file.getInputStream())) {
+            Sheet sheet = workbook.getSheetAt(0); // Lấy sheet đầu tiên
+            for (Row row : sheet) {
+                // Bỏ qua hàng đầu tiên nếu là tiêu đề
+                if (row.getRowNum() == 0) {
+                    continue;
+                }
+    
+                // Kiểm tra xem hàng có rỗng không
+                boolean isEmptyRow = true;
+                for (int i = 0; i < row.getPhysicalNumberOfCells(); i++) {
+                    Cell cell = row.getCell(i);
+                    if (cell != null && cell.getCellType() != CellType.BLANK) {
+                        isEmptyRow = false;
+                        break;
+                    }
+                }
+                // Bỏ qua hàng rỗng
+                if (isEmptyRow) {
+                    continue;
+                }
+    
+                Product product = new Product();
+    
+                // Lấy mã SKU từ ô đầu tiên (cột A)
+                Cell skuCell = row.getCell(0); // Ô SKU nằm ở cột đầu tiên
+                if (skuCell != null && skuCell.getCellType() == CellType.STRING) {
+                    product.setSku(skuCell.getStringCellValue());
+                }
+    
+                // Lấy tên sản phẩm
+                Cell nameCell = row.getCell(1);
+                if (nameCell != null && nameCell.getCellType() == CellType.STRING) {
+                    product.setName(nameCell.getStringCellValue());
+                }
+    
+                // Lấy mô tả sản phẩm
+                Cell descriptionCell = row.getCell(2);
+                if (descriptionCell != null && descriptionCell.getCellType() == CellType.STRING) {
+                    product.setDescription(descriptionCell.getStringCellValue());
+                }
+    
+                // Lấy giá ban đầu
+                Cell firstPriceCell = row.getCell(3);
+                if (firstPriceCell != null && firstPriceCell.getCellType() == CellType.NUMERIC) {
+                    product.setFisrtPrice(firstPriceCell.getNumericCellValue());
+                }
+    
+                // Lấy số lượng tồn kho
+                Cell stockCell = row.getCell(4);
+                if (stockCell != null && stockCell.getCellType() == CellType.NUMERIC) {
+                    product.setStock((long) stockCell.getNumericCellValue());
+                }
+    
+                // Lấy hệ số
+                Cell factorCell = row.getCell(5);
+                if (factorCell != null && factorCell.getCellType() == CellType.NUMERIC) {
+                    product.setFactor(factorCell.getNumericCellValue());
+                }
+    
+                // Tính giá
+                double price = product.getFactor() * product.getFisrtPrice();
+                product.setPrice(price);
+
+
+                Cell categoryCell = row.getCell(6);
+                if (categoryCell != null && categoryCell.getCellType() == CellType.STRING) {
+                    String categoryName = categoryCell.getStringCellValue() ;
+                    Category category = this.categoryService.getByName(categoryName) ;
+                    product.setCategory(category);
+                }
+    
+                products.add(product);
+            }
+        }
+    
+        // Lưu tất cả sản phẩm vào cơ sở dữ liệu
+        productRepository.saveAll(products);
+    }
+    
 }

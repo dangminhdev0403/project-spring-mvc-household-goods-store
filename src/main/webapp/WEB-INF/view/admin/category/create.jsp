@@ -58,6 +58,8 @@ uri="http://www.springframework.org/tags/form" %>
                   </div>
                  
                   <div class="col-md-6 col-lg-6">
+                    <div class="form-group">
+
                     <label for="email2">Danh mục cha</label>
 
                     <form:select class="form-control form-select" path="parent">
@@ -69,6 +71,7 @@ uri="http://www.springframework.org/tags/form" %>
                       </form:option>
                     </c:forEach>
                   </form:select>
+                  </div>
                 </div>
                 </div>
               </div>

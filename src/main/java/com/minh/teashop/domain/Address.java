@@ -20,9 +20,17 @@ public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private String fullAddress;
     private String receiverPhone;
     private String receiverName;
+    private String city;        // Tỉnh/Thành phố
+    private String district;    // Quận/Huyện
+    private String ward;        // Phường/Xã
+    private String address;     // Địa chỉ chi tiết
+
+
+    public String getFullAddress(){
+        return this.address +", "+ this.ward +", " + this.district + ", "+this.city ;
+    }
     @ManyToOne
     @JoinColumn(name = "user_id")
     User user;

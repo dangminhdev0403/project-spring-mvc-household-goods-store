@@ -251,3 +251,76 @@ if (checkAll) {
     checkall.addEventListener("change", checkAllInput);
   });
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+  // Lấy tất cả các phần tử select cho tỉnh, quận, và xã
+  const tinhSelects = document.querySelectorAll('.tinh'); // Lấy tất cả các phần tử có class tinh
+  const quanSelects = document.querySelectorAll('.quan'); // Lấy tất cả các phần tử có class quan
+  const phuongSelects = document.querySelectorAll('.phuong'); // Lấy tất cả các phần tử có class phuong
+
+  fetch('https://esgoo.net/api-tinhthanh/1/0.htm')
+      .then(response => response.json())
+      .then(data_tinh => {
+          if (data_tinh.error === 0) {
+              tinhSelects.forEach(tinhSelect => {
+                  data_tinh.data.forEach(val_tinh => {
+                      const option = document.createElement('option');
+                      option.setAttribute("tinhid", val_tinh.id);
+                      option.value = val_tinh.full_name;
+                      option.textContent = val_tinh.full_name;
+                      tinhSelect.appendChild(option);
+                  });
+                  
+                  tinhSelect.addEventListener('change', function() {
+                      const selectedOption = this.options[this.selectedIndex]; // Lấy option được chọn
+                      const idtinh = selectedOption.getAttribute("tinhid"); // Lấy tinhid từ option đã chọn
+
+                      // Lấy quận huyện
+                      fetch(`https://esgoo.net/api-tinhthanh/2/${idtinh}.htm`)
+                          .then(response => response.json())
+                          .then(data_quan => {
+                              if (data_quan.error === 0) {
+                                  quanSelects.forEach(quanSelect => {
+                                      quanSelect.innerHTML = '<option value="0">Quận Huyện</option>';
+                                      phuongSelects.forEach(phuongSelect => {
+                                          phuongSelect.innerHTML = '<option value="0">Phường Xã</option>';
+                                      });
+
+                                      data_quan.data.forEach(val_quan => {
+                                          const option = document.createElement('option');
+                                          option.setAttribute("quanId", val_quan.id);
+                                          option.value = val_quan.full_name;
+                                          option.textContent = val_quan.full_name;
+                                          quanSelect.appendChild(option);
+                                      });
+                                      
+                                      // Lấy phường xã
+                                      quanSelect.addEventListener('change', function() {
+                                          const selectedOption = this.options[this.selectedIndex]; // Lấy option được chọn
+                                          const idquan = selectedOption.getAttribute("quanId"); // Lấy quanId từ option đã chọn
+                      
+                                          fetch(`https://esgoo.net/api-tinhthanh/3/${idquan}.htm`)
+                                              .then(response => response.json())
+                                              .then(data_phuong => {
+                                                  if (data_phuong.error === 0) {
+                                                      phuongSelects.forEach(phuongSelect => {
+                                                          phuongSelect.innerHTML = '<option value="0">Phường Xã</option>';
+                                                          
+                                                          data_phuong.data.forEach(val_phuong => {
+                                                              const option = document.createElement('option');
+                                                              option.value = val_phuong.full_name;
+                                                              option.textContent = val_phuong.full_name;
+                                                              phuongSelect.appendChild(option);
+                                                          });
+                                                      });
+                                                  }
+                                              });
+                                      });
+                                  });
+                              }
+                          });
+                  });
+              });
+          }
+      });
+});

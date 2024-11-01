@@ -9,6 +9,8 @@ import com.minh.teashop.domain.Category;
 public interface CategoryRepository extends JpaRepository<Category, Long> {
 
      Category findById(long id);
+     Category findByName(String name);
      boolean existsByName(String name);    
+
 
 }

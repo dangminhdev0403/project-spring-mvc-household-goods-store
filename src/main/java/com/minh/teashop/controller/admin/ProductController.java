@@ -1,5 +1,6 @@
 package com.minh.teashop.controller.admin;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.minh.teashop.domain.Category;
 import com.minh.teashop.domain.Product;
 import com.minh.teashop.domain.ProductImage;
+import com.minh.teashop.domain.upload.UploadResponse;
 import com.minh.teashop.service.CategoryService;
 import com.minh.teashop.service.ProductImageService;
 import com.minh.teashop.service.ProductService;
@@ -76,7 +78,7 @@ public class ProductController {
             List<ProductImage> listImages = this.productImageService.getImagesByProduct(product.get());
             if (!listImages.isEmpty()) {
                 for (ProductImage image : listImages) {
-                    this.uploadService.handleDeleteFile(image.getName(), "products");
+                    this.uploadService.handleDeleteFile(image.getName(),"products");
                 }
             }
         }
@@ -94,22 +96,33 @@ public class ProductController {
         if (product.getFactor() == null || product.getFactor() == 0) {
             product.setFactor(1.0);
         }
-        double price = product.getFactor() * product.getFisrtPrice() ;
+        double price = product.getFactor() * product.getFisrtPrice();
         product.setPrice(price);
         Product newProduct = this.productService.handleSaveProduct(product);
 
         if (files.length != 0 && files[0].getOriginalFilename() != "") {
             for (int i = 0; i < files.length; i++) {
                 // upload file
-                String imageProduct = this.uploadService.handleSaveUploadFile(files[i], "products");
+             
+                UploadResponse response  = this.uploadService.handleSaveUploadFile(files[i], "products");
+                String imageProduct = response.getFinalName() ;
                 ProductImage image = new ProductImage();
                 image.setName(imageProduct);
                 image.setProduct(newProduct);
-
+                image.setUrl(response.getUrl());
                 this.productImageService.handleSaveImage(image);
             }
         }
         redirectAttributes.addFlashAttribute("success", "Thêm thành công");
+
+        return "redirect:/admin/products";
+    }
+
+    // thêm nhiều products
+    @PostMapping("/admin/products/create")
+    public String postMethodName(@RequestParam("fileProduct") MultipartFile file) throws IOException {
+
+        this.productService.saveProductsFromExcel(file);
 
         return "redirect:/admin/products";
     }
@@ -124,17 +137,19 @@ public class ProductController {
                 List<ProductImage> listImagesCurrent = this.productImageService.getImagesByProduct(currentProduct);
                 for (ProductImage image : listImagesCurrent) {
 
-                    this.uploadService.handleDeleteFile(image.getName(), "products");
+                    this.uploadService.handleDeleteFile(image.getName(),"products");
                     this.productImageService.handleDeleteImage(image);
 
                 }
                 for (int i = 0; i < files.length; i++) {
                     // upload file
-                    String imageProduct = this.uploadService.handleSaveUploadFile(files[i], "products");
+                    UploadResponse response = this.uploadService.handleSaveUploadFile(files[i], "products");
+
+                    String imageProduct = response.getFinalName();
                     ProductImage image = new ProductImage();
                     image.setName(imageProduct);
                     image.setProduct(currentProduct);
-
+                    image.setUrl(response.getUrl());
                     this.productImageService.handleSaveImage(image);
                 }
 
@@ -149,8 +164,8 @@ public class ProductController {
             } else {
                 currentProduct.setFactor(product.getFactor());
             }
-            double price = product.getFactor() * product.getFisrtPrice() ;
-            currentProduct.setFisrtPrice(product.getFisrtPrice()) ;
+            double price = product.getFactor() * product.getFisrtPrice();
+            currentProduct.setFisrtPrice(product.getFisrtPrice());
             currentProduct.setPrice(price);
             this.productService.handleSaveProduct(currentProduct); // Thay đổi ở đây
 

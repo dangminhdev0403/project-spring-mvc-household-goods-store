@@ -83,6 +83,20 @@ uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
       .sub-menu--not-main {
         height: 100%;
       }
+      .tinh {
+        font-size: 1.7rem;
+       
+      }
+     
+      .quan {
+        font-size: 1.7rem;
+        text-align: -webkit-center;
+      }
+      .phuong {
+        font-size: 1.7rem;
+        text-align: -webkit-center;
+      }
+
     </style>
   </head>
   <body>

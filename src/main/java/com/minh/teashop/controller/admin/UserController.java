@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.minh.teashop.domain.User;
+import com.minh.teashop.domain.upload.UploadResponse;
 import com.minh.teashop.service.UploadService;
 import com.minh.teashop.service.UserService;
 
@@ -56,24 +57,25 @@ public class UserController {
     }
 
     @PostMapping("/admin/users/create")
-    public String createNewUser(Model model, @ModelAttribute("newUser") @Valid User newUser, BindingResult bindingResult
-    ,@RequestParam("avatarImg") MultipartFile file , RedirectAttributes  redirectAttributes
-    ) {
-
-      
+    public String createNewUser(Model model, @ModelAttribute("newUser") @Valid User newUser,
+            BindingResult bindingResult, @RequestParam("avatarImg") MultipartFile file,
+            RedirectAttributes redirectAttributes) {
 
         if (bindingResult.hasErrors()) {
             return "/admin/user/create";
 
         }
-        if(file.getOriginalFilename() != ""){
-            String avatar  =   this.uploadService.handleSaveUploadFile(file, "avatar");
-            newUser.setAvatar(avatar);
+        if (file.getOriginalFilename() != "") {
+            UploadResponse response = this.uploadService.handleSaveUploadFile(file, "avatar");
+            String newAvatar = response.getFinalName();
+
+            newUser.setAvatar(newAvatar);
+            newUser.setUrlAvatar(response.getUrl());
         }
-        
+
         String hashPassword = this.passwordEncoder.encode(newUser.getPassword());
         newUser.setPassword(hashPassword);
-       
+
         newUser.setRole(this.userService.getRoleByName(newUser.getRole().getName()));
         this.userService.handleSaveUser(newUser);
 
@@ -83,27 +85,32 @@ public class UserController {
     }
 
     @PostMapping("/admin/users/update")
-    public String updateUser(Model model, @ModelAttribute("newUser") User user ,@RequestParam("avatarImg") MultipartFile file,RedirectAttributes  redirectAttributes) {
+    public String updateUser(Model model, @ModelAttribute("newUser") User user,
+            @RequestParam("avatarImg") MultipartFile file, RedirectAttributes redirectAttributes) {
         User currentUser = this.userService.getUserById(user.getUser_id());
 
         if (currentUser != null) {
-            if(!file.isEmpty()){
+            if (!file.isEmpty()) {
 
-                if(currentUser.getAvatar() != null){
+                if (currentUser.getAvatar() != null) {
                     this.uploadService.handleDeleteFile(currentUser.getAvatar(), "avatar");
-                    String newAvatar = this.uploadService.handleSaveUploadFile(file, "avatar") ;
+                    UploadResponse response = this.uploadService.handleSaveUploadFile(file, "avatar");
+                    String newAvatar = response.getFinalName();
                     currentUser.setAvatar(newAvatar);
+                    currentUser.setUrlAvatar(response.getUrl());
 
-                }else{
-                    String newAvatar = this.uploadService.handleSaveUploadFile(file, "avatar") ;
+                } else {
+                    UploadResponse response = this.uploadService.handleSaveUploadFile(file, "avatar");
+                    String newAvatar = response.getFinalName();
                     currentUser.setAvatar(newAvatar);
+                    currentUser.setUrlAvatar(response.getUrl());
 
                 }
-               
+
             }
             currentUser.setName(user.getName());
             currentUser.setPhone(user.getPhone());
-            
+
             this.userService.handleSaveUser(currentUser);
         }
         redirectAttributes.addFlashAttribute("success", "Cập nhật thành công");
@@ -113,9 +120,9 @@ public class UserController {
     }
 
     @GetMapping("/admin/user/delete/{id}")
-    public String deleteUser(Model model, @PathVariable long id,RedirectAttributes  redirectAttributes) {
+    public String deleteUser(Model model, @PathVariable long id, RedirectAttributes redirectAttributes) {
         User currentUser = this.userService.getUserById(id);
-        this.uploadService.handleDeleteFile(currentUser.getAvatar(), "avatar");
+        this.uploadService.handleDeleteFile(currentUser.getAvatar(),"avatar");
 
         this.userService.deleteAUser(id);
 

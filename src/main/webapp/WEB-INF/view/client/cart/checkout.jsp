@@ -99,7 +99,7 @@ uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
                 <!-- Address card 1 -->
                 <c:if test="${empty addresses}">
-                  <p>Danh sách địa chỉ đang rỗng.</p>
+                  <p>Danh sách địa chỉ đang trống.</p>
                 </c:if>
                 <c:if test="${not empty addresses}">
                   <c:forEach var="adr" items="${addresses}" varStatus="sAd">
@@ -132,7 +132,7 @@ uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
                         <div class="cart-item__ctrl" style="min-height: 55%">
                           <button
                             class="js-toggle cart-item__ctrl-btn"
-                            toggle-target="#add-new-address"
+                            toggle-target="#add-update-address-${adr.id}"
                           >
                             <img
                               class="icon"
@@ -141,8 +141,17 @@ uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
                             />
                             Sửa
                           </button>
-                          <button
-                            type="submit"
+
+                          <form action="/delete-address" method="post">
+                            <input
+                            type="hidden"
+                            name="${_csrf.parameterName}"
+                            value="${_csrf.token}"
+                          />
+                          <input type="hidden" value="${adr.id}" name ="adrID">
+                            <button
+                              type="submit"
+                        
                             class="cart-item__ctrl-btn is-delete"
                             style="
                               color: rgba(223, 132, 107, 0.973);
@@ -154,6 +163,8 @@ uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
                             <!-- Tăng kích thước gấp đôi -->
                             Xoá
                           </button>
+                          </form>
+                         
                         </div>
                       </div>
                     </article>
@@ -237,8 +248,8 @@ uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
                 <article class="cart-item">
                   <a href="/product/${detail.product.product_id}">
                     <img
-                      src="/client/assets/img/product/item-1.png"
-                      alt=""
+                    src="/upload/products/${detail.product.productImages[0].name}"
+                    alt="${detail.product.name}"
                       class="cart-item__thumb"
                     />
                   </a>
@@ -336,7 +347,7 @@ uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
             </div>
 
            
-
+            <!-- đặt hàng -->
             <form method="POST" action="/place-oder">
               <input
               type="hidden"
@@ -402,32 +413,17 @@ uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <jsp:include page="../layout/footer.jsp" />
 
-<!-- Modal: Xác nhận xoá sản phẩm khỏi giỏ hàng -->
-<div id="delete-confirm" class="modal modal--small hide">
-  <div class="modal__content">
-    <p class="modal__text">Bạn có muốn xoá sản phẩm này khỏi giỏ hàng không?</p>
-    <div class="modal__bottom">
-      <button
-        class="btn btn--small btn--outline modal__btn js-toggle"
-        toggle-target="#delete-confirm"
-      >
-        Hủy
-      </button>
-      <button
-        class="btn btn--small btn--danger btn--primary modal__btn btn--no-margin js-toggle"
-        toggle-target="#delete-confirm"
-      >
-        Xóa
-      </button>
-    </div>
-  </div>
-  <div class="modal__overlay js-toggle" toggle-target="#delete-confirm"></div>
-</div>
+
 
 <!-- Modal: Địa chỉ mới cho giao hàng -->
 <div id="add-new-address" class="modal hide" style="--content-width: 650px">
   <div class="modal__content">
-    <form action="" class="form">
+    <form:form action="/add-address" class="form" modelAttribute ="newAddress">
+      <input
+      type="hidden"
+      name="${_csrf.parameterName}"
+      value="${_csrf.token}"
+    />
       <h2 class="modal__heading">Thêm địa chỉ giao hàng mới</h2>
       <div class="modal__body">
         <div class="form__row">
@@ -436,13 +432,15 @@ uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
               >Họ và tên</label
             >
             <div class="form__text-input form__text-input--small">
-              <input
+              <form:input
                 type="text"
                 name="name"
+                path="receiverName"
                 id="name"
                 placeholder="Họ và tên"
                 class="form__input"
                 minlength="2"
+
               />
               <img
                 src="client/assets/icons/form-error.svg"
@@ -450,17 +448,20 @@ uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
                 class="form__input-icon-error"
               />
             </div>
-            <p class="form__error">Tên phải có ít nhất 2 ký tự</p>
+            <p class="form__error">Nhập tối thiểu 2 kí tự</p>
+
           </div>
           <div class="form__group">
             <label for="phone" class="form__label form__label--small"
               >Số điện thoại</label
             >
             <div class="form__text-input form__text-input--small">
-              <input
+              <form:input
                 type="tel"
                 name="phone"
                 id="phone"
+                path="receiverPhone"
+
                 placeholder="Số điện thoại"
                 class="form__input"
                 minlength="10"
@@ -475,104 +476,208 @@ uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
           </div>
         </div>
         <div class="form__group">
+          <div class="form__text-input form__text-input--small" style="display: grid;
+          grid-template-columns: repeat(3, 1fr);">
+          
+            <img src="./assets/icons/form-error.svg" alt="" class="form__input-icon-error" />
+ 
+            <!-- Select dialog -->
+            <form:select class="css_select tinh" id="tinh" name="tinh" title="Chọn Tỉnh Thành" style="height: 100%; border-right: 1px solid #d2d1d6; cursor: pointer;" path="city">
+              <form:option value="0" style="cursor: pointer;">Tỉnh Thành</form:option>
+              <!-- Các tùy chọn tỉnh thành sẽ được thêm vào đây -->
+          </form:select>
+      
+          <form:select class="css_select quan" id="quan" name="quan" title="Chọn Quận Huyện" style="height: 100%; border-right: 1px solid #d2d1d6; cursor: pointer;" path="district">
+              <form:option value="0" style="cursor: pointer;">Quận Huyện</form:option>
+              <!-- Các tùy chọn quận huyện sẽ được thêm vào đây -->
+          </form:select>
+      
+          <form:select class="css_select phuong" id="phuong" name="phuong" title="Chọn Phường Xã" style="cursor: pointer;" path="ward">
+              <form:option value="0" style="cursor: pointer;">Phường Xã</form:option>
+              <!-- Các tùy chọn phường xã sẽ được thêm vào đây -->
+          </form:select>
+          </div>
+        </div>
+
+
+
+
+        <div class="form__group">
           <label for="address" class="form__label form__label--small"
-            >Địa chỉ</label
+            >Địa chỉ người nhận</label
           >
           <div class="form__text-area">
-            <textarea
+            <form:textarea
               name="address"
+              path="address"
               id="address"
               placeholder="Địa chỉ (Khu vực và đường)"
               class="form__text-area-input"
-            ></textarea>
+            ></form:textarea>
             <img
               src="client/assets/icons/form-error.svg"
               alt=""
               class="form__input-icon-error"
             />
           </div>
-          <p class="form__error">Địa chỉ không được để trống</p>
         </div>
-        <div class="form__group">
-          <label for="city" class="form__label form__label--small"
-            >Thành phố/Quận/Huyện</label
-          >
-          <div class="form__text-input form__text-input--small">
-            <input
-              type="text"
-              name=""
-              placeholder="Thành phố/Quận/Huyện"
-              id="city"
-              readonly
-              class="form__input js-toggle"
-              toggle-target="#city-dialog"
-            />
-            <img
-              src="client/assets/icons/form-error.svg"
-              alt=""
-              class="form__input-icon-error"
-            />
-
-            <!-- Hộp thoại chọn -->
-            <div id="city-dialog" class="form__select-dialog hide">
-              <h2 class="form__dialog-heading d-none d-sm-block">
-                Thành phố/Quận/Huyện
-              </h2>
-              <button
-                class="form__close-dialog d-none d-sm-block js-toggle"
-                toggle-target="#city-dialog"
-              >
-                &times
-              </button>
-              <div class="form__search">
-                <input
-                  type="text"
-                  placeholder="Tìm kiếm"
-                  class="form__search-input"
-                />
-                <img
-                  src="client/assets/icons/search.svg"
-                  alt=""
-                  class="form__search-icon icon"
-                />
-              </div>
-              <div class="form__options-list">
-                <li class="form__option">Hà Nội</li>
-                <li class="form__option form__option--current">Hồ Chí Minh</li>
-                <li class="form__option">Đà Nẵng</li>
-                <!-- Thêm các tùy chọn khác ở đây -->
-              </div>
-            </div>
-          </div>
-          <p class="form__error">Số điện thoại phải có ít nhất 11 ký tự</p>
-        </div>
-        <div class="form__group form__group--inline">
-          <label class="form__checkbox">
-            <input
-              type="checkbox"
-              name=""
-              id=""
-              class="form__checkbox-input d-none"
-            />
-            <span class="form__checkbox-label">Đặt làm địa chỉ mặc định</span>
-          </label>
-        </div>
+      
+      
       </div>
       <div class="modal__bottom">
-        <button
+        <a
           class="btn btn--small btn--text modal__btn js-toggle"
+          style="cursor: pointer;"
           toggle-target="#add-new-address"
         >
           Hủy
-        </button>
+        </a>
         <button
-          class="btn btn--small btn--primary modal__btn btn--no-margin js-toggle"
-          toggle-target="#add-new-address"
+        
+          
+          class="btn btn--small btn--primary modal__btn btn--no-margin submit"
         >
           Tạo
         </button>
+
       </div>
-    </form>
+    </form:form>
   </div>
   <div class="modal__overlay"></div>
 </div>
+
+<!-- update address -->
+<c:if test="${not empty addresses}">
+  <c:forEach var="address" items="${addresses}" >
+
+  <div id="add-update-address-${address.id}" class="modal hide" style="--content-width: 650px">
+    <div class="modal__content">
+      <form action="/update-address" class="form" method="post">
+        <input
+        type="hidden"
+        name="${_csrf.parameterName}"
+        value="${_csrf.token}"
+      />
+
+      <input type="hidden" name="idAddress" value="${address.id}">
+        <h2 class="modal__heading">Cập nhật chỉ giao hàng </h2>
+        <div class="modal__body">
+          <div class="form__row">
+            <div class="form__group">
+              <label for="name" class="form__label form__label--small"
+                >Họ và tên</label
+              >
+              <div class="form__text-input form__text-input--small">
+                <input
+                  type="text"
+                  name="receiverName"
+                  id="name"
+                  placeholder="Họ và tên"
+                  class="form__input"
+                  minlength="2"
+                value="${address.receiverName}"
+                />
+                <img
+                  src="client/assets/icons/form-error.svg"
+                  alt=""
+                  class="form__input-icon-error"
+                />
+
+              </div>
+              <p class="form__error">Họ Tên phải nhập trên 2 kí tự</p>
+
+            </div>
+            <div class="form__group">
+              <label for="phone" class="form__label form__label--small"
+                >Số điện thoại</label
+              >
+              <div class="form__text-input form__text-input--small">
+                <input
+                  type="tel"
+                  name="receiverPhone"
+                  id="phone"
+                  value="${address.receiverPhone}"
+  
+                  placeholder="Số điện thoại"
+                  class="form__input"
+                  minlength="10"
+                />
+                <img
+                  src="client/assets/icons/form-error.svg"
+                  alt=""
+                  class="form__input-icon-error"
+                />
+              </div>
+              <p class="form__error">Số điện thoại phải có ít nhất 10 ký tự</p>
+            </div>
+          </div>
+          <div class="form__group">
+            <div class="form__text-input form__text-input--small" style="display: grid;
+            grid-template-columns: repeat(3, 1fr);">
+            
+              <img src="./assets/icons/form-error.svg" alt="" class="form__input-icon-error" />
+   
+              <!-- Select dialog -->
+              <select class="css_select tinh"  name="city" title="Chọn Tỉnh Thành" style="height: 100%; border-right: 1px solid #d2d1d6; cursor: pointer;" path="city">
+                <option value="${address.city}" style="cursor: pointer;">${address.city}</option>
+                <!-- Các tùy chọn tỉnh thành sẽ được thêm vào đây -->
+            </select>
+        
+            <select class="css_select quan"  name="district" title="Chọn Quận Huyện" style="height: 100%; border-right: 1px solid #d2d1d6; cursor: pointer;" path="district">
+                <option value="${address.district}" style="cursor: pointer;">${address.district}</option>
+                <!-- Các tùy chọn quận huyện sẽ được thêm vào đây -->
+            </select>
+        
+            <select class="css_select phuong"  name="ward" title="Chọn Phường Xã" style="cursor: pointer;" path="ward">
+                <option value="${address.ward}" style="cursor: pointer;">${address.ward}</option>
+                <!-- Các tùy chọn phường xã sẽ được thêm vào đây -->
+            </select>
+            </div>
+          </div>
+  
+  
+  
+  
+          <div class="form__group">
+            <label for="address" class="form__label form__label--small"
+              >Địa chỉ người nhận</label
+            >
+            <div class="form__text-area">
+              <textarea
+                name="address"
+                id="address"
+                placeholder="Địa chỉ (Khu vực và đường)"
+                value ="address.address"
+                class="form__text-area-input"
+               
+              >${address.address}</textarea>
+             
+            </div>
+          </div>
+        
+        
+        </div>
+        <div class="modal__bottom">
+          <a 
+            class="btn btn--small btn--text modal__btn js-toggle"
+            style="cursor: pointer;"
+
+            toggle-target="#add-update-address-${address.id}"
+          >
+            Hủy
+          </a>
+          <button
+          
+            
+            class="btn btn--small btn--primary modal__btn btn--no-margin submit"
+          >
+            Sửa
+          </button>
+  
+        </div>
+      </form>
+    </div>
+    <div class="modal__overlay"></div>
+  </div>
+    </c:forEach>
+    </c:if>

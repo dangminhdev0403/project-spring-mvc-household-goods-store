@@ -27,6 +27,7 @@ uri="http://www.springframework.org/tags/form" %>
       </ul>
     </div>
     <div class="row">
+      <!-- adđ one -->
       <div class="col-md-12">
         <div class="card">
           <div class="card-header">
@@ -165,6 +166,58 @@ uri="http://www.springframework.org/tags/form" %>
               <a href="/admin/products" class="btn btn-danger">Trờ về</a>
             </div>
           </form:form>
+        </div>
+      </div>
+      <!-- add many -->
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Thêm nhiều sản phẩm</div>
+          </div>
+          <form
+            action="/admin/products/create" method="post"
+            
+            class="row"
+            enctype="multipart/form-data"
+          >
+          <input
+              type="hidden"
+              name="${_csrf.parameterName}"
+              value="${_csrf.token}"
+            />
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-6 col-lg-4">
+                
+                  <div class="form-group">
+                   
+                    <label for="nameProduct">File excel sản phẩm</label>
+                    <input
+                    type="file"
+                    class="form-control"
+                    id="file-product"
+                    name="fileProduct"
+                    accept=".xlsx, .xls"
+                />
+
+                   
+                  </div>
+                 
+
+                
+              
+              </div>
+             
+             
+            
+             
+            </div>
+            </div>
+            <div class="card-action">
+              <button class="btn btn-success">Xác nhận</button>
+              <a href="/admin/products" class="btn btn-danger">Trờ về</a>
+            </div>
+          </form>
         </div>
       </div>
     </div>
