@@ -62,7 +62,8 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(authorize -> authorize
                         .dispatcherTypeMatchers(DispatcherType.FORWARD, DispatcherType.INCLUDE)
                         .permitAll()
-                        .requestMatchers("/header-logined", "/", "/login", "/register", "/products/**", "/product/**", "/verify" ,
+                        .requestMatchers("/header-logined", "/", "/login", "/register", "/products/**", "/product/**",
+                                "/verify", "/category",
                                 "/client/**", "/css/**", "/js/**",
                                 "/upload/**")
                         .permitAll() // Cho phép truy cập các đường dẫn này mà không cần đăng nhập

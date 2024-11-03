@@ -476,9 +476,9 @@ uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
           </div>
         </div>
         <div class="form__group">
-          <div class="form__text-input form__text-input--small" style="display: grid;
+          <div class="form__text-input form__text-input--small address-group" style="display: grid;
           grid-template-columns: repeat(3, 1fr);">
-          
+
             <img src="./assets/icons/form-error.svg" alt="" class="form__input-icon-error" />
  
             <!-- Select dialog -->
@@ -496,6 +496,7 @@ uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
               <form:option value="0" style="cursor: pointer;">Phường Xã</form:option>
               <!-- Các tùy chọn phường xã sẽ được thêm vào đây -->
           </form:select>
+          
           </div>
         </div>
 
@@ -612,7 +613,7 @@ uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
             </div>
           </div>
           <div class="form__group">
-            <div class="form__text-input form__text-input--small" style="display: grid;
+            <div class="form__text-input form__text-input--small address-group" style="display: grid;
             grid-template-columns: repeat(3, 1fr);">
             
               <img src="./assets/icons/form-error.svg" alt="" class="form__input-icon-error" />

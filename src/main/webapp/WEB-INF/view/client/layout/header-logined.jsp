@@ -34,6 +34,17 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         <img class="icon" src="/client/assets/icons/arrow-left.svg" alt="" />
       </button>
 
+
+      <div class="search nav-btn d-none d-md-flex">
+        <form action="#" style="border: 1px solid #ccc;border-radius: 2rem;">
+            <input type="text" placeholder="Tìm kiếm"
+                   name="search">
+            <button>
+                <i class="fa fa-search"></i>
+            </button>
+        </form>
+    </div>
+
       <a href="/cart" class="nav-btn d-none d-md-flex">
         <img
           src="/client/assets/icons/buy.svg"
@@ -82,7 +93,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                           <ul class="menu-column__list">
                             <c:forEach var="childCategory" items="${category.children}">
                               <li class="menu-column__item">
-                                <a href="#!" class="menu-column__link" style="font-size: 1.8rem;">${childCategory.name}</a>
+                                <a href="/category/${childCategory.category_id}" class="menu-column__link" style="font-size: 1.8rem;">${childCategory.name}</a>
                               </li>
                             </c:forEach>
 
@@ -107,13 +118,15 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
     <!-- Actions -->
     <div class="top-act">
       <div class="top-act__group d-md-none top-act__group--single">
-        <button class="top-act__btn">
-          <img
-            src="/client/assets/icons/search.svg"
-            alt=""
-            class="icon top-act__icon"
-          />
-        </button>
+        <div class="search">
+          <form action="#">
+              <input type="text" placeholder="tìm kiếm"
+                     name="search">
+              <button>
+                  <i class="fa fa-search"></i>
+              </button>
+          </form>
+      </div>
       </div>
           
 

@@ -3,22 +3,31 @@ package com.minh.teashop.controller.client;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.minh.teashop.domain.Cart;
 import com.minh.teashop.domain.CartDetail;
+import com.minh.teashop.domain.Category;
 import com.minh.teashop.domain.ParentCategory;
 import com.minh.teashop.domain.Product;
+import com.minh.teashop.domain.Product_;
 import com.minh.teashop.domain.User;
+import com.minh.teashop.domain.dto.ProductSpecDTO;
 import com.minh.teashop.domain.dto.RegisterDTO;
 import com.minh.teashop.domain.verifymail.VerificationToken;
 import com.minh.teashop.service.CategoryService;
@@ -50,9 +59,16 @@ public class HomePageController {
     }
 
     @GetMapping("/")
-    public String getHomePage(Model model, HttpServletRequest request) {
-        List<Product> listProduct = this.productService.getListProducts();
+    public String getHomePage(Model model,
+            @RequestParam(value = "page", defaultValue = "1") int page,
+            @RequestParam(value = "search") Optional<String> nameSearch) {
+        Pageable pageable = PageRequest.of(page - 1, 10);
+        String nameProduct = nameSearch.isPresent() ? nameSearch.get() : "";
+        Page<Product> listProductPage = this.productService.fetchProducts(pageable, nameProduct);
+        List<Product> listProduct = listProductPage.getContent();
         model.addAttribute("listProduct", listProduct);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", listProductPage.getTotalPages());
         return "client/homepage/show";
 
     }
@@ -95,6 +111,37 @@ public class HomePageController {
     public String getDenyPage(Model model) {
         // Thêm dữ liệu cần thiết vào model nếu có
         return "client/auth/404";
+    }
+
+    @GetMapping("/category/{idCategory}")
+    public String getMethodName(Model model, ProductSpecDTO productSpec, @PathVariable("idCategory") long idCategory
+
+    ) {
+
+        Category category = new Category();
+        category.setCategory_id(idCategory);
+
+        int page = 1;
+
+        try {
+            if (productSpec.getPage().isPresent()) {
+                page = Integer.parseInt(productSpec.getPage().get());
+            }
+
+        } catch (Exception e) {
+        }
+
+       
+        Page<Product> listProductPage = this.productService.fetchProductsByCategory( category ,productSpec );
+        List<Product> listProduct = listProductPage.getContent().size() > 0 ? listProductPage.getContent()
+                : new ArrayList<Product>();
+
+        model.addAttribute("listProduct", listProduct);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", listProductPage.getTotalPages());
+
+        return "client/product/show-by-category";
+
     }
 
     @GetMapping("/register")

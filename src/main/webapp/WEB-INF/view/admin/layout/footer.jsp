@@ -37,6 +37,7 @@
 <script src="/js/core/popper.min.js"></script>
 <script src="/js/core/bootstrap.min.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 
 <!-- jQuery Scrollbar -->
 <script src="/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>

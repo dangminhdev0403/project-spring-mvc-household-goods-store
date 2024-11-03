@@ -96,14 +96,17 @@ public class ItemController {
         return "client/cart/checkout";
     }
 
+
+
+
     @PostMapping("/add-product-to-cart/{id}")
-    public String addProductToCart(@PathVariable long id, HttpServletRequest request,
+    public String addProductToCart(@PathVariable long id, HttpServletRequest request,@RequestParam("quantity") long qty,
             RedirectAttributes redirectAttributes) {
         HttpSession session = request.getSession(false);
         String email = (String) session.getAttribute("email");
         String referer = request.getHeader("Referer");
         long productId = id;
-        this.productService.handleAddProductToCart(email, productId, session, 1);
+        this.productService.handleAddProductToCart(email, productId, session, qty);
         redirectAttributes.addFlashAttribute("success", "Sản phẩm đã được thêm vào giỏ hàng");
         return "redirect:" + referer;
 

@@ -63,7 +63,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
             </c:if>
             <c:if test ="${not empty listOrders}">
 
-              <div class="cart-info__check-all">
+              <div class="cart-info__check-all" style="margin-bottom: 5rem;">
                 <div class="cart-info__continue">
                   <label class="cart-info__checkbox">
                     <input
@@ -82,9 +82,13 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                   </a>
                 </div>
               </div>
-              <div class="cart-info__list">
+              <div class="cart-info__list" style="margin-top: 3rem;">
                 <c:forEach var="order" items="${listOrders}">
-                  <p>Đơn hàng " ${order.orderDate}</p>
+
+                <h1 class="cart-info__heading"> Đơn hàng vào<span class="format-date"> ${order.orderDate}</span></h1>
+
+
+                 
                   <c:forEach var="orderDetail" items="${order.orderDetail}">
                   <article class="cart-item">
                     <label class="cart-info__checkbox">
@@ -173,6 +177,35 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                     Quay lại mua sắm
                   </a>
                 </div>
+                <div class="pagination d-flex justify-content-center mt-5">
+                  <ul id="pagination-links" class="pagination-list">
+                    <c:if test="${ currentPage > 1 }">
+                      <li class="page-item">
+                        <a class="page-link" href="/?page=${currentPage - 1}" aria-label="Previous">
+                          <span aria-hidden="true">«</span>
+                        </a>
+                      </li>
+                    </c:if>
+                
+                    <c:forEach begin="0" end="${totalPages - 1}" varStatus="loop">
+                      <li class="page-item">
+                        <a class="page-link ${(loop.index + 1) eq currentPage ? 'active' : ''}" href="/?page=${loop.index + 1}">
+                          ${loop.index + 1}
+                        </a>
+                      </li>
+                    </c:forEach>
+                
+                    <c:if test="${ currentPage < totalPages }">
+                      <li class="page-item">
+                        <a class="page-link" href="/?page=${currentPage + 1}" aria-label="Next">
+                          <span aria-hidden="true">»</span>
+                        </a>
+                      </li>
+                    </c:if>
+                  </ul>
+                </div>
+                
+                
               </div>
             </div>
           </div>

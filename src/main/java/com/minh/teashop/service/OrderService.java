@@ -3,10 +3,13 @@ package com.minh.teashop.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import com.minh.teashop.domain.Order;
 import com.minh.teashop.repository.OrderRepository;
+import com.minh.teashop.service.specification.OrderSpecs;
 
 @Service
 public class OrderService {
@@ -19,6 +22,12 @@ public class OrderService {
     
     public List<Order> getListOders(){
         return this.orderRepository.findAll();
+    }
+
+
+    public  List<Order> fetchOrder(){
+        Specification<Order>  specification = OrderSpecs.orderByDateDesc() ;
+        return this.orderRepository.findAll(specification);
     }
 
     public Order getOrderById(long id){

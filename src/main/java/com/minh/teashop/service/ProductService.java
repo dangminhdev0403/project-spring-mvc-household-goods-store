@@ -12,6 +12,11 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -22,13 +27,16 @@ import com.minh.teashop.domain.Category;
 import com.minh.teashop.domain.Order;
 import com.minh.teashop.domain.OrderDetail;
 import com.minh.teashop.domain.Product;
+import com.minh.teashop.domain.Product_;
 import com.minh.teashop.domain.User;
+import com.minh.teashop.domain.dto.ProductSpecDTO;
 import com.minh.teashop.domain.enumdomain.OrderStatus;
 import com.minh.teashop.repository.CartDetailRepository;
 import com.minh.teashop.repository.CartRepository;
 import com.minh.teashop.repository.OrderDetailRepository;
 import com.minh.teashop.repository.OrderRepository;
 import com.minh.teashop.repository.ProductRepository;
+import com.minh.teashop.service.specification.ProductSpecs;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -42,9 +50,7 @@ public class ProductService {
     private final UserService userService;
     private final OrderRepository orderRepository;
     private final OrderDetailRepository orderDetailRepository;
-    private final CategoryService categoryService ;
-
-    
+    private final CategoryService categoryService;
 
     public ProductService(ProductRepository productRepository, CartRepository cartRepository,
             CartDetailRepository cartDetailRepository, UserService userService, OrderRepository orderRepository,
@@ -63,19 +69,68 @@ public class ProductService {
         return listProducts;
     }
 
-    public String createSkuProduct() {
+    public Page<Product> fetchProducts(Pageable pageable) {
 
-        long count = productRepository.count();
-        String sku = "SP" + count;
+        return this.productRepository.findAll(pageable);
+    }
 
-        return sku;
+    public Page<Product> fetchProducts(Pageable pageable, String name) {
+
+        return this.productRepository.findAll(ProductSpecs.nameLike(name), pageable);
+    }
+
+    public Page<Product> fetchProductsByCategory(Pageable pageable, Category category) {
+
+        Specification<Product> specification = ProductSpecs.hasCategory(category);
+
+        return this.productRepository.findAll(specification, pageable);
+
+    }
+
+    public Page<Product> fetchProductsByCategory(Category category, ProductSpecDTO productSpecDTO) {
+
+        Specification<Product> combinedSpec = Specification.where(null);
+
+        if (productSpecDTO.getPrice() != null && productSpecDTO.getPrice().isPresent()) {
+            String priceRange = productSpecDTO.getPrice().get();
+            if (!priceRange.equals("on")) {
+
+                String[] value = priceRange.split("-");
+
+                int min = Integer.parseInt(value[0]) * 1000;
+                int max = Integer.parseInt(value[1]) * 1000;
+
+                Specification<Product> currentSpec = ProductSpecs.matchMultiplePrice(min, max);
+                combinedSpec = combinedSpec.and(currentSpec);
+
+            }
+            ;
+
+        }
+
+        int page = 1;
+        Pageable pageable = PageRequest.of(page - 1, 6);
+
+        if (productSpecDTO.getSort() != null && productSpecDTO.getSort().isPresent()) {
+            String sort = productSpecDTO.getSort().get();
+
+            if (sort.equals("desc")) {
+                pageable = PageRequest.of(page - 1, 6, Sort.by(Product_.PRICE).descending());
+
+            } else if (sort.equals("asc")) {
+                pageable = PageRequest.of(page - 1, 6, Sort.by(Product_.PRICE).ascending());
+
+            }
+        }
+
+        combinedSpec = combinedSpec.and(ProductSpecs.hasCategory(category));
+
+        return this.productRepository.findAll(combinedSpec, pageable);
+
     }
 
     public Product handleSaveProduct(Product product) {
-        if (product.getSku() == null) {
-            String skuProduct = createSkuProduct();
-            product.setSku(skuProduct);
-        }
+
         return this.productRepository.save(product);
     }
 
@@ -109,7 +164,7 @@ public class ProductService {
                     cd.setCart(cart);
                     cd.setProduct(product);
                     cd.setPrice(product.getPrice());
-                    cd.setQuantity(1);
+                    cd.setQuantity(quantity);
                     this.cartDetailRepository.save(cd);
                     long sum = cart.getSum() + 1;
                     cart.setSum(sum);
@@ -203,7 +258,7 @@ public class ProductService {
 
     public void saveProductsFromExcel(MultipartFile file) throws IOException {
         List<Product> products = new ArrayList<>();
-    
+
         try (Workbook workbook = new XSSFWorkbook(file.getInputStream())) {
             Sheet sheet = workbook.getSheetAt(0); // Lấy sheet đầu tiên
             for (Row row : sheet) {
@@ -211,7 +266,7 @@ public class ProductService {
                 if (row.getRowNum() == 0) {
                     continue;
                 }
-    
+
                 // Kiểm tra xem hàng có rỗng không
                 boolean isEmptyRow = true;
                 for (int i = 0; i < row.getPhysicalNumberOfCells(); i++) {
@@ -225,63 +280,62 @@ public class ProductService {
                 if (isEmptyRow) {
                     continue;
                 }
-    
+
                 Product product = new Product();
-    
+
                 // Lấy mã SKU từ ô đầu tiên (cột A)
                 Cell skuCell = row.getCell(0); // Ô SKU nằm ở cột đầu tiên
                 if (skuCell != null && skuCell.getCellType() == CellType.STRING) {
                     product.setSku(skuCell.getStringCellValue());
                 }
-    
+
                 // Lấy tên sản phẩm
                 Cell nameCell = row.getCell(1);
                 if (nameCell != null && nameCell.getCellType() == CellType.STRING) {
                     product.setName(nameCell.getStringCellValue());
                 }
-    
+
                 // Lấy mô tả sản phẩm
                 Cell descriptionCell = row.getCell(2);
                 if (descriptionCell != null && descriptionCell.getCellType() == CellType.STRING) {
                     product.setDescription(descriptionCell.getStringCellValue());
                 }
-    
+
                 // Lấy giá ban đầu
                 Cell firstPriceCell = row.getCell(3);
                 if (firstPriceCell != null && firstPriceCell.getCellType() == CellType.NUMERIC) {
                     product.setFisrtPrice(firstPriceCell.getNumericCellValue());
                 }
-    
+
                 // Lấy số lượng tồn kho
                 Cell stockCell = row.getCell(4);
                 if (stockCell != null && stockCell.getCellType() == CellType.NUMERIC) {
                     product.setStock((long) stockCell.getNumericCellValue());
                 }
-    
+
                 // Lấy hệ số
                 Cell factorCell = row.getCell(5);
                 if (factorCell != null && factorCell.getCellType() == CellType.NUMERIC) {
                     product.setFactor(factorCell.getNumericCellValue());
                 }
-    
+
                 // Tính giá
                 double price = product.getFactor() * product.getFisrtPrice();
                 product.setPrice(price);
 
-
                 Cell categoryCell = row.getCell(6);
                 if (categoryCell != null && categoryCell.getCellType() == CellType.STRING) {
-                    String categoryName = categoryCell.getStringCellValue() ;
-                    Category category = this.categoryService.getByName(categoryName) ;
+                    String categoryName = categoryCell.getStringCellValue();
+                    Category category = this.categoryService.getByName(categoryName);
                     product.setCategory(category);
                 }
-    
+
                 products.add(product);
             }
         }
-    
+
         // Lưu tất cả sản phẩm vào cơ sở dữ liệu
         productRepository.saveAll(products);
     }
-    
+
 }

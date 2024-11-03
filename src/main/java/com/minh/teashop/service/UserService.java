@@ -3,6 +3,9 @@ package com.minh.teashop.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,8 +22,7 @@ import com.minh.teashop.repository.ParentCategoryRepository;
 import com.minh.teashop.repository.RoleRepository;
 import com.minh.teashop.repository.UserRepository;
 import com.minh.teashop.repository.VerificationTokenRepository;
-
-import lombok.AllArgsConstructor;
+import com.minh.teashop.service.specification.OrderSpecs;
 
 @Service
 
@@ -33,8 +35,6 @@ public class UserService {
     private final OrderRepository orderRepository;
     private final ParentCategoryRepository parentCategoryRepository;
     private final VerificationTokenRepository verificationTokenRepository;
-
-    
 
     public UserService(UserRepository userRepository, RoleRepository roleRepository, UserMapper userMapper,
             AddressRepository addressRepository, OrderRepository orderRepository,
@@ -72,7 +72,7 @@ public class UserService {
 
     @Transactional
     public void deleteAUser(long id) {
-        User user = new User() ;
+        User user = new User();
         user.setUser_id(id);
         this.verificationTokenRepository.deleteByUser(user);
         this.userRepository.deleteById(id);
@@ -128,6 +128,14 @@ public class UserService {
             return order;
         }
         return null;
+    }
+
+    public Page<Order> getOrderByUser(User user, Pageable page) {
+
+        Specification<Order> specification = Specification.where(OrderSpecs.orderByDateDesc())
+                .and(OrderSpecs.orderByUser(user));
+
+        return this.orderRepository.findAll(specification, page);
     }
 
     public List<ParentCategory> getListParentCategories() {

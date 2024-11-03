@@ -41,6 +41,7 @@ uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
     <!-- Styles -->
     <link rel="stylesheet" href="/client/assets/css/main.css" />
+    <link rel="stylesheet" href="/client/assets/css/style.css" />
     <link rel="stylesheet" href="/client/assets/css/sweetalert2.min.css" />
 
     <!-- Scripts -->

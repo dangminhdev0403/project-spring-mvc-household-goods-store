@@ -59,67 +59,25 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         <div class="col-5 col-xl-6 col-lg-12">
           <div class="prod-preview">
             <div class="prod-preview__list">
-              <c:forEach var="image" items="${product.productImages}">
                 <div class="prod-preview__item">
                   <img
-                    src="/upload/products/${image.name}"
+                    src="/upload/products/${product.productImages[0].name}"
                     alt=""
                     class="prod-preview__img"
                   />
                 </div>
-              </c:forEach>
 
-              <!--  -->
-              <div class="prod-preview__item">
-                <img
-                  src="/client/assets/img/product/item-2.png"
-                  alt=""
-                  class="prod-preview__img"
-                />
-              </div>
-              <div class="prod-preview__item">
-                <img
-                  src="/client/assets/img/product/item-3.png"
-                  alt=""
-                  class="prod-preview__img"
-                />
-              </div>
-              <div class="prod-preview__item">
-                <img
-                  src="/client/assets/img/product/item-4.png"
-                  alt=""
-                  class="prod-preview__img"
-                />
-              </div>
+           
             </div>
             <div class="prod-preview__thumbs">
               <c:forEach var="image" items="${product.productImages}">
                 <img
                   src="/upload/products/${image.name}"
                   alt="${image.name}"
-                  class="prod-preview__thumb-img prod-preview__thumb-img--current"
+                  class="prod-preview__thumb-img  product.productImages"
                 />
               </c:forEach>
-              <img
-                src="/client/assets/img/product/item-1.png"
-                alt=""
-                class="prod-preview__thumb-img prod-preview__thumb-img--current"
-              />
-              <img
-                src="/client/assets/img/product/item-2.png"
-                alt=""
-                class="prod-preview__thumb-img"
-              />
-              <img
-                src="/client/assets/img/product/item-3.png"
-                alt=""
-                class="prod-preview__thumb-img"
-              />
-              <img
-                src="/client/assets/img/product/item-4.png"
-                alt=""
-                class="prod-preview__thumb-img"
-              />
+            
             </div>
           </div>
         </div>
@@ -138,9 +96,16 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                 <div class="filter__form-group">
                   <div class="form__select-wrap">
                     <div class="form__select" style="--width: 146px">
-                      Số lượng
+                      Tình trạng 
                     </div>
-                    <div class="form__select">${product.stock}</div>
+                    <div class="form__select">
+                      <c:if test="${product.stock <= 0}">
+                        Hết hàng
+                    </c:if>
+                    <c:if test="${product.stock > 0}">
+                        Còn hàng
+                    </c:if>
+                    </div>
                   </div>
                 </div>
                 <div class="filter__form-group">
@@ -149,8 +114,21 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                     <button class="form__tag prod-info__tag">Medium</button>
                     <button class="form__tag prod-info__tag">Large</button>
                   </div>
+                  <div class="cart-item__input" style="display: inline-flex; margin-top: 3rem;">
+                    <button class="cart-item__input-btn" id="decrease">
+                        <img class="icon" src="/client/assets/icons/minus.svg" alt="">
+                    </button>
+                    <span id="quantity">1</span>
+                    <button class="cart-item__input-btn" id="increase">
+                        <img class="icon" src="/client/assets/icons/plus.svg" alt="">
+                    </button>
+                </div>
                 </div>
               </div>
+
+             
+
+
               <div class="col-7 col-xxl-6 col-xl-12">
                 <div class="prod-props">
                   <div class="prod-prop">
@@ -159,7 +137,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                       alt=""
                       class="prod-prop__icon icon"
                     />
-                    <h4 class="prod-prop__title">Compare</h4>
+                    <h4 class="prod-prop__title">Nổi bật</h4>
                   </div>
                   <div class="prod-prop">
                     <img
@@ -168,8 +146,8 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                       class="prod-prop__icon icon"
                     />
                     <div>
-                      <h4 class="prod-prop__title">Delivery</h4>
-                      <p class="prod-prop__desc">From $6 for 1-3 days</p>
+                      <h4 class="prod-prop__title">Giao hàng tận nơi</h4>
+                      <p class="prod-prop__desc">Giao tận nhà, tiện lợi và nhanh chóng.</p>
                     </div>
                   </div>
                   <div class="prod-prop">
@@ -179,8 +157,8 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                       class="prod-prop__icon icon"
                     />
                     <div>
-                      <h4 class="prod-prop__title">Pickup</h4>
-                      <p class="prod-prop__desc">Out of 2 store, today</p>
+                      <h4 class="prod-prop__title">Tuỳ chọn thanh toán</h4>
+                      <p class="prod-prop__desc">Có nhiều lựa chọn thanh toán linh hoạt.</p>
                     </div>
                   </div>
                   <div class="prod-info__card">
@@ -219,6 +197,8 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                           name="${_csrf.parameterName}"
                           value="${_csrf.token}"
                         />
+
+                        <input type="hidden" name="quantity" value="1" id ="quantity-submit">
                         <a type="submit" class="btn btn--primary submit" style="cursor: pointer;">
                           Thêm vào giỏ hàng
                         </a>

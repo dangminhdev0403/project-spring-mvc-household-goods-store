@@ -139,8 +139,8 @@ if (inputRadio1) {
   const sumPrice = document.querySelectorAll(".sum-total");
   const shipPrice = document.querySelectorAll(".shipping-price");
   sumPrice.forEach((sum) => {
-    let inputPrice = document.querySelector('input#total-place');
-    inputPrice.value = currentShip + subTotal ;
+    let inputPrice = document.querySelector("input#total-place");
+    inputPrice.value = currentShip + subTotal;
     sum.textContent = formatNumber(currentShip + subTotal);
   });
 
@@ -213,7 +213,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 function checkAllInput(e) {
   let isChecked = e.target.checked; // Lấy trạng thái checked từ sự kiện
-  
+
   const inputCheck = document.querySelectorAll("input.checkbox");
   inputCheck.forEach((check) => {
     check.checked = isChecked; // Đặt trạng thái cho từng checkbox
@@ -231,18 +231,18 @@ function checkIndividualInput() {
 }
 
 // Gán sự kiện cho checkbox "Chọn tất cả"
-const challBox = document.querySelector(".check-all-box") ;
-if(challBox){
-  document.querySelector(".check-all-box").addEventListener('change', checkAllInput);
-
+const challBox = document.querySelector(".check-all-box");
+if (challBox) {
+  document
+    .querySelector(".check-all-box")
+    .addEventListener("change", checkAllInput);
 }
 
 // Gán sự kiện cho các checkbox cá nhân
 const inputCheck = document.querySelectorAll("input.checkbox");
 inputCheck.forEach((check) => {
-  check.addEventListener('change', checkIndividualInput);
+  check.addEventListener("change", checkIndividualInput);
 });
-
 
 const checkAll = document.querySelectorAll(".check-all-box");
 
@@ -252,75 +252,253 @@ if (checkAll) {
   });
 }
 
-document.addEventListener('DOMContentLoaded', function() {
+// Lấy tất cả các phần tử select cho tỉnh, quận, và xã
+function compareString(str1, str2) {
+  // Loại bỏ dấu cách và chuyển chuỗi về chữ thường
+  let cleanedStr1 = str1.replace(/\s+/g, "").toLowerCase();
+  let cleanedStr2 = str2.replace(/\s+/g, "").toLowerCase();
+
+  return cleanedStr1 === cleanedStr2;
+}
+
+function getIdByName(selectElement, name) {
+  const options = selectElement.options;
+  for (let i = 0; i < options.length; i++) {
+    if (options[i].text === name) {
+      return (
+        options[i].getAttribute("tinhid") ||
+        options[i].getAttribute("quanId") ||
+        options[i].getAttribute("phuongId")
+      );
+    }
+  }
+  return null; // Trả về null nếu không tìm thấy
+}
+
+document.addEventListener("DOMContentLoaded", function () {
   // Lấy tất cả các phần tử select cho tỉnh, quận, và xã
-  const tinhSelects = document.querySelectorAll('.tinh'); // Lấy tất cả các phần tử có class tinh
-  const quanSelects = document.querySelectorAll('.quan'); // Lấy tất cả các phần tử có class quan
-  const phuongSelects = document.querySelectorAll('.phuong'); // Lấy tất cả các phần tử có class phuong
+  const tinhSelects = document.querySelectorAll(".tinh");
 
-  fetch('https://esgoo.net/api-tinhthanh/1/0.htm')
-      .then(response => response.json())
-      .then(data_tinh => {
-          if (data_tinh.error === 0) {
-              tinhSelects.forEach(tinhSelect => {
-                  data_tinh.data.forEach(val_tinh => {
-                      const option = document.createElement('option');
-                      option.setAttribute("tinhid", val_tinh.id);
-                      option.value = val_tinh.full_name;
-                      option.textContent = val_tinh.full_name;
-                      tinhSelect.appendChild(option);
+  // Fetch danh sách tỉnh/thành
+  fetch("https://esgoo.net/api-tinhthanh/1/0.htm")
+    .then((response) => response.json())
+    .then((data_tinh) => {
+      if (data_tinh.error === 0) {
+        // Đổ dữ liệu vào tất cả các select của tỉnh/thành
+        tinhSelects.forEach((tinhSelect) => {
+          data_tinh.data.forEach((val_tinh) => {
+            const option = document.createElement("option");
+            option.classList.add("option-address");
+
+            option.setAttribute("tinhid", val_tinh.id);
+            option.value = val_tinh.full_name;
+            option.textContent = val_tinh.full_name;
+
+            tinhSelect.appendChild(option);
+          });
+
+          // Xử lý khi người dùng chọn tỉnh/thành
+          tinhSelect.addEventListener("change", function () {
+            const selectedOption = this.options[this.selectedIndex];
+            const idtinh = selectedOption.getAttribute("tinhid");
+
+            // Lấy quận huyện cho tỉnh/thành đã chọn
+            fetch(`https://esgoo.net/api-tinhthanh/2/${idtinh}.htm`)
+              .then((response) => response.json())
+              .then((data_quan) => {
+                if (data_quan.error === 0) {
+                  // Lấy phần tử quận/huyện và xã/phường cùng nhóm
+                  const quanSelect =
+                    this.closest(".address-group").querySelector(".quan");
+                  const phuongSelect =
+                    this.closest(".address-group").querySelector(".phuong");
+
+                  // Reset quận/huyện và xã/phường khi tỉnh/thành thay đổi
+                  quanSelect.innerHTML =
+                    '<option value="0">Quận Huyện</option>';
+                  phuongSelect.innerHTML =
+                    '<option value="0">Phường Xã</option>';
+
+                  // Đổ dữ liệu quận/huyện vào select tương ứng
+                  data_quan.data.forEach((val_quan) => {
+                    const option = document.createElement("option");
+                    option.setAttribute("quanId", val_quan.id);
+                    option.value = val_quan.full_name;
+                    option.textContent = val_quan.full_name;
+                    quanSelect.appendChild(option);
                   });
-                  
-                  tinhSelect.addEventListener('change', function() {
-                      const selectedOption = this.options[this.selectedIndex]; // Lấy option được chọn
-                      const idtinh = selectedOption.getAttribute("tinhid"); // Lấy tinhid từ option đã chọn
 
-                      // Lấy quận huyện
-                      fetch(`https://esgoo.net/api-tinhthanh/2/${idtinh}.htm`)
-                          .then(response => response.json())
-                          .then(data_quan => {
-                              if (data_quan.error === 0) {
-                                  quanSelects.forEach(quanSelect => {
-                                      quanSelect.innerHTML = '<option value="0">Quận Huyện</option>';
-                                      phuongSelects.forEach(phuongSelect => {
-                                          phuongSelect.innerHTML = '<option value="0">Phường Xã</option>';
-                                      });
+                  // Xử lý khi người dùng chọn quận/huyện
+                  quanSelect.addEventListener("change", function () {
+                    const selectedOption = this.options[this.selectedIndex];
+                    const idquan = selectedOption.getAttribute("quanId");
 
-                                      data_quan.data.forEach(val_quan => {
-                                          const option = document.createElement('option');
-                                          option.setAttribute("quanId", val_quan.id);
-                                          option.value = val_quan.full_name;
-                                          option.textContent = val_quan.full_name;
-                                          quanSelect.appendChild(option);
-                                      });
-                                      
-                                      // Lấy phường xã
-                                      quanSelect.addEventListener('change', function() {
-                                          const selectedOption = this.options[this.selectedIndex]; // Lấy option được chọn
-                                          const idquan = selectedOption.getAttribute("quanId"); // Lấy quanId từ option đã chọn
-                      
-                                          fetch(`https://esgoo.net/api-tinhthanh/3/${idquan}.htm`)
-                                              .then(response => response.json())
-                                              .then(data_phuong => {
-                                                  if (data_phuong.error === 0) {
-                                                      phuongSelects.forEach(phuongSelect => {
-                                                          phuongSelect.innerHTML = '<option value="0">Phường Xã</option>';
-                                                          
-                                                          data_phuong.data.forEach(val_phuong => {
-                                                              const option = document.createElement('option');
-                                                              option.value = val_phuong.full_name;
-                                                              option.textContent = val_phuong.full_name;
-                                                              phuongSelect.appendChild(option);
-                                                          });
-                                                      });
-                                                  }
-                                              });
-                                      });
-                                  });
-                              }
+                    // Lấy phường xã cho quận/huyện đã chọn
+                    fetch(`https://esgoo.net/api-tinhthanh/3/${idquan}.htm`)
+                      .then((response) => response.json())
+                      .then((data_phuong) => {
+                        if (data_phuong.error === 0) {
+                          // Reset xã/phường khi quận/huyện thay đổi
+                          phuongSelect.innerHTML =
+                            '<option value="0">Phường Xã</option>';
+
+                          // Đổ dữ liệu phường/xã vào select tương ứng
+                          data_phuong.data.forEach((val_phuong) => {
+                            const option = document.createElement("option");
+                            option.value = val_phuong.full_name;
+                            option.textContent = val_phuong.full_name;
+                            phuongSelect.appendChild(option);
                           });
+                        }
+                      });
                   });
+                }
               });
-          }
-      });
+          });
+        });
+      }
+    });
+});
+
+//  lựa chọn hình ảnh
+const listThumb = document.querySelectorAll(".prod-preview__thumb-img");
+
+if (listThumb) {
+  listThumb.forEach((thum) => {
+    thum.addEventListener("click", function () {
+      listThumb.forEach((thumb) =>
+        thumb.classList.remove("prod-preview__thumb-img--current")
+      );
+
+      thum.classList.add("prod-preview__thumb-img--current");
+      const parent = thum.parentElement.parentElement;
+      const newSrc = thum.getAttribute("src");
+      const parentPre = parent.querySelector(
+        ".prod-preview__list .prod-preview__item .prod-preview__img"
+      );
+      parentPre.setAttribute("src", newSrc);
+    });
+  });
+}
+
+//  quản lí sự kiện tăng giảm trang detail
+
+let quantity = 1;
+// Lấy các phần tử cần thiết
+const quantityDisplay = document.getElementById("quantity");
+const increaseBtn = document.getElementById("increase");
+const decreaseBtn = document.getElementById("decrease");
+const quantitySubmit = document.getElementById("quantity-submit");
+
+// Hàm cập nhật hiển thị số lượng
+function updateQuantityDisplay() {
+  quantityDisplay.textContent = quantity;
+  quantitySubmit.value = quantity;
+}
+
+// Sự kiện cho nút tăng
+if (increaseBtn)
+  increaseBtn.addEventListener("click", () => {
+    quantity++;
+    updateQuantityDisplay();
+  });
+
+// Sự kiện cho nút giảm
+if (decreaseBtn)
+  decreaseBtn.addEventListener("click", () => {
+    if (quantity > 1) {
+      // Đảm bảo số lượng không giảm dưới 1
+      quantity--;
+    }
+    updateQuantityDisplay();
+  });
+
+document.addEventListener("DOMContentLoaded", function () {
+  const queryString = window.location.search;
+  const params = new URLSearchParams(queryString);
+
+  // Lấy giá trị của tham số 'sort'
+  const sort = params.get("sort");
+
+  // Lấy giá trị của tham số 'price'
+  const price = params.get("price");
+
+  // Lấy tất cả các checkbox có class là 'form-check-input'
+  const sortProducts = document.querySelectorAll(".form-check-input");
+
+  // Duyệt qua từng checkbox
+  sortProducts.forEach((pr) => {
+    // Kiểm tra xem giá trị của checkbox có bằng giá trị 'sort' hoặc 'price' không
+    if (pr.value === sort || pr.value === price) {
+      pr.checked = true; // Đánh dấu checkbox là được chọn
+    }
+  });
+
+  const pageLinks = document.querySelectorAll(".page-link");
+  const url = new URL(window.location.href);
+  let currentPage = parseInt(url.searchParams.get("page")) || 1; // Lấy trang hiện tại từ URL, mặc định là 1 nếu không có
+
+  pageLinks.forEach((page) => {
+    const statusPage = page.getAttribute("aria-label");
+
+    // Xác định hành động cho nút "Previous" và "Next" hoặc trang cụ thể
+    if (statusPage === "Previous") {
+      // Nếu là nút "Previous", giảm số trang đi 1
+      page.href = url.toString();
+      if (currentPage > 1) {
+        url.searchParams.set("page", currentPage - 1);
+        page.href = url.toString();
+      }
+    } else if (statusPage === "Next") {
+      // Nếu là nút "Next", tăng số trang thêm 1
+      url.searchParams.set("page", currentPage + 1);
+      page.href = url.toString();
+    } else {
+      // Nếu là trang cụ thể, kiểm tra số trang từ textContent và thiết lập URL
+      const pageNumber = parseInt(page.textContent.trim());
+      if (!isNaN(pageNumber)) {
+        url.searchParams.set("page", pageNumber);
+        page.href = url.toString();
+      }
+    }
+  });
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+  // Lấy trang hiện tại từ URL
+  const urlParams = new URLSearchParams(window.location.search);
+  let currentPage = parseInt(urlParams.get("page")) || 1; // Mặc định là 1 nếu không có tham số
+
+  // Lấy phần tử danh sách phân trang
+  const paginationList = document.getElementById("pagination-links");
+
+  // Kiểm tra xem nút Next đã tồn tại chưa
+  const nextExists = Array.from(paginationList.getElementsByClassName("page-link"))
+                          .some(link => link.textContent.includes("»"));
+
+  // Nếu trang hiện tại là 1 và nút Next chưa tồn tại, thêm nút Next
+  if (currentPage === 1 && !nextExists) {
+    const nextItem = document.createElement("li");
+    nextItem.className = "page-item";
+    nextItem.innerHTML = `
+      <a class="page-link" href="/?page=${currentPage + 1}" aria-label="Next">
+        <span aria-hidden="true">»</span>
+      </a>
+    `;
+    paginationList.appendChild(nextItem);
+  }
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+  const formatDate = document.querySelectorAll(".format-date");
+
+  formatDate.forEach((dateElement) => {
+    const textDate = dateElement.textContent; // Lấy nội dung văn bản
+
+    // Sử dụng Moment.js để định dạng lại ngày
+    const formattedDate = moment(textDate).utc().format("HH:mm DD/MM/YYYY");
+
+    // Cập nhật nội dung văn bản của phần tử
+    dateElement.textContent = formattedDate;
+  });
 });

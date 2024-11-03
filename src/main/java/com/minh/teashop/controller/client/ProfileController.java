@@ -1,13 +1,16 @@
 package com.minh.teashop.controller.client;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -29,22 +32,29 @@ public class ProfileController {
     }
 
     @GetMapping("/order-history")
-    public String getOrderHistoryPage(Model model, HttpServletRequest request) {
+    public String getOrderHistoryPage(Model model, HttpServletRequest request,
+            @RequestParam(value = "page", defaultValue = "1") int page) {
+        Pageable pageable = PageRequest.of(page - 1, 5);
+
         HttpSession session = request.getSession(false);
         long id = (long) session.getAttribute("id");
         User currentUser = new User();
         currentUser.setUser_id(id);
-        List<Order> listOrder = this.userService.getOrder(currentUser);
+        Page<Order> orderPage = this.userService.getOrderByUser(currentUser, pageable);
+        List<Order> listOrder = orderPage == null ? new ArrayList<Order>() : orderPage.getContent();
+                int totalPage = orderPage == null ? 0 : orderPage.getTotalPages() ;
 
         model.addAttribute("listOrders", listOrder);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages",totalPage);
         return "client/order/oder-history";
 
     }
 
     @PostMapping("/cancel-oder")
-    public String postMethodName( HttpServletRequest request) {
+    public String postMethodName(HttpServletRequest request) {
         String referer = request.getHeader("Referer");
-        
+
         return "redirect:" + referer;
 
     }
@@ -57,7 +67,7 @@ public class ProfileController {
         long id = (long) session.getAttribute("id");
         User currentUser = new User();
         currentUser.setUser_id(id);
-            address.setUser(currentUser);    
+        address.setUser(currentUser);
         this.userService.handleSaveAddress(address);
         redirectAttributes.addFlashAttribute("success", "Thêm địa chỉ thành công");
 
@@ -90,7 +100,7 @@ public class ProfileController {
         long userId = (long) session.getAttribute("id");
         User currentUser = new User();
         currentUser.setUser_id(userId);
-        Address address = new Address(id, receiverPhone, receiverName, city, district, ward, newAddress, currentUser) ;
+        Address address = new Address(id, receiverPhone, receiverName, city, district, ward, newAddress, currentUser);
 
         this.userService.handleSaveAddress(address);
 

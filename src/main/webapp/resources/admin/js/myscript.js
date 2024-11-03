@@ -29,3 +29,18 @@ function formatNumber(num) {
     priceElement.textContent = formatPrice(numberPrice);
   });
   
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const formatDate = document.querySelectorAll(".format-date");
+  
+    formatDate.forEach((dateElement) => {
+      const textDate = dateElement.textContent; // Lấy nội dung văn bản
+  
+      // Sử dụng Moment.js để định dạng lại ngày
+      const formattedDate = moment(textDate).utc().format('HH:mm DD/MM/YYYY');
+  
+      // Cập nhật nội dung văn bản của phần tử
+      dateElement.textContent = formattedDate;
+    });
+  });
+  

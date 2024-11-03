@@ -45,7 +45,7 @@ public class OrderController {
     @GetMapping("/admin/order")
     public String getOrderAdminPage(Model model, HttpServletRequest request) {
 
-        List<Order> listOrder = this.orderService.getListOders();
+        List<Order> listOrder = this.orderService.fetchOrder();
 
         model.addAttribute("listOrders", listOrder);
         return "admin/order/show";
