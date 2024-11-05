@@ -36,13 +36,14 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 
       <div class="search nav-btn d-none d-md-flex">
-        <form action="#" style="border: 1px solid #ccc;border-radius: 2rem;">
-            <input type="text" placeholder="Tìm kiếm"
-                   name="search">
+        <form action="#"  style="justify-content: space-around;display: flex;width: 100%;border: 1px solid #ccc;border-radius: 2rem;height: 100%;">
+          <input type="text" placeholder="tìm kiếm" name="search" >
             <button>
                 <i class="fa fa-search"></i>
             </button>
         </form>
+        
+
     </div>
 
       <a href="/cart" class="nav-btn d-none d-md-flex">
@@ -119,10 +120,10 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
     <div class="top-act">
       <div class="top-act__group d-md-none top-act__group--single">
         <div class="search">
-          <form action="#">
+          <form action="#" style="border-radius: 2rem;">
               <input type="text" placeholder="tìm kiếm"
-                     name="search">
-              <button>
+                     name="search" style="font-size: 2.5rem;" >
+              <button  class="btn-search">
                   <i class="fa fa-search"></i>
               </button>
           </form>
@@ -311,7 +312,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
               <ul class="user-menu__list">
                 <li>
-                  <a href="./profile.html" class="user-menu__link"
+                  <a href="/profile" class="user-menu__link"
                     >Trang cá nhân</a
                   >
                 </li>

@@ -8,7 +8,6 @@ import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,7 +24,6 @@ import com.minh.teashop.domain.CartDetail;
 import com.minh.teashop.domain.Category;
 import com.minh.teashop.domain.ParentCategory;
 import com.minh.teashop.domain.Product;
-import com.minh.teashop.domain.Product_;
 import com.minh.teashop.domain.User;
 import com.minh.teashop.domain.dto.ProductSpecDTO;
 import com.minh.teashop.domain.dto.RegisterDTO;
@@ -131,8 +129,7 @@ public class HomePageController {
         } catch (Exception e) {
         }
 
-       
-        Page<Product> listProductPage = this.productService.fetchProductsByCategory( category ,productSpec );
+        Page<Product> listProductPage = this.productService.fetchProductsByCategory(category, productSpec);
         List<Product> listProduct = listProductPage.getContent().size() > 0 ? listProductPage.getContent()
                 : new ArrayList<Product>();
 

@@ -31,6 +31,16 @@ public class ProfileController {
         this.userService = userService;
     }
 
+
+    @GetMapping("/profile")
+    public String getProfilePage(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        
+        
+
+        return "client/profile/show";
+    }
+    
     @GetMapping("/order-history")
     public String getOrderHistoryPage(Model model, HttpServletRequest request,
             @RequestParam(value = "page", defaultValue = "1") int page) {
