@@ -321,9 +321,6 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                   >
                 </li>
 
-                <li>
-                  <a href="#!" class="user-menu__link">Cài đặt</a>
-                </li>
                 <li class="user-menu__separate">
                   <form method="post" action="/logout">
                     <input

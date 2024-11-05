@@ -85,20 +85,37 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
               <div class="cart-info__list" style="margin-top: 3rem;">
                 <c:forEach var="order" items="${listOrders}">
 
-                <h1 class="cart-info__heading"> Đơn hàng vào<span class="format-date"> ${order.orderDate}</span></h1>
+                <div  class="d-flex" style="justify-content: space-between;">
+                  
+                </div>
+                <h1 class="cart-info__heading" style="padding-top: 2rem;"> 
+                  <input
+                    type="checkbox"
+                    name="shipping-adress"
+                    class="cart-info__checkbox-input checkbox"
+                    
+                  />
+               Đơn hàng vào <span class="format-date" style="margin-left: 1rem;"> ${order.orderDate}</span></h1>
 
+                <form action="/cancel-oder" method="post">
+
+                  <input
+                  type="hidden"
+                  name="${_csrf.parameterName}"
+                  value="${_csrf.token}"
+                />
+                <input type="hidden" >
+                  <button style="margin-left: auto;"
+                  class="cart-item__checkout-btn btn btn--primary btn--rounded is-cancel"
+                >
+                  Huỷ
+                </button>
+                </form>
 
                  
                   <c:forEach var="orderDetail" items="${order.orderDetail}">
                   <article class="cart-item">
-                    <label class="cart-info__checkbox">
-                      <input
-                        type="checkbox"
-                        name="shipping-adress"
-                        class="cart-info__checkbox-input checkbox"
-                        
-                      />
-                    </label>
+                   
                     <a href="/product/${orderDetail.product.product_id}">
                       <img
                         src="/upload/products/${orderDetail.product.productImages[0].name}"
@@ -142,19 +159,6 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                           ${orderDetail.price} 
                         </p>
   
-                        <form action="/cancel-oder" method="post" class="cart-item__checkout-btn btn btn--primary btn--rounded">
-                          <input
-                          type="hidden"
-                          name="${_csrf.parameterName}"
-                          value="${_csrf.token}"
-                        />
-                        <input type="hidden" >
-                          <button
-                          class="cart-item__checkout-btn btn btn--primary btn--rounded is-cancel"
-                        >
-                          Huỷ
-                        </button>
-                        </form>
                        
                       </div>
                     </div>
@@ -166,7 +170,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
            
 
             <div class="cart-info__bottom">
-              <div class="cart-info__row cart-info__row-md--block">
+              <div class="cart-info__row cart-info__row-md--block" style="flex-direction: row; align-items: self-end;">
                 <div class="cart-info__continue">
                   <a href="/" class="cart-info__continue-link">
                     <img
@@ -177,34 +181,37 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                     Quay lại mua sắm
                   </a>
                 </div>
-                <div class="pagination d-flex justify-content-center mt-5">
-                  <ul id="pagination-links" class="pagination-list">
-                    <c:if test="${ currentPage > 1 }">
-                      <li class="page-item">
-                        <a class="page-link" href="/?page=${currentPage - 1}" aria-label="Previous">
-                          <span aria-hidden="true">«</span>
-                        </a>
-                      </li>
-                    </c:if>
+                <div class="pagination d-flex justify-content-center mt-5" > 
+                  <!-- Nút Previous chỉ hiện nếu không phải trang đầu tiên -->
+                  <c:if test="${currentPage > 1}">
+                    <li class="page-item">
+                      <a class="page-link" href="/?page=${currentPage - 1}" aria-label="Previous">
+                        <span aria-hidden="true">«</span>
+                      </a>
+                    </li>
+                  </c:if>
                 
-                    <c:forEach begin="0" end="${totalPages - 1}" varStatus="loop">
-                      <li class="page-item">
-                        <a class="page-link ${(loop.index + 1) eq currentPage ? 'active' : ''}" href="/?page=${loop.index + 1}">
-                          ${loop.index + 1}
-                        </a>
-                      </li>
-                    </c:forEach>
+                  <!-- Danh sách các số trang -->
+                  <c:forEach begin="1" end="${totalPages}" varStatus="loop">
+                    <li class="page-item">
+                      <a
+                        class="page-link ${(loop.index) eq currentPage ? 'active' : ''}"
+                        href="/?page=${loop.index}"
+                      >
+                        ${loop.index}
+                      </a>
+                    </li>
+                  </c:forEach>
                 
-                    <c:if test="${ currentPage < totalPages }">
-                      <li class="page-item">
-                        <a class="page-link" href="/?page=${currentPage + 1}" aria-label="Next">
-                          <span aria-hidden="true">»</span>
-                        </a>
-                      </li>
-                    </c:if>
-                  </ul>
+                  <!-- Nút Next chỉ hiện nếu không phải trang cuối cùng -->
+                  <c:if test="${currentPage < totalPages}">
+                    <li class="page-item">
+                      <a class="page-link" href="/?page=${currentPage + 1}" aria-label="Next">
+                        <span aria-hidden="true">»</span>
+                      </a>
+                    </li>
+                  </c:if>
                 </div>
-                
                 
               </div>
             </div>

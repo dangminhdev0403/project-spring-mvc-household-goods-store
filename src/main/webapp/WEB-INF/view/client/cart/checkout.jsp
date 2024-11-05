@@ -132,7 +132,7 @@ uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
                         <div class="cart-item__ctrl" style="min-height: 55%">
                           <button
                             class="js-toggle cart-item__ctrl-btn"
-                            toggle-target="#add-update-address-${adr.id}"
+                            toggle-target="#update-address-${adr.id}"
                           >
                             <img
                               class="icon"
@@ -551,7 +551,7 @@ uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <c:if test="${not empty addresses}">
   <c:forEach var="address" items="${addresses}" >
 
-  <div id="add-update-address-${address.id}" class="modal hide" style="--content-width: 650px">
+  <div id="update-address-${address.id}" class="modal hide" style="--content-width: 650px">
     <div class="modal__content">
       <form action="/update-address" class="form" method="post">
         <input
@@ -565,6 +565,7 @@ uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
         <div class="modal__body">
           <div class="form__row">
             <div class="form__group">
+
               <label for="name" class="form__label form__label--small"
                 >Họ và tên</label
               >
@@ -619,18 +620,21 @@ uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
               <img src="./assets/icons/form-error.svg" alt="" class="form__input-icon-error" />
    
               <!-- Select dialog -->
-              <select class="css_select tinh"  name="city" title="Chọn Tỉnh Thành" style="height: 100%; border-right: 1px solid #d2d1d6; cursor: pointer;" path="city">
-                <option value="${address.city}" style="cursor: pointer;">${address.city}</option>
+              <select data-city-id ="${address.cityId}" class="css_select tinh update"  name="city" title="Chọn Tỉnh Thành" style="height: 100%; border-right: 1px solid #d2d1d6; cursor: pointer;" path="city">
+               
+                <option value="${address.city},${address.cityId}" style="cursor: pointer;"  class="firtsOption" tinhid ="${address.cityId}">${address.city}</option>
                 <!-- Các tùy chọn tỉnh thành sẽ được thêm vào đây -->
-            </select>
+              </select>
         
-            <select class="css_select quan"  name="district" title="Chọn Quận Huyện" style="height: 100%; border-right: 1px solid #d2d1d6; cursor: pointer;" path="district">
-                <option value="${address.district}" style="cursor: pointer;">${address.district}</option>
+            <select data-district-id ="${address.districtId}" class="css_select quan update"  name="district" title="Chọn Quận Huyện" style="height: 100%; border-right: 1px solid #d2d1d6; cursor: pointer;" path="district">
+              <option value="${address.district},${address.districtId}" style="cursor: pointer;"  class="firtsOption" quanid ="${address.districtId}">${address.district}</option>
+
+
                 <!-- Các tùy chọn quận huyện sẽ được thêm vào đây -->
             </select>
         
-            <select class="css_select phuong"  name="ward" title="Chọn Phường Xã" style="cursor: pointer;" path="ward">
-                <option value="${address.ward}" style="cursor: pointer;">${address.ward}</option>
+            <select data-ward-id ="${address.wardId}" class="css_select phuong update"  name="ward" title="Chọn Phường Xã" style="cursor: pointer;" path="ward">
+              <option value="${address.ward},${address.wardId}" style="cursor: pointer;"  class="firtsOption" phuongid="${address.ward}">${address.ward}</option>
                 <!-- Các tùy chọn phường xã sẽ được thêm vào đây -->
             </select>
             </div>
@@ -663,7 +667,7 @@ uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
             class="btn btn--small btn--text modal__btn js-toggle"
             style="cursor: pointer;"
 
-            toggle-target="#add-update-address-${address.id}"
+            toggle-target="#update-address-${address.id}"
           >
             Hủy
           </a>

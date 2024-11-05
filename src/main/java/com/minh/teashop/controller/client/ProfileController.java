@@ -63,10 +63,23 @@ public class ProfileController {
     public String handleCreateAddress(@ModelAttribute("newAddress") Address address,
             RedirectAttributes redirectAttributes, HttpServletRequest request) {
         String referer = request.getHeader("Referer");
+
+        if(address.getCity().equals("0")|| address.getDistrict().equals("0")||address.getWard().equals("0")){
+            redirectAttributes.addFlashAttribute("error", "Bạn chưa chọn đủ địa chỉ");
+            return "redirect:" + referer;
+        }
+
+      
+
         HttpSession session = request.getSession(false);
         long id = (long) session.getAttribute("id");
         User currentUser = new User();
+      
         currentUser.setUser_id(id);
+        
+        address.setCityWithId(address.getCity());
+        address.setDistrictWithId(address.getDistrict());
+        address.setWardWithId(address.getWard());
         address.setUser(currentUser);
         this.userService.handleSaveAddress(address);
         redirectAttributes.addFlashAttribute("success", "Thêm địa chỉ thành công");
@@ -96,12 +109,31 @@ public class ProfileController {
 
     ) {
         String referer = request.getHeader("Referer");
+
+        if(city.equals("0")|| district.equals("0")||ward.equals("0")){
+            redirectAttributes.addFlashAttribute("error", "Bạn chưa chọn đủ địa chỉ");
+            return "redirect:" + referer;
+        }
+
         HttpSession session = request.getSession(false);
         long userId = (long) session.getAttribute("id");
         User currentUser = new User();
         currentUser.setUser_id(userId);
-        Address address = new Address(id, receiverPhone, receiverName, city, district, ward, newAddress, currentUser);
 
+        Address address = new Address() ;
+
+        address.setId(id);
+        address.setAddress(newAddress);
+        address.setReceiverName(receiverName);
+        address.setReceiverPhone(receiverPhone);
+        address.setCityWithId(city);
+        String arrDistrict[] = district.split(",");
+        String newDistrict = arrDistrict[0];
+        address.setDistrict(newDistrict);
+        String newDistrictId = arrDistrict[1];
+        address.setDistrictId(newDistrictId);
+        address.setWardWithId(ward);
+        address.setUser(currentUser);
         this.userService.handleSaveAddress(address);
 
         redirectAttributes.addFlashAttribute("success", "Cập nhật địa chỉ thành công");
