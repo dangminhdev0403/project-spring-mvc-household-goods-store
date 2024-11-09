@@ -111,17 +111,19 @@ function updateCartTotal() {
   });
 }
 
-//  submit for,
+//  submit form,
 function submitForm(e) {
   e.preventDefault();
   formOf.submit();
 }
-const buttonSubmit = document.querySelector(".submit");
-if (buttonSubmit) {
-  let formOf = buttonSubmit.closest("form");
-  if (formOf) {
-    buttonSubmit.addEventListener("click", submitForm);
-  }
+const buttonSubmits = document.querySelectorAll(".submit");
+if (buttonSubmits) {
+  buttonSubmits.forEach((buttonSubmit) => {
+    let formOf = buttonSubmit.closest("form");
+    if (formOf) {
+      buttonSubmit.addEventListener("click", submitForm);
+    }
+  });
 }
 
 const inputRadio1 = document.querySelector(
@@ -315,7 +317,9 @@ document.addEventListener("DOMContentLoaded", function () {
             const firstQuanOption = quanSelect.querySelector(".firtsOption");
             if (firstQuanOption) {
               const firstQuanId = firstQuanOption.getAttribute("quanid");
-              const phuongSelect = tinh.closest(".address-group").querySelector(".phuong");
+              const phuongSelect = tinh
+                .closest(".address-group")
+                .querySelector(".phuong");
               updatePhuongOptions(firstQuanId, phuongSelect);
             }
           } else {
@@ -329,42 +333,41 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   quanSelectsUpdate.forEach((quan) => {
-
     const firstQuanOption = quan.querySelector(".firtsOption");
     if (firstQuanOption) {
       const firstQuanId = firstQuanOption.getAttribute("quanid");
-      const phuongSelect = quan.closest(".address-group").querySelector(".phuong");
+      const phuongSelect = quan
+        .closest(".address-group")
+        .querySelector(".phuong");
       updatePhuongOptions(firstQuanId, phuongSelect);
     }
-  // Cập nhật danh sách phường/xã khi chọn quận/huyện
-  quan.addEventListener("change", function () {
- 
-    const selectedOption = this.options[this.selectedIndex];
-    const idquan = selectedOption.getAttribute("quanId");
+    // Cập nhật danh sách phường/xã khi chọn quận/huyện
+    quan.addEventListener("change", function () {
+      const selectedOption = this.options[this.selectedIndex];
+      const idquan = selectedOption.getAttribute("quanId");
 
-    // Lấy phường xã cho quận/huyện đã chọn
-    fetch(`https://esgoo.net/api-tinhthanh/3/${idquan}.htm`)
-      .then((response) => response.json())
-      .then((data_phuong) => {
-        if (data_phuong.error === 0) {
-          // Reset xã/phường khi quận/huyện thay đổi
-          const phuongSelect = quan.closest(".address-group").querySelector(".phuong");
-          phuongSelect.innerHTML =
-            '<option value="0">Phường Xã</option>';
+      // Lấy phường xã cho quận/huyện đã chọn
+      fetch(`https://esgoo.net/api-tinhthanh/3/${idquan}.htm`)
+        .then((response) => response.json())
+        .then((data_phuong) => {
+          if (data_phuong.error === 0) {
+            // Reset xã/phường khi quận/huyện thay đổi
+            const phuongSelect = quan
+              .closest(".address-group")
+              .querySelector(".phuong");
+            phuongSelect.innerHTML = '<option value="0">Phường Xã</option>';
 
-          // Đổ dữ liệu phường/xã vào select tương ứng
-          data_phuong.data.forEach((val_phuong) => {
-            const option = document.createElement("option");
-            option.value =
-              val_phuong.full_name + "," + val_phuong.id;
+            // Đổ dữ liệu phường/xã vào select tương ứng
+            data_phuong.data.forEach((val_phuong) => {
+              const option = document.createElement("option");
+              option.value = val_phuong.full_name + "," + val_phuong.id;
 
-            option.textContent = val_phuong.full_name;
-            phuongSelect.appendChild(option);
-          });
-        }
-      });
-  });
-
+              option.textContent = val_phuong.full_name;
+              phuongSelect.appendChild(option);
+            });
+          }
+        });
+    });
 
     // quan.addEventListener("change", (event) => {
     //   const quanId =
@@ -377,10 +380,6 @@ document.addEventListener("DOMContentLoaded", function () {
     //   }
     // });
   });
-
-
-
-
 
   // Hàm để cập nhật dữ liệu phường/xã khi chọn quận/huyện
   function updatePhuongOptions(quanId, quanSelect) {
@@ -489,9 +488,6 @@ document.addEventListener("DOMContentLoaded", function () {
                         }
                       });
                   });
-
-
-
                 }
               });
           });
@@ -646,4 +642,108 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-// close model
+const btnReset = document.querySelectorAll(".btn-reset");
+
+if (btnReset) {
+  const currentImg = document.getElementById("img-preview");
+  const imgSrc = currentImg == null ? "" : currentImg.src;
+  btnReset.forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      const form = btn.closest("form");
+      if (form) {
+        // Reset tất cả các input trong form
+        currentImg.src = imgSrc;
+        form.reset();
+      }
+    });
+  });
+
+  // preview avatar
+  const fileInput = document.getElementById("avatarImg");
+  const previewImage = document.getElementById("img-preview");
+  if (fileInput && previewImage) {
+    fileInput.addEventListener("change", (event) => {
+      const file = event.target.files[0];
+
+      if (file) {
+        // Tạo URL để hiển thị ảnh
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          previewImage.src = e.target.result;
+          previewImage.style.display = "block";
+        };
+        reader.readAsDataURL(file);
+      } else {
+        // Nếu không có file, ẩn preview
+        previewImage.src = "";
+        previewImage.style.display = "none";
+      }
+    });
+  }
+}
+
+// hide show pass
+const togglePasswords = document.querySelectorAll(".togglePassword");
+
+if (togglePasswords) {
+  togglePasswords.forEach((elemet) => {
+    elemet.addEventListener("click", function () {
+      const passwordField = elemet.parentElement.querySelector(".pass-input");
+      console.log(passwordField);
+
+      if (passwordField.type === "password") {
+        passwordField.type = "text";
+        elemet.classList.remove("fa-eye");
+        elemet.classList.add("fa-eye-slash");
+      } else {
+        passwordField.type = "password";
+        elemet.classList.remove("fa-eye-slash");
+        elemet.classList.add("fa-eye");
+      }
+    });
+  });
+}
+
+const verifyEmls = document.querySelectorAll(".submit-verify");
+if (verifyEmls) {
+  verifyEmls.forEach((a) => {
+    a.addEventListener("click", function (e) {
+      e.preventDefault();
+      const divParent = a.parentElement;
+      const formElement = document.createElement("form");
+      Array.from(divParent.attributes).forEach((attr) => {
+        formElement.setAttribute(attr.name, attr.value);
+      });
+
+      while (divParent.firstChild) {
+        formElement.appendChild(divParent.firstChild);
+      }
+
+      divParent.parentNode.replaceChild(formElement, divParent);
+
+     
+
+      formElement.submit();
+
+    });
+  });
+}
+
+let countdown = 15;
+const timerElement = document.getElementById("timer");
+
+if(timerElement){
+  const interval = setInterval(() => {
+  
+    countdown--;
+    if(countdown > 0){
+      timerElement.textContent = countdown;
+  
+    }
+    if (countdown <= 0) {
+      clearInterval(interval);
+      timerElement.classList.add("d-none");
+    }
+  }, 1000);
+}

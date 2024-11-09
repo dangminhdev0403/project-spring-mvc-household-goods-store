@@ -8,6 +8,8 @@ import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,6 +29,7 @@ import com.minh.teashop.domain.Product;
 import com.minh.teashop.domain.User;
 import com.minh.teashop.domain.dto.ProductSpecDTO;
 import com.minh.teashop.domain.dto.RegisterDTO;
+import com.minh.teashop.domain.verifymail.ResetToken;
 import com.minh.teashop.domain.verifymail.VerificationToken;
 import com.minh.teashop.service.CategoryService;
 import com.minh.teashop.service.EmailService;
@@ -67,6 +70,8 @@ public class HomePageController {
         model.addAttribute("listProduct", listProduct);
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", listProductPage.getTotalPages());
+
+        model.addAttribute("title", "Trang chủ");
         return "client/homepage/show";
 
     }
@@ -108,6 +113,8 @@ public class HomePageController {
     @GetMapping("/acess-deny")
     public String getDenyPage(Model model) {
         // Thêm dữ liệu cần thiết vào model nếu có
+        model.addAttribute("title", "Không tìm thấy");
+
         return "client/auth/404";
     }
 
@@ -144,11 +151,15 @@ public class HomePageController {
     @GetMapping("/register")
     public String getRegisterPage(Model model) {
         model.addAttribute("registerUser", new RegisterDTO());
+        model.addAttribute("title", "Đăng kí");
+
         return "client/auth/register";
     }
 
     @GetMapping("/login")
     public String getLoginPage(Model model) {
+        model.addAttribute("title", "Đăng nhập");
+
         return "client/auth/login";
     }
 
@@ -176,7 +187,8 @@ public class HomePageController {
     }
 
     @GetMapping("/verify")
-    public String verifyAccount(@RequestParam("token") String token, RedirectAttributes redirectAttributes) {
+    public String verifyAccount(@RequestParam("token") String token, RedirectAttributes redirectAttributes,
+            HttpServletRequest request) {
 
         VerificationToken verificationToken = this.emailService.findByToken(token) == null ? null
                 : this.emailService.findByToken(token);
@@ -206,7 +218,109 @@ public class HomePageController {
 
         redirectAttributes.addFlashAttribute("success", "Xác thực thành công!");
 
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || !authentication.isAuthenticated()
+                || authentication.getPrincipal().equals("anonymousUser")) {
+            // Nếu chưa đăng nhập, chuyển hướng đến trang login
+            return "redirect:/login";
+        } else {
+
+            HttpSession session = request.getSession(false);
+            long id = (long) session.getAttribute("id");
+            User user = this.userService.getUserById(id);
+            session.setAttribute("enabled", user.isEnabled());
+            return "redirect:/profile";
+        }
+
+    }
+
+    @PostMapping("verify-again")
+    public String postMethodName(RedirectAttributes redirectAttributes, HttpServletRequest request)
+            throws MessagingException {
+        String referer = request.getHeader("Referer");
+
+        HttpSession session = request.getSession(false);
+        long id = (long) session.getAttribute("id");
+
+        User currentUser = this.userService.getUserById(id);
+
+        this.emailService.sendEmailVerifyAgain(currentUser);
+
+        redirectAttributes.addFlashAttribute("success", "Chúng tôi đã gửi email xác thực đến hộp thư của bạn");
+        return "redirect:" + referer;
+    }
+
+    @GetMapping("/forgot-pass")
+    public String getForgotPasswordPage() {
+
+        return "client/auth/reset-pass";
+    }
+
+    @PostMapping("/reset-pass")
+    public String resetPassword(@RequestParam("email") String email, RedirectAttributes redirectAttributes,
+            HttpServletRequest request) throws MessagingException {
+        String referer = request.getHeader("Referer");
+        boolean checkExist = this.userService.checkEmailExist(email);
+        if (!checkExist) {
+            redirectAttributes.addFlashAttribute("error", "email không tồn tại");
+            return "redirect:" + referer;
+        }
+
+        User currentUser = this.userService.getUserByEmail(email);
+        boolean checkEnable = currentUser.isEnabled();
+        if (checkEnable == false) {
+            redirectAttributes.addFlashAttribute("error", "email chưa được kích hoạt");
+            return "redirect:" + referer;
+        }
+        this.emailService.sendEmailResetPass(currentUser);
+
+        redirectAttributes.addFlashAttribute("success", "Chúng tôi đã gửi email xác thực đến hộp thư của bạn");
+        return "redirect:" + referer;
+    }
+
+    @GetMapping("/reset-pass")
+    public String resetPasswordPage(Model model, @RequestParam("token") String token,
+            RedirectAttributes redirectAttributes, HttpServletRequest request) {
+        ResetToken verificationToken = this.emailService.findByResetToken(token) == null ? null
+                : this.emailService.findByResetToken(token);
+
+        if (verificationToken == null) {
+            redirectAttributes.addFlashAttribute("error", "Liên kết không tồn tại");
+            return "redirect:/login";
+
+        }
+
+        if (verificationToken.getExpiryDate().isBefore(LocalDateTime.now())) {
+
+            redirectAttributes.addFlashAttribute("error", "Liên kết xác thực đã hết hạn");
+            return "redirect:/login";
+
+        }
+
+
+        model.addAttribute("title", "Đổi mật khẩu");
+        model.addAttribute("userPass", new RegisterDTO());
+        model.addAttribute("token", token);
+
+        return "client/auth/change-pass";
+    }
+
+    @PostMapping("/change-pass-home")
+    public String handleChangePassword(RedirectAttributes redirectAttributes ,@ModelAttribute("userPass") @Valid RegisterDTO registerDTO, @RequestParam("token")String token,
+            BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+
+            return "client/auth/change-pass";
+        }
+
+        String hassPass = this.passwordEncoder.encode(registerDTO.getPassword()) ;
+
+        this.emailService.handleChangePassword(token, hassPass);
+
+        redirectAttributes.addFlashAttribute("success", "Đổi mật khẩu thành công");
+
         return "redirect:/login";
+
     }
 
 }

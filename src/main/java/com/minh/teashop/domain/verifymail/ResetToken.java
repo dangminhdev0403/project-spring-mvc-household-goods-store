@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 
 import com.minh.teashop.domain.User;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -23,8 +22,8 @@ import lombok.Setter;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class VerificationToken {
-    @Id
+public class ResetToken {
+     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 

@@ -262,20 +262,30 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         </div>
 
         <div class="top-act__user">
-          <c:if test="${not empty sessionScope.avatar}">
-            <img
-              src="/upload/avatar/${sessionScope.avatar}"
-              alt=""
-              class="top-act__avatar"
-            />
-          </c:if>
-          <c:if test="${ empty sessionScope.avatar}">
-            <img
-              src="/client/assets/img/avatar/empty.jpg"
-              alt=""
-              class="top-act__avatar"
-            />
-          </c:if>
+
+
+
+
+
+          <c:if
+          test="${not empty sessionScope.urlAvatar &&  sessionScope.urlAvatar != 'NULL'}"
+        >
+        <img
+        src="${sessionScope.urlAvatar}"
+        alt=""
+        class="top-act__avatar"
+      />
+        </c:if>
+        <c:if
+          test="${  empty sessionScope.urlAvatar &&  sessionScope.urlAvatar == NULL  }"
+        >
+          <img
+            src="/client/assets/img/avatar/empty.jpg"
+            alt=""
+            class="profile-user__avatar"
+          />
+        </c:if>
+
 
           <!-- Dropdown -->
           <div class="act-dropdown top-act__dropdown">

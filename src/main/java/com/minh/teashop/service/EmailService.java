@@ -9,8 +9,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.minh.teashop.domain.User;
+import com.minh.teashop.domain.verifymail.ResetToken;
 import com.minh.teashop.domain.verifymail.VerificationToken;
 import com.minh.teashop.domain.verifymail.VerificationTokenUtil;
+import com.minh.teashop.repository.ResetPasswordRepository;
 import com.minh.teashop.repository.VerificationTokenRepository;
 
 import jakarta.mail.MessagingException;
@@ -26,25 +28,39 @@ public class EmailService {
 
     @Autowired
     private VerificationTokenRepository tokenRepository;
-    
+
     @Autowired
-    private UserService userService ;
+    private UserService userService;
+    
 
+    @Autowired
+    private ResetPasswordRepository resetPasswordRepository;
 
-    public VerificationToken findByToken(String token){
+    public VerificationToken findByToken(String token) {
         return this.tokenRepository.findByToken(token);
-    } 
+    }
 
+    public ResetToken findByResetToken(String token){
+        return this.resetPasswordRepository.findByToken(token);
 
-    public void  handleEnableUser(VerificationToken token){
+    }
+    
+    public void handleChangePassword(String token , String password){
+        ResetToken resetToken = findByResetToken(token);
+
+        User user = resetToken.getUser();
+       
+        user.setPassword(password);
+        this.resetPasswordRepository.delete(resetToken);
+    }
+    public void handleEnableUser(VerificationToken token) {
         User user = token.getUser();
         user.setEnabled(true);
-        userService.handleSaveUser(user) ;
+        userService.handleSaveUser(user);
         tokenRepository.delete(token);
     }
 
-
-
+    @SuppressWarnings("static-access")
     public void sendEmailVerify(User user) throws MessagingException {
 
         String token = tokenUtil.generateToken();
@@ -73,6 +89,159 @@ public class EmailService {
         helper.setText(content, true);
 
         mailSender.send(message);
+    }
+
+    @SuppressWarnings("static-access")
+    public void sendEmailResetPass(User user) throws MessagingException {
+
+        this.resetPasswordRepository.deleteByUser(user);
+
+        String token = tokenUtil.generateToken();
+
+        LocalDateTime expiryDate = tokenUtil.calculateExpiryDate();
+
+        ResetToken verificationToken = new ResetToken();
+
+        verificationToken.setUser(user);
+        verificationToken.setExpiryDate(expiryDate);
+        verificationToken.setToken(token);
+        this.resetPasswordRepository.save(verificationToken);
+
+        String verificationUrl = ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path("/reset-pass")
+                .queryParam("token", token) // Thay bằng token thực tế
+                .toUriString();
+
+        MimeMessage message = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
+        String subject = "Quên mật khẩu";
+        String content = createResetPass(verificationUrl);
+
+        helper.setTo(user.getEmail());
+        helper.setSubject(subject);
+        helper.setText(content, true);
+
+        mailSender.send(message);
+    }
+
+    public void sendEmailVerifyAgain(User user) throws MessagingException {
+        this.tokenRepository.deleteByUser(user);
+
+        String token = tokenUtil.generateToken();
+
+        LocalDateTime expiryDate = tokenUtil.calculateExpiryDate();
+
+        VerificationToken verificationToken = new VerificationToken();
+
+        verificationToken.setUser(user);
+        verificationToken.setExpiryDate(expiryDate);
+        verificationToken.setToken(token);
+        this.tokenRepository.save(verificationToken);
+
+        String verificationUrl = ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path("/verify")
+                .queryParam("token", token) // Thay bằng token thực tế
+                .toUriString();
+
+        MimeMessage message = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
+        String subject = "Xác thực tài khoản";
+        String content = createEmailContentForReconfirmation(verificationUrl);
+
+        helper.setTo(user.getEmail());
+        helper.setSubject(subject);
+        helper.setText(content, true);
+
+        mailSender.send(message);
+
+    }
+
+    private String createEmailContentForReconfirmation(String url) {
+        return "<!DOCTYPE html>" +
+                "<html>" +
+                "<head>" +
+                "<title></title>" +
+                "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />" +
+                "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">" +
+                "<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\" />" +
+                "<style type=\"text/css\">" +
+                "@media screen { " +
+                "@font-face { " +
+                "font-family: 'Lato'; " +
+                "font-style: normal; " +
+                "font-weight: 400; " +
+                "src: local('Lato Regular'), local('Lato-Regular'), url(https://fonts.gstatic.com/s/lato/v11/qIIYRU-oROkIk8vfvxw6QvesZW2xOQ-xsNqO47m55DA.woff) format('woff'); "
+                +
+                "} " +
+                "} " +
+                "body, table, td, a { " +
+                "-webkit-text-size-adjust: 100%; " +
+                "-ms-text-size-adjust: 100%; " +
+                "} " +
+                "img { " +
+                "-ms-interpolation-mode: bicubic; " +
+                "} " +
+                "body { " +
+                "margin: 0 !important; " +
+                "padding: 0 !important; " +
+                "width: 100% !important; " +
+                "} " +
+                "</style>" +
+                "</head>" +
+                "<body style=\"background-color: #f4f4f4; margin: 0 !important; padding: 0 !important;\">" +
+                "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">" +
+                "<tr>" +
+                "<td bgcolor=\"#FFA73B\" align=\"center\">" +
+                "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" style=\"max-width: 600px;\">" +
+                "<tr>" +
+                "<td align=\"center\" style=\"padding: 40px 10px 40px 10px;\"> </td>" +
+                "</tr>" +
+                "</table>" +
+                "</td>" +
+                "</tr>" +
+                "<tr>" +
+                "<td bgcolor=\"#FFA73B\" align=\"center\">" +
+                "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" style=\"max-width: 600px;\">" +
+                "<tr>" +
+                "<td bgcolor=\"#ffffff\" align=\"center\" style=\"padding: 40px 20px 20px 20px; border-radius: 4px 4px 0px 0px;\">"
+                +
+                "<h1 style=\"font-size: 48px; font-weight: 400;\">Xác nhận lại Email!</h1>" +
+                "</td>" +
+                "</tr>" +
+                "</table>" +
+                "</td>" +
+                "</tr>" +
+                "<tr>" +
+                "<td bgcolor=\"#f4f4f4\" align=\"center\">" +
+                "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" style=\"max-width: 600px;\">" +
+                "<tr>" +
+                "<td bgcolor=\"#ffffff\" align=\"left\" style=\"padding: 20px 30px; color: #666666; font-size: 18px;\">"
+                +
+                "<p>Chúng tôi cần bạn xác nhận lại email của mình. Hãy nhấn vào nút bên dưới để xác nhận.</p>" +
+                "<p>Lưu ý: Liên kết sẽ hết hạn sau 30 phút.</p>" +
+                "</td>" +
+                "</tr>" +
+                "<tr>" +
+                "<td bgcolor=\"#ffffff\" align=\"center\">" +
+                "<a href=\"" + url
+                + "\" style=\"background-color: #FFA73B; color: #ffffff; padding: 15px 30px; text-decoration: none; font-size: 20px; font-weight: bold;\">Xác nhận lại Email</a>"
+                +
+                "</td>" +
+                "</tr>" +
+                "<tr>" +
+                "<td bgcolor=\"#ffffff\" align=\"left\" style=\"padding: 20px 30px; color: #666666; font-size: 18px;\">"
+                +
+                "<p>Nếu bạn không yêu cầu xác nhận, vui lòng bỏ qua email này.</p>" +
+                "</td>" +
+                "</tr>" +
+                "<tr>" +
+                "<td bgcolor=\"#FFA73B\" align=\"center\" style=\"padding: 30px;\">" +
+                "<p style=\"margin: 0;\">© 2024 Công ty của bạn. Tất cả quyền được bảo lưu.</p>" +
+                "</td>" +
+                "</tr>" +
+                "</table>" +
+                "</body>" +
+                "</html>";
     }
 
     private String createEmailContent(String url) {
@@ -358,6 +527,8 @@ public class EmailService {
                 +
                 "<p style=\"margin: 0;\">Chúng tôi đã nhận được yêu cầu đặt lại mật khẩu cho tài khoản của bạn. Để đặt lại mật khẩu, vui lòng nhấn vào nút bên dưới.</p>"
                 +
+                "<p style=\"margin: 0;\">Lưu ý ! Liên kết xác nhận email của bạn sẽ hết hiệu lực sau 30 phút.</p>" +
+
                 "</td>" +
                 "</tr>" +
                 "<tr>" +

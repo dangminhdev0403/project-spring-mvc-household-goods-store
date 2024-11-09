@@ -6,7 +6,7 @@ uri="http://www.springframework.org/tags/form" %>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Đăng ký | Grocery Mart</title>
+    <title>Quên mật khẩu | Grocery Mart</title>
 
     <!-- Favicon -->
     <link
@@ -131,80 +131,24 @@ uri="http://www.springframework.org/tags/form" %>
             />
             <h1 class="logo__title">grocerymart</h1>
           </a>
-          <h1 class="auth__heading">Đăng Ký</h1>
+          <h1 class="auth__heading">Quên mật khẩu</h1>
           <p class="auth__desc">
             Tạo tài khoản của bạn và mua sắm như một chuyên gia để tiết kiệm.
           </p>
           <form:form
-            action="/register"
-            modelAttribute="registerUser"
+            action="/change-pass-home"
+            modelAttribute="userPass"
             method="post"
             class="form auth__form"
           >
-            <div class="form__group">
-              <div class="form__text-input">
-                <form:input
-                  type="text"
-                  name="resEmail"
-                  id="resEmail"
-                  placeholder="Nhập Họ"
-                  class="form__input"
-                  path="lastName"
-                />
-                <img
-                  src="client/assets/icons/message.svg"
-                  alt=""
-                  class="form__input-icon"
-                />
-              </div>
-            </div>
 
-            <div class="form__group">
-              <div class="form__text-input">
-                <form:input
-                  type="text"
-                  name="resName"
-                  id="resName"
-                  placeholder="Nhập Tên"
-                  class="form__input"
-                  path="fisrtName"
-                />
-                <img
-                  src="client/assets/icons/message.svg"
-                  alt=""
-                  class="form__input-icon"
-                />
-              </div>
-            </div>
+          <input
+          type="hidden"
+          name="${_csrf.parameterName}"
+          value="${_csrf.token}"
+        />
 
-            <c:set var="errorEmail">
-              <form:errors
-                path="email"
-                cssClass="form__error"
-                tag="p"
-                style="display: block"
-              />
-            </c:set>
-            <div class="form__group ${not empty errorEmail ? 'invalid' : ''}">
-              <div class="form__text-input">
-                <form:input
-                  type="text"
-                  name="resEmail"
-                  id="resEmail"
-                  placeholder="Nhập Email"
-                  class="form__input"
-                  path="email"
-                />
-
-                <img
-                  src="client/assets/icons/message.svg"
-                  alt=""
-                  class="form__input-icon"
-                />
-              </div>
-              ${errorEmail}
-            </div>
-
+            <input type="hidden" name ="token" value="${token}">
             <c:set var="errorPassword">
               <form:errors
                 path="password"
@@ -221,7 +165,7 @@ uri="http://www.springframework.org/tags/form" %>
                   type="password"
                   name="password"
                   id="password"
-                  placeholder="Mật khẩu"
+                  placeholder="Mật khẩu mới"
                   class="form__input pass-input"
                   path="password"
                 />
@@ -258,20 +202,13 @@ uri="http://www.springframework.org/tags/form" %>
             </div>
 
             <div class="form__group auth__btn-group">
-              <button class="btn btn--primary auth__btn">Đăng Ký</button>
-              <a class="btn btn--outline auth__btn btn--no-margin">
-                <img
-                  src="client/assets/icons/google.svg"
-                  alt=""
-                  class="btn__icon icon"
-                />
-                Đăng nhập bằng Google
-              </a>
+              <button class="btn btn--primary auth__btn">Đặt lại</button>
+             
             </div>
           </form:form>
 
           <p class="auth__text">
-            Bạn đã có tài khoản?
+            Bạn đã Nhớ mật khẩu?
             <a href="/login" class="auth__link auth__text-link">Đăng Nhập</a>
           </p>
         </div>

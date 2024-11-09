@@ -202,6 +202,7 @@ if (btnSubmit) {
 // Chọn tất cả các phần tử có class is-delete
 let isAlertElements = document.querySelectorAll(".is-delete");
 let isCancels = document.querySelectorAll(".is-cancel");
+let isAccept= document.querySelectorAll(".is-accept");
 
 // Lặp qua các phần tử và gắn sự kiện click cho từng phần tử
 isAlertElements.forEach(function (element) {
@@ -216,6 +217,11 @@ isCancels.forEach(function (element) {
     });
 }); 
 
+isAccept.forEach(function (element) {
+    element.addEventListener('click', function (e) {
+        alertAppted(e,element, "Xác nhận", "Bạn có chắc chắn muốn thay đổi?");
+    });
+}); 
 
 
 <c:if test="${not empty error}">
@@ -235,6 +241,7 @@ if(isCheckOut){
         alertAppted(e,isCheckOut, notice, message);
     });
 }
+
 
 
 

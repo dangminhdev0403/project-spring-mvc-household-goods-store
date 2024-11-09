@@ -53,12 +53,19 @@ public class UserService {
         return this.userRepository.findAll();
     }
 
+    @Transactional
     public User handleSaveUser(User user) {
-        User newUser = this.userRepository.save(user);
-
-        return newUser;
+        try {
+            return this.userRepository.save(user);
+        } catch (Exception e) {
+            // Ghi log chi tiết để kiểm tra nguyên nhân gây ra lỗi
+            System.err.println("Lỗi khi lưu User: " + e.getMessage());
+            e.printStackTrace();
+            throw e; // Ném lại ngoại lệ để giao dịch bị rollback
+        }
     }
 
+   
     public Role getRoleByName(String name) {
         String newName = name.toString();
         return this.roleRepository.findByName(newName);
@@ -83,6 +90,7 @@ public class UserService {
     }
 
     public boolean checkEmailExist(String email) {
+        
         return this.userRepository.existsByEmail(email);
     }
 
@@ -140,6 +148,14 @@ public class UserService {
 
     public List<ParentCategory> getListParentCategories() {
         return this.parentCategoryRepository.findAll();
+    }
+
+    public boolean checkCountAddress(User user){
+        int countAddress  = addressRepository.countByUser(user);
+        if(countAddress >=5) {
+            return false ;
+        }
+        return true ;
     }
 
 }

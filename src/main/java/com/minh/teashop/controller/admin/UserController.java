@@ -93,7 +93,7 @@ public class UserController {
             if (!file.isEmpty()) {
 
                 if (currentUser.getAvatar() != null) {
-                    this.uploadService.handleDeleteFile(currentUser.getAvatar(), "avatar");
+                    this.uploadService.handleDeleteFile(currentUser.getAvatar());
                     UploadResponse response = this.uploadService.handleSaveUploadFile(file, "avatar");
                     String newAvatar = response.getFinalName();
                     currentUser.setAvatar(newAvatar);
@@ -122,7 +122,7 @@ public class UserController {
     @GetMapping("/admin/user/delete/{id}")
     public String deleteUser(Model model, @PathVariable long id, RedirectAttributes redirectAttributes) {
         User currentUser = this.userService.getUserById(id);
-        this.uploadService.handleDeleteFile(currentUser.getAvatar(),"avatar");
+        this.uploadService.handleDeleteFile(currentUser.getAvatar());
 
         this.userService.deleteAUser(id);
 

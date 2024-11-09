@@ -13,5 +13,7 @@ import com.minh.teashop.domain.User;
 public interface AddressRepository extends JpaRepository<Address, Long> {
 Optional<List<Address>> findByUser (User user) ;
 
+int  countByUser(User user) ;
+
 }
 

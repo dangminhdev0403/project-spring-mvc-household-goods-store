@@ -102,7 +102,7 @@ uri="http://www.springframework.org/tags/form" %>
                 <div class="form-control border-0 ">
                
 
-                    <img class="imagePreviewold" src="/upload/avatar/${newUser.avatar}" alt="Preview" style="max-width: 283px; display: block;">
+                    <img class="imagePreviewold" src="${newUser.urlAvatar}" alt="Preview" style="max-width: 283px; display: block;">
   
                   </div>
 

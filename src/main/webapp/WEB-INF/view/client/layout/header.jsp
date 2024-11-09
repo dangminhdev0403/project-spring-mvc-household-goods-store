@@ -8,7 +8,7 @@ uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Grocery Mart</title>
+    <title>${title}</title>
 
     <!-- Favicon -->
     <link

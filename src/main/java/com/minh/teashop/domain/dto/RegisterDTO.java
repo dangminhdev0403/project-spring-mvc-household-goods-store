@@ -3,6 +3,7 @@ package com.minh.teashop.domain.dto;
 import com.minh.teashop.service.validator.RegisterChecked;
 
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 
 @RegisterChecked
 public class RegisterDTO {
@@ -11,6 +12,8 @@ public class RegisterDTO {
 
     @Email(message = "Email không hợp lệ", regexp = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")
     private String email;
+
+    @NotBlank(message = "Không đước để trống mật khẩu")
     private String password;
     private String confirmPassword;
 

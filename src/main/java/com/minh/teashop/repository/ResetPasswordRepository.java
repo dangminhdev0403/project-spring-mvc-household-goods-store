@@ -1,18 +1,16 @@
 package com.minh.teashop.repository;
 
-import com.minh.teashop.domain.User;
-import com.minh.teashop.domain.verifymail.VerificationToken;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.minh.teashop.domain.User;
+import com.minh.teashop.domain.verifymail.ResetToken;
+
 @Repository
-public interface VerificationTokenRepository extends JpaRepository<VerificationToken, Long> {
-    VerificationToken findByToken(String token);
+public interface ResetPasswordRepository extends JpaRepository<ResetToken, Long> {
+    ResetToken findByToken(String token);
 
-    @Transactional 
+    @Transactional
     void deleteByUser(User user);
-
-
-
 }

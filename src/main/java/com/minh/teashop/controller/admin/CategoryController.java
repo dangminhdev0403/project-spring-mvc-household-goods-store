@@ -58,7 +58,7 @@ public class CategoryController {
         for (Product p : listProducts) {
             List<ProductImage> listImages = p.getProductImages();
             for (ProductImage image : listImages) {
-                this.uploadService.handleDeleteFile(image.getName(),"products");
+                this.uploadService.handleDeleteFile(image.getName());
 
             }
         }
@@ -153,7 +153,7 @@ public class CategoryController {
             for (Product p : listProducts) {
                 List<ProductImage> listImages = p.getProductImages();
                 for (ProductImage image : listImages) {
-                    this.uploadService.handleDeleteFile(image.getName(),"products");
+                    this.uploadService.handleDeleteFile(image.getName());
 
                 }
             }

@@ -2,6 +2,10 @@ package com.minh.teashop.domain;
 
 import java.util.List;
 
+import com.minh.teashop.domain.verifymail.ResetToken;
+import com.minh.teashop.domain.verifymail.VerificationToken;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -35,25 +39,29 @@ public class User {
     @Email(message = "Email không đúng định dạng", regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")
     private String email;
 
-    @Size(min = 10, message = "Số điện thoại phải có ít nhất 10 chữ số")
     private String phone;
     private String avatar;
-    private String urlAvatar ;
-
+    private String urlAvatar;
 
     @ManyToOne
     @JoinColumn(name = "role_id")
     private Role role;
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     List<Address> address;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Order> orders;
 
     @OneToOne(mappedBy = "user")
     private Cart cart;
+
     private boolean enabled;
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.REMOVE)  // Xóa Token khi User bị xóa
+    private VerificationToken verificationToken;
     
+    @OneToOne(mappedBy = "user", cascade = CascadeType.REMOVE)  // Xóa Token khi User bị xóa
+    private ResetToken resetToken;
 
     public List<Order> getOrders() {
         return orders;
@@ -152,6 +160,14 @@ public class User {
 
     public void setUrlAvatar(String urlAvatar) {
         this.urlAvatar = urlAvatar;
+    }
+
+    public VerificationToken getVerificationToken() {
+        return verificationToken;
+    }
+
+    public void setVerificationToken(VerificationToken verificationToken) {
+        this.verificationToken = verificationToken;
     }
 
 }

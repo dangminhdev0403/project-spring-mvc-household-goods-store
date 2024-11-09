@@ -10,6 +10,8 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <!-- MAIN -->
 <main class="checkout-page">
+
+  
   <div class="container">
     <!-- Search bar -->
     <div class="checkout-container">
@@ -31,33 +33,17 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
       </div>
     </div>
 
-    <!-- Breadcrumbs -->
-    <div class="checkout-container">
-      <ul class="breadcrumbs checkout-page__breadcrumbs">
-        <li>
-          <a href="/" class="breadcrumbs__link">
-            Trang chủ
-            <img src="/client/assets/icons/arrow-right.svg" alt="" />
-          </a>
-        </li>
-        <li>
-          <a
-            href="/order-history"
-            class="breadcrumbs__link breadcrumbs__link--current"
-            >Lịch sử mua hàng</a
-          >
-        </li>
-      </ul>
-    </div>
+   
 
     <!-- Checkout content -->
     <div class="checkout-container">
       <div class="row gy-xl-3">
-        <div class="col-12">
+        <jsp:include page="../layout/sidebar-profile.jsp" />
+        <div class="col-9 col-xl-8 col-lg-7 col-md-12-1">
           <div class="cart-info">
             <h1 class="cart-info__heading">Lịch sử mua hàng</h1>
             <c:if test ="${empty listOrders}">
-              <h1 class="display-2 alert alert-danger text-center" style="display: block; font-size: 2.8rem">
+              <h1 class="display-2 alert alert-danger text-center" style="display: block; font-size: 1.8rem">
                Bạn chưa có đơn hàng nào.
               </h1>
             </c:if>
@@ -85,17 +71,17 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
               <div class="cart-info__list" style="margin-top: 3rem;">
                 <c:forEach var="order" items="${listOrders}">
 
-                <div  class="d-flex" style="justify-content: space-between;">
-                  
-                </div>
-                <h1 class="cart-info__heading" style="padding-top: 2rem;"> 
-                  <input
-                    type="checkbox"
-                    name="shipping-adress"
-                    class="cart-info__checkbox-input checkbox"
-                    
-                  />
-               Đơn hàng vào <span class="format-date" style="margin-left: 1rem;"> ${order.orderDate}</span></h1>
+                <div  class="d-flex" style="justify-content: space-between; align-items: baseline;">
+                  <h1 class="cart-info__heading" style="padding-top: 2rem;"> 
+                    <input
+                      type="checkbox"
+                      name="shipping-adress"
+                      class="cart-info__checkbox-input checkbox"
+  
+                    />
+                 Đơn hàng vào <span class="format-date" style="margin-left: 1rem;"> ${order.orderDate}</span></h1>
+               
+               
 
                 <form action="/cancel-oder" method="post">
 
@@ -111,7 +97,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                   Huỷ
                 </button>
                 </form>
-
+              </div>
                  
                   <c:forEach var="orderDetail" items="${order.orderDetail}">
                   <article class="cart-item">

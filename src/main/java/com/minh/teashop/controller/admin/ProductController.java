@@ -78,7 +78,7 @@ public class ProductController {
             List<ProductImage> listImages = this.productImageService.getImagesByProduct(product.get());
             if (!listImages.isEmpty()) {
                 for (ProductImage image : listImages) {
-                    this.uploadService.handleDeleteFile(image.getName(),"products");
+                    this.uploadService.handleDeleteFile(image.getName());
                 }
             }
         }
@@ -137,7 +137,7 @@ public class ProductController {
                 List<ProductImage> listImagesCurrent = this.productImageService.getImagesByProduct(currentProduct);
                 for (ProductImage image : listImagesCurrent) {
 
-                    this.uploadService.handleDeleteFile(image.getName(),"products");
+                    this.uploadService.handleDeleteFile(image.getName());
                     this.productImageService.handleDeleteImage(image);
 
                 }

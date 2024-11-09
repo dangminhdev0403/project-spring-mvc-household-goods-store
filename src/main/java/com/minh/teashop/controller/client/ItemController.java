@@ -40,7 +40,10 @@ public class ItemController {
         if (productOptional.isPresent()) {
             Product product = productOptional.get();
             model.addAttribute("product", product);
+            model.addAttribute("title", product.getName());
+
         }
+
         return "client/product/detail";
     }
 
@@ -63,6 +66,8 @@ public class ItemController {
         model.addAttribute("totalPrice", totalPrice);
         model.addAttribute("totalProduct", totalProduct);
         model.addAttribute("cart", cart);
+        model.addAttribute("title", "Giỏ hàng");
+
         return "client/cart/show";
     }
 
@@ -93,6 +98,8 @@ public class ItemController {
         model.addAttribute("addresses", addresses);
         model.addAttribute("cart", cart);
         model.addAttribute("newAddress", new Address());
+        model.addAttribute("title", "Trang thanh toán");
+
         return "client/cart/checkout";
     }
 

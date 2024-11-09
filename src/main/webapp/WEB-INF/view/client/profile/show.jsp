@@ -33,262 +33,21 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
     <!-- Profile content -->
     <div class="profile-container">
       <div class="row gy-md-3">
-        <div class="col-3 col-xl-4 col-lg-5 col-md-12-1 col-md-12">
-          <aside class="profile__sidebar">
-            <!-- User -->
-            <div class="profile-user">
-              <c:if
-                test="${not empty sessionScope.avatar &&  sessionScope.avatar != 'NULL'}"
-              >
-                <img
-                  src="/upload/avatar/${sessionScope.avatar}"
-                  alt=""
-                  class="profile-user__avatar"
-                />
-              </c:if>
-              <c:if
-                test="${not empty sessionScope.avatar &&  sessionScope.avatar == 'NULL'}"
-              >
-                <img
-                  src="/client/assets/img/avatar/empty.jpg"
-                  alt=""
-                  class="profile-user__avatar"
-                />
-              </c:if>
-              <h1 class="profile-user__name">${sessionScope.name}</h1>
-            </div>
+        <jsp:include page="../layout/sidebar-profile.jsp" />
 
-            <!-- Menu 1 -->
-            <div class="profile-menu">
-              <h3 class="profile-menu__title">Quản lí tài khoản</h3>
-              <ul class="profile-menu__list">
-                <li>
-                  <a
-                    href="/client/edit-personal-info.html"
-                    class="profile-menu__link"
-                  >
-                    <span class="profile-menu__icon">
-                      <img
-                        src="/client/assets/icons/profile.svg"
-                        alt=""
-                        class="icon"
-                      />
-                    </span>
-                    Personal info
-                  </a>
-                </li>
-                <li>
-                  <a href="#!" class="profile-menu__link">
-                    <span class="profile-menu__icon">
-                      <img
-                        src="/client/assets/icons/location.svg"
-                        alt=""
-                        class="icon"
-                      />
-                    </span>
-                    Addresses
-                  </a>
-                </li>
-                <li>
-                  <a href="#!" class="profile-menu__link">
-                    <span class="profile-menu__icon">
-                      <img
-                        src="/client/assets/icons/message-2.svg"
-                        alt=""
-                        class="icon"
-                      />
-                    </span>
-                    Communications & privacy
-                  </a>
-                </li>
-              </ul>
-            </div>
-
-            <!-- Menu 2 -->
-            <div class="profile-menu">
-              <h3 class="profile-menu__title">My items</h3>
-              <ul class="profile-menu__list">
-                <li>
-                  <a href="#!" class="profile-menu__link">
-                    <span class="profile-menu__icon">
-                      <img
-                        src="/client/assets/icons/download.svg"
-                        alt=""
-                        class="icon"
-                      />
-                    </span>
-                    Reorder
-                  </a>
-                </li>
-                <li>
-                  <a href="#!" class="profile-menu__link">
-                    <span class="profile-menu__icon">
-                      <img
-                        src="/client/assets/icons/heart.svg"
-                        alt=""
-                        class="icon"
-                      />
-                    </span>
-                    Lists
-                  </a>
-                </li>
-                <li>
-                  <a href="#!" class="profile-menu__link">
-                    <span class="profile-menu__icon">
-                      <img
-                        src="/client/assets/icons/gift-2.svg"
-                        alt=""
-                        class="icon"
-                      />
-                    </span>
-                    Registries
-                  </a>
-                </li>
-              </ul>
-            </div>
-
-            <!-- Menu 3 -->
-            <div class="profile-menu">
-              <h3 class="profile-menu__title">Subscriptions & plans</h3>
-              <ul class="profile-menu__list">
-                <li>
-                  <a href="#!" class="profile-menu__link">
-                    <span class="profile-menu__icon">
-                      <img
-                        src="/client/assets/icons/shield.svg"
-                        alt=""
-                        class="icon"
-                      />
-                    </span>
-                    Protection plans
-                  </a>
-                </li>
-              </ul>
-            </div>
-
-            <!-- Menu 4 -->
-            <div class="profile-menu">
-              <h3 class="profile-menu__title">Customer Service</h3>
-              <ul class="profile-menu__list">
-                <li>
-                  <a href="#!" class="profile-menu__link">
-                    <span class="profile-menu__icon">
-                      <img
-                        src="/client/assets/icons/info.svg"
-                        alt=""
-                        class="icon"
-                      />
-                    </span>
-                    Help
-                  </a>
-                </li>
-                <li>
-                  <a href="#!" class="profile-menu__link">
-                    <span class="profile-menu__icon">
-                      <img
-                        src="/client/assets/icons/danger.svg"
-                        alt=""
-                        class="icon"
-                      />
-                    </span>
-                    Terms of Use
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </aside>
-        </div>
-        <div class="col-9 col-xl-8 col-lg-7 col-md-12-1 col-md-12">
+        <div class="col-9 col-xl-8 col-lg-7 col-md-12-1">
           <div class="cart-info">
             <div class="row gy-3">
-              <!-- My Wallet -->
-              <div class="col-12">
-                <h2 class="cart-info__heading">My Wallet</h2>
-                <p class="cart-info__desc profile__desc">Payment methods</p>
-
-                <div class="row gy-md-2 row-cols-3 row-cols-xl-2 row-cols-lg-1">
-                  <!-- Payment card 1 -->
-                  <div class="col">
-                    <article class="payment-card" style="--bg-color: #1e2e69">
-                      <img
-                        src="/client/assets/img/card/plane-bg.svg"
-                        alt=""
-                        class="payment-card__img"
-                      />
-                      <div class="payment-card__top">
-                        <img src="/client/assets/img/card/plane.svg" alt="" />
-                        <span class="payment-card__type">FeatherCard</span>
-                      </div>
-                      <div class="payment-card__number">
-                        1234 4567 8901 2221
-                      </div>
-                      <div class="payment-card__bottom">
-                        <div>
-                          <p class="payment-card__label">Card Holder</p>
-                          <p class="payment-card__value">Imran Khan</p>
-                        </div>
-                        <div class="payment-card__expired">
-                          <p class="payment-card__label">Expired</p>
-                          <p class="payment-card__value">10/22</p>
-                        </div>
-                        <div class="payment-card__circle"></div>
-                      </div>
-                    </article>
-                  </div>
-
-                  <!-- Payment card 2 -->
-                  <div class="col">
-                    <article class="payment-card" style="--bg-color: #354151">
-                      <img
-                        src="/client/assets/img/card/leaf-bg.svg"
-                        alt=""
-                        class="payment-card__img"
-                      />
-                      <div class="payment-card__top">
-                        <img src="/client/assets/img/card/leaf.svg" alt="" />
-                        <span class="payment-card__type">FeatherCard</span>
-                      </div>
-                      <div class="payment-card__number">
-                        1234 4567 2221 8901
-                      </div>
-                      <div class="payment-card__bottom">
-                        <div>
-                          <p class="payment-card__label">Card Holder</p>
-                          <p class="payment-card__value">Imran Khan</p>
-                        </div>
-                        <div class="payment-card__expired">
-                          <p class="payment-card__label">Expired</p>
-                          <p class="payment-card__value">11/22</p>
-                        </div>
-                        <div class="payment-card__circle"></div>
-                      </div>
-                    </article>
-                  </div>
-
-                  <!-- Add new payment card -->
-                  <div class="col">
-                    <a class="new-card" href="/client/add-new-card.html">
-                      <img
-                        src="/client/assets/icons/plus.svg"
-                        alt=""
-                        class="new-card__icon icon"
-                      />
-                      <p class="new-card__text">Add New Card</p>
-                    </a>
-                  </div>
-                </div>
-              </div>
-
               <!-- Account info -->
               <div class="col-12">
-                <h2 class="cart-info__heading">Account info</h2>
+                <h2 class="cart-info__heading">Thông tin tài khoản</h2>
                 <p class="cart-info__desc profile__desc">
-                  Addresses, contact information and password
+                 Thay đổi thông tin cá nhân
                 </p>
                 <div class="row gy-md-2 row-cols-2 row-cols-lg-1">
                   <!-- Account info 1 -->
                   <div class="col">
-                    <a href="/client/edit-personal-info.html">
+                    <a href="#" style="cursor: default;">
                       <article class="account-info">
                         <div class="account-info__icon">
                           <img
@@ -298,8 +57,10 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                           />
                         </div>
                         <div>
-                          <h3 class="account-info__title">Email Address</h3>
-                          <p class="account-info__desc">tarek97.ta@gmail.com</p>
+                          <h3 class="account-info__title">Email</h3>
+                          <p class="account-info__desc">
+                            ${sessionScope.email}
+                          </p>
                         </div>
                       </article>
                     </a>
@@ -307,91 +68,177 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
                   <!-- Account info 2 -->
                   <div class="col">
-                    <a href="/client/edit-personal-info.html">
+                    <a href="#" style="cursor: default;">
                       <article class="account-info">
                         <div class="account-info__icon">
                           <img
-                            src="/client/assets/icons/calling.svg"
+                            src="/client/assets/img/avatar/empty2.jpg"
                             alt=""
-                            class="icon"
+                            width="54px"
+                            height="54px"
+                            style="border-radius: 8px"
                           />
                         </div>
                         <div>
-                          <h3 class="account-info__title">Phone number</h3>
-                          <p class="account-info__desc">+000 11122 2345 657</p>
-                        </div>
-                      </article>
-                    </a>
-                  </div>
-
-                  <!-- Account info 3 -->
-                  <div class="col">
-                    <a href="/client/edit-personal-info.html">
-                      <article class="account-info">
-                        <div class="account-info__icon">
-                          <img
-                            src="/client/assets/icons/location.svg"
-                            alt=""
-                            class="icon"
-                          />
-                        </div>
-                        <div>
-                          <h3 class="account-info__title">Add an address</h3>
-                          <p class="account-info__desc">
-                            Bangladesh Embassy, Washington, DC 20008
-                          </p>
+                          <h3 class="account-info__title">Họ tên</h3>
+                          <p class="account-info__desc">${sessionScope.name}</p>
                         </div>
                       </article>
                     </a>
                   </div>
                 </div>
               </div>
-
+            </div>
+          </div>
+          <div class="cart-info">
+            <div class="row gy-3">
               <div class="col-12">
-                <h2 class="cart-info__heading">Lists</h2>
-                <p class="cart-info__desc profile__desc">2 items - Primary</p>
+                <h2 class="cart-info__heading">
+                  <a href="./profile.html">
+                    <img
+                      src="./assets/icons/arrow-left.svg"
+                      alt=""
+                      class="icon cart-info__back-arrow"
+                    />
+                  </a>
+                  Chỉnh sửa thông tin tài khoản
+                </h2>
 
-                <!-- Favourite item 1 -->
-                <article class="favourite-item">
-                  <img
-                    src="/client/assets/img/product/item-1.png"
-                    alt=""
-                    class="favourite-item__thumb"
+                <form:form
+                  action="/update-profile"
+                  class="form form-card"
+                  method="post"
+                  modelAttribute="currentUser"
+
+                  enctype="multipart/form-data"
+
+                >
+
+                  <input
+                    type="hidden"
+                    name="${_csrf.parameterName}"
+                    value="${_csrf.token}"
                   />
-                  <div>
-                    <h3 class="favourite-item__title">
-                      Coffee Beans - Espresso Arabica and Robusta Beans
-                    </h3>
-                    <div class="favourite-item__content">
-                      <span class="favourite-item__price">$47.00</span>
-                      <button class="btn btn--primary btn--rounded">
-                        Add to cart
-                      </button>
-                    </div>
-                  </div>
-                </article>
 
-                <div class="separate" style="--margin: 20px"></div>
+                  
+                  <!-- Form row 1 -->
+                  <div class="form__row">
 
-                <!-- Favourite item 2 -->
-                <article class="favourite-item">
+                    <div class="form__group col-md-6">
+                      <label
+                      for="avatarImg  "
+                      class="form__label form-card__label"
+                    >
+                      Avatar
+                    </label>
+                    <input  class="form-control upload-img" type="file" id="avatarImg" 
+                    accept=".png, .jpg, .jpeg" name="avatarImg"  />
+
+
+                  <c:if
+                  test="${not empty sessionScope.urlAvatar &&  sessionScope.urlAvatar != 'NULL'}"
+                >
+                  
+                <img   src="${sessionScope.urlAvatar}" style="max-width: 52%; border-radius: 50% ; border: 1px solid #ccc; margin-top: 2rem;"
+                alt="Avatar" id="img-preview">
+
+                </c:if>
+                <c:if
+                  test="${  empty sessionScope.urlAvatar &&  sessionScope.urlAvatar == NULL  }"
+                >
                   <img
-                    src="/client/assets/img/product/item-2.png"
-                    alt=""
-                    class="favourite-item__thumb"
+                    src="/client/assets/img/avatar/empty.jpg" 
+                    style="max-width: 45%; border-radius: 50% ; border: 1px solid #ccc; margin-top: 2rem;"
+                    id="img-preview"
+                    alt="Avatar"
+                    
                   />
-                  <div>
-                    <h3 class="favourite-item__title">
-                      Lavazza Coffee Blends - Try the Italian Espresso
-                    </h3>
-                    <div class="favourite-item__content">
-                      <span class="favourite-item__price">$53.00</span>
-                      <button class="btn btn--primary btn--rounded">
-                        Add to cart
-                      </button>
+                </c:if>
+
+
                     </div>
+
+
+                  <div class="col-md-5">
+                      
+                      <div class="form__group">
+  
+                   
+  
+                        
+                        <label
+                          for="full-name"
+                          class="form__label form-card__label"
+                        >
+                          Họ Tên
+                        </label>
+                        <div class="form__text-input">
+                          <form:input
+                            type="text"
+                            name="fullName"
+                            id="full-name"
+                            placeholder="Nhập họ tên"
+                            class="form__input"
+                            autofocus=""
+                            path ="name"
+                          />
+                          <img
+                            src="./assets/icons/form-error.svg"
+                            alt=""
+                            class="form__input-icon-error"
+                          />
+                        </div>
+                      </div>
+                      <div class="form__group">
+                        <label
+                          for="email-adress"
+                          class="form__label form-card__label"
+                        >
+                          Email
+                        </label>
+                        <div class="form__text-input">
+                          <form:input
+                            type="text"
+                            name="email"
+                            id="email-adress"
+                            placeholder=" Nhập Email "
+                            class="form__input"
+                            path="email"
+                          />
+                         
+                         
+                        </div>
+                       
+                        <c:if test="${enabled == false}">
+                          <p class="cart-info__desc profile__desc" style="font-size: 1.8rem;" >Email của bạn chưa được xác thực.
+                            <div action="/verify-again" method="post">
+                              <input
+                              type="hidden"
+                               name="${_csrf.parameterName}"
+                               value="${_csrf.token}"
+                                 />
+                              <a class="text-error submit-verify" style="color: rgb(69, 165, 239); text-decoration: underline;font-size: 1.8rem;cursor: pointer; ">Xác thực ngay </a>
+                             
+                            </div>
+  
+                            </p>
+                        </c:if>
+                       
+
+                       
+                       
+                     
+                      </div>
                   </div>
-                </article>
+                  </div>
+
+
+
+                  <div class="form-card__bottom">
+                    <a class="btn btn--text btn-reset" href="">Đặt lại</a>
+                    <button class="btn btn--primary btn--rounded is-accept" type="submit">Lưu</button>
+                  </div>
+                </form:form>
               </div>
             </div>
           </div>

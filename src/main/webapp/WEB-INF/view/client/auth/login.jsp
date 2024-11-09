@@ -27,6 +27,10 @@ uri="http://www.springframework.org/tags/form" %>
       href="client/assets/favicon/favicon-16x16.png"
     />
     <link rel="manifest" href="client/assets/favicon/site.webmanifest" />
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+  />
     <meta name="msapplication-TileColor" content="#da532c" />
     <meta name="theme-color" content="#ffffff" />
 
@@ -142,6 +146,7 @@ uri="http://www.springframework.org/tags/form" %>
                   id="emailLogin"
                   placeholder="Nhập email"
                   class="form__input"
+                  autocomplete
                   autofocus
                   required
                 />
@@ -164,23 +169,18 @@ uri="http://www.springframework.org/tags/form" %>
                   name="password"
                   id=""
                   placeholder="Nhập Mật khẩu"
-                  class="form__input"
+                  class="form__input pass-input"
                 />
-                <img
-                  src="client/assets/icons/lock.svg"
-                  alt=""
-                  class="form__input-icon"
-                />
-                <img
-                  src="client/assets/icons/form-error.svg"
-                  alt=""
-                  class="form__input-icon-error"
-                />
+                <i class="fas fa-eye togglePassword form__input-icon" style="cursor: pointer; font-size: 2rem;"  ></i>
+
+              
+                
+
               </div>
             </div>
             <div class="form__group form__group--inline">
               <a
-                href="client/reset-password.html"
+                href="/forgot-pass" style="font-size: 2rem;"
                 class="auth__link form__pull-right"
                 >Quên mật khẩu?</a
               >

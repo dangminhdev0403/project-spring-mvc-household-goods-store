@@ -151,9 +151,8 @@ $(document).ready(function() {
 
 
 </script>
-+
+
 <script>
-  // Giả sử đây là cách bạn chọn input
 let priceProductElement = document.querySelector(".form-control.priceProduct");
 let priceProduct = priceProductElement.value.replace(/,/g, ''); // Lấy giá trị và xóa dấu phẩy
 

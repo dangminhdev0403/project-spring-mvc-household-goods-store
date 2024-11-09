@@ -47,6 +47,8 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                   <tr>
                     <th>Tên</th>
                     <th>Email</th>
+                    <th>Quyền</th>
+                    <th>Trạng thái</th>
                     <th style="width: 10%">Thao tác</th>
                   </tr>
                 </thead>
@@ -56,6 +58,22 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                     <tr>
                       <td>${user.name}</td>
                       <td>${user.email}</td>
+                      <td>${user.role.name}</td>
+                      <td>
+                        <c:if test="${user.enabled == true}">
+                          Đã kích hoạt
+
+                        </c:if>
+                        
+                        <c:if test="${user.enabled != true}">
+                        Chưa kích hoạt
+
+                        </c:if>
+
+
+
+
+                      </td>
 
                       <td>
                         <div class="form-button-action">
