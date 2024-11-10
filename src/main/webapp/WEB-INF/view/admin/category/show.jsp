@@ -48,41 +48,42 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                     <td>STT</td>
                     <th>Tên</th>
                     <th>Danh mục cha</th>
-                  
+
                     <th style="width: 10%">Thao tác</th>
                   </tr>
                 </thead>
 
                 <tbody>
-                  <c:forEach var="category" items="${listCategories}" varStatus="status">
+                  <c:forEach
+                    var="category"
+                    items="${listCategories}"
+                    varStatus="status"
+                  >
                     <tr>
-                        <td>
-                            ${status.index + 1}
-                        </td>
+                      <td>${status.index + 1}</td>
                       <td>${category.name}</td>
                       <td>${category.parent.name}</td>
-                
 
                       <td>
                         <div class="form-button-action">
                           <a
-                          href="/admin/categories/update/${category.category_id}"
-                           
+                            href="/admin/categories/update/${category.category_id}"
                             data-bs-toggle="tooltip"
                             title=""
                             class="btn btn-link btn-primary btn-lg"
                             data-original-title="Edit Task"
                           >
-                          <i class="fa fa-edit"></i>
+                            <i class="fa fa-edit"></i>
                           </a>
-                          <a  href="/admin/categories/delete/${category.category_id}"
+                          <a
+                            href="/admin/categories/delete/${category.category_id}"
                             data-bs-toggle="tooltip"
                             title=""
-                            class="btn btn-link btn-danger is-delete"
+                            class="btn btn-link btn-danger"
                             data-original-title="Remove"
                           >
-                          <i class="fa fa-times is-delete"  href="/admin/categories/delete/${category.category_id}" ></i>
-                        </a>
+                            <i class="fa fa-times"></i>
+                          </a>
                         </div>
                       </td>
                     </tr>

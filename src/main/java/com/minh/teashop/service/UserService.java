@@ -81,7 +81,7 @@ public class UserService {
         this.userRepository.deleteById(id);
     }
 
-    public void handleLockUser(long id, HttpSession session) {
+    public void handleLockUser(long id ) {
         User user = this.getUserById(id);
 
         this.userRepository.softDelete(user);

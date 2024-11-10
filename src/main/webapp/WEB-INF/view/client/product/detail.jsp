@@ -22,7 +22,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         />
         <button class="search-bar__submit">
           <img
-            src="client/assets/icons/search.svg"
+            src="/client/assets/icons/search.svg"
             alt=""
             class="search-bar__icon icon"
           />
@@ -59,25 +59,22 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         <div class="col-5 col-xl-6 col-lg-12">
           <div class="prod-preview">
             <div class="prod-preview__list">
-                <div class="prod-preview__item">
-                  <img
-                    src="/upload/products/${product.productImages[0].name}"
-                    alt=""
-                    class="prod-preview__img"
-                  />
-                </div>
-
-           
+              <div class="prod-preview__item">
+                <img
+                  src="/upload/products/${product.productImages[0].name}"
+                  alt=""
+                  class="prod-preview__img"
+                />
+              </div>
             </div>
             <div class="prod-preview__thumbs">
               <c:forEach var="image" items="${product.productImages}">
                 <img
                   src="/upload/products/${image.name}"
                   alt="${image.name}"
-                  class="prod-preview__thumb-img  product.productImages"
+                  class="prod-preview__thumb-img product.productImages"
                 />
               </c:forEach>
-            
             </div>
           </div>
         </div>
@@ -96,15 +93,11 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                 <div class="filter__form-group">
                   <div class="form__select-wrap">
                     <div class="form__select" style="--width: 146px">
-                      Tình trạng 
+                      Tình trạng
                     </div>
                     <div class="form__select">
-                      <c:if test="${product.stock <= 0}">
-                        Hết hàng
-                    </c:if>
-                    <c:if test="${product.stock > 0}">
-                        Còn hàng
-                    </c:if>
+                      <c:if test="${product.stock <= 0}"> Hết hàng </c:if>
+                      <c:if test="${product.stock > 0}"> Còn hàng </c:if>
                     </div>
                   </div>
                 </div>
@@ -114,20 +107,28 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                     <button class="form__tag prod-info__tag">Medium</button>
                     <button class="form__tag prod-info__tag">Large</button>
                   </div>
-                  <div class="cart-item__input" style="display: inline-flex; margin-top: 3rem;">
+                  <div
+                    class="cart-item__input"
+                    style="display: inline-flex; margin-top: 3rem"
+                  >
                     <button class="cart-item__input-btn" id="decrease">
-                        <img class="icon" src="/client/assets/icons/minus.svg" alt="">
+                      <img
+                        class="icon"
+                        src="/client/assets/icons/minus.svg"
+                        alt=""
+                      />
                     </button>
                     <span id="quantity">1</span>
                     <button class="cart-item__input-btn" id="increase">
-                        <img class="icon" src="/client/assets/icons/plus.svg" alt="">
+                      <img
+                        class="icon"
+                        src="/client/assets/icons/plus.svg"
+                        alt=""
+                      />
                     </button>
-                </div>
+                  </div>
                 </div>
               </div>
-
-             
-
 
               <div class="col-7 col-xxl-6 col-xl-12">
                 <div class="prod-props">
@@ -147,7 +148,9 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                     />
                     <div>
                       <h4 class="prod-prop__title">Giao hàng tận nơi</h4>
-                      <p class="prod-prop__desc">Giao tận nhà, tiện lợi và nhanh chóng.</p>
+                      <p class="prod-prop__desc">
+                        Giao tận nhà, tiện lợi và nhanh chóng.
+                      </p>
                     </div>
                   </div>
                   <div class="prod-prop">
@@ -158,7 +161,9 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                     />
                     <div>
                       <h4 class="prod-prop__title">Tuỳ chọn thanh toán</h4>
-                      <p class="prod-prop__desc">Có nhiều lựa chọn thanh toán linh hoạt.</p>
+                      <p class="prod-prop__desc">
+                        Có nhiều lựa chọn thanh toán linh hoạt.
+                      </p>
                     </div>
                   </div>
                   <div class="prod-info__card">
@@ -198,8 +203,17 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                           value="${_csrf.token}"
                         />
 
-                        <input type="hidden" name="quantity" value="1" id ="quantity-submit">
-                        <a type="submit" class="btn btn--primary submit" style="cursor: pointer;">
+                        <input
+                          type="hidden"
+                          name="quantity"
+                          value="1"
+                          id="quantity-submit"
+                        />
+                        <a
+                          type="submit"
+                          class="btn btn--primary add-product"
+                          style="cursor: pointer"
+                        >
                           Thêm vào giỏ hàng
                         </a>
                       </form>
@@ -407,265 +421,47 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
           </div>
           <div class="prod-tab__content">
             <div class="prod-content">
-              <h2 class="prod-content__heading">
-                Similar items you might like
-              </h2>
+              <h2 class="prod-content__heading">Có thể bạn quan tâm</h2>
               <div
                 class="row row-cols-6 row-cols-xl-4 row-cols-lg-3 row-cols-md-2 row-cols-sm-1 g-2"
               >
-                <!-- Product card 1 -->
-                <div class="col">
-                  <article class="product-card">
-                    <div class="product-card__img-wrap">
-                      <a href="/client/product-detail.html">
-                        <img
-                          src="/client/assets/img/product/item-1.png"
-                          alt=""
-                          class="product-card__thumb"
-                        />
-                      </a>
-                      <button class="like-btn product-card__like-btn">
-                        <img
-                          src="/client/assets/icons/heart.svg"
-                          alt=""
-                          class="like-btn__icon icon"
-                        />
-                        <img
-                          src="/client/assets/icons/heart-red.svg"
-                          alt=""
-                          class="like-btn__icon--liked"
-                        />
-                      </button>
-                    </div>
-                    <h3 class="product-card__title">
-                      <a href="/client/product-detail.html"
-                        >Coffee Beans - Espresso Arabica and Robusta Beans</a
-                      >
-                    </h3>
-                    <p class="product-card__brand">Lavazza</p>
-                    <div class="product-card__row">
-                      <span class="product-card__price">$47.00</span>
-                      <img
-                        src="/client/assets/icons/star.svg"
-                        alt=""
-                        class="product-card__star"
-                      />
-                      <span class="product-card__score">4.3</span>
-                    </div>
-                  </article>
-                </div>
-
-                <!-- Product card 2 -->
-                <div class="col">
-                  <article class="product-card">
-                    <div class="product-card__img-wrap">
-                      <a href="/client/product-detail.html">
-                        <img
-                          src="/client/assets/img/product/item-2.png"
-                          alt=""
-                          class="product-card__thumb"
-                        />
-                      </a>
-                      <button class="like-btn product-card__like-btn">
-                        <img
-                          src="/client/assets/icons/heart.svg"
-                          alt=""
-                          class="like-btn__icon icon"
-                        />
-                        <img
-                          src="/client/assets/icons/heart-red.svg"
-                          alt=""
-                          class="like-btn__icon--liked"
-                        />
-                      </button>
-                    </div>
-                    <h3 class="product-card__title">
-                      <a href="/client/product-detail.html"
-                        >Lavazza Coffee Blends - Try the Italian Espresso</a
-                      >
-                    </h3>
-                    <p class="product-card__brand">Lavazza</p>
-                    <div class="product-card__row">
-                      <span class="product-card__price">$53.00</span>
-                      <img
-                        src="/client/assets/icons/star.svg"
-                        alt=""
-                        class="product-card__star"
-                      />
-                      <span class="product-card__score">3.4</span>
-                    </div>
-                  </article>
-                </div>
-
-                <!-- Product card 3 -->
-                <div class="col">
-                  <article class="product-card">
-                    <div class="product-card__img-wrap">
-                      <a href="/client/product-detail.html">
-                        <img
-                          src="/client/assets/img/product/item-3.png"
-                          alt=""
-                          class="product-card__thumb"
-                        />
-                      </a>
-                      <button
-                        class="like-btn like-btn--liked product-card__like-btn"
-                      >
-                        <img
-                          src="/client/assets/icons/heart.svg"
-                          alt=""
-                          class="like-btn__icon icon"
-                        />
-                        <img
-                          src="/client/assets/icons/heart-red.svg"
-                          alt=""
-                          class="like-btn__icon--liked"
-                        />
-                      </button>
-                    </div>
-                    <h3 class="product-card__title">
-                      <a href="/client/product-detail.html"
-                        >Lavazza - Caffè Espresso Black Tin - Ground coffee</a
-                      >
-                    </h3>
-                    <p class="product-card__brand">Welikecoffee</p>
-                    <div class="product-card__row">
-                      <span class="product-card__price">$99.99</span>
-                      <img
-                        src="/client/assets/icons/star.svg"
-                        alt=""
-                        class="product-card__star"
-                      />
-                      <span class="product-card__score">5.0</span>
-                    </div>
-                  </article>
-                </div>
-
-                <!-- Product card 4 -->
-                <div class="col">
-                  <article class="product-card">
-                    <div class="product-card__img-wrap">
-                      <a href="/client/product-detail.html">
-                        <img
-                          src="/client/assets/img/product/item-4.png"
-                          alt=""
-                          class="product-card__thumb"
-                        />
-                      </a>
-                      <button class="like-btn product-card__like-btn">
-                        <img
-                          src="/client/assets/icons/heart.svg"
-                          alt=""
-                          class="like-btn__icon icon"
-                        />
-                        <img
-                          src="/client/assets/icons/heart-red.svg"
-                          alt=""
-                          class="like-btn__icon--liked"
-                        />
-                      </button>
-                    </div>
-                    <h3 class="product-card__title">
-                      <a href="/client/product-detail.html"
-                        >Qualità Oro Mountain Grown - Espresso Coffee Beans</a
-                      >
-                    </h3>
-                    <p class="product-card__brand">Lavazza</p>
-                    <div class="product-card__row">
-                      <span class="product-card__price">$38.65</span>
-                      <img
-                        src="/client/assets/icons/star.svg"
-                        alt=""
-                        class="product-card__star"
-                      />
-                      <span class="product-card__score">4.4</span>
-                    </div>
-                  </article>
-                </div>
-
-                <!-- Product card 5 -->
-                <div class="col">
-                  <article class="product-card">
-                    <div class="product-card__img-wrap">
-                      <a href="/client/product-detail.html">
-                        <img
-                          src="/client/assets/img/product/item-1.png"
-                          alt=""
-                          class="product-card__thumb"
-                        />
-                      </a>
-                      <button class="like-btn product-card__like-btn">
-                        <img
-                          src="/client/assets/icons/heart.svg"
-                          alt=""
-                          class="like-btn__icon icon"
-                        />
-                        <img
-                          src="/client/assets/icons/heart-red.svg"
-                          alt=""
-                          class="like-btn__icon--liked"
-                        />
-                      </button>
-                    </div>
-                    <h3 class="product-card__title">
-                      <a href="/client/product-detail.html"
-                        >Coffee Beans - Espresso Arabica and Robusta Beans</a
-                      >
-                    </h3>
-                    <p class="product-card__brand">Lavazza</p>
-                    <div class="product-card__row">
-                      <span class="product-card__price">$47.00</span>
-                      <img
-                        src="/client/assets/icons/star.svg"
-                        alt=""
-                        class="product-card__star"
-                      />
-                      <span class="product-card__score">4.3</span>
-                    </div>
-                  </article>
-                </div>
-
-                <!-- Product card 6 -->
-                <div class="col">
-                  <article class="product-card">
-                    <div class="product-card__img-wrap">
-                      <a href="/client/product-detail.html">
-                        <img
-                          src="/client/assets/img/product/item-2.png"
-                          alt=""
-                          class="product-card__thumb"
-                        />
-                      </a>
-                      <button class="like-btn product-card__like-btn">
-                        <img
-                          src="/client/assets/icons/heart.svg"
-                          alt=""
-                          class="like-btn__icon icon"
-                        />
-                        <img
-                          src="/client/assets/icons/heart-red.svg"
-                          alt=""
-                          class="like-btn__icon--liked"
-                        />
-                      </button>
-                    </div>
-                    <h3 class="product-card__title">
-                      <a href="/client/product-detail.html"
-                        >Lavazza Coffee Blends - Try the Italian Espresso</a
-                      >
-                    </h3>
-                    <p class="product-card__brand">Lavazza</p>
-                    <div class="product-card__row">
-                      <span class="product-card__price">$53.00</span>
-                      <img
-                        src="/client/assets/icons/star.svg"
-                        alt=""
-                        class="product-card__star"
-                      />
-                      <span class="product-card__score">3.4</span>
-                    </div>
-                  </article>
-                </div>
+                <c:forEach
+                  begin="0"
+                  end="5"
+                  var="pr"
+                  items="${product.category.products}"
+                >
+                  <!-- Product card 1 -->
+                  <div class="col">
+                    <article class="product-card">
+                      <div class="product-card__img-wrap">
+                        <a href="/product/${pr.product_id}">
+                          <img
+                            src="/client/assets/img/product/item-1.png"
+                            alt=""
+                            class="product-card__thumb"
+                          />
+                        </a>
+                        <button class="like-btn product-card__like-btn">
+                          <img
+                            src="${pr.productImages[0].url}"
+                            alt="${pr.productImages[0].name}"
+                            class="like-btn__icon--liked"
+                          />
+                        </button>
+                      </div>
+                      <h3 class="product-card__title">
+                        <a href="/product/${pr.product_id}"> ${pr.name}</a>
+                      </h3>
+                      <p class="product-card__brand">${pr.category.name}</p>
+                      <div class="product-card__row">
+                        <span class="product-card__price format-price"
+                          >${product.price}</span
+                        >
+                      </div>
+                    </article>
+                  </div>
+                </c:forEach>
               </div>
             </div>
           </div>

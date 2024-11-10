@@ -25,7 +25,6 @@ import com.minh.teashop.service.UploadService;
 import com.minh.teashop.service.UserService;
 
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 @Controller
@@ -153,11 +152,10 @@ public class UserController {
 
     @GetMapping("/admin/user/lock/{id}")
     @ResponseBody
-    public ResponseEntity<?> handleLockUser(@PathVariable long id, HttpServletRequest request) {
+    public ResponseEntity<?> handleLockUser(@PathVariable long id) {
         try {
 
-            HttpSession session = request.getSession(false);
-            this.userService.handleLockUser(id, session);
+            this.userService.handleLockUser(id);
 
             // Trả về phản hồi JSON khi xoá thành công
             return ResponseEntity.ok(new ResponseMessage("Khoá người dùng thành công"));

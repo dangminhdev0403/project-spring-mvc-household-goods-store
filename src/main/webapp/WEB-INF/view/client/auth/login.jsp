@@ -98,7 +98,7 @@ uri="http://www.springframework.org/tags/form" %>
       <!-- Nội dung đăng nhập -->
       <div class="auth__content">
         <div class="auth__content-inner">
-          <a href="client/" class="logo">
+          <a href="/" class="logo">
             <img
               src="client/assets/icons/logo.svg"
               alt="grocerymart"

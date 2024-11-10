@@ -173,9 +173,9 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                     >Xem tất cả</a
                   >
                 </div>
-                <div class="row row-cols-3 gx-2 act-dropdown__list " style="justify-content: center;" >
+                <div class="row row-cols-3 gx-2 act-dropdown__list " style="justify-content: center;"  id ="dropdown__list">
 
-                                    <c:forEach var="detailOfCart" items="${listDetail}">
+                                    <c:forEach begin ="0" end ="2" var="detailOfCart" items="${listDetail}" >
                                       <div class="col">
                                         <article class="cart-preview-item">
                                           <div class="cart-preview-item__img-wrap">
@@ -207,11 +207,10 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                                                 </c:if>
                                               </c:when>
                                             </c:choose>
-                                            
+                                            </p>
                                             
                                         </article>
                                       </div>
-                                    <!-- Cart preview item 1 -->
                   </c:forEach>
                     
                   
@@ -291,7 +290,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
           <div class="act-dropdown top-act__dropdown">
             <div class="act-dropdown__inner user-menu">
               <img
-                src="client/assets/icons/arrow-up.png"
+                src="/client/assets/icons/arrow-up.png"
                 alt=""
                 class="act-dropdown__arrow top-act__dropdown-arrow"
               />

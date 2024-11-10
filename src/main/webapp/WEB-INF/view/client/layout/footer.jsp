@@ -129,6 +129,9 @@ uri="http://www.springframework.org/tags/form" %>
         
     
 </body>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<script src="/client/assets/js/axios.js"></script>
 <script src="/client/assets/js/myscripts.js"></script>
 
 <!-- Thêm thẻ <p> để hiển thị thông điệp -->

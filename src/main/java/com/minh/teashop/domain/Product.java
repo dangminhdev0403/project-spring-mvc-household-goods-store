@@ -1,5 +1,6 @@
 package com.minh.teashop.domain;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -35,7 +36,9 @@ public class Product {
     private long stock;
     private Double factor;
     private Double fisrtPrice;
-    private String sku ;
+    private String sku;
+    private LocalDateTime deletedAt;
+
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;

@@ -6,6 +6,8 @@ uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <meta name="_csrf" content="${_csrf.token}" />
+    <meta name="_csrf_header" content="${_csrf.headerName}" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>${title}</title>
@@ -86,9 +88,8 @@ uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
       }
       .tinh {
         font-size: 1.7rem;
-       
       }
-     
+
       .quan {
         font-size: 1.7rem;
         text-align: -webkit-center;
@@ -97,7 +98,6 @@ uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
         font-size: 1.7rem;
         text-align: -webkit-center;
       }
-
     </style>
   </head>
   <body>

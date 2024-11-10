@@ -50,6 +50,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                     <th>Danh mục</th>
                     <th>Giá(đã nhân hệ số)</th>
                     <th>Số lượng</th>
+                    <th>Trạng thái</th>
                     <th style="width: 10%">Action</th>
                   </tr>
                 </thead>
@@ -81,7 +82,14 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                         </c:choose>
                       </td>
                       <td>${product.stock}</td>
-
+                      <td >
+                        <c:choose>
+                          <c:when test="${product.deletedAt != null}">
+                           Tạm ẩn
+                          </c:when>
+                          <c:otherwise>Đang hiển thị </c:otherwise>
+                        </c:choose>
+                      </td>
                       <td>
                         <div class="form-button-action">
                           <a
@@ -104,6 +112,25 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                               class="fa fa-times"
                             ></i>
                           </a>
+                          <c:choose>
+                            <c:when test="${product.deletedAt != null}">
+                              <a
+                                class="btn btn-link btn-primary btn-lg "
+                                href="/admin/product/unlock/${product.product_id}"
+                              >
+                                <i class="fas fa-lock-open"></i>
+                              </a>
+                            </c:when>
+                            <c:otherwise>
+                              <!-- lock -->
+                              <a
+                                class="btn btn-link btn-primary btn-lg "
+                                href="/admin/product/lock/${product.product_id}"
+                              >
+                                <i class="fas fa-lock"></i>
+                              </a>
+                            </c:otherwise>
+                          </c:choose>
                         </div>
                       </td>
                     </tr>

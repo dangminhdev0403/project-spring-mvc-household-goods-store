@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,17 +14,21 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.minh.teashop.domain.Category;
 import com.minh.teashop.domain.Product;
 import com.minh.teashop.domain.ProductImage;
+import com.minh.teashop.domain.response.ResponseMessage;
 import com.minh.teashop.domain.upload.UploadResponse;
 import com.minh.teashop.service.CategoryService;
 import com.minh.teashop.service.ProductImageService;
 import com.minh.teashop.service.ProductService;
 import com.minh.teashop.service.UploadService;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 public class ProductController {
@@ -29,6 +36,15 @@ public class ProductController {
     private final CategoryService categoryService;
     private final UploadService uploadService;
     private final ProductImageService productImageService;
+
+    
+     @ModelAttribute
+    public void addCsrfToken(Model model, HttpServletRequest request) {
+        CsrfToken csrfToken = (CsrfToken) request.getAttribute(CsrfToken.class.getName());
+        if (csrfToken != null) {
+            model.addAttribute("_csrf", csrfToken);
+        }
+    }
 
     public ProductController(ProductService productService, CategoryService categoryService,
             UploadService uploadService, ProductImageService productImageService) {
@@ -72,21 +88,27 @@ public class ProductController {
     }
 
     @GetMapping("/admin/product/delete/{id}")
-    public String getMethodName(Model model, @PathVariable long id, RedirectAttributes redirectAttributes) {
-        Optional<Product> product = this.productService.fetchProductById(id);
-        if (product.isPresent()) {
-            List<ProductImage> listImages = this.productImageService.getImagesByProduct(product.get());
-            if (!listImages.isEmpty()) {
-                for (ProductImage image : listImages) {
-                    this.uploadService.handleDeleteFile(image.getName());
+    @ResponseBody
+    public ResponseEntity<?> deleteProduct(Model model, @PathVariable long id, RedirectAttributes redirectAttributes) {
+
+        try {
+
+            Optional<Product> product = this.productService.fetchProductById(id);
+            if (product.isPresent()) {
+                List<ProductImage> listImages = this.productImageService.getImagesByProduct(product.get());
+                if (!listImages.isEmpty()) {
+                    for (ProductImage image : listImages) {
+                        this.uploadService.handleDeleteFile(image.getName());
+                    }
                 }
             }
+
+            this.productService.handleDeleteProduct(id);
+            return ResponseEntity.ok(new ResponseMessage("Xoá người dùng thành công"));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new ResponseMessage("Đã xảy ra lỗi khi xoá người dùng"));
         }
-
-        this.productService.handleDeleteProduct(id);
-        redirectAttributes.addFlashAttribute("success", "Xoá thành công");
-
-        return "redirect:/admin/products";
     }
 
     @PostMapping("/admin/product/create")
@@ -103,9 +125,9 @@ public class ProductController {
         if (files.length != 0 && files[0].getOriginalFilename() != "") {
             for (int i = 0; i < files.length; i++) {
                 // upload file
-             
-                UploadResponse response  = this.uploadService.handleSaveUploadFile(files[i], "products");
-                String imageProduct = response.getFinalName() ;
+
+                UploadResponse response = this.uploadService.handleSaveUploadFile(files[i], "products");
+                String imageProduct = response.getFinalName();
                 ProductImage image = new ProductImage();
                 image.setName(imageProduct);
                 image.setProduct(newProduct);
@@ -174,5 +196,21 @@ public class ProductController {
 
         return "redirect:/admin/products";
     }
+
+    @GetMapping("/admin/product/lock/{id}")
+    public String handleLockProduct(@PathVariable long id,  RedirectAttributes redirectAttributes) {
+         this.productService.handleDisabbleProduct(id);
+        redirectAttributes.addFlashAttribute("success", "Cập nhật thành công");
+
+        return "redirect:/admin/products";
+    }
+    @GetMapping("/admin/product/unlock/{id}")
+    public String handleUnLockProduct(@PathVariable long id,  RedirectAttributes redirectAttributes) {
+         this.productService.handleRestoreProduct(id);
+        redirectAttributes.addFlashAttribute("success", "Cập nhật thành công");
+
+        return "redirect:/admin/products";
+    }
+    
 
 }

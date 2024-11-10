@@ -27,5 +27,10 @@ public class ProductSpecs {
         return (root, query, criteriaBuilder) -> criteriaBuilder.between(
                 root.get(Product_.PRICE), min, max);
     }
+    
+    public static Specification<Product> isNotDeleted() {
+        return (root, query, criteriaBuilder) -> 
+            criteriaBuilder.isNull(root.get("deletedAt"));
+    }
 
 }

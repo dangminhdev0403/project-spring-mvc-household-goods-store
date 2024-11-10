@@ -95,7 +95,7 @@ uri="http://www.springframework.org/tags/form" %>
     <main class="auth">
       <!-- Auth intro -->
       <div class="auth__intro">
-        <a href="client/" class="logo auth__intro-logo d-none d-md-flex">
+        <a href="/" class="logo auth__intro-logo d-none d-md-flex">
           <img
             src="client/assets/icons/logo.svg"
             alt="grocerymart"

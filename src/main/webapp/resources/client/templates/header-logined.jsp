@@ -6,7 +6,7 @@
       toggle-target="#navbar"
     >
       <img
-        src="./assets/icons/more.svg"
+        src="/client/assets/icons/more.svg"
         alt=""
         class="icon top-bar__more-icon"
       />
@@ -15,7 +15,7 @@
     <!-- Logo -->
     <a href="./" class="logo top-bar__logo">
       <img
-        src="./assets/icons/logo.svg"
+        src="/client/assets/icons/logo.svg"
         alt="grocerymart"
         class="logo__img top-bar__logo-img"
       />
@@ -25,17 +25,17 @@
     <!-- Navbar -->
     <nav id="navbar" class="navbar hide">
       <button class="navbar__close-btn js-toggle" toggle-target="#navbar">
-        <img class="icon" src="./assets/icons/arrow-left.svg" alt="" />
+        <img class="icon" src="/client/assets/icons/arrow-left.svg" alt="" />
       </button>
 
       <a href="./checkout.html" class="nav-btn d-none d-md-flex">
-        <img src="./assets/icons/buy.svg" alt="" class="nav-btn__icon icon" />
+        <img src="/client/assets/icons/buy.svg" alt="" class="nav-btn__icon icon" />
         <span class="nav-btn__title">Cart</span>
         <span class="nav-btn__qnt">3</span>
       </a>
 
       <a href="#!" class="nav-btn d-none d-md-flex">
-        <img src="./assets/icons/heart.svg" alt="" class="nav-btn__icon icon" />
+        <img src="/client/assets/icons/heart.svg" alt="" class="nav-btn__icon icon" />
         <span class="nav-btn__title">Favorite</span>
         <span class="nav-btn__qnt">3</span>
       </a>
@@ -45,7 +45,7 @@
           <a href="#!" class="navbar__link">
             Departments
             <img
-              src="./assets/icons/arrow-down.svg"
+              src="/client/assets/icons/arrow-down.svg"
               alt=""
               class="icon navbar__arrow"
             />
@@ -58,12 +58,12 @@
                   <div class="menu-column">
                     <div class="menu-column__icon d-lg-none">
                       <img
-                        src="./assets/img/category/cate-1.1.svg"
+                        src="/client/assets/img/category/cate-1.1.svg"
                         alt=""
                         class="menu-column__icon-1"
                       />
                       <img
-                        src="./assets/img/category/cate-1.2.svg"
+                        src="/client/assets/img/category/cate-1.2.svg"
                         alt=""
                         class="menu-column__icon-2"
                       />
@@ -84,12 +84,12 @@
                               <div class="menu-column">
                                 <div class="menu-column__icon">
                                   <img
-                                    src="./assets/img/category/cate-4.1.svg"
+                                    src="/client/assets/img/category/cate-4.1.svg"
                                     alt=""
                                     class="menu-column__icon-1"
                                   />
                                   <img
-                                    src="./assets/img/category/cate-4.2.svg"
+                                    src="/client/assets/img/category/cate-4.2.svg"
                                     alt=""
                                     class="menu-column__icon-2"
                                   />
@@ -132,12 +132,12 @@
                               <div class="menu-column">
                                 <div class="menu-column__icon">
                                   <img
-                                    src="./assets/img/category/cate-2.1.svg"
+                                    src="/client/assets/img/category/cate-2.1.svg"
                                     alt=""
                                     class="menu-column__icon-1"
                                   />
                                   <img
-                                    src="./assets/img/category/cate-2.2.svg"
+                                    src="/client/assets/img/category/cate-2.2.svg"
                                     alt=""
                                     class="menu-column__icon-2"
                                   />
@@ -192,12 +192,12 @@
                               <div class="menu-column">
                                 <div class="menu-column__icon">
                                   <img
-                                    src="./assets/img/category/cate-1.1.svg"
+                                    src="/client/assets/img/category/cate-1.1.svg"
                                     alt=""
                                     class="menu-column__icon-1"
                                   />
                                   <img
-                                    src="./assets/img/category/cate-1.2.svg"
+                                    src="/client/assets/img/category/cate-1.2.svg"
                                     alt=""
                                     class="menu-column__icon-2"
                                   />
@@ -272,12 +272,12 @@
                               <div class="menu-column">
                                 <div class="menu-column__icon">
                                   <img
-                                    src="./assets/img/category/cate-6.1.svg"
+                                    src="/client/assets/img/category/cate-6.1.svg"
                                     alt=""
                                     class="menu-column__icon-1"
                                   />
                                   <img
-                                    src="./assets/img/category/cate-6.2.svg"
+                                    src="/client/assets/img/category/cate-6.2.svg"
                                     alt=""
                                     class="menu-column__icon-2"
                                   />
@@ -330,12 +330,12 @@
                               <div class="menu-column">
                                 <div class="menu-column__icon">
                                   <img
-                                    src="./assets/img/category/cate-5.1.svg"
+                                    src="/client/assets/img/category/cate-5.1.svg"
                                     alt=""
                                     class="menu-column__icon-1"
                                   />
                                   <img
-                                    src="./assets/img/category/cate-5.2.svg"
+                                    src="/client/assets/img/category/cate-5.2.svg"
                                     alt=""
                                     class="menu-column__icon-2"
                                   />
@@ -385,12 +385,12 @@
                               <div class="menu-column">
                                 <div class="menu-column__icon">
                                   <img
-                                    src="./assets/img/category/cate-2.1.svg"
+                                    src="/client/assets/img/category/cate-2.1.svg"
                                     alt=""
                                     class="menu-column__icon-1"
                                   />
                                   <img
-                                    src="./assets/img/category/cate-2.2.svg"
+                                    src="/client/assets/img/category/cate-2.2.svg"
                                     alt=""
                                     class="menu-column__icon-2"
                                   />
@@ -443,12 +443,12 @@
                               <div class="menu-column">
                                 <div class="menu-column__icon">
                                   <img
-                                    src="./assets/img/category/cate-3.1.svg"
+                                    src="/client/assets/img/category/cate-3.1.svg"
                                     alt=""
                                     class="menu-column__icon-1"
                                   />
                                   <img
-                                    src="./assets/img/category/cate-3.2.svg"
+                                    src="/client/assets/img/category/cate-3.2.svg"
                                     alt=""
                                     class="menu-column__icon-2"
                                   />
@@ -493,12 +493,12 @@
                               <div class="menu-column">
                                 <div class="menu-column__icon">
                                   <img
-                                    src="./assets/img/category/cate-4.1.svg"
+                                    src="/client/assets/img/category/cate-4.1.svg"
                                     alt=""
                                     class="menu-column__icon-1"
                                   />
                                   <img
-                                    src="./assets/img/category/cate-4.2.svg"
+                                    src="/client/assets/img/category/cate-4.2.svg"
                                     alt=""
                                     class="menu-column__icon-2"
                                   />
@@ -578,12 +578,12 @@
                               <div class="menu-column">
                                 <div class="menu-column__icon">
                                   <img
-                                    src="./assets/img/category/cate-5.1.svg"
+                                    src="/client/assets/img/category/cate-5.1.svg"
                                     alt=""
                                     class="menu-column__icon-1"
                                   />
                                   <img
-                                    src="./assets/img/category/cate-5.2.svg"
+                                    src="/client/assets/img/category/cate-5.2.svg"
                                     alt=""
                                     class="menu-column__icon-2"
                                   />
@@ -616,12 +616,12 @@
                               <div class="menu-column">
                                 <div class="menu-column__icon">
                                   <img
-                                    src="./assets/img/category/cate-6.1.svg"
+                                    src="/client/assets/img/category/cate-6.1.svg"
                                     alt=""
                                     class="menu-column__icon-1"
                                   />
                                   <img
-                                    src="./assets/img/category/cate-6.2.svg"
+                                    src="/client/assets/img/category/cate-6.2.svg"
                                     alt=""
                                     class="menu-column__icon-2"
                                   />
@@ -688,12 +688,12 @@
                               <div class="menu-column">
                                 <div class="menu-column__icon">
                                   <img
-                                    src="./assets/img/category/cate-5.1.svg"
+                                    src="/client/assets/img/category/cate-5.1.svg"
                                     alt=""
                                     class="menu-column__icon-1"
                                   />
                                   <img
-                                    src="./assets/img/category/cate-5.2.svg"
+                                    src="/client/assets/img/category/cate-5.2.svg"
                                     alt=""
                                     class="menu-column__icon-2"
                                   />
@@ -736,12 +736,12 @@
                               <div class="menu-column">
                                 <div class="menu-column__icon">
                                   <img
-                                    src="./assets/img/category/cate-4.1.svg"
+                                    src="/client/assets/img/category/cate-4.1.svg"
                                     alt=""
                                     class="menu-column__icon-1"
                                   />
                                   <img
-                                    src="./assets/img/category/cate-4.2.svg"
+                                    src="/client/assets/img/category/cate-4.2.svg"
                                     alt=""
                                     class="menu-column__icon-2"
                                   />
@@ -786,12 +786,12 @@
                               <div class="menu-column">
                                 <div class="menu-column__icon">
                                   <img
-                                    src="./assets/img/category/cate-3.1.svg"
+                                    src="/client/assets/img/category/cate-3.1.svg"
                                     alt=""
                                     class="menu-column__icon-1"
                                   />
                                   <img
-                                    src="./assets/img/category/cate-3.2.svg"
+                                    src="/client/assets/img/category/cate-3.2.svg"
                                     alt=""
                                     class="menu-column__icon-2"
                                   />
@@ -839,12 +839,12 @@
                               <div class="menu-column">
                                 <div class="menu-column__icon">
                                   <img
-                                    src="./assets/img/category/cate-2.1.svg"
+                                    src="/client/assets/img/category/cate-2.1.svg"
                                     alt=""
                                     class="menu-column__icon-1"
                                   />
                                   <img
-                                    src="./assets/img/category/cate-2.2.svg"
+                                    src="/client/assets/img/category/cate-2.2.svg"
                                     alt=""
                                     class="menu-column__icon-2"
                                   />
@@ -894,12 +894,12 @@
                               <div class="menu-column">
                                 <div class="menu-column__icon">
                                   <img
-                                    src="./assets/img/category/cate-6.1.svg"
+                                    src="/client/assets/img/category/cate-6.1.svg"
                                     alt=""
                                     class="menu-column__icon-1"
                                   />
                                   <img
-                                    src="./assets/img/category/cate-6.2.svg"
+                                    src="/client/assets/img/category/cate-6.2.svg"
                                     alt=""
                                     class="menu-column__icon-2"
                                   />
@@ -951,12 +951,12 @@
                               <div class="menu-column">
                                 <div class="menu-column__icon">
                                   <img
-                                    src="./assets/img/category/cate-6.1.svg"
+                                    src="/client/assets/img/category/cate-6.1.svg"
                                     alt=""
                                     class="menu-column__icon-1"
                                   />
                                   <img
-                                    src="./assets/img/category/cate-6.2.svg"
+                                    src="/client/assets/img/category/cate-6.2.svg"
                                     alt=""
                                     class="menu-column__icon-2"
                                   />
@@ -999,12 +999,12 @@
                               <div class="menu-column">
                                 <div class="menu-column__icon">
                                   <img
-                                    src="./assets/img/category/cate-5.1.svg"
+                                    src="/client/assets/img/category/cate-5.1.svg"
                                     alt=""
                                     class="menu-column__icon-1"
                                   />
                                   <img
-                                    src="./assets/img/category/cate-5.2.svg"
+                                    src="/client/assets/img/category/cate-5.2.svg"
                                     alt=""
                                     class="menu-column__icon-2"
                                   />
@@ -1050,12 +1050,12 @@
                               <div class="menu-column">
                                 <div class="menu-column__icon">
                                   <img
-                                    src="./assets/img/category/cate-4.1.svg"
+                                    src="/client/assets/img/category/cate-4.1.svg"
                                     alt=""
                                     class="menu-column__icon-1"
                                   />
                                   <img
-                                    src="./assets/img/category/cate-4.2.svg"
+                                    src="/client/assets/img/category/cate-4.2.svg"
                                     alt=""
                                     class="menu-column__icon-2"
                                   />
@@ -1101,12 +1101,12 @@
                               <div class="menu-column">
                                 <div class="menu-column__icon">
                                   <img
-                                    src="./assets/img/category/cate-3.1.svg"
+                                    src="/client/assets/img/category/cate-3.1.svg"
                                     alt=""
                                     class="menu-column__icon-1"
                                   />
                                   <img
-                                    src="./assets/img/category/cate-3.2.svg"
+                                    src="/client/assets/img/category/cate-3.2.svg"
                                     alt=""
                                     class="menu-column__icon-2"
                                   />
@@ -1149,12 +1149,12 @@
                               <div class="menu-column">
                                 <div class="menu-column__icon">
                                   <img
-                                    src="./assets/img/category/cate-2.1.svg"
+                                    src="/client/assets/img/category/cate-2.1.svg"
                                     alt=""
                                     class="menu-column__icon-1"
                                   />
                                   <img
-                                    src="./assets/img/category/cate-2.2.svg"
+                                    src="/client/assets/img/category/cate-2.2.svg"
                                     alt=""
                                     class="menu-column__icon-2"
                                   />
@@ -1206,12 +1206,12 @@
                               <div class="menu-column">
                                 <div class="menu-column__icon">
                                   <img
-                                    src="./assets/img/category/cate-2.1.svg"
+                                    src="/client/assets/img/category/cate-2.1.svg"
                                     alt=""
                                     class="menu-column__icon-1"
                                   />
                                   <img
-                                    src="./assets/img/category/cate-2.2.svg"
+                                    src="/client/assets/img/category/cate-2.2.svg"
                                     alt=""
                                     class="menu-column__icon-2"
                                   />
@@ -1254,12 +1254,12 @@
                               <div class="menu-column">
                                 <div class="menu-column__icon">
                                   <img
-                                    src="./assets/img/category/cate-4.1.svg"
+                                    src="/client/assets/img/category/cate-4.1.svg"
                                     alt=""
                                     class="menu-column__icon-1"
                                   />
                                   <img
-                                    src="./assets/img/category/cate-4.2.svg"
+                                    src="/client/assets/img/category/cate-4.2.svg"
                                     alt=""
                                     class="menu-column__icon-2"
                                   />
@@ -1305,12 +1305,12 @@
                               <div class="menu-column">
                                 <div class="menu-column__icon">
                                   <img
-                                    src="./assets/img/category/cate-3.1.svg"
+                                    src="/client/assets/img/category/cate-3.1.svg"
                                     alt=""
                                     class="menu-column__icon-1"
                                   />
                                   <img
-                                    src="./assets/img/category/cate-3.2.svg"
+                                    src="/client/assets/img/category/cate-3.2.svg"
                                     alt=""
                                     class="menu-column__icon-2"
                                   />
@@ -1353,12 +1353,12 @@
                               <div class="menu-column">
                                 <div class="menu-column__icon">
                                   <img
-                                    src="./assets/img/category/cate-5.1.svg"
+                                    src="/client/assets/img/category/cate-5.1.svg"
                                     alt=""
                                     class="menu-column__icon-1"
                                   />
                                   <img
-                                    src="./assets/img/category/cate-5.2.svg"
+                                    src="/client/assets/img/category/cate-5.2.svg"
                                     alt=""
                                     class="menu-column__icon-2"
                                   />
@@ -1404,12 +1404,12 @@
                               <div class="menu-column">
                                 <div class="menu-column__icon">
                                   <img
-                                    src="./assets/img/category/cate-6.1.svg"
+                                    src="/client/assets/img/category/cate-6.1.svg"
                                     alt=""
                                     class="menu-column__icon-1"
                                   />
                                   <img
-                                    src="./assets/img/category/cate-6.2.svg"
+                                    src="/client/assets/img/category/cate-6.2.svg"
                                     alt=""
                                     class="menu-column__icon-2"
                                   />
@@ -1461,12 +1461,12 @@
                               <div class="menu-column">
                                 <div class="menu-column__icon">
                                   <img
-                                    src="./assets/img/category/cate-4.1.svg"
+                                    src="/client/assets/img/category/cate-4.1.svg"
                                     alt=""
                                     class="menu-column__icon-1"
                                   />
                                   <img
-                                    src="./assets/img/category/cate-4.2.svg"
+                                    src="/client/assets/img/category/cate-4.2.svg"
                                     alt=""
                                     class="menu-column__icon-2"
                                   />
@@ -1536,12 +1536,12 @@
                               <div class="menu-column">
                                 <div class="menu-column__icon">
                                   <img
-                                    src="./assets/img/category/cate-1.1.svg"
+                                    src="/client/assets/img/category/cate-1.1.svg"
                                     alt=""
                                     class="menu-column__icon-1"
                                   />
                                   <img
-                                    src="./assets/img/category/cate-1.2.svg"
+                                    src="/client/assets/img/category/cate-1.2.svg"
                                     alt=""
                                     class="menu-column__icon-2"
                                   />
@@ -1584,12 +1584,12 @@
                               <div class="menu-column">
                                 <div class="menu-column__icon">
                                   <img
-                                    src="./assets/img/category/cate-2.1.svg"
+                                    src="/client/assets/img/category/cate-2.1.svg"
                                     alt=""
                                     class="menu-column__icon-1"
                                   />
                                   <img
-                                    src="./assets/img/category/cate-2.2.svg"
+                                    src="/client/assets/img/category/cate-2.2.svg"
                                     alt=""
                                     class="menu-column__icon-2"
                                   />
@@ -1634,12 +1634,12 @@
                               <div class="menu-column">
                                 <div class="menu-column__icon">
                                   <img
-                                    src="./assets/img/category/cate-6.1.svg"
+                                    src="/client/assets/img/category/cate-6.1.svg"
                                     alt=""
                                     class="menu-column__icon-1"
                                   />
                                   <img
-                                    src="./assets/img/category/cate-6.2.svg"
+                                    src="/client/assets/img/category/cate-6.2.svg"
                                     alt=""
                                     class="menu-column__icon-2"
                                   />
@@ -1682,12 +1682,12 @@
                               <div class="menu-column">
                                 <div class="menu-column__icon">
                                   <img
-                                    src="./assets/img/category/cate-5.1.svg"
+                                    src="/client/assets/img/category/cate-5.1.svg"
                                     alt=""
                                     class="menu-column__icon-1"
                                   />
                                   <img
-                                    src="./assets/img/category/cate-5.2.svg"
+                                    src="/client/assets/img/category/cate-5.2.svg"
                                     alt=""
                                     class="menu-column__icon-2"
                                   />
@@ -1737,12 +1737,12 @@
                               <div class="menu-column">
                                 <div class="menu-column__icon">
                                   <img
-                                    src="./assets/img/category/cate-6.1.svg"
+                                    src="/client/assets/img/category/cate-6.1.svg"
                                     alt=""
                                     class="menu-column__icon-1"
                                   />
                                   <img
-                                    src="./assets/img/category/cate-6.2.svg"
+                                    src="/client/assets/img/category/cate-6.2.svg"
                                     alt=""
                                     class="menu-column__icon-2"
                                   />
@@ -1784,12 +1784,12 @@
                               <div class="menu-column">
                                 <div class="menu-column__icon">
                                   <img
-                                    src="./assets/img/category/cate-5.1.svg"
+                                    src="/client/assets/img/category/cate-5.1.svg"
                                     alt=""
                                     class="menu-column__icon-1"
                                   />
                                   <img
-                                    src="./assets/img/category/cate-5.2.svg"
+                                    src="/client/assets/img/category/cate-5.2.svg"
                                     alt=""
                                     class="menu-column__icon-2"
                                   />
@@ -1834,12 +1834,12 @@
                               <div class="menu-column">
                                 <div class="menu-column__icon">
                                   <img
-                                    src="./assets/img/category/cate-4.1.svg"
+                                    src="/client/assets/img/category/cate-4.1.svg"
                                     alt=""
                                     class="menu-column__icon-1"
                                   />
                                   <img
-                                    src="./assets/img/category/cate-4.2.svg"
+                                    src="/client/assets/img/category/cate-4.2.svg"
                                     alt=""
                                     class="menu-column__icon-2"
                                   />
@@ -1882,12 +1882,12 @@
                               <div class="menu-column">
                                 <div class="menu-column__icon">
                                   <img
-                                    src="./assets/img/category/cate-3.1.svg"
+                                    src="/client/assets/img/category/cate-3.1.svg"
                                     alt=""
                                     class="menu-column__icon-1"
                                   />
                                   <img
-                                    src="./assets/img/category/cate-3.2.svg"
+                                    src="/client/assets/img/category/cate-3.2.svg"
                                     alt=""
                                     class="menu-column__icon-2"
                                   />
@@ -1932,12 +1932,12 @@
                               <div class="menu-column">
                                 <div class="menu-column__icon">
                                   <img
-                                    src="./assets/img/category/cate-2.1.svg"
+                                    src="/client/assets/img/category/cate-2.1.svg"
                                     alt=""
                                     class="menu-column__icon-1"
                                   />
                                   <img
-                                    src="./assets/img/category/cate-2.2.svg"
+                                    src="/client/assets/img/category/cate-2.2.svg"
                                     alt=""
                                     class="menu-column__icon-2"
                                   />
@@ -2014,12 +2014,12 @@
                               <div class="menu-column">
                                 <div class="menu-column__icon">
                                   <img
-                                    src="./assets/img/category/cate-4.1.svg"
+                                    src="/client/assets/img/category/cate-4.1.svg"
                                     alt=""
                                     class="menu-column__icon-1"
                                   />
                                   <img
-                                    src="./assets/img/category/cate-4.2.svg"
+                                    src="/client/assets/img/category/cate-4.2.svg"
                                     alt=""
                                     class="menu-column__icon-2"
                                   />
@@ -2062,12 +2062,12 @@
                               <div class="menu-column">
                                 <div class="menu-column__icon">
                                   <img
-                                    src="./assets/img/category/cate-2.1.svg"
+                                    src="/client/assets/img/category/cate-2.1.svg"
                                     alt=""
                                     class="menu-column__icon-1"
                                   />
                                   <img
-                                    src="./assets/img/category/cate-2.2.svg"
+                                    src="/client/assets/img/category/cate-2.2.svg"
                                     alt=""
                                     class="menu-column__icon-2"
                                   />
@@ -2122,12 +2122,12 @@
                               <div class="menu-column">
                                 <div class="menu-column__icon">
                                   <img
-                                    src="./assets/img/category/cate-1.1.svg"
+                                    src="/client/assets/img/category/cate-1.1.svg"
                                     alt=""
                                     class="menu-column__icon-1"
                                   />
                                   <img
-                                    src="./assets/img/category/cate-1.2.svg"
+                                    src="/client/assets/img/category/cate-1.2.svg"
                                     alt=""
                                     class="menu-column__icon-2"
                                   />
@@ -2202,12 +2202,12 @@
                               <div class="menu-column">
                                 <div class="menu-column__icon">
                                   <img
-                                    src="./assets/img/category/cate-6.1.svg"
+                                    src="/client/assets/img/category/cate-6.1.svg"
                                     alt=""
                                     class="menu-column__icon-1"
                                   />
                                   <img
-                                    src="./assets/img/category/cate-6.2.svg"
+                                    src="/client/assets/img/category/cate-6.2.svg"
                                     alt=""
                                     class="menu-column__icon-2"
                                   />
@@ -2260,12 +2260,12 @@
                               <div class="menu-column">
                                 <div class="menu-column__icon">
                                   <img
-                                    src="./assets/img/category/cate-5.1.svg"
+                                    src="/client/assets/img/category/cate-5.1.svg"
                                     alt=""
                                     class="menu-column__icon-1"
                                   />
                                   <img
-                                    src="./assets/img/category/cate-5.2.svg"
+                                    src="/client/assets/img/category/cate-5.2.svg"
                                     alt=""
                                     class="menu-column__icon-2"
                                   />
@@ -2317,12 +2317,12 @@
                               <div class="menu-column">
                                 <div class="menu-column__icon">
                                   <img
-                                    src="./assets/img/category/cate-2.1.svg"
+                                    src="/client/assets/img/category/cate-2.1.svg"
                                     alt=""
                                     class="menu-column__icon-1"
                                   />
                                   <img
-                                    src="./assets/img/category/cate-2.2.svg"
+                                    src="/client/assets/img/category/cate-2.2.svg"
                                     alt=""
                                     class="menu-column__icon-2"
                                   />
@@ -2375,12 +2375,12 @@
                               <div class="menu-column">
                                 <div class="menu-column__icon">
                                   <img
-                                    src="./assets/img/category/cate-3.1.svg"
+                                    src="/client/assets/img/category/cate-3.1.svg"
                                     alt=""
                                     class="menu-column__icon-1"
                                   />
                                   <img
-                                    src="./assets/img/category/cate-3.2.svg"
+                                    src="/client/assets/img/category/cate-3.2.svg"
                                     alt=""
                                     class="menu-column__icon-2"
                                   />
@@ -2425,12 +2425,12 @@
                               <div class="menu-column">
                                 <div class="menu-column__icon">
                                   <img
-                                    src="./assets/img/category/cate-4.1.svg"
+                                    src="/client/assets/img/category/cate-4.1.svg"
                                     alt=""
                                     class="menu-column__icon-1"
                                   />
                                   <img
-                                    src="./assets/img/category/cate-4.2.svg"
+                                    src="/client/assets/img/category/cate-4.2.svg"
                                     alt=""
                                     class="menu-column__icon-2"
                                   />
@@ -2510,12 +2510,12 @@
                               <div class="menu-column">
                                 <div class="menu-column__icon">
                                   <img
-                                    src="./assets/img/category/cate-5.1.svg"
+                                    src="/client/assets/img/category/cate-5.1.svg"
                                     alt=""
                                     class="menu-column__icon-1"
                                   />
                                   <img
-                                    src="./assets/img/category/cate-5.2.svg"
+                                    src="/client/assets/img/category/cate-5.2.svg"
                                     alt=""
                                     class="menu-column__icon-2"
                                   />
@@ -2548,12 +2548,12 @@
                               <div class="menu-column">
                                 <div class="menu-column__icon">
                                   <img
-                                    src="./assets/img/category/cate-6.1.svg"
+                                    src="/client/assets/img/category/cate-6.1.svg"
                                     alt=""
                                     class="menu-column__icon-1"
                                   />
                                   <img
-                                    src="./assets/img/category/cate-6.2.svg"
+                                    src="/client/assets/img/category/cate-6.2.svg"
                                     alt=""
                                     class="menu-column__icon-2"
                                   />
@@ -2620,12 +2620,12 @@
                               <div class="menu-column">
                                 <div class="menu-column__icon">
                                   <img
-                                    src="./assets/img/category/cate-5.1.svg"
+                                    src="/client/assets/img/category/cate-5.1.svg"
                                     alt=""
                                     class="menu-column__icon-1"
                                   />
                                   <img
-                                    src="./assets/img/category/cate-5.2.svg"
+                                    src="/client/assets/img/category/cate-5.2.svg"
                                     alt=""
                                     class="menu-column__icon-2"
                                   />
@@ -2668,12 +2668,12 @@
                               <div class="menu-column">
                                 <div class="menu-column__icon">
                                   <img
-                                    src="./assets/img/category/cate-4.1.svg"
+                                    src="/client/assets/img/category/cate-4.1.svg"
                                     alt=""
                                     class="menu-column__icon-1"
                                   />
                                   <img
-                                    src="./assets/img/category/cate-4.2.svg"
+                                    src="/client/assets/img/category/cate-4.2.svg"
                                     alt=""
                                     class="menu-column__icon-2"
                                   />
@@ -2718,12 +2718,12 @@
                               <div class="menu-column">
                                 <div class="menu-column__icon">
                                   <img
-                                    src="./assets/img/category/cate-3.1.svg"
+                                    src="/client/assets/img/category/cate-3.1.svg"
                                     alt=""
                                     class="menu-column__icon-1"
                                   />
                                   <img
-                                    src="./assets/img/category/cate-3.2.svg"
+                                    src="/client/assets/img/category/cate-3.2.svg"
                                     alt=""
                                     class="menu-column__icon-2"
                                   />
@@ -2771,12 +2771,12 @@
                               <div class="menu-column">
                                 <div class="menu-column__icon">
                                   <img
-                                    src="./assets/img/category/cate-2.1.svg"
+                                    src="/client/assets/img/category/cate-2.1.svg"
                                     alt=""
                                     class="menu-column__icon-1"
                                   />
                                   <img
-                                    src="./assets/img/category/cate-2.2.svg"
+                                    src="/client/assets/img/category/cate-2.2.svg"
                                     alt=""
                                     class="menu-column__icon-2"
                                   />
@@ -2826,12 +2826,12 @@
                               <div class="menu-column">
                                 <div class="menu-column__icon">
                                   <img
-                                    src="./assets/img/category/cate-6.1.svg"
+                                    src="/client/assets/img/category/cate-6.1.svg"
                                     alt=""
                                     class="menu-column__icon-1"
                                   />
                                   <img
-                                    src="./assets/img/category/cate-6.2.svg"
+                                    src="/client/assets/img/category/cate-6.2.svg"
                                     alt=""
                                     class="menu-column__icon-2"
                                   />
@@ -2883,12 +2883,12 @@
                               <div class="menu-column">
                                 <div class="menu-column__icon">
                                   <img
-                                    src="./assets/img/category/cate-6.1.svg"
+                                    src="/client/assets/img/category/cate-6.1.svg"
                                     alt=""
                                     class="menu-column__icon-1"
                                   />
                                   <img
-                                    src="./assets/img/category/cate-6.2.svg"
+                                    src="/client/assets/img/category/cate-6.2.svg"
                                     alt=""
                                     class="menu-column__icon-2"
                                   />
@@ -2931,12 +2931,12 @@
                               <div class="menu-column">
                                 <div class="menu-column__icon">
                                   <img
-                                    src="./assets/img/category/cate-5.1.svg"
+                                    src="/client/assets/img/category/cate-5.1.svg"
                                     alt=""
                                     class="menu-column__icon-1"
                                   />
                                   <img
-                                    src="./assets/img/category/cate-5.2.svg"
+                                    src="/client/assets/img/category/cate-5.2.svg"
                                     alt=""
                                     class="menu-column__icon-2"
                                   />
@@ -2981,12 +2981,12 @@
                               <div class="menu-column">
                                 <div class="menu-column__icon">
                                   <img
-                                    src="./assets/img/category/cate-4.1.svg"
+                                    src="/client/assets/img/category/cate-4.1.svg"
                                     alt=""
                                     class="menu-column__icon-1"
                                   />
                                   <img
-                                    src="./assets/img/category/cate-4.2.svg"
+                                    src="/client/assets/img/category/cate-4.2.svg"
                                     alt=""
                                     class="menu-column__icon-2"
                                   />
@@ -3031,12 +3031,12 @@
                               <div class="menu-column">
                                 <div class="menu-column__icon">
                                   <img
-                                    src="./assets/img/category/cate-3.1.svg"
+                                    src="/client/assets/img/category/cate-3.1.svg"
                                     alt=""
                                     class="menu-column__icon-1"
                                   />
                                   <img
-                                    src="./assets/img/category/cate-3.2.svg"
+                                    src="/client/assets/img/category/cate-3.2.svg"
                                     alt=""
                                     class="menu-column__icon-2"
                                   />
@@ -3079,12 +3079,12 @@
                               <div class="menu-column">
                                 <div class="menu-column__icon">
                                   <img
-                                    src="./assets/img/category/cate-2.1.svg"
+                                    src="/client/assets/img/category/cate-2.1.svg"
                                     alt=""
                                     class="menu-column__icon-1"
                                   />
                                   <img
-                                    src="./assets/img/category/cate-2.2.svg"
+                                    src="/client/assets/img/category/cate-2.2.svg"
                                     alt=""
                                     class="menu-column__icon-2"
                                   />
@@ -3134,12 +3134,12 @@
                               <div class="menu-column">
                                 <div class="menu-column__icon">
                                   <img
-                                    src="./assets/img/category/cate-2.1.svg"
+                                    src="/client/assets/img/category/cate-2.1.svg"
                                     alt=""
                                     class="menu-column__icon-1"
                                   />
                                   <img
-                                    src="./assets/img/category/cate-2.2.svg"
+                                    src="/client/assets/img/category/cate-2.2.svg"
                                     alt=""
                                     class="menu-column__icon-2"
                                   />
@@ -3182,12 +3182,12 @@
                               <div class="menu-column">
                                 <div class="menu-column__icon">
                                   <img
-                                    src="./assets/img/category/cate-4.1.svg"
+                                    src="/client/assets/img/category/cate-4.1.svg"
                                     alt=""
                                     class="menu-column__icon-1"
                                   />
                                   <img
-                                    src="./assets/img/category/cate-4.2.svg"
+                                    src="/client/assets/img/category/cate-4.2.svg"
                                     alt=""
                                     class="menu-column__icon-2"
                                   />
@@ -3232,12 +3232,12 @@
                               <div class="menu-column">
                                 <div class="menu-column__icon">
                                   <img
-                                    src="./assets/img/category/cate-3.1.svg"
+                                    src="/client/assets/img/category/cate-3.1.svg"
                                     alt=""
                                     class="menu-column__icon-1"
                                   />
                                   <img
-                                    src="./assets/img/category/cate-3.2.svg"
+                                    src="/client/assets/img/category/cate-3.2.svg"
                                     alt=""
                                     class="menu-column__icon-2"
                                   />
@@ -3280,12 +3280,12 @@
                               <div class="menu-column">
                                 <div class="menu-column__icon">
                                   <img
-                                    src="./assets/img/category/cate-5.1.svg"
+                                    src="/client/assets/img/category/cate-5.1.svg"
                                     alt=""
                                     class="menu-column__icon-1"
                                   />
                                   <img
-                                    src="./assets/img/category/cate-5.2.svg"
+                                    src="/client/assets/img/category/cate-5.2.svg"
                                     alt=""
                                     class="menu-column__icon-2"
                                   />
@@ -3330,12 +3330,12 @@
                               <div class="menu-column">
                                 <div class="menu-column__icon">
                                   <img
-                                    src="./assets/img/category/cate-6.1.svg"
+                                    src="/client/assets/img/category/cate-6.1.svg"
                                     alt=""
                                     class="menu-column__icon-1"
                                   />
                                   <img
-                                    src="./assets/img/category/cate-6.2.svg"
+                                    src="/client/assets/img/category/cate-6.2.svg"
                                     alt=""
                                     class="menu-column__icon-2"
                                   />
@@ -3387,12 +3387,12 @@
                               <div class="menu-column">
                                 <div class="menu-column__icon">
                                   <img
-                                    src="./assets/img/category/cate-4.1.svg"
+                                    src="/client/assets/img/category/cate-4.1.svg"
                                     alt=""
                                     class="menu-column__icon-1"
                                   />
                                   <img
-                                    src="./assets/img/category/cate-4.2.svg"
+                                    src="/client/assets/img/category/cate-4.2.svg"
                                     alt=""
                                     class="menu-column__icon-2"
                                   />
@@ -3462,12 +3462,12 @@
                               <div class="menu-column">
                                 <div class="menu-column__icon">
                                   <img
-                                    src="./assets/img/category/cate-1.1.svg"
+                                    src="/client/assets/img/category/cate-1.1.svg"
                                     alt=""
                                     class="menu-column__icon-1"
                                   />
                                   <img
-                                    src="./assets/img/category/cate-1.2.svg"
+                                    src="/client/assets/img/category/cate-1.2.svg"
                                     alt=""
                                     class="menu-column__icon-2"
                                   />
@@ -3510,12 +3510,12 @@
                               <div class="menu-column">
                                 <div class="menu-column__icon">
                                   <img
-                                    src="./assets/img/category/cate-2.1.svg"
+                                    src="/client/assets/img/category/cate-2.1.svg"
                                     alt=""
                                     class="menu-column__icon-1"
                                   />
                                   <img
-                                    src="./assets/img/category/cate-2.2.svg"
+                                    src="/client/assets/img/category/cate-2.2.svg"
                                     alt=""
                                     class="menu-column__icon-2"
                                   />
@@ -3560,12 +3560,12 @@
                               <div class="menu-column">
                                 <div class="menu-column__icon">
                                   <img
-                                    src="./assets/img/category/cate-6.1.svg"
+                                    src="/client/assets/img/category/cate-6.1.svg"
                                     alt=""
                                     class="menu-column__icon-1"
                                   />
                                   <img
-                                    src="./assets/img/category/cate-6.2.svg"
+                                    src="/client/assets/img/category/cate-6.2.svg"
                                     alt=""
                                     class="menu-column__icon-2"
                                   />
@@ -3608,12 +3608,12 @@
                               <div class="menu-column">
                                 <div class="menu-column__icon">
                                   <img
-                                    src="./assets/img/category/cate-5.1.svg"
+                                    src="/client/assets/img/category/cate-5.1.svg"
                                     alt=""
                                     class="menu-column__icon-1"
                                   />
                                   <img
-                                    src="./assets/img/category/cate-5.2.svg"
+                                    src="/client/assets/img/category/cate-5.2.svg"
                                     alt=""
                                     class="menu-column__icon-2"
                                   />
@@ -3665,12 +3665,12 @@
                               <div class="menu-column">
                                 <div class="menu-column__icon">
                                   <img
-                                    src="./assets/img/category/cate-6.1.svg"
+                                    src="/client/assets/img/category/cate-6.1.svg"
                                     alt=""
                                     class="menu-column__icon-1"
                                   />
                                   <img
-                                    src="./assets/img/category/cate-6.2.svg"
+                                    src="/client/assets/img/category/cate-6.2.svg"
                                     alt=""
                                     class="menu-column__icon-2"
                                   />
@@ -3713,12 +3713,12 @@
                               <div class="menu-column">
                                 <div class="menu-column__icon">
                                   <img
-                                    src="./assets/img/category/cate-5.1.svg"
+                                    src="/client/assets/img/category/cate-5.1.svg"
                                     alt=""
                                     class="menu-column__icon-1"
                                   />
                                   <img
-                                    src="./assets/img/category/cate-5.2.svg"
+                                    src="/client/assets/img/category/cate-5.2.svg"
                                     alt=""
                                     class="menu-column__icon-2"
                                   />
@@ -3763,12 +3763,12 @@
                               <div class="menu-column">
                                 <div class="menu-column__icon">
                                   <img
-                                    src="./assets/img/category/cate-4.1.svg"
+                                    src="/client/assets/img/category/cate-4.1.svg"
                                     alt=""
                                     class="menu-column__icon-1"
                                   />
                                   <img
-                                    src="./assets/img/category/cate-4.2.svg"
+                                    src="/client/assets/img/category/cate-4.2.svg"
                                     alt=""
                                     class="menu-column__icon-2"
                                   />
@@ -3811,12 +3811,12 @@
                               <div class="menu-column">
                                 <div class="menu-column__icon">
                                   <img
-                                    src="./assets/img/category/cate-3.1.svg"
+                                    src="/client/assets/img/category/cate-3.1.svg"
                                     alt=""
                                     class="menu-column__icon-1"
                                   />
                                   <img
-                                    src="./assets/img/category/cate-3.2.svg"
+                                    src="/client/assets/img/category/cate-3.2.svg"
                                     alt=""
                                     class="menu-column__icon-2"
                                   />
@@ -3861,12 +3861,12 @@
                               <div class="menu-column">
                                 <div class="menu-column__icon">
                                   <img
-                                    src="./assets/img/category/cate-2.1.svg"
+                                    src="/client/assets/img/category/cate-2.1.svg"
                                     alt=""
                                     class="menu-column__icon-1"
                                   />
                                   <img
-                                    src="./assets/img/category/cate-2.2.svg"
+                                    src="/client/assets/img/category/cate-2.2.svg"
                                     alt=""
                                     class="menu-column__icon-2"
                                   />
@@ -3944,7 +3944,7 @@
           <a href="#!" class="navbar__link">
             Grocery
             <img
-              src="./assets/icons/arrow-down.svg"
+              src="/client/assets/icons/arrow-down.svg"
               alt=""
               class="icon navbar__arrow"
             />
@@ -3958,12 +3958,12 @@
                     <div class="menu-column">
                       <div class="menu-column__icon">
                         <img
-                          src="./assets/img/category/cate-7.1.svg"
+                          src="/client/assets/img/category/cate-7.1.svg"
                           alt=""
                           class="menu-column__icon-1"
                         />
                         <img
-                          src="./assets/img/category/cate-7.2.svg"
+                          src="/client/assets/img/category/cate-7.2.svg"
                           alt=""
                           class="menu-column__icon-2"
                         />
@@ -3994,12 +3994,12 @@
                     <div class="menu-column">
                       <div class="menu-column__icon">
                         <img
-                          src="./assets/img/category/cate-8.1.svg"
+                          src="/client/assets/img/category/cate-8.1.svg"
                           alt=""
                           class="menu-column__icon-1"
                         />
                         <img
-                          src="./assets/img/category/cate-8.2.svg"
+                          src="/client/assets/img/category/cate-8.2.svg"
                           alt=""
                           class="menu-column__icon-2"
                         />
@@ -4062,12 +4062,12 @@
                     <div class="menu-column">
                       <div class="menu-column__icon">
                         <img
-                          src="./assets/img/category/cate-9.1.svg"
+                          src="/client/assets/img/category/cate-9.1.svg"
                           alt=""
                           class="menu-column__icon-1"
                         />
                         <img
-                          src="./assets/img/category/cate-9.2.svg"
+                          src="/client/assets/img/category/cate-9.2.svg"
                           alt=""
                           class="menu-column__icon-2"
                         />
@@ -4119,12 +4119,12 @@
                     <div class="menu-column">
                       <div class="menu-column__icon">
                         <img
-                          src="./assets/img/category/cate-10.1.svg"
+                          src="/client/assets/img/category/cate-10.1.svg"
                           alt=""
                           class="menu-column__icon-1"
                         />
                         <img
-                          src="./assets/img/category/cate-10.2.svg"
+                          src="/client/assets/img/category/cate-10.2.svg"
                           alt=""
                           class="menu-column__icon-2"
                         />
@@ -4159,12 +4159,12 @@
                     <div class="menu-column">
                       <div class="menu-column__icon">
                         <img
-                          src="./assets/img/category/cate-11.1.svg"
+                          src="/client/assets/img/category/cate-11.1.svg"
                           alt=""
                           class="menu-column__icon-1"
                         />
                         <img
-                          src="./assets/img/category/cate-11.2.svg"
+                          src="/client/assets/img/category/cate-11.2.svg"
                           alt=""
                           class="menu-column__icon-2"
                         />
@@ -4201,12 +4201,12 @@
                     <div class="menu-column">
                       <div class="menu-column__icon">
                         <img
-                          src="./assets/img/category/cate-12.1.svg"
+                          src="/client/assets/img/category/cate-12.1.svg"
                           alt=""
                           class="menu-column__icon-1"
                         />
                         <img
-                          src="./assets/img/category/cate-12.2.svg"
+                          src="/client/assets/img/category/cate-12.2.svg"
                           alt=""
                           class="menu-column__icon-2"
                         />
@@ -4251,12 +4251,12 @@
                     <div class="menu-column">
                       <div class="menu-column__icon">
                         <img
-                          src="./assets/img/category/cate-13.1.svg"
+                          src="/client/assets/img/category/cate-13.1.svg"
                           alt=""
                           class="menu-column__icon-1"
                         />
                         <img
-                          src="./assets/img/category/cate-13.2.svg"
+                          src="/client/assets/img/category/cate-13.2.svg"
                           alt=""
                           class="menu-column__icon-2"
                         />
@@ -4294,12 +4294,12 @@
                     <div class="menu-column">
                       <div class="menu-column__icon">
                         <img
-                          src="./assets/img/category/cate-14.1.svg"
+                          src="/client/assets/img/category/cate-14.1.svg"
                           alt=""
                           class="menu-column__icon-1"
                         />
                         <img
-                          src="./assets/img/category/cate-14.2.svg"
+                          src="/client/assets/img/category/cate-14.2.svg"
                           alt=""
                           class="menu-column__icon-2"
                         />
@@ -4356,7 +4356,7 @@
           <a href="#!" class="navbar__link">
             Beauty
             <img
-              src="./assets/icons/arrow-down.svg"
+              src="/client/assets/icons/arrow-down.svg"
               alt=""
               class="icon navbar__arrow"
             />
@@ -4370,12 +4370,12 @@
                     <div class="menu-column">
                       <div class="menu-column__icon">
                         <img
-                          src="./assets/img/category/cate-7.1.svg"
+                          src="/client/assets/img/category/cate-7.1.svg"
                           alt=""
                           class="menu-column__icon-1"
                         />
                         <img
-                          src="./assets/img/category/cate-7.2.svg"
+                          src="/client/assets/img/category/cate-7.2.svg"
                           alt=""
                           class="menu-column__icon-2"
                         />
@@ -4428,12 +4428,12 @@
                     <div class="menu-column">
                       <div class="menu-column__icon">
                         <img
-                          src="./assets/img/category/cate-15.1.svg"
+                          src="/client/assets/img/category/cate-15.1.svg"
                           alt=""
                           class="menu-column__icon-1"
                         />
                         <img
-                          src="./assets/img/category/cate-15.2.svg"
+                          src="/client/assets/img/category/cate-15.2.svg"
                           alt=""
                           class="menu-column__icon-2"
                         />
@@ -4478,12 +4478,12 @@
                     <div class="menu-column">
                       <div class="menu-column__icon">
                         <img
-                          src="./assets/img/category/cate-16.1.svg"
+                          src="/client/assets/img/category/cate-16.1.svg"
                           alt=""
                           class="menu-column__icon-1"
                         />
                         <img
-                          src="./assets/img/category/cate-16.2.svg"
+                          src="/client/assets/img/category/cate-16.2.svg"
                           alt=""
                           class="menu-column__icon-2"
                         />
@@ -4535,12 +4535,12 @@
                     <div class="menu-column">
                       <div class="menu-column__icon">
                         <img
-                          src="./assets/img/category/cate-17.1.svg"
+                          src="/client/assets/img/category/cate-17.1.svg"
                           alt=""
                           class="menu-column__icon-1"
                         />
                         <img
-                          src="./assets/img/category/cate-17.2.svg"
+                          src="/client/assets/img/category/cate-17.2.svg"
                           alt=""
                           class="menu-column__icon-2"
                         />
@@ -4575,12 +4575,12 @@
                     <div class="menu-column">
                       <div class="menu-column__icon">
                         <img
-                          src="./assets/img/category/cate-18.1.svg"
+                          src="/client/assets/img/category/cate-18.1.svg"
                           alt=""
                           class="menu-column__icon-1"
                         />
                         <img
-                          src="./assets/img/category/cate-18.2.svg"
+                          src="/client/assets/img/category/cate-18.2.svg"
                           alt=""
                           class="menu-column__icon-2"
                         />
@@ -4625,12 +4625,12 @@
                     <div class="menu-column">
                       <div class="menu-column__icon">
                         <img
-                          src="./assets/img/category/cate-19.1.svg"
+                          src="/client/assets/img/category/cate-19.1.svg"
                           alt=""
                           class="menu-column__icon-1"
                         />
                         <img
-                          src="./assets/img/category/cate-19.2.svg"
+                          src="/client/assets/img/category/cate-19.2.svg"
                           alt=""
                           class="menu-column__icon-2"
                         />
@@ -4696,7 +4696,7 @@
       <div class="top-act__group d-md-none top-act__group--single">
         <button class="top-act__btn">
           <img
-            src="./assets/icons/search.svg"
+            src="/client/assets/icons/search.svg"
             alt=""
             class="icon top-act__icon"
           />
@@ -4708,7 +4708,7 @@
           <div class="top-act__btn-wrap">
             <button class="top-act__btn">
               <img
-                src="./assets/icons/heart.svg"
+                src="/client/assets/icons/heart.svg"
                 alt=""
                 class="icon top-act__icon"
               />
@@ -4719,7 +4719,7 @@
             <div class="act-dropdown">
               <div class="act-dropdown__inner">
                 <img
-                  src="./assets/icons/arrow-up.png"
+                  src="/client/assets/icons/arrow-up.png"
                   alt=""
                   class="act-dropdown__arrow"
                 />
@@ -4735,7 +4735,7 @@
                     <article class="cart-preview-item">
                       <div class="cart-preview-item__img-wrap">
                         <img
-                          src="./assets/img/product/item-1.png"
+                          src="/client/assets/img/product/item-1.png"
                           alt=""
                           class="cart-preview-item__thumb"
                         />
@@ -4752,7 +4752,7 @@
                     <article class="cart-preview-item">
                       <div class="cart-preview-item__img-wrap">
                         <img
-                          src="./assets/img/product/item-2.png"
+                          src="/client/assets/img/product/item-2.png"
                           alt=""
                           class="cart-preview-item__thumb"
                         />
@@ -4769,7 +4769,7 @@
                     <article class="cart-preview-item">
                       <div class="cart-preview-item__img-wrap">
                         <img
-                          src="./assets/img/product/item-3.png"
+                          src="/client/assets/img/product/item-3.png"
                           alt=""
                           class="cart-preview-item__thumb"
                         />
@@ -4799,7 +4799,7 @@
           <div class="top-act__btn-wrap">
             <button class="top-act__btn">
               <img
-                src="./assets/icons/buy.svg"
+                src="/client/assets/icons/buy.svg"
                 alt=""
                 class="icon top-act__icon"
               />
@@ -4810,7 +4810,7 @@
             <div class="act-dropdown">
               <div class="act-dropdown__inner">
                 <img
-                  src="./assets/icons/arrow-up.png"
+                  src="/client/assets/icons/arrow-up.png"
                   alt=""
                   class="act-dropdown__arrow"
                 />
@@ -4826,7 +4826,7 @@
                     <article class="cart-preview-item">
                       <div class="cart-preview-item__img-wrap">
                         <img
-                          src="./assets/img/product/item-1.png"
+                          src="/client/assets/img/product/item-1.png"
                           alt=""
                           class="cart-preview-item__thumb"
                         />
@@ -4843,7 +4843,7 @@
                     <article class="cart-preview-item">
                       <div class="cart-preview-item__img-wrap">
                         <img
-                          src="./assets/img/product/item-2.png"
+                          src="/client/assets/img/product/item-2.png"
                           alt=""
                           class="cart-preview-item__thumb"
                         />
@@ -4860,7 +4860,7 @@
                     <article class="cart-preview-item">
                       <div class="cart-preview-item__img-wrap">
                         <img
-                          src="./assets/img/product/item-3.png"
+                          src="/client/assets/img/product/item-3.png"
                           alt=""
                           class="cart-preview-item__thumb"
                         />
@@ -4904,20 +4904,20 @@
         </div>
 
         <div class="top-act__user">
-          <img src="./assets/img/avatar.jpg" alt="" class="top-act__avatar" />
+          <img src="/client/assets/img/avatar.jpg" alt="" class="top-act__avatar" />
 
           <!-- Dropdown -->
           <div class="act-dropdown top-act__dropdown">
             <div class="act-dropdown__inner user-menu">
               <img
-                src="./assets/icons/arrow-up.png"
+                src="/client/assets/icons/arrow-up.png"
                 alt=""
                 class="act-dropdown__arrow top-act__dropdown-arrow"
               />
 
               <div class="user-menu__top">
                 <img
-                  src="./assets/img/avatar.jpg"
+                  src="/client/assets/img/avatar.jpg"
                   alt=""
                   class="user-menu__avatar"
                 />
@@ -4940,7 +4940,7 @@
                   <a href="#!" class="user-menu__link" id="switch-theme-btn">
                     <span>Dao diện tối</span>
                     <img
-                      src="./assets/icons/sun.svg"
+                      src="/client/assets/icons/sun.svg"
                       alt=""
                       class="icon user-menu__icon"
                     />

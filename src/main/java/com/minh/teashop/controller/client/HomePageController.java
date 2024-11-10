@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -50,6 +51,14 @@ public class HomePageController {
 
     private final CategoryService categoryService;
 
+    @ModelAttribute
+    public void addCsrfToken(Model model, HttpServletRequest request) {
+        CsrfToken csrfToken = (CsrfToken) request.getAttribute(CsrfToken.class.getName());
+        if (csrfToken != null) {
+            model.addAttribute("_csrf", csrfToken);
+        }
+    }
+
     public HomePageController(ProductService productService, UserService userService, PasswordEncoder passwordEncoder,
             EmailService emailService, CategoryService categoryService) {
         this.productService = productService;
@@ -63,7 +72,7 @@ public class HomePageController {
     public String getHomePage(Model model,
             @RequestParam(value = "page", defaultValue = "1") int page,
             @RequestParam(value = "search") Optional<String> nameSearch) {
-        Pageable pageable = PageRequest.of(page - 1, 10);
+        Pageable pageable = PageRequest.of(page - 1, 20);
         String nameProduct = nameSearch.isPresent() ? nameSearch.get() : "";
         Page<Product> listProductPage = this.productService.fetchProducts(pageable, nameProduct);
         List<Product> listProduct = listProductPage.getContent();
@@ -297,7 +306,6 @@ public class HomePageController {
 
         }
 
-
         model.addAttribute("title", "Đổi mật khẩu");
         model.addAttribute("userPass", new RegisterDTO());
         model.addAttribute("token", token);
@@ -306,14 +314,15 @@ public class HomePageController {
     }
 
     @PostMapping("/change-pass-home")
-    public String handleChangePassword(RedirectAttributes redirectAttributes ,@ModelAttribute("userPass") @Valid RegisterDTO registerDTO, @RequestParam("token")String token,
+    public String handleChangePassword(RedirectAttributes redirectAttributes,
+            @ModelAttribute("userPass") @Valid RegisterDTO registerDTO, @RequestParam("token") String token,
             BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
 
             return "client/auth/change-pass";
         }
 
-        String hassPass = this.passwordEncoder.encode(registerDTO.getPassword()) ;
+        String hassPass = this.passwordEncoder.encode(registerDTO.getPassword());
 
         this.emailService.handleChangePassword(token, hassPass);
 

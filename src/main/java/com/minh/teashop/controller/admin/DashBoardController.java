@@ -2,8 +2,6 @@ package com.minh.teashop.controller.admin;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
 
 @Controller
 public class DashBoardController {
@@ -12,6 +10,5 @@ public class DashBoardController {
 
         return "admin/dashboard/show";
     }
-    
-   
+
 }

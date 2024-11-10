@@ -75,14 +75,16 @@ public class ProductService {
     }
 
     public Page<Product> fetchProducts(Pageable pageable, String name) {
+        Specification<Product> specification = Specification.where(ProductSpecs.isNotDeleted().and(ProductSpecs.isNotDeleted()));
 
-        return this.productRepository.findAll(ProductSpecs.nameLike(name), pageable);
+
+        return this.productRepository.findAll(specification, pageable);
     }
 
     public Page<Product> fetchProductsByCategory(Pageable pageable, Category category) {
 
-        Specification<Product> specification = ProductSpecs.hasCategory(category);
-
+        Specification<Product> specification = Specification.where(ProductSpecs.isNotDeleted().and(ProductSpecs.hasCategory(category)));
+        
         return this.productRepository.findAll(specification, pageable);
 
     }
@@ -123,7 +125,7 @@ public class ProductService {
             }
         }
 
-        combinedSpec = combinedSpec.and(ProductSpecs.hasCategory(category));
+        combinedSpec = combinedSpec.and(ProductSpecs.hasCategory(category)).and(ProductSpecs.isNotDeleted());
 
         return this.productRepository.findAll(combinedSpec, pageable);
 
@@ -337,5 +339,21 @@ public class ProductService {
         // Lưu tất cả sản phẩm vào cơ sở dữ liệu
         productRepository.saveAll(products);
     }
+
+
+    public void handleDisabbleProduct(long id){
+          Optional  <Product> p = this.fetchProductById(id);
+          if(p.isPresent()){
+            Product pro = p.get();
+            this.productRepository.softDelete(pro);
+          }
+    }
+    public void handleRestoreProduct(long id){
+        Optional  <Product> p = this.fetchProductById(id);
+        if(p.isPresent()){
+          Product pro = p.get();
+          this.productRepository.restore(pro);
+        }
+  }
 
 }

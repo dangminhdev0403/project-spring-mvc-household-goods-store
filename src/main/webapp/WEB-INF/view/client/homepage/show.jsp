@@ -52,7 +52,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
             <div class="product-card__img-wrap">
               <a href="/product/${product.product_id}">
                 <img
-                  src="/upload/products/${product.productImages[0].name}"
+                  src="${product.productImages[0].url}"
                   alt="${product.productImages[0].name}"
                   class="product-card__thumb"
                 />

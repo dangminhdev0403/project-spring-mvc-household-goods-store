@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.minh.teashop.domain.Address;
@@ -103,20 +105,35 @@ public class ItemController {
         return "client/cart/checkout";
     }
 
-
-
-
-    @PostMapping("/add-product-to-cart/{id}")
-    public String addProductToCart(@PathVariable long id, HttpServletRequest request,@RequestParam("quantity") long qty,
-            RedirectAttributes redirectAttributes) {
+    @GetMapping("/add-product-to-cart/{id}")
+    @ResponseBody
+    public ResponseEntity<String> addProductToCart(@PathVariable long id,
+            @RequestParam("quantity") long qty,
+            HttpServletRequest request) {
         HttpSession session = request.getSession(false);
-        String email = (String) session.getAttribute("email");
-        String referer = request.getHeader("Referer");
-        long productId = id;
-        this.productService.handleAddProductToCart(email, productId, session, qty);
-        redirectAttributes.addFlashAttribute("success", "Sản phẩm đã được thêm vào giỏ hàng");
-        return "redirect:" + referer;
 
+        String email = (String) session.getAttribute("email");
+        User currentUser = userService.getUserByEmail(email);
+
+        long productId = id;
+        Cart currentCart = currentUser.getCart();
+
+        if (currentCart != null) {
+            List<CartDetail> cartDetails = currentCart.getCartDetails();
+            for (CartDetail detail : cartDetails) {
+                long idProductDetail = detail.getProduct().getProduct_id();
+                if (idProductDetail == productId) {
+                    this.productService.handleAddProductToCart(email, productId, session, qty);
+
+                    return ResponseEntity.ok("added");
+                }
+            }
+
+        }
+
+        this.productService.handleAddProductToCart(email, productId, session, qty);
+
+        return ResponseEntity.ok("Thêm vào giỏ hàng thành công");
     }
 
     @PostMapping("/delete-cart/{id}")
@@ -140,7 +157,8 @@ public class ItemController {
     }
 
     @PostMapping("/place-oder")
-    public String handlePlaceOrder(HttpServletRequest request, @RequestParam("addressId") long idAddress, @RequestParam("total-place") double total ,
+    public String handlePlaceOrder(HttpServletRequest request, @RequestParam("addressId") long idAddress,
+            @RequestParam("total-place") double total,
             RedirectAttributes redirectAttributes) {
 
         HttpSession session = request.getSession(false);
@@ -149,7 +167,7 @@ public class ItemController {
         currentUser.setUser_id(id);
         Address receiverAddress = this.userService.getAddressById(idAddress);
 
-        this.productService.handlePlaceOrder(currentUser, session, receiverAddress , total);
+        this.productService.handlePlaceOrder(currentUser, session, receiverAddress, total);
         redirectAttributes.addFlashAttribute("success", "Đơn hàng của bạn đã được đặt thành công!");
 
         return "redirect:/order-history";
