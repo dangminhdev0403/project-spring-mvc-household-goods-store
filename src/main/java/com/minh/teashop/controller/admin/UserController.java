@@ -2,7 +2,10 @@ package com.minh.teashop.controller.admin;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -11,14 +14,18 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.minh.teashop.domain.User;
+import com.minh.teashop.domain.response.ResponseMessage;
 import com.minh.teashop.domain.upload.UploadResponse;
 import com.minh.teashop.service.UploadService;
 import com.minh.teashop.service.UserService;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 @Controller
@@ -32,6 +39,14 @@ public class UserController {
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
         this.uploadService = uploadService;
+    }
+
+    @ModelAttribute
+    public void addCsrfToken(Model model, HttpServletRequest request) {
+        CsrfToken csrfToken = (CsrfToken) request.getAttribute(CsrfToken.class.getName());
+        if (csrfToken != null) {
+            model.addAttribute("_csrf", csrfToken);
+        }
     }
 
     @GetMapping("/admin/users")
@@ -120,15 +135,52 @@ public class UserController {
     }
 
     @GetMapping("/admin/user/delete/{id}")
-    public String deleteUser(Model model, @PathVariable long id, RedirectAttributes redirectAttributes) {
-        User currentUser = this.userService.getUserById(id);
-        this.uploadService.handleDeleteFile(currentUser.getAvatar());
+    @ResponseBody
+    public ResponseEntity<?> deleteUser(@PathVariable long id) {
+        try {
+            User currentUser = this.userService.getUserById(id);
+            this.uploadService.handleDeleteFile(currentUser.getAvatar());
 
-        this.userService.deleteAUser(id);
+            this.userService.deleteAUser(id);
 
-        redirectAttributes.addFlashAttribute("success", "Xoá thành công thành công");
+            // Trả về phản hồi JSON khi xoá thành công
+            return ResponseEntity.ok(new ResponseMessage("Xoá người dùng thành công"));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new ResponseMessage("Đã xảy ra lỗi khi xoá người dùng"));
+        }
+    }
 
-        return "redirect:/admin/users";
+    @GetMapping("/admin/user/lock/{id}")
+    @ResponseBody
+    public ResponseEntity<?> handleLockUser(@PathVariable long id, HttpServletRequest request) {
+        try {
+
+            HttpSession session = request.getSession(false);
+            this.userService.handleLockUser(id, session);
+
+            // Trả về phản hồi JSON khi xoá thành công
+            return ResponseEntity.ok(new ResponseMessage("Khoá người dùng thành công"));
+
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new ResponseMessage("Đã xảy ra lỗi khi khoá người dùng"));
+        }
+    }
+
+    @GetMapping("/admin/user/unlock/{id}")
+    @ResponseBody
+    public ResponseEntity<?> handleUnLockUser(@PathVariable long id) {
+        try {
+
+            this.userService.handleRestore(id);
+
+            // Trả về phản hồi JSON khi xoá thành công
+            return ResponseEntity.ok(new ResponseMessage("Mở khoá người dùng thành công"));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new ResponseMessage("Đã xảy ra lỗi khi mở khoá người dùng"));
+        }
     }
 
 }

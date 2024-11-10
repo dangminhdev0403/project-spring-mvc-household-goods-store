@@ -199,6 +199,8 @@ if (btnSubmit) {
     });
 }
 
+
+
 // Chọn tất cả các phần tử có class is-delete
 let isAlertElements = document.querySelectorAll(".is-delete");
 let isCancels = document.querySelectorAll(".is-cancel");

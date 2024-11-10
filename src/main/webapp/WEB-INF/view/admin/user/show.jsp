@@ -48,6 +48,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                     <th>Tên</th>
                     <th>Email</th>
                     <th>Quyền</th>
+                    <th>Kích hoạt</th>
                     <th>Trạng thái</th>
                     <th style="width: 10%">Thao tác</th>
                   </tr>
@@ -55,49 +56,69 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 
                 <tbody>
                   <c:forEach var="user" items="${listUsers}">
-                    <tr>
-                      <td>${user.name}</td>
-                      <td>${user.email}</td>
-                      <td>${user.role.name}</td>
-                      <td>
-                        <c:if test="${user.enabled == true}">
-                          Đã kích hoạt
+                    <c:if test="${user.user_id != sessionScope.id}">
+                      <tr>
+                        <td>${user.name}</td>
+                        <td>${user.email}</td>
+                        <td>${user.role.name}</td>
+                        <td >
+                          <c:choose>
+                            <c:when test="${user.enabled}">
+                              Đã kích hoạt
+                            </c:when>
+                            <c:otherwise> Chưa kích hoạt </c:otherwise>
+                          </c:choose>
+                        </td>
+                        <td class = "status">
+                          <c:choose>
+                            <c:when test="${user.deletedAt == null}">
+                              Đang hoạt động
+                            </c:when>
+                            <c:otherwise> Tạm khoá </c:otherwise>
+                          </c:choose>
+                        </td>
+                        <td>
+                          <div class="form-button-action">
+                            <a
+                              href="/admin/user/update/${user.user_id}"
+                              data-bs-toggle="tooltip"
+                              title="Sửa thông tin"
+                              class="btn btn-link btn-primary btn-lg"
+                            >
+                              <i class="fa fa-edit"></i>
+                            </a>
+                            <a
+                              href="/admin/user/delete/${user.user_id}"
+                              data-bs-toggle="tooltip"
+                              title="Xoá người dùng"
+                              class="btn btn-link btn-danger is-delete"
+                            >
+                              <i class="fa fa-times"></i>
+                            </a>
 
-                        </c:if>
-                        
-                        <c:if test="${user.enabled != true}">
-                        Chưa kích hoạt
-
-                        </c:if>
-
-
-
-
-                      </td>
-
-                      <td>
-                        <div class="form-button-action">
-                          <a
-                            href="/admin/user/update/${user.user_id}"
-                            data-bs-toggle="tooltip"
-                            title=""
-                            class="btn btn-link btn-primary btn-lg"
-                            data-original-title="Edit Task"
-                          >
-                            <i class="fa fa-edit"></i>
-                          </a>
-                          <a
-                            href="/admin/user/delete/${user.user_id}"
-                            data-bs-toggle="tooltip"
-                            title=""
-                            class=" btn btn-link  btn-danger is-delete"
-                            data-original-title="Remove"
-                          >
-                            <i class="fa fa-times is-delete"  href="/admin/user/delete/${user.user_id}" ></i>
-                          </a>
-                        </div>
-                      </td>
-                    </tr>
+                            <c:choose>
+                              <c:when test="${user.deletedAt != null}">
+                                <a
+                                  class="btn btn-link btn-primary btn-lg is-unlock"
+                                  href="/admin/user/unlock/${user.user_id}"
+                                >
+                                  <i class="fas fa-lock-open"></i>
+                                </a>
+                              </c:when>
+                              <c:otherwise>
+                                <!-- lock -->
+                                <a
+                                  class="btn btn-link btn-primary btn-lg is-lock"
+                                  href="/admin/user/lock/${user.user_id}"
+                                >
+                                  <i class="fas fa-lock"></i>
+                                </a>
+                              </c:otherwise>
+                            </c:choose>
+                          </div>
+                        </td>
+                      </tr>
+                    </c:if>
                   </c:forEach>
                 </tbody>
               </table>

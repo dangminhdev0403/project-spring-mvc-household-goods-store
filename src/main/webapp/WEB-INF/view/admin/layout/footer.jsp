@@ -112,7 +112,8 @@ $(document).ready(function() {
 
 
     // Hiển thị ảnh khi chọn file
-    fileInput.addEventListener('change', function() {
+    if(fileInput){
+      fileInput.addEventListener('change', function() {
             const file = this.files[0];
             
             if (file) {
@@ -129,16 +130,19 @@ $(document).ready(function() {
             }
         });
 
-        // Gỡ bỏ ảnh xem trước và reset input
         removeImageBtn.addEventListener('click', function() {
 
-            imagePreview.src = '';
-            imagePreview.style.display = 'none';
-            removeImageBtn.style.display = 'none';
-            imageInfo.style.display = 'none'; // Hiện nút "X" khi có ảnh
+imagePreview.src = '';
+imagePreview.style.display = 'none';
+removeImageBtn.style.display = 'none';
+imageInfo.style.display = 'none'; // Hiện nút "X" khi có ảnh
 
-            fileInput.value = ''; // Reset input file
-        });
+fileInput.value = ''; // Reset input file
+});
+    }
+    
+        // Gỡ bỏ ảnh xem trước và reset input
+       
 
         function formatNumber(value) {
     return new Intl.NumberFormat('en-US', {
@@ -154,19 +158,18 @@ $(document).ready(function() {
 
 <script>
 let priceProductElement = document.querySelector(".form-control.priceProduct");
-let priceProduct = priceProductElement.value.replace(/,/g, ''); // Lấy giá trị và xóa dấu phẩy
+
+let priceProduct = priceProductElement == null ? "" : priceProductElement.value.replace(/,/g, ''); // Lấy giá trị và xóa dấu phẩy
 
 // Chuyển đổi chuỗi thành số
 let numericPriceProduct = Number(priceProduct);
 
 // Kiểm tra nếu là số hợp lệ
-if (!isNaN(numericPriceProduct)) {
+if (numericPriceProduct&&!isNaN(numericPriceProduct)) {
     let formattedPriceProduct = formatNumber(numericPriceProduct);
     priceProductElement.value = formattedPriceProduct;
     console.log(formattedPriceProduct);
-} else {
-    console.log("Giá trị không hợp lệ.");
-}
+} 
 
 function formatNumber(value) {
         return value.toString(); // Trả về chuỗi của giá trị
@@ -188,7 +191,7 @@ function formatNumber(value) {
  </script>
   <script>
     
- function alertAppted(e) {
+ function alertApptedWithGet(e) {
     e.preventDefault();   // Ngăn chặn hành động mặc định
 
     
@@ -221,15 +224,44 @@ function formatNumber(value) {
 }
 
 // Chọn tất cả các phần tử có class is-delete
-let isAlertElements = document.querySelectorAll(".is-delete");
 
-// Lặp qua các phần tử và gắn sự kiện click cho từng phần tử
-isAlertElements.forEach(function (element) {
-    element.addEventListener('click', alertAppted);
-});
+
 
   
-
+function alertAppted(e , element , notice ,message ) {
+      
+      e.preventDefault();   // Ngăn chặn hành động mặc định
+  
+      let form = element.closest("form"); // Tìm form gần nhất chứa nút
+  
+      swal({
+          title: notice ,
+          text: message,
+          icon: "warning",  // Sử dụng "icon" thay vì "type"
+          buttons: {
+              cancel: {
+                  text: "Huỷ bỏ",      // Tùy chỉnh nút "Huỷ bỏ"
+                  visible: true,
+                  className: "btn btn-danger",
+              },
+              confirm: {
+                  text: "Đồng ý",
+                  className: "btn btn-success",
+              },
+          },
+          reverseButtons: false,
+      }).then((willDelete) => {
+          if (willDelete) {
+           form.submit();
+          } else {
+              // Người dùng nhấn cancel
+            
+          }
+      });
+  }
+  
+  
+ 
 
 
 <c:if test="${not empty success}">
@@ -240,6 +272,8 @@ swal( "Thành công" ,  "${success}" ,  "success" )
 </c:if>
 
 </script>
+
+<script src="/js/fetch.js"></script>
 
 </body>
 

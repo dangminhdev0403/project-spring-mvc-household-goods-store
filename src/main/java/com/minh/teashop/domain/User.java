@@ -1,5 +1,6 @@
 package com.minh.teashop.domain;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import com.minh.teashop.domain.verifymail.ResetToken;
@@ -62,6 +63,26 @@ public class User {
     
     @OneToOne(mappedBy = "user", cascade = CascadeType.REMOVE)  // Xóa Token khi User bị xóa
     private ResetToken resetToken;
+
+
+ private LocalDateTime deletedAt;
+
+    
+    public ResetToken getResetToken() {
+    return resetToken;
+}
+
+public void setResetToken(ResetToken resetToken) {
+    this.resetToken = resetToken;
+}
+
+public LocalDateTime getDeletedAt() {
+    return deletedAt;
+}
+
+public void setDeletedAt(LocalDateTime deletedAt) {
+    this.deletedAt = deletedAt;
+}
 
     public List<Order> getOrders() {
         return orders;
@@ -168,6 +189,11 @@ public class User {
 
     public void setVerificationToken(VerificationToken verificationToken) {
         this.verificationToken = verificationToken;
+    }
+
+    public User orElse(Object object) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'orElse'");
     }
 
 }

@@ -6,6 +6,8 @@ import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.security.core.session.SessionRegistry;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,13 +21,18 @@ import com.minh.teashop.domain.mapper.UserMapper;
 import com.minh.teashop.repository.AddressRepository;
 import com.minh.teashop.repository.OrderRepository;
 import com.minh.teashop.repository.ParentCategoryRepository;
+import com.minh.teashop.repository.ResetPasswordRepository;
 import com.minh.teashop.repository.RoleRepository;
 import com.minh.teashop.repository.UserRepository;
 import com.minh.teashop.repository.VerificationTokenRepository;
 import com.minh.teashop.service.specification.OrderSpecs;
 
+import jakarta.servlet.http.HttpSession;
+import lombok.AllArgsConstructor;
+
 @Service
 
+@AllArgsConstructor
 public class UserService {
     UserRepository userRepository;
 
@@ -35,19 +42,8 @@ public class UserService {
     private final OrderRepository orderRepository;
     private final ParentCategoryRepository parentCategoryRepository;
     private final VerificationTokenRepository verificationTokenRepository;
-
-    public UserService(UserRepository userRepository, RoleRepository roleRepository, UserMapper userMapper,
-            AddressRepository addressRepository, OrderRepository orderRepository,
-            ParentCategoryRepository parentCategoryRepository,
-            VerificationTokenRepository verificationTokenRepository) {
-        this.userRepository = userRepository;
-        this.roleRepository = roleRepository;
-        this.userMapper = userMapper;
-        this.addressRepository = addressRepository;
-        this.orderRepository = orderRepository;
-        this.parentCategoryRepository = parentCategoryRepository;
-        this.verificationTokenRepository = verificationTokenRepository;
-    }
+    private final ResetPasswordRepository passwordRepository;
+    private final SessionRegistry sessionRegistry;
 
     public List<User> getAllUsers() {
         return this.userRepository.findAll();
@@ -65,7 +61,6 @@ public class UserService {
         }
     }
 
-   
     public Role getRoleByName(String name) {
         String newName = name.toString();
         return this.roleRepository.findByName(newName);
@@ -82,7 +77,30 @@ public class UserService {
         User user = new User();
         user.setUser_id(id);
         this.verificationTokenRepository.deleteByUser(user);
+        this.passwordRepository.deleteByUser(user);
         this.userRepository.deleteById(id);
+    }
+
+    public void handleLockUser(long id, HttpSession session) {
+        User user = this.getUserById(id);
+
+        this.userRepository.softDelete(user);
+        sessionRegistry.getAllPrincipals().forEach(principal -> {
+            if (principal instanceof UserDetails) {
+                UserDetails userDetails = (UserDetails) principal;
+                // Kiểm tra nếu người dùng này có ID trùng với ID của người dùng bị khóa
+                if (userDetails.getUsername().equals(user.getEmail())) {
+                    // Hủy tất cả các session của người dùng này
+                    sessionRegistry.getAllSessions(userDetails, false)
+                            .forEach(sessionInfo -> sessionInfo.expireNow());
+                }
+            }
+        });
+    }
+
+    public void handleRestore(long id) {
+        User user = this.getUserById(id);
+        this.userRepository.restore(user);
     }
 
     public User registerUser(RegisterDTO registerDTO) {
@@ -90,7 +108,7 @@ public class UserService {
     }
 
     public boolean checkEmailExist(String email) {
-        
+
         return this.userRepository.existsByEmail(email);
     }
 
@@ -150,12 +168,12 @@ public class UserService {
         return this.parentCategoryRepository.findAll();
     }
 
-    public boolean checkCountAddress(User user){
-        int countAddress  = addressRepository.countByUser(user);
-        if(countAddress >=5) {
-            return false ;
+    public boolean checkCountAddress(User user) {
+        int countAddress = addressRepository.countByUser(user);
+        if (countAddress >= 5) {
+            return false;
         }
-        return true ;
+        return true;
     }
 
 }

@@ -81,7 +81,7 @@
 
                     <div class="form__group">
                         <div class="form__text-input">
-                            <input type="email" name="email" id="email" placeholder="Nhập email của bạn" class="form__input" required />
+                            <input type="email" name="email" id="email" placeholder="Nhập email của bạn" class="form__input" required autocomplete="email" />
                             <img src="client/assets/icons/message.svg" alt="" class="form__input-icon" />
                         </div>
                     </div>

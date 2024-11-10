@@ -112,14 +112,33 @@ uri="http://www.springframework.org/tags/form" %>
             thông tin trước đây của mình."
           </p>
           <form action="/login" method="post" class="form auth__form">
-            <c:if test="${param.error != null}">
+            <c:if test ="${param.error != null}">
+            <c:choose>
+
+            <c:when  test="${param.error != 'locked'}">
               <p
                 class="form__error"
                 style="display: block; font-size: 1.8rem; text-align: center"
               >
+             
                 Thông tin đăng nhập không chính xác
               </p>
-            </c:if>
+            </c:when>
+            <c:otherwise>
+              <p
+                class="form__error"
+                style="display: block; font-size: 1.8rem; text-align: center"
+              >
+             
+                Tài khoản của bạn đã bị khoá
+              </p>
+            </c:otherwise>
+            </c:choose>
+
+          </c:if>
+
+
+
             <c:if test="${param.logout != null}">
               <p
                 class="form__success"
