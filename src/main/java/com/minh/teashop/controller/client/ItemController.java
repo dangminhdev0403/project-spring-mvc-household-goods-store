@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +21,7 @@ import com.minh.teashop.domain.Cart;
 import com.minh.teashop.domain.CartDetail;
 import com.minh.teashop.domain.Product;
 import com.minh.teashop.domain.User;
+import com.minh.teashop.domain.response.ResponseMessage;
 import com.minh.teashop.service.ProductService;
 import com.minh.teashop.service.UserService;
 
@@ -126,6 +128,7 @@ public class ItemController {
                     this.productService.handleAddProductToCart(email, productId, session, qty);
 
                     return ResponseEntity.ok("added");
+
                 }
             }
 
@@ -154,6 +157,20 @@ public class ItemController {
         this.productService.handleUpdateCartDetailBeforeCheckout(cartDetails);
 
         return "redirect:/checkout";
+    }
+
+    @GetMapping("/update-cart-detail/{id}")
+    @ResponseBody
+    public ResponseEntity<?> updateQuantityCart(@PathVariable long id , @RequestParam("quantity") long qty ) {
+
+        try {
+            this.productService.handeUpdataCartDeatail(id,qty);
+
+            return ResponseEntity.ok(new ResponseMessage("changed"));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new ResponseMessage("fail"));
+        }
     }
 
     @PostMapping("/place-oder")

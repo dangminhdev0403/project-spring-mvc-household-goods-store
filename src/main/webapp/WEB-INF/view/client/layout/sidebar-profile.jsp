@@ -86,7 +86,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
             <span class="profile-menu__icon">
               <img src="/client/assets/icons/heart.svg" alt="" class="icon" />
             </span>
-            Lists
+            Chờ cập nhật
           </a>
         </li>
         <li>
@@ -94,7 +94,8 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
             <span class="profile-menu__icon">
               <img src="/client/assets/icons/gift-2.svg" alt="" class="icon" />
             </span>
-            Registries
+            Chờ cập nhật
+
           </a>
         </li>
       </ul>

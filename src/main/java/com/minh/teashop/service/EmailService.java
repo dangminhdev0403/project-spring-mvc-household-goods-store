@@ -3,6 +3,8 @@ package com.minh.teashop.service;
 import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -31,28 +33,52 @@ public class EmailService {
 
     @Autowired
     private UserService userService;
-    
 
     @Autowired
     private ResetPasswordRepository resetPasswordRepository;
+
+    private static final int WAIT_TIME_SECONDS = 15; //  15 giây
+
+    @Cacheable(value = "emailCache", key = "#sessionId", unless = "#result == null")
+    public LocalDateTime getLastSentEmailTime(String sessionId) {
+        return null; // Chưa có thời gian gửi email
+    }
+
+    @CachePut(value = "emailCache", key = "#sessionId")
+    public LocalDateTime updateLastSentEmailTime(String sessionId) {
+        return LocalDateTime.now();
+    }
+
+    public boolean canResendEmail(String sessionId) {
+        LocalDateTime lastSentTime = getLastSentEmailTime(sessionId);
+        LocalDateTime currentTime = LocalDateTime.now();
+
+        if (lastSentTime != null && lastSentTime.plusSeconds(WAIT_TIME_SECONDS).isAfter(currentTime)) {
+            return false;
+        }
+
+        updateLastSentEmailTime(sessionId);
+        return true;
+    }
 
     public VerificationToken findByToken(String token) {
         return this.tokenRepository.findByToken(token);
     }
 
-    public ResetToken findByResetToken(String token){
+    public ResetToken findByResetToken(String token) {
         return this.resetPasswordRepository.findByToken(token);
 
     }
-    
-    public void handleChangePassword(String token , String password){
+
+    public void handleChangePassword(String token, String password) {
         ResetToken resetToken = findByResetToken(token);
 
         User user = resetToken.getUser();
-       
+
         user.setPassword(password);
         this.resetPasswordRepository.delete(resetToken);
     }
+
     public void handleEnableUser(VerificationToken token) {
         User user = token.getUser();
         user.setEnabled(true);

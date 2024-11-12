@@ -65,7 +65,7 @@ function alertWithFetch(e, title, message, method) {
           "X-CSRF-TOKEN": csrfToken, // Thêm CSRF token vào header
         },
       })
-        .then((res) => { 
+        .then((res) => {
           if (res.ok) {
             const contentType = res.headers.get("Content-Type");
             if (contentType && contentType.includes("application/json")) {
@@ -78,14 +78,12 @@ function alertWithFetch(e, title, message, method) {
           }
         })
         .then((data) => {
-            console.log(data);
-            
+
           updateUIAfterAction(url);
           swal("thành công", data.message, "success");
         })
         .catch((err) => {
-          console.error("Lỗi:", err.message);
-          swal("Đã xảy ra lỗi. Vui lòng thử lại.", { icon: "error" });
+          swal("Lỗi", err, "error");
         });
     }
   });

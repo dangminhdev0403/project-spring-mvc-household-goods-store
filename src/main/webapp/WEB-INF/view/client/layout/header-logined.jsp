@@ -149,18 +149,20 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
               />
               <span class="top-act__title">${sessionScope.cartSum}</span>
             </a>
-            <c:if test = "${sessionScope.cartSum > 0}">
 
             <!-- Dropdown -->
-            <div class="act-dropdown">
+            <div class="act-dropdown" >
               <div class="act-dropdown__inner">
                 <img
                  src="/client/assets/icons/arrow-up.png"
                   alt=""
                   class="act-dropdown__arrow"
                 />
-                <div class="act-dropdown__top">
+                <div class="act-dropdown__top" style="justify-content: center;">
                   <c:choose>
+                    <c:when test="${sessionScope.cartSum == 0}" >
+                      <h2 class="act-dropdown__title">Bạn chưa có sản phẩm trong giỏ hàng</h2>
+                    </c:when>
     <c:when test="${sessionScope.cartSum <= 3}" >
       <h2 class="act-dropdown__title">Bạn có ${sessionScope.cartSum} sản phẩm trong giỏ hàng</h2>
     </c:when>
@@ -168,20 +170,20 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
       <h2 class="act-dropdown__title">3/${sessionScope.cartSum} sản phẩm trong giỏ hàng</h2>
     </c:otherwise>
 </c:choose>
+       
 
-                  <a href="/cart" class="act-dropdown__view-all"
-                    >Xem tất cả</a
-                  >
+                  
                 </div>
-                <div class="row row-cols-3 gx-2 act-dropdown__list " style="justify-content: center;"  id ="dropdown__list">
 
+                <div class="row row-cols-3 gx-2 act-dropdown__list " style="justify-content: center;"  id ="dropdown__list">
+                  
                                     <c:forEach begin ="0" end ="2" var="detailOfCart" items="${listDetail}" >
                                       <div class="col">
                                         <article class="cart-preview-item">
                                           <div class="cart-preview-item__img-wrap">
                                             <img
                                              src="/upload/products/${detailOfCart.product.productImages[0].name}"
-                                              alt=""
+                                              alt="  ${detailOfCart.product.name}"
                                               class="cart-preview-item__thumb"
                                             />
                                           </div>
@@ -217,46 +219,19 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
                 
                 </div>
-                <div class="act-dropdown__bottom">
-                  <div class="act-dropdown__row" style="justify-content: space-around;">
-                    <span class="act-dropdown__label" style="font-weight: bold; font-size: 2.2rem;">Tổng:</span>
-                    <span class="act-dropdown__value sumPrice" style="font-weight: bold; font-size: 2rem;">
-                      <c:choose>
-                        <c:when test="${finalPrice != null}">
-                          <c:if test="${finalPrice % 1 != 0}">
-                            <fmt:formatNumber
-                              value="${finalPrice}"
-                              pattern="#,##0.000"
-                            />
-                            đ
-                          </c:if>
-                          <c:if test="${finalPrice % 1 == 0}">
-                            <fmt:formatNumber
-                              value="${finalPrice}"
-                              pattern="#,##0"
-                            />
-                            đ
-                          </c:if>
-                        </c:when>
-                      </c:choose>
-
-
-                    </span>
-                  </div>
-                 
-                 
-                </div>
+                
+                <div class="cart-info__separate" style="margin: 0; margin-bottom: 2rem;"></div>
                 <div class="act-dropdown__checkout">
                   <a
-                    href="/checkout"
+                    href="/cart"
                     class="btn btn--primary btn--rounded act-dropdown__checkout-btn"
                   >
-                    Thanh toán
+                    Xem giỏ hàng
                   </a>
                 </div>
               </div>
             </div>
-            </c:if>
+           
           </div>
         </div>
 

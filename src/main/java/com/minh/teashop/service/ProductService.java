@@ -221,6 +221,16 @@ public class ProductService {
 
     }
 
+    public void handeUpdataCartDeatail(long id ,long quantity){
+        Optional<CartDetail> cdOptional = this.cartDetailRepository.findById(id);
+        if (cdOptional.isPresent()) {
+            CartDetail currenCartDetail = cdOptional.get();
+            currenCartDetail.setQuantity(quantity);
+            this.cartDetailRepository.save(currenCartDetail);
+        }
+
+    }
+
     public void handlePlaceOrder(User user, HttpSession session, Address receiverAddress, double total) {
         // create Oder
         Order order = new Order();

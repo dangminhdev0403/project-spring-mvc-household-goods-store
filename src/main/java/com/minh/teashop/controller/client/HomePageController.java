@@ -1,13 +1,17 @@
 package com.minh.teashop.controller.client;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -20,6 +24,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.minh.teashop.domain.Cart;
@@ -44,6 +49,8 @@ import jakarta.validation.Valid;
 
 @Controller
 public class HomePageController {
+    private static final int WAIT_TIME_SECONDS = 15;
+
     private final ProductService productService;
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
@@ -243,22 +250,6 @@ public class HomePageController {
 
     }
 
-    @PostMapping("verify-again")
-    public String postMethodName(RedirectAttributes redirectAttributes, HttpServletRequest request)
-            throws MessagingException {
-        String referer = request.getHeader("Referer");
-
-        HttpSession session = request.getSession(false);
-        long id = (long) session.getAttribute("id");
-
-        User currentUser = this.userService.getUserById(id);
-
-        this.emailService.sendEmailVerifyAgain(currentUser);
-
-        redirectAttributes.addFlashAttribute("success", "Chúng tôi đã gửi email xác thực đến hộp thư của bạn");
-        return "redirect:" + referer;
-    }
-
     @GetMapping("/forgot-pass")
     public String getForgotPasswordPage() {
 
@@ -330,6 +321,59 @@ public class HomePageController {
 
         return "redirect:/login";
 
+    }
+
+    @GetMapping("/can-resend-email")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> canResendEmail(@RequestParam String sessionId) {
+        Map<String, Object> response = new HashMap<>();
+
+        boolean canResend = emailService.canResendEmail(sessionId);
+
+        response.put("canResend", canResend);
+        if (canResend) {
+            response.put("message", "You can resend the email now.");
+        } else {
+            LocalDateTime lastSentTime = emailService.getLastSentEmailTime(sessionId);
+            long timeRemaining = WAIT_TIME_SECONDS - ChronoUnit.SECONDS.between(lastSentTime, LocalDateTime.now());
+
+            response.put("message", "Please wait " + timeRemaining + " seconds before resending.");
+            response.put("timeRemaining", timeRemaining);
+        }
+
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/verify-again")
+    @ResponseBody
+    public Map<String, String> handVerifyAgain(HttpServletRequest request, @RequestParam String sessionId)
+            throws MessagingException {
+        Map<String, String> response = new HashMap<>();
+
+        HttpSession session = request.getSession(false);
+
+        if (session == null || session.getAttribute("id") == null) {
+            response.put("status", "error");
+            response.put("message", "Không thể xác minh, vui lòng đăng nhập lại.");
+            return response;
+        }
+
+        long id = (long) session.getAttribute("id");
+        User currentUser = this.userService.getUserById(id);
+        if (currentUser == null) {
+            response.put("status", "error");
+            response.put("message", "Không tìm thấy người dùng, vui lòng thử lại.");
+            return response;
+        }
+
+        this.emailService.sendEmailVerifyAgain(currentUser);
+        response.put("status", "success");
+        response.put("message", "Email xác thực đã được gửi đến hộp thư của bạn.");
+
+        emailService.updateLastSentEmailTime(sessionId);
+        response.put("timeRemaining", String.valueOf(WAIT_TIME_SECONDS));
+
+        return response;
     }
 
 }

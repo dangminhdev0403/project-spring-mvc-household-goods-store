@@ -433,22 +433,16 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                 >
                   <!-- Product card 1 -->
                   <div class="col">
-                    <article class="product-card">
-                      <div class="product-card__img-wrap">
+                    <article class="cart-preview-item">
+                      <div class="cart-preview-item__img-wrap">
                         <a href="/product/${pr.product_id}">
                           <img
-                            src="/client/assets/img/product/item-1.png"
-                            alt=""
+                          src="${pr.productImages[0].url}"
+                          alt="${pr.name}"
                             class="product-card__thumb"
                           />
                         </a>
-                        <button class="like-btn product-card__like-btn">
-                          <img
-                            src="${pr.productImages[0].url}"
-                            alt="${pr.productImages[0].name}"
-                            class="like-btn__icon--liked"
-                          />
-                        </button>
+                       
                       </div>
                       <h3 class="product-card__title">
                         <a href="/product/${pr.product_id}"> ${pr.name}</a>

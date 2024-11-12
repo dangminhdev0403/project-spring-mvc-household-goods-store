@@ -11,6 +11,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <main class="profile">
   <div class="container">
     <!-- Search bar -->
+   
     <div class="profile-container">
       <div class="search-bar d-none d-md-flex">
         <input
@@ -27,6 +28,8 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
             class="search-bar__icon icon"
           />
         </button>
+
+        
       </div>
     </div>
 
@@ -40,6 +43,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
             <div class="row gy-3">
               <!-- Account info -->
               <div class="col-12">
+               
                 <h2 class="cart-info__heading">Thông tin tài khoản</h2>
                 <p class="cart-info__desc profile__desc">
                  Thay đổi thông tin cá nhân
@@ -96,7 +100,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                 <h2 class="cart-info__heading">
                   <a href="./profile.html">
                     <img
-                      src="./assets/icons/arrow-left.svg"
+                      src="/client/assets/icons/arrow-left.svg"
                       alt=""
                       class="icon cart-info__back-arrow"
                     />
@@ -182,11 +186,9 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                             autofocus=""
                             path ="name"
                           />
-                          <img
-                            src="./assets/icons/form-error.svg"
-                            alt=""
-                            class="form__input-icon-error"
-                          />
+                       
+
+                          
                         </div>
                       </div>
                       <div class="form__group">
@@ -211,7 +213,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                        
                         <c:if test="${enabled == false}">
                           <p class="cart-info__desc profile__desc" style="font-size: 1.8rem;" >Email của bạn chưa được xác thực.
-                            <div action="/verify-again" method="post">
+                            <div action="/verify-again" >
                               <input
                               type="hidden"
                                name="${_csrf.parameterName}"
@@ -225,20 +227,25 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                         </c:if>
                        
 
-                       
+                      
+
                        
                      
                       </div>
+
                   </div>
                   </div>
 
-
-
+                 
                   <div class="form-card__bottom">
                     <a class="btn btn--text btn-reset" href="">Đặt lại</a>
                     <button class="btn btn--primary btn--rounded is-accept" type="submit">Lưu</button>
                   </div>
                 </form:form>
+
+
+                
+                <p id = "countdownText"></p>
               </div>
             </div>
           </div>

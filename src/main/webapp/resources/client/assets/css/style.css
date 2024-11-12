@@ -224,3 +224,9 @@
     padding: 10px 20px;
   }
 }
+
+a.disable {
+  pointer-events: none !important;
+  color:black !important ; /* Làm mờ liên kết */
+  text-decoration: none !important; /* Bỏ gạch chân */
+}

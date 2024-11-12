@@ -132,7 +132,7 @@ uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
                           </div>
                         </div>
                       </div>
-                      <div class="cart-item__content-right">
+                      <div class="cart-item__content-right" style="align-items: end;">
                         <p
                           class="cart-item__total-price"
                           contenteditable="true"
@@ -163,13 +163,7 @@ uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
                           </c:choose>
                         </p>
                         <div class="cart-item__ctrl">
-                          <button class="cart-item__ctrl-btn">
-                            <img
-                              src="/client/assets/icons/heart-2.svg"
-                              alt=""
-                            />
-                            Save
-                          </button>
+                          
 
                           <form
                             action="/delete-cart/${detail.id}"
@@ -251,7 +245,7 @@ uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
                     <form:input
                       path="cartDetails[${status.index}].quantity"
                       value="${cartD.quantity}"
-                      class="updateQuantity"
+                      class="updateQuantity change-qty"
                     />
                   </div>
                 </c:forEach>

@@ -528,6 +528,7 @@ const quantitySubmit = document.getElementById("quantity-submit");
 
 // Hàm cập nhật hiển thị số lượng
 function updateQuantityDisplay() {
+  
   quantityDisplay.textContent = quantity;
   quantitySubmit.value = quantity;
 }
@@ -535,7 +536,10 @@ function updateQuantityDisplay() {
 // Sự kiện cho nút tăng
 if (increaseBtn)
   increaseBtn.addEventListener("click", () => {
+   
+    
     quantity++;
+   
     updateQuantityDisplay();
   });
 
@@ -683,7 +687,8 @@ if (btnReset) {
   }
 }
 
-// hide show pass
+
+
 const togglePasswords = document.querySelectorAll(".togglePassword");
 
 if (togglePasswords) {
@@ -705,45 +710,3 @@ if (togglePasswords) {
   });
 }
 
-const verifyEmls = document.querySelectorAll(".submit-verify");
-if (verifyEmls) {
-  verifyEmls.forEach((a) => {
-    a.addEventListener("click", function (e) {
-      e.preventDefault();
-      const divParent = a.parentElement;
-      const formElement = document.createElement("form");
-      Array.from(divParent.attributes).forEach((attr) => {
-        formElement.setAttribute(attr.name, attr.value);
-      });
-
-      while (divParent.firstChild) {
-        formElement.appendChild(divParent.firstChild);
-      }
-
-      divParent.parentNode.replaceChild(formElement, divParent);
-
-     
-
-      formElement.submit();
-
-    });
-  });
-}
-
-let countdown = 15;
-const timerElement = document.getElementById("timer");
-
-if(timerElement){
-  const interval = setInterval(() => {
-  
-    countdown--;
-    if(countdown > 0){
-      timerElement.textContent = countdown;
-  
-    }
-    if (countdown <= 0) {
-      clearInterval(interval);
-      timerElement.classList.add("d-none");
-    }
-  }, 1000);
-}
