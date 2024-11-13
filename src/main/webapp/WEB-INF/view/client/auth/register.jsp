@@ -259,14 +259,7 @@ uri="http://www.springframework.org/tags/form" %>
 
             <div class="form__group auth__btn-group">
               <button class="btn btn--primary auth__btn">Đăng Ký</button>
-              <a class="btn btn--outline auth__btn btn--no-margin">
-                <img
-                  src="client/assets/icons/google.svg"
-                  alt=""
-                  class="btn__icon icon"
-                />
-                Đăng nhập bằng Google
-              </a>
+              
             </div>
           </form:form>
 

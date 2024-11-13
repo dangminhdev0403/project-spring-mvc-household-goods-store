@@ -1,7 +1,6 @@
 package com.minh.teashop.controller.client;
 
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,7 +10,6 @@ import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -86,11 +84,15 @@ public class HomePageController {
         model.addAttribute("listProduct", listProduct);
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", listProductPage.getTotalPages());
+        model.addAttribute("nameProduct", nameProduct);
 
         model.addAttribute("title", "Trang chủ");
         return "client/homepage/show";
 
     }
+
+
+
 
     @GetMapping("/header-logined")
     public String getHeaderLogined(Model model, HttpServletRequest request) {
@@ -135,13 +137,16 @@ public class HomePageController {
     }
 
     @GetMapping("/category/{idCategory}")
-    public String getMethodName(Model model, ProductSpecDTO productSpec, @PathVariable("idCategory") long idCategory
+    public String getMethodName(Model model, ProductSpecDTO productSpec, 
+    @PathVariable("idCategory") long idCategory,
+    @RequestParam(value = "search") Optional<String> nameSearch
 
     ) {
 
         Category category = new Category();
         category.setCategory_id(idCategory);
-
+        String nameProduct = nameSearch.isPresent() ? nameSearch.get() : "";
+        Category currentCategory = this.categoryService.getCategoryById(idCategory);
         int page = 1;
 
         try {
@@ -152,11 +157,13 @@ public class HomePageController {
         } catch (Exception e) {
         }
 
-        Page<Product> listProductPage = this.productService.fetchProductsByCategory(category, productSpec);
+        Page<Product> listProductPage = this.productService.fetchProductsByCategory(category, productSpec,nameProduct);
         List<Product> listProduct = listProductPage.getContent().size() > 0 ? listProductPage.getContent()
                 : new ArrayList<Product>();
 
         model.addAttribute("listProduct", listProduct);
+        model.addAttribute("category", currentCategory);
+        model.addAttribute("nameProduct", nameProduct);
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", listProductPage.getTotalPages());
 
@@ -173,7 +180,8 @@ public class HomePageController {
     }
 
     @GetMapping("/login")
-    public String getLoginPage(Model model) {
+    public String getLoginPage(Model model, HttpServletRequest request) {
+
         model.addAttribute("title", "Đăng nhập");
 
         return "client/auth/login";
@@ -256,27 +264,34 @@ public class HomePageController {
         return "client/auth/reset-pass";
     }
 
-    @PostMapping("/reset-pass")
-    public String resetPassword(@RequestParam("email") String email, RedirectAttributes redirectAttributes,
-            HttpServletRequest request) throws MessagingException {
-        String referer = request.getHeader("Referer");
-        boolean checkExist = this.userService.checkEmailExist(email);
-        if (!checkExist) {
-            redirectAttributes.addFlashAttribute("error", "email không tồn tại");
-            return "redirect:" + referer;
-        }
+@GetMapping("/reset-password")
+@ResponseBody
+public Map<String, Object> resetPassword(@RequestParam("email") String email,
+        HttpServletRequest request) throws MessagingException {
+    Map<String, Object> response = new HashMap<>();
 
-        User currentUser = this.userService.getUserByEmail(email);
-        boolean checkEnable = currentUser.isEnabled();
-        if (checkEnable == false) {
-            redirectAttributes.addFlashAttribute("error", "email chưa được kích hoạt");
-            return "redirect:" + referer;
-        }
-        this.emailService.sendEmailResetPass(currentUser);
-
-        redirectAttributes.addFlashAttribute("success", "Chúng tôi đã gửi email xác thực đến hộp thư của bạn");
-        return "redirect:" + referer;
+    boolean checkExist = this.userService.checkEmailExist(email);
+    if (!checkExist) {
+        response.put("status", "error");
+        response.put("message", "Email không tồn tại");
+        return response;
     }
+
+    User currentUser = this.userService.getUserByEmail(email);
+    boolean checkEnable = currentUser.isEnabled();
+    if (!checkEnable) {
+        response.put("status", "error");
+        response.put("message", "Email chưa được kích hoạt.");
+        return response;
+    }
+
+    this.emailService.sendEmailResetPass(currentUser);
+
+    response.put("status", "success");
+    response.put("message", "Chúng tôi đã gửi email xác thực đến hộp thư của bạn.");
+    return response;
+}
+
 
     @GetMapping("/reset-pass")
     public String resetPasswordPage(Model model, @RequestParam("token") String token,
@@ -323,27 +338,6 @@ public class HomePageController {
 
     }
 
-    @GetMapping("/can-resend-email")
-    @ResponseBody
-    public ResponseEntity<Map<String, Object>> canResendEmail(@RequestParam String sessionId) {
-        Map<String, Object> response = new HashMap<>();
-
-        boolean canResend = emailService.canResendEmail(sessionId);
-
-        response.put("canResend", canResend);
-        if (canResend) {
-            response.put("message", "You can resend the email now.");
-        } else {
-            LocalDateTime lastSentTime = emailService.getLastSentEmailTime(sessionId);
-            long timeRemaining = WAIT_TIME_SECONDS - ChronoUnit.SECONDS.between(lastSentTime, LocalDateTime.now());
-
-            response.put("message", "Please wait " + timeRemaining + " seconds before resending.");
-            response.put("timeRemaining", timeRemaining);
-        }
-
-        return ResponseEntity.ok(response);
-    }
-
     @GetMapping("/verify-again")
     @ResponseBody
     public Map<String, String> handVerifyAgain(HttpServletRequest request, @RequestParam String sessionId)
@@ -368,7 +362,7 @@ public class HomePageController {
 
         this.emailService.sendEmailVerifyAgain(currentUser);
         response.put("status", "success");
-        response.put("message", "Email xác thực đã được gửi đến hộp thư của bạn.");
+        response.put("message", "Đã gửi email xác thực đến hộp thư của bạn");
 
         emailService.updateLastSentEmailTime(sessionId);
         response.put("timeRemaining", String.valueOf(WAIT_TIME_SECONDS));
@@ -376,4 +370,14 @@ public class HomePageController {
         return response;
     }
 
+
+    @GetMapping("/about")
+    public String getAboutPage() {
+        return "client/page/about";
+    }
+    @GetMapping("/contact")
+    public String getContactPage() {
+        return "client/page/contact";
+    }
+    
 }

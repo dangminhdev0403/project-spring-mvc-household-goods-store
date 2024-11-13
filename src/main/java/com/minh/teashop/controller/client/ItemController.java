@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -52,7 +55,21 @@ public class ItemController {
     }
 
     @GetMapping("/cart")
-    public String getCartPage(Model model, HttpServletRequest request) {
+    public String getCartPage(Model model, HttpServletRequest request, @RequestParam(value = "search") Optional<String> nameSearch) {
+          if (nameSearch.isPresent()) {
+            // Tìm kiếm sản phẩm
+            String nameProduct = nameSearch.get();
+            Pageable pageable = PageRequest.of(0, 20);
+            Page<Product> listProductPage = productService.fetchProducts(pageable, nameProduct);
+
+            model.addAttribute("listProduct", listProductPage.getContent());
+            model.addAttribute("currentPage", 1);
+            model.addAttribute("totalPages", listProductPage.getTotalPages());
+            model.addAttribute("nameProduct", nameProduct);
+            model.addAttribute("title", "Trang chủ");
+
+            return "client/homepage/show";
+        }
         User currentUser = new User();
         HttpSession session = request.getSession(false);
         long id = (long) session.getAttribute("id");
@@ -76,8 +93,21 @@ public class ItemController {
     }
 
     @GetMapping("/checkout")
-    public String getCheckOutPage(Model model, HttpServletRequest request) {
+    public String getCheckOutPage(Model model, HttpServletRequest request , @RequestParam(value = "search") Optional<String> nameSearch) {
+        if (nameSearch.isPresent()) {
+            // Tìm kiếm sản phẩm
+            String nameProduct = nameSearch.get();
+            Pageable pageable = PageRequest.of(0, 20);
+            Page<Product> listProductPage = productService.fetchProducts(pageable, nameProduct);
 
+            model.addAttribute("listProduct", listProductPage.getContent());
+            model.addAttribute("currentPage", 1);
+            model.addAttribute("totalPages", listProductPage.getTotalPages());
+            model.addAttribute("nameProduct", nameProduct);
+            model.addAttribute("title", "Trang chủ");
+
+            return "client/homepage/show";
+        }
         HttpSession session = request.getSession(false);
         long id = (long) session.getAttribute("id");
         User currentUser = new User();

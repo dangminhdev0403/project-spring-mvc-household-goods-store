@@ -101,7 +101,6 @@ function showLoading() {
 
 // Gọi hàm này khi bắt đầu quá trình cần tải
 
-//  create sessionId
 function generateSessionId() {
   return "session-" + Math.random().toString(36).substr(2, 9);
 }
@@ -110,17 +109,6 @@ let sessionId = localStorage.getItem("sessionId");
 if (!sessionId) {
   sessionId = generateSessionId();
   localStorage.setItem("sessionId", sessionId);
-}
-
-function checkResendEmail() {
-  axios
-    .get("/can-resend-email", {
-      params: { sessionId: sessionId },
-    })
-
-    .then((response) => console.log(response.data))
-
-    .catch((error) => console.log(error));
 }
 
 const sendVerify = (url) => {
@@ -133,10 +121,31 @@ const sendVerify = (url) => {
       swal("Thành công", response.data.message, "success");
     })
 
-    .catch((error) => swal("Có lỗi xảy ra", " Vui lòng thử lại sau", "error"));
+    .catch((error) => {
+      swal("Có lỗi xảy ra", " Vui lòng thử lại sau", "error");
+      console.log(error);
+    });
 };
 
+const resetPss = (url, email) => {
+  showLoading();
 
+  axios
+    .get(url, { params: { email: email } })
+
+    .then((response) => {
+      console.log(response.data);
+      if (response.data.status == "error") {
+        throw new Error(response.data.message); // Ném lỗi với thông báo cụ thể
+      }
+
+      swal("Thành công", response.data.message, "success");
+    })
+
+    .catch((error) =>
+      swal("Lỗi", error.message || "Đã xảy ra lỗi. Vui lòng thử lại.", "error")
+    );
+};
 
 document.addEventListener("DOMContentLoaded", function () {
   const verifyEmls = document.querySelectorAll(".submit-verify");
@@ -148,7 +157,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
       // Nếu còn thời gian đếm ngược, thiết lập nội dung và tiếp tục đếm ngược
       if (countdownEndTime) {
-        const remainingTime = Math.floor((countdownEndTime - new Date().getTime()) / 1000);
+        const remainingTime = Math.floor(
+          (countdownEndTime - new Date().getTime()) / 1000
+        );
         if (remainingTime > 0) {
           a.classList.add("disable");
           a.textContent = remainingTime + " giây"; // Thiết lập ngay khi load trang
@@ -162,13 +173,117 @@ document.addEventListener("DOMContentLoaded", function () {
       a.addEventListener("click", function (e) {
         e.preventDefault();
         const url = parent.getAttribute("action");
-        console.log(url);
+        // console.log(url);
         sendVerify(url);
         startCountdown(30, a, id);
       });
     });
   }
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+  const resetMails = document.querySelectorAll(".submit-reset");
+  if (resetMails) {
+    resetMails.forEach((btn) => {
+      const parentElement = btn.closest("form");
+      if (parentElement) {
+        const id = parentElement.getAttribute("id");
+        const countdownEndTime = localStorage.getItem(`countdownEndTime_${id}`);
+        const pAlert = btn.parentElement.querySelector("#wait-p");
+        if (countdownEndTime) {
+          const remainingTime = Math.floor(
+            (countdownEndTime - new Date().getTime()) / 1000
+          );
+          if (remainingTime > 0) {
+            btn.classList.add("d-none");
+            pAlert.classList.remove("d-none");
+
+            pAlert.textContent = remainingTime + " giây"; // Thiết lập ngay khi load trang
+
+            startCountdown2(remainingTime, btn, pAlert, id);
+          } else {
+            btn.classList.remove("d-none");
+            btn.classList.remove("disable");
+            pAlert.classList.add("d-none");
+
+            btn.textContent = "Gửi lại";
+            localStorage.removeItem(`countdownEndTime_${id}`);
+          }
+        }
+
+        btn.addEventListener("click", function (e) {
+          e.preventDefault();
+          const url = parentElement.getAttribute("action");
+          const elementMail =
+            parentElement.parentElement.querySelector("input.email");
+          let email = elementMail.value;
+
+          resetPss(url, email);
+          startCountdown2(30, btn, pAlert, id);
+        });
+      }
+
+      // console.log(url);
+    });
+  }
+});
+
+function startCountdown2(duration, a, p, id) {
+  const now = new Date().getTime();
+  const endTime = now + duration * 1000;
+
+  // Lưu thời gian kết thúc vào localStorage với id riêng của phần tử
+  localStorage.setItem(`countdownEndTime_${id}`, endTime);
+
+  const countdownInterval = setInterval(() => {
+    const currentTime = new Date().getTime();
+    const remainingTime = endTime - currentTime;
+
+    if (remainingTime > 0) {
+      const seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
+      a.classList.add("disable");
+      a.classList.add("d-none");
+      p.classList.remove("d-none");
+
+      p.textContent = seconds + " giây";
+    } else {
+      clearInterval(countdownInterval);
+      a.classList.remove("disable");
+      a.classList.remove("d-none");
+      p.classList.add("d-none");
+      a.textContent = "Gửi lại";
+      localStorage.removeItem(`countdownEndTime_${id}`);
+    }
+  }, 1000);
+}
+
+function startCountdown2(duration, a, p, id) {
+  const now = new Date().getTime();
+  const endTime = now + duration * 1000;
+
+  // Lưu thời gian kết thúc vào localStorage với id riêng của phần tử
+  localStorage.setItem(`countdownEndTime_${id}`, endTime);
+
+  const countdownInterval = setInterval(() => {
+    const currentTime = new Date().getTime();
+    const remainingTime = endTime - currentTime;
+
+    if (remainingTime > 0) {
+      const seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
+      a.classList.add("disable");
+      a.classList.add("d-none");
+      p.classList.remove("d-none");
+      p.textContent = seconds + " giây";
+    } else {
+      clearInterval(countdownInterval);
+      p.classList.add("d-none");
+      a.classList.remove("d-none");
+      a.classList.remove("disable");
+      a.textContent = "Gửi lại";
+      localStorage.removeItem(`countdownEndTime_${id}`);
+    }
+  }, 1000);
+}
 
 function startCountdown(duration, element, id) {
   const now = new Date().getTime();
@@ -193,7 +308,6 @@ function startCountdown(duration, element, id) {
     }
   }, 1000);
 }
-
 
 function startCountdown(duration, element, id) {
   const now = new Date().getTime();

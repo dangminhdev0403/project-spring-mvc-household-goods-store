@@ -528,7 +528,6 @@ const quantitySubmit = document.getElementById("quantity-submit");
 
 // Hàm cập nhật hiển thị số lượng
 function updateQuantityDisplay() {
-  
   quantityDisplay.textContent = quantity;
   quantitySubmit.value = quantity;
 }
@@ -536,10 +535,8 @@ function updateQuantityDisplay() {
 // Sự kiện cho nút tăng
 if (increaseBtn)
   increaseBtn.addEventListener("click", () => {
-   
-    
     quantity++;
-   
+
     updateQuantityDisplay();
   });
 
@@ -687,8 +684,6 @@ if (btnReset) {
   }
 }
 
-
-
 const togglePasswords = document.querySelectorAll(".togglePassword");
 
 if (togglePasswords) {
@@ -709,4 +704,5 @@ if (togglePasswords) {
     });
   });
 }
+
 

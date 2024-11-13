@@ -11,25 +11,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <main class="profile">
   <div class="container">
     <!-- Search bar -->
-    <div class="profile-container">
-      <div class="search-bar d-none d-md-flex">
-        <input
-          type="text"
-          name=""
-          id=""
-          placeholder="Search for item"
-          class="search-bar__input"
-        />
-        <button class="search-bar__submit">
-          <img
-            src="/client/assets/icons/search.svg"
-            alt=""
-            class="search-bar__icon icon"
-          />
-        </button>
-      </div>
-    </div>
-
+   
     <!-- Profile content -->
     <div class="profile-container">
       <div class="row gy-md-3">

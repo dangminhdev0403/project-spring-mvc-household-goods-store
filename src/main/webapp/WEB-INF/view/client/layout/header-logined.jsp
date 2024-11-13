@@ -38,7 +38,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
       <div class="search nav-btn d-none d-md-flex">
         <form action="#"  style="justify-content: space-around;display: flex;width: 100%;border: 1px solid #ccc;border-radius: 2rem;height: 100%;">
           <input type="text" placeholder="tìm kiếm" name="search" >
-            <button>
+            <button class="btn-search">
                 <i class="fa fa-search"></i>
             </button>
         </form>
@@ -56,18 +56,14 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         <span class="nav-btn__qnt">${sessionScope.cartSum}</span>
       </a>
 
-      <a href="#!" class="nav-btn d-none d-md-flex">
-        <img
-          src="/client/assets/icons/heart.svg"
-          alt=""
-          class="nav-btn__icon icon"
-        />
-        <span class="nav-btn__title">Favorite</span>
-        <span class="nav-btn__qnt">3</span>
-      </a>
+    
 
       <ul class="navbar__list js-dropdown-list">
        
+        <li class="navbar__item">
+          <a href="/" class="navbar__link">
+           Trang chủ</a>
+        </li>
         <li class="navbar__item">
           <a href="#!" class="navbar__link">
            Danh mục
@@ -112,6 +108,15 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
             </div>
           </div>
         </li>
+        <li class="navbar__item">
+          <a href="/about" class="navbar__link">
+           Giới thiệu</a>
+        </li>
+        <li class="navbar__item">
+          <a href="/contact" class="navbar__link">
+           Liên hệ</a>
+        </li>
+
       </ul>
     </nav>
     <div class="navbar__overlay js-toggle" toggle-target="#navbar"></div>
@@ -313,7 +318,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                       name="${_csrf.parameterName}"
                       value="${_csrf.token}"
                     />
-                    <button class="user-menu__link" style="font-size: 1.9rem">
+                    <button class="user-menu__link submit" style="font-size: 1.9rem">
                       Đăng xuất
                     </button>
                   </form>

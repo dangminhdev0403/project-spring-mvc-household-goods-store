@@ -1,3 +1,4 @@
+
 function formatNumber(num) {
   if (typeof num !== "number" || isNaN(num)) {
     return "0,00";
@@ -43,3 +44,4 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 });
+

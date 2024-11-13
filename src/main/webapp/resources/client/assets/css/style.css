@@ -225,8 +225,15 @@
   }
 }
 
+
+
 a.disable {
   pointer-events: none !important;
   color:black !important ; /* Làm mờ liên kết */
   text-decoration: none !important; /* Bỏ gạch chân */
+  cursor: default !important;
+}
+
+d-none2{
+  display: none !important;
 }

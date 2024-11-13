@@ -14,10 +14,14 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
   <section class="home__container">
     <div class="row">
       <div class="col-12 col-md-4 g-3 ">
-        <form> 
-        <div class="row">
+    <form> 
+        <div class="row" style="
+        margin-top: 2rem;
+        font-size: 1.8rem;
+        line-height: 4rem;">
          
-          <div class="col-6 col-md-12 " id="targetFilter">
+          <div class="col-6 col-md-12 " id="targetFilter" 
+      >
             <div class="mb-2"><b>Sắp xếp</b></div>
             <div class="form-check form-check-inline">
               
@@ -71,6 +75,25 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
       </div>
     </form>
       <div class="row row-cols-3 row-cols-lg-2 row-cols-sm-1 g-3  col-md-8 col-12 ">
+        
+
+        <div class="row col-12 " style="margin: 0; ">
+          <h2 class="home__heading row col-12">Sản phẩm theo danh mục ${category.name}
+            <c:if test ="${not empty nameProduct}">
+              với từ khoá :" ${nameProduct}"
+
+            </c:if>
+
+          </h2>
+          <c:if test ="${ empty listProduct}">
+            <h1 class=" home__heading " style="color: #c90504; height: 5%;"> Không có sản phẩm nào được tìm thấy. </h1>
+
+</c:if>
+
+
+        </div>
+
+         
         <!-- Product card 1
         <div class="col">
           <article class="product-card">
@@ -96,6 +119,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         </div> -->
 
           <!-- động -->
+        
       <c:forEach var="product" items="${listProduct}">
         <div class="col">
           <article class="product-card">

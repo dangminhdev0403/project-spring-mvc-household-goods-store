@@ -75,23 +75,28 @@ public class ProductService {
     }
 
     public Page<Product> fetchProducts(Pageable pageable, String name) {
-        Specification<Product> specification = Specification.where(ProductSpecs.isNotDeleted().and(ProductSpecs.isNotDeleted()));
-
+        Specification<Product> specification = Specification
+                .where(ProductSpecs.nameLike(name).and(ProductSpecs.isNotDeleted()));
 
         return this.productRepository.findAll(specification, pageable);
     }
 
     public Page<Product> fetchProductsByCategory(Pageable pageable, Category category) {
 
-        Specification<Product> specification = Specification.where(ProductSpecs.isNotDeleted().and(ProductSpecs.hasCategory(category)));
-        
+        Specification<Product> specification = Specification
+                .where(ProductSpecs.isNotDeleted().and(ProductSpecs.hasCategory(category)));
+
         return this.productRepository.findAll(specification, pageable);
 
     }
 
-    public Page<Product> fetchProductsByCategory(Category category, ProductSpecDTO productSpecDTO) {
+    public Page<Product> fetchProductsByCategory(Category category, ProductSpecDTO productSpecDTO, String name) {
 
         Specification<Product> combinedSpec = Specification.where(null);
+
+        if (name != null && !name.isEmpty()) {
+            combinedSpec = combinedSpec.and(ProductSpecs.nameLike(name));
+        }
 
         if (productSpecDTO.getPrice() != null && productSpecDTO.getPrice().isPresent()) {
             String priceRange = productSpecDTO.getPrice().get();
@@ -221,7 +226,7 @@ public class ProductService {
 
     }
 
-    public void handeUpdataCartDeatail(long id ,long quantity){
+    public void handeUpdataCartDeatail(long id, long quantity) {
         Optional<CartDetail> cdOptional = this.cartDetailRepository.findById(id);
         if (cdOptional.isPresent()) {
             CartDetail currenCartDetail = cdOptional.get();
@@ -350,20 +355,20 @@ public class ProductService {
         productRepository.saveAll(products);
     }
 
-
-    public void handleDisabbleProduct(long id){
-          Optional  <Product> p = this.fetchProductById(id);
-          if(p.isPresent()){
+    public void handleDisabbleProduct(long id) {
+        Optional<Product> p = this.fetchProductById(id);
+        if (p.isPresent()) {
             Product pro = p.get();
             this.productRepository.softDelete(pro);
-          }
-    }
-    public void handleRestoreProduct(long id){
-        Optional  <Product> p = this.fetchProductById(id);
-        if(p.isPresent()){
-          Product pro = p.get();
-          this.productRepository.restore(pro);
         }
-  }
+    }
+
+    public void handleRestoreProduct(long id) {
+        Optional<Product> p = this.fetchProductById(id);
+        if (p.isPresent()) {
+            Product pro = p.get();
+            this.productRepository.restore(pro);
+        }
+    }
 
 }

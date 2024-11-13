@@ -38,7 +38,6 @@ const csrfToken = document
 function alertWithFetch(e, title, message, method) {
   e.preventDefault();
   let url = e.currentTarget.getAttribute("href");
-  console.log(url);
 
   swal({
     title: title,
@@ -89,6 +88,66 @@ function alertWithFetch(e, title, message, method) {
   });
 }
 
+function senMailWithFetch(e, title, message, method) {
+  e.preventDefault();
+
+  
+  let url = e.currentTarget.getAttribute("href");
+  let email = e.currentTarget.getAttribute("email");
+  console.log(url);
+  console.log(email);
+  
+  finalUrl = url+"?email="+email;
+
+  swal({
+    title: title,
+    text: message,
+    icon: "warning",
+    buttons: {
+      cancel: {
+        text: "Huỷ bỏ",
+        visible: true,
+        className: "btn btn-danger",
+      },
+      confirm: {
+        text: "Đồng ý",
+        className: "btn btn-success",
+      },
+    },
+    reverseButtons: false,
+  }).then((willDelete) => {
+    if (willDelete) {
+      fetch(finalUrl, {
+        method: method,
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRF-TOKEN": csrfToken, // Thêm CSRF token vào header
+        },
+      })
+        .then((res) => {
+          if (res.ok) {
+            const contentType = res.headers.get("Content-Type");
+            if (contentType && contentType.includes("application/json")) {
+              return res.json(); // Phản hồi là JSON
+            } else {
+              throw new Error("Phản hồi không phải JSON.");
+            }
+          } else {
+            throw new Error("Có lỗi xảy ra khi xử lý yêu cầu.");
+          }
+        })
+        .then((data) => {
+          // Cập nhật giao diện sau khi hành động thành công
+          swal("Thành công", data.message, "success");
+        })
+        .catch((err) => {
+          // Kiểm tra nếu err là một đối tượng lỗi, lấy thông điệp lỗi từ err.message
+          swal("Lỗi", err.message || "Có lỗi xảy ra khi xử lý yêu cầu.", "error");
+        });
+    }
+  });
+}
+
 const deleteElements = document.querySelectorAll(".is-delete");
 if (deleteElements) {
   let title = "Bạn có chắc muốn xoá?";
@@ -120,4 +179,18 @@ if (unLockElements) {
       alertWithFetch(e, title, message, "GET");
     });
   });
+}
+
+
+const resetPass = document.querySelectorAll(".reset-mail");
+if(resetPass){
+  resetPass.forEach((a)=>{
+    let title = "Reset mail?";
+    let message = "Gửi mail reset vào tài khoản này";
+
+    a.addEventListener("click", function (e) {
+      e.preventDefault();
+      senMailWithFetch(e, title, message, "GET");
+    });
+  })
 }

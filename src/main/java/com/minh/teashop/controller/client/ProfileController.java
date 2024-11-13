@@ -2,6 +2,7 @@ package com.minh.teashop.controller.client;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -19,9 +20,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.minh.teashop.domain.Address;
 import com.minh.teashop.domain.Order;
+import com.minh.teashop.domain.Product;
 import com.minh.teashop.domain.User;
 import com.minh.teashop.domain.dto.RegisterDTO;
 import com.minh.teashop.domain.upload.UploadResponse;
+import com.minh.teashop.service.ProductService;
 import com.minh.teashop.service.UploadService;
 import com.minh.teashop.service.UserService;
 
@@ -35,30 +38,72 @@ public class ProfileController {
     private final UserService userService;
     private final UploadService uploadService;
     private final PasswordEncoder passwordEncoder;
+    private final ProductService productService;
 
-    public ProfileController(UserService userService, UploadService uploadService, PasswordEncoder passwordEncoder) {
+    public ProfileController(UserService userService, ProductService productService, UploadService uploadService,
+            PasswordEncoder passwordEncoder) {
         this.userService = userService;
         this.uploadService = uploadService;
         this.passwordEncoder = passwordEncoder;
+        this.productService = productService;
     }
 
     @GetMapping("/profile")
-    public String getProfilePage(HttpServletRequest request, Model model) {
+    public String getProfilePage(HttpServletRequest request, Model model,
+            @RequestParam(value = "search") Optional<String> nameSearch) {
 
+        if (nameSearch.isPresent()) {
+            // Tìm kiếm sản phẩm
+            String nameProduct = nameSearch.get();
+            Pageable pageable = PageRequest.of(0, 20);
+            Page<Product> listProductPage = productService.fetchProducts(pageable, nameProduct);
+
+            model.addAttribute("listProduct", listProductPage.getContent());
+            model.addAttribute("currentPage", 1);
+            model.addAttribute("totalPages", listProductPage.getTotalPages());
+            model.addAttribute("nameProduct", nameProduct);
+            model.addAttribute("title", "Trang chủ");
+
+            return "client/homepage/show";
+        }
+
+        // Hiển thị trang quản lý tài khoản nếu không có tìm kiếm
         HttpSession session = request.getSession(false);
-        long id = (long) session.getAttribute("id");
-        User currentUser = userService.getUserById(id);
-        model.addAttribute("currentUser", currentUser);
-        model.addAttribute("title", "Quản lí tài khoản");
-        model.addAttribute("enabled", currentUser.isEnabled());
+        if (session != null && session.getAttribute("id") != null) {
+            long id = (long) session.getAttribute("id");
+            User currentUser = userService.getUserById(id);
 
-        return "client/profile/show";
+            model.addAttribute("currentUser", currentUser);
+            model.addAttribute("title", "Quản lí tài khoản");
+            model.addAttribute("enabled", currentUser.isEnabled());
+
+            return "client/profile/show";
+        }
+
+        // Chuyển hướng đến trang đăng nhập nếu chưa đăng nhập
+        return "redirect:/login";
     }
 
     @GetMapping("/order-history")
     public String getOrderHistoryPage(Model model, HttpServletRequest request,
+            @RequestParam(value = "search") Optional<String> nameSearch,
             @RequestParam(value = "page", defaultValue = "1") int page) {
         Pageable pageable = PageRequest.of(page - 1, 5);
+
+        if (nameSearch.isPresent()) {
+            // Tìm kiếm sản phẩm
+            String nameProduct = nameSearch.get();
+            Pageable pageable2 = PageRequest.of(0, 20);
+            Page<Product> listProductPage = productService.fetchProducts(pageable2, nameProduct);
+
+            model.addAttribute("listProduct", listProductPage.getContent());
+            model.addAttribute("currentPage", 1);
+            model.addAttribute("totalPages", listProductPage.getTotalPages());
+            model.addAttribute("nameProduct", nameProduct);
+            model.addAttribute("title", "Trang chủ");
+
+            return "client/homepage/show";
+        }
 
         HttpSession session = request.getSession(false);
         long id = (long) session.getAttribute("id");
@@ -226,7 +271,23 @@ public class ProfileController {
     }
 
     @GetMapping("/change-profile")
-    public String getEditAddressPage(Model model, HttpServletRequest request) {
+    public String getEditAddressPage(Model model, HttpServletRequest request,
+            @RequestParam(value = "search") Optional<String> nameSearch) {
+
+        if (nameSearch.isPresent()) {
+            // Tìm kiếm sản phẩm
+            String nameProduct = nameSearch.get();
+            Pageable pageable = PageRequest.of(0, 20);
+            Page<Product> listProductPage = productService.fetchProducts(pageable, nameProduct);
+
+            model.addAttribute("listProduct", listProductPage.getContent());
+            model.addAttribute("currentPage", 1);
+            model.addAttribute("totalPages", listProductPage.getTotalPages());
+            model.addAttribute("nameProduct", nameProduct);
+            model.addAttribute("title", "Trang chủ");
+
+            return "client/homepage/show";
+        }
 
         HttpSession session = request.getSession(false);
         long id = (long) session.getAttribute("id");
@@ -245,8 +306,21 @@ public class ProfileController {
     }
 
     @GetMapping("/manager-password")
-    public String GetManagerPasswordPage(Model model) {
+    public String GetManagerPasswordPage(Model model, @RequestParam(value = "search") Optional<String> nameSearch) {
+        if (nameSearch.isPresent()) {
+            // Tìm kiếm sản phẩm
+            String nameProduct = nameSearch.get();
+            Pageable pageable = PageRequest.of(0, 20);
+            Page<Product> listProductPage = productService.fetchProducts(pageable, nameProduct);
 
+            model.addAttribute("listProduct", listProductPage.getContent());
+            model.addAttribute("currentPage", 1);
+            model.addAttribute("totalPages", listProductPage.getTotalPages());
+            model.addAttribute("nameProduct", nameProduct);
+            model.addAttribute("title", "Trang chủ");
+
+            return "client/homepage/show";
+        }
         model.addAttribute("title", "Quản lí mật khẩu");
         model.addAttribute("userPass", new RegisterDTO());
         return "client/profile/manager-password";
@@ -258,7 +332,7 @@ public class ProfileController {
     public String changePasswordFromUser(HttpServletRequest request, RedirectAttributes redirectAttributes,
             @RequestParam("currentPassword") String currentPass,
             @ModelAttribute("userPass") @Valid RegisterDTO registerDTO, BindingResult bindingResult) {
-         String referer = request.getHeader("Referer");
+        String referer = request.getHeader("Referer");
         HttpSession session = request.getSession(false);
         long id = (long) session.getAttribute("id");
         User currentUser = this.userService.getUserById(id);

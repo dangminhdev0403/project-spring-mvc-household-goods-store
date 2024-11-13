@@ -117,6 +117,7 @@ uri="http://www.springframework.org/tags/form" %>
           </div>
           <div class="card-action">
             <button class="btn btn-success">Xác nhận</button>
+            <a class="btn btn-primary reset-mail" href ="/reset-password" email = ${newUser.email}>Đặt lại mật khẩu</a>
             <a href="/admin/users" class="btn btn-danger">Trờ về</a>
           </div>
           </form:form>

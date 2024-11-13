@@ -11,24 +11,7 @@ uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <main class="checkout-page">
   <div class="container">
     <!-- Search bar -->
-    <div class="checkout-container">
-      <div class="search-bar d-none d-md-flex">
-        <input
-          type="text"
-          name=""
-          id=""
-          placeholder="Search for item"
-          class="search-bar__input"
-        />
-        <button class="search-bar__submit">
-          <img
-            src="/client/assets/icons/search.svg"
-            alt=""
-            class="search-bar__icon icon"
-          />
-        </button>
-      </div>
-    </div>
+   
 
     <!-- Breadcrumbs -->
     <div class="checkout-container">
@@ -119,7 +102,7 @@ uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
                                 alt=""
                               />
                             </button>
-                            <span class="quantity" data-cart-index = "${s.index}">
+                            <span class="quantity" data-cart-index="${s.index}">
                               ${detail.quantity}</span
                             >
                             <button class="cart-item__input-btn plus-btn">
@@ -132,7 +115,10 @@ uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
                           </div>
                         </div>
                       </div>
-                      <div class="cart-item__content-right" style="align-items: end;">
+                      <div
+                        class="cart-item__content-right"
+                        style="align-items: end"
+                      >
                         <p
                           class="cart-item__total-price"
                           contenteditable="true"
@@ -163,8 +149,6 @@ uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
                           </c:choose>
                         </p>
                         <div class="cart-item__ctrl">
-                          
-
                           <form
                             action="/delete-cart/${detail.id}"
                             method="POST"
@@ -237,7 +221,7 @@ uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
                   items="${cart.cartDetails}"
                   varStatus="status"
                 >
-                  <div style="display: none;">
+                  <div style="display: none">
                     <form:input
                       path="cartDetails[${status.index}].id"
                       value="${cartD.id}"
@@ -254,7 +238,7 @@ uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
                   class="cart-info__next-btn btn btn--primary btn--rounded submit"
                   style="cursor: pointer"
                 >
-               Nhập thông tin thanh toán.
+                  Nhập thông tin thanh toán.
                 </a>
               </form:form>
             </div>

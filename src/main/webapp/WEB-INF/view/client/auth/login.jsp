@@ -4,6 +4,8 @@ uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html lang="vi">
   <head>
+    <meta name="_csrf" content="${_csrf.token}" />
+    <meta name="_csrf_header" content="${_csrf.headerName}" />  
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Đăng nhập | Grocery Mart</title>
@@ -28,9 +30,9 @@ uri="http://www.springframework.org/tags/form" %>
     />
     <link rel="manifest" href="client/assets/favicon/site.webmanifest" />
     <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
-  />
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
     <meta name="msapplication-TileColor" content="#da532c" />
     <meta name="theme-color" content="#ffffff" />
 
@@ -112,34 +114,26 @@ uri="http://www.springframework.org/tags/form" %>
             thông tin trước đây của mình."
           </p>
           <form action="/login" method="post" class="form auth__form">
-            <c:if test ="${param.error != null}">
-            <c:choose>
+            <c:if test="${param.error != null}">
+              <c:if test="${param.error eq 'not-found'}">
+                <p
+                  class="form__error"
+                  style="display: block; font-size: 1.8rem; text-align: center"
+                >
+                  Thông tin đăng nhập không chính xác
+                </p>
+              </c:if>
+              <c:if test="${param.error eq 'locked'}">
+                <p
+                  class="form__error"
+                  style="display: block; font-size: 1.8rem; text-align: center"
+                >
+                  Tài khoản của bạn đã bị vô hiệu hóa.
+                </p>
+              </c:if>
+            </c:if>
 
-            <c:when  test="${param.error != 'locked'}">
-              <p
-                class="form__error"
-                style="display: block; font-size: 1.8rem; text-align: center"
-              >
-             
-                Thông tin đăng nhập không chính xác
-              </p>
-            </c:when>
-            <c:otherwise>
-              <p
-                class="form__error"
-                style="display: block; font-size: 1.8rem; text-align: center"
-              >
-             
-                Tài khoản của bạn đã bị khoá
-              </p>
-            </c:otherwise>
-            </c:choose>
-
-          </c:if>
-
-
-
-            <c:if test="${param.logout != null}">
+            <c:if test="${param.logout != null or  param.expired != null}">
               <p
                 class="form__success"
                 style="
@@ -190,30 +184,23 @@ uri="http://www.springframework.org/tags/form" %>
                   placeholder="Nhập Mật khẩu"
                   class="form__input pass-input"
                 />
-                <i class="fas fa-eye togglePassword form__input-icon" style="cursor: pointer; font-size: 2rem;"  ></i>
-
-              
-                
-
+                <i
+                  class="fas fa-eye togglePassword form__input-icon"
+                  style="cursor: pointer; font-size: 2rem"
+                ></i>
               </div>
             </div>
             <div class="form__group form__group--inline">
               <a
-                href="/forgot-pass" style="font-size: 2rem;"
+                href="/forgot-pass"
+                style="font-size: 2rem"
                 class="auth__link form__pull-right"
                 >Quên mật khẩu?</a
               >
             </div>
             <div class="form__group auth__btn-group">
               <button class="btn btn--primary auth__btn">Đăng Nhập</button>
-              <button class="btn btn--outline auth__btn btn--no-margin">
-                <img
-                  src="client/assets/icons/google.svg"
-                  alt=""
-                  class="btn__icon icon"
-                />
-                Đăng nhập bằng Google
-              </button>
+             
             </div>
           </form>
 

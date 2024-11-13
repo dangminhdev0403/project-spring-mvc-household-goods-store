@@ -34,11 +34,7 @@
         <span class="nav-btn__qnt">3</span>
       </a>
 
-      <a href="#!" class="nav-btn d-none d-md-flex">
-        <img src="/client/assets/icons/heart.svg" alt="" class="nav-btn__icon icon" />
-        <span class="nav-btn__title">Favorite</span>
-        <span class="nav-btn__qnt">3</span>
-      </a>
+     
 
       <ul class="navbar__list js-dropdown-list">
         <li class="navbar__item">

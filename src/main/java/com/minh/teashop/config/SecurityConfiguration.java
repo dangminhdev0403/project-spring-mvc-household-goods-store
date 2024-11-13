@@ -69,7 +69,8 @@ public class SecurityConfiguration {
     public HttpSessionEventPublisher httpSessionEventPublisher() {
         return new HttpSessionEventPublisher();
     }
-      @Bean
+
+    @Bean
     public UserLockFilter userLockFilter() {
         return new UserLockFilter();
     }
@@ -92,26 +93,33 @@ public class SecurityConfiguration {
                         .requestMatchers("admin/**", "/admin/user/**").hasRole("ADMIN")
                         .requestMatchers("header-logined").permitAll()
                         .anyRequest().authenticated())
+
                 .sessionManagement((sessionManagement) -> sessionManagement
                         .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
-                        .invalidSessionUrl("/logout?expired")
+                        .invalidSessionUrl("/login?expired=true") // Chuyển hướng người dùng đến trang đăng nhập khi
+                                                                  // session hết hạn
                         .maximumSessions(1)
-                        .maxSessionsPreventsLogin(false)
-                        .sessionRegistry(sessionRegistry()))
+                        .maxSessionsPreventsLogin(false))
 
-                .logout(logout -> logout.deleteCookies("JSESSIONID").invalidateHttpSession(true))
+                .logout(logout -> logout
+                        .logoutUrl("/logout")
+
+                        .deleteCookies("JSESSIONID").invalidateHttpSession(true)
+                        .logoutSuccessUrl("/login?logout") // Chuyển hướng sau khi đăng xuất thành công
+                )
                 .rememberMe(r -> r.rememberMeServices(rememberMeServices()))
                 .formLogin(formLogin -> formLogin
                         .loginPage("/login")
-                        .failureUrl("/login?error")
+                        .failureHandler(new CustomAuthenticationFailureHandler()) // Sử dụng handler tùy chỉnh
                         .successHandler(CustomSuccessHandle())
                         .permitAll())
-                .exceptionHandling(ex -> ex.accessDeniedPage("/acess-deny")   )
-                .addFilterBefore(userLockFilter(), UsernamePasswordAuthenticationFilter.class); // Đặt addFilterBefore ở đây
+                .exceptionHandling(ex -> ex.accessDeniedPage("/acess-deny"))
+                .addFilterBefore(userLockFilter(), UsernamePasswordAuthenticationFilter.class); // Đặt addFilterBefore ở
+                                                                                                // đây
 
-                ;
+        ;
         // .logout(logout -> logout.permitAll());
-        
+
         return http.build();
     }
 
