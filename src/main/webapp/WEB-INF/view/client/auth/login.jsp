@@ -113,7 +113,7 @@ uri="http://www.springframework.org/tags/form" %>
             "Chúng tôi rất vui khi bạn trở lại! Bạn có quyền truy cập vào tất cả
             thông tin trước đây của mình."
           </p>
-          <form action="/login" method="post" class="form auth__form">
+          <form action="/login" method="post" class="form auth__form" id="form-login">
             <c:if test="${param.error != null}">
               <c:if test="${param.error eq 'not-found'}">
                 <p
@@ -156,12 +156,12 @@ uri="http://www.springframework.org/tags/form" %>
                 <input
                   type="text"
                   name="username"
-                  id="emailLogin"
+                  id="email"
                   placeholder="Nhập email"
                   class="form__input"
                   autocomplete
                   autofocus
-                  required
+                  
                 />
                 <img
                   src="client/assets/icons/message.svg"
@@ -180,7 +180,7 @@ uri="http://www.springframework.org/tags/form" %>
                 <input
                   type="password"
                   name="password"
-                  id=""
+                  id="password"
                   placeholder="Nhập Mật khẩu"
                   class="form__input pass-input"
                 />

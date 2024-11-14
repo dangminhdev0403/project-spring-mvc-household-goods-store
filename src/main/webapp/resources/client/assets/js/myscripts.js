@@ -690,7 +690,6 @@ if (togglePasswords) {
   togglePasswords.forEach((elemet) => {
     elemet.addEventListener("click", function () {
       const passwordField = elemet.parentElement.querySelector(".pass-input");
-      console.log(passwordField);
 
       if (passwordField.type === "password") {
         passwordField.type = "text";

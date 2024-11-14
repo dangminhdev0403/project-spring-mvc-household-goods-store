@@ -15,11 +15,7 @@ uri="http://www.springframework.org/tags/form" %>
                     Grocery Mart - nơi bạn tìm thấy những sản phẩm tốt nhất cho nhu cầu hàng ngày của bạn.
                 </p>
 
-                <p class="footer__help-text">Nhận thông tin và cập nhật sản phẩm.</p>
-                <form action="" class="footer__form">
-                    <input type="text" class="footer__input" placeholder="Địa chỉ Email" />
-                    <button class="btn btn--primary">GỬI</button>
-                </form>
+                
             </div>
 
             <!-- Cột 2 -->
@@ -130,7 +126,9 @@ uri="http://www.springframework.org/tags/form" %>
     
 </body>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/validate.js/0.13.1/validate.min.js"></script>
 
+<script src="/client/assets/js/validate.js"></script>
 <script src="/client/assets/js/axios.js"></script>
 <script src="/client/assets/js/myscripts.js"></script>
 
@@ -146,7 +144,6 @@ function submitForm(e) {
     e.preventDefault(); // Ngăn chặn hành động mặc định của thẻ <a>
     let btnSubmit = e.currentTarget; // Lấy nút đã được nhấn
     let form = btnSubmit.closest("form"); // Lấy thẻ form là cha của button
-    console.log(form);
     
     if (form) {
         form.submit(); // Gọi phương thức submit của form

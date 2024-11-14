@@ -35,7 +35,7 @@ uri="http://www.springframework.org/tags/form" %>
           <form:form
             action="/admin/users/create"
             modelAttribute="newUser"
-            class="row"
+            class="row form-user"
             enctype="multipart/form-data"
           >
             <div class="card-body">

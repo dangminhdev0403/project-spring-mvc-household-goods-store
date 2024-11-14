@@ -13,7 +13,7 @@ public class RegisterDTO {
     @Email(message = "Email không hợp lệ", regexp = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")
     private String email;
 
-    @NotBlank(message = "Không đước để trống mật khẩu")
+    @NotBlank(message = "Không được để trống mật khẩu")
     private String password;
     private String confirmPassword;
 

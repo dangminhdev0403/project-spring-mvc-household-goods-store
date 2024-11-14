@@ -4,6 +4,8 @@ uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html lang="vi">
   <head>
+    <meta name="_csrf" content="${_csrf.token}" />
+    <meta name="_csrf_header" content="${_csrf.headerName}" />  
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Đăng ký | Grocery Mart</title>
@@ -140,13 +142,14 @@ uri="http://www.springframework.org/tags/form" %>
             modelAttribute="registerUser"
             method="post"
             class="form auth__form"
+            id="form-register"
           >
             <div class="form__group">
               <div class="form__text-input">
                 <form:input
                   type="text"
                   name="resEmail"
-                  id="resEmail"
+                  id="restLast"
                   placeholder="Nhập Họ"
                   class="form__input"
                   path="lastName"
@@ -190,7 +193,7 @@ uri="http://www.springframework.org/tags/form" %>
                 <form:input
                   type="text"
                   name="resEmail"
-                  id="resEmail"
+                  id="email"
                   placeholder="Nhập Email"
                   class="form__input"
                   path="email"
@@ -219,7 +222,7 @@ uri="http://www.springframework.org/tags/form" %>
               <div class="form__text-input">
                 <form:input
                   type="password"
-                  name="password"
+                  name="new-password"
                   id="password"
                   placeholder="Mật khẩu"
                   class="form__input pass-input"
@@ -229,6 +232,8 @@ uri="http://www.springframework.org/tags/form" %>
 
               </div>
               ${errorPassword}
+
+              <span class="form__error d-block"><ul><li style=" margin-top: 2rem;">Mật khẩu phải có ít nhất 6 ký tự</li><li style=" margin-top: 2rem;">Một chữ cái hoa và một chữ số</li></ul></span>
             </div>
 
             <c:set var="errorConfirmPassword">

@@ -33,7 +33,7 @@ uri="http://www.springframework.org/tags/form" %>
             <div class="card-title">Cập nhật người dùng</div>
           </div>
           <form:form action="/admin/users/update" method ="post"
-          modelAttribute="newUser" class="row" enctype="multipart/form-data">
+          modelAttribute="newUser" class="row form-user" enctype="multipart/form-data">
           <div class="card-body">
          
             <div class="row">

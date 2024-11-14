@@ -100,9 +100,10 @@ uri="http://www.springframework.org/tags/form" %>
 
           <form
             action="/reset-password"
-            method="post"
+            method="get"
             class="form auth__form rest-pass"
             id="reset"
+            onsubmit="return false;"
           >
             <input
               type="hidden"
@@ -116,8 +117,9 @@ uri="http://www.springframework.org/tags/form" %>
                   type="email"
                   name="email"
                   id="email"
+                  
                   placeholder="Nhập email của bạn"
-                  class="form__input email"
+                  class="form__input email email-reset"
                   required
                   autocomplete="email"
                 />
@@ -132,7 +134,7 @@ uri="http://www.springframework.org/tags/form" %>
             <div class="form__group auth__btn-group">
               <a
                 class="btn btn--primary auth__btn submit-reset"
-                style="cursor: pointer"
+                style="cursor: pointer" id="reset-pass"
                 >Gửi yêu cầu</a
               >
               <p id="wait-p" class="btn btn--primary auth__btn d-none"></p>

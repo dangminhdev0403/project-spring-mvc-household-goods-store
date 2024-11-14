@@ -234,6 +234,11 @@ a.disable {
   cursor: default !important;
 }
 
-d-none2{
+.d-none2{
   display: none !important;
+}
+
+.d-block{
+  font-size: 1.8rem;
+  display: block;
 }

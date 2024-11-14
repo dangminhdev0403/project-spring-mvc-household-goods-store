@@ -43,6 +43,9 @@
 <script src="/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
 <!-- Datatables -->
 <script src="/js/plugin/datatables/datatables.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/validate.js/0.13.1/validate.min.js"></script>
+
+<script src="/js/validate.js"></script>
 <!-- Kaiadmin JS -->
 <script src="/js/kaiadmin.min.js"></script>
 <!-- Kaiadmin DEMO methods, don't include it in your project! -->
