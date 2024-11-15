@@ -44,11 +44,17 @@ document.addEventListener("DOMContentLoaded", function () {
           },
         ];
 
+ let isCheck = true ;
         fields.forEach(({ field, message, inputElement }) => {
           if (!data[field]) {
+            isCheck = false ;
             displayError(inputElement, message);
           }
         });
+
+        if(isCheck === true){
+          form.submit();
+        }
       });
     });
   }

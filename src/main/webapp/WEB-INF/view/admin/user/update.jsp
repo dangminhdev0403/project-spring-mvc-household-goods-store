@@ -68,6 +68,8 @@ uri="http://www.springframework.org/tags/form" %>
                   <label for="defaultSelect">Quyền</label>
                   <form:select class="form-select form-control" id="defaultSelect" path="role.name" >
                     <form:option value="CUSTOMER">Customer</form:option>
+                    <form:option value="COLLABORATOR">Collaborator</form:option>
+
                   </form:select>
                 </div>
               </div>

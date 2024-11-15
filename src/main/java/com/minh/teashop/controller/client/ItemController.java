@@ -22,24 +22,24 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.minh.teashop.domain.Address;
 import com.minh.teashop.domain.Cart;
 import com.minh.teashop.domain.CartDetail;
+import com.minh.teashop.domain.Payment;
 import com.minh.teashop.domain.Product;
 import com.minh.teashop.domain.User;
 import com.minh.teashop.domain.response.ResponseMessage;
+import com.minh.teashop.service.PaymentService;
 import com.minh.teashop.service.ProductService;
 import com.minh.teashop.service.UserService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import lombok.AllArgsConstructor;
 
 @Controller
+@AllArgsConstructor
 public class ItemController {
-    ProductService productService;
-    UserService userService;
-
-    public ItemController(ProductService productService, UserService userService) {
-        this.productService = productService;
-        this.userService = userService;
-    }
+    private final ProductService productService;
+    private final UserService userService;
+    private final PaymentService paymentService;
 
     @GetMapping("/product/{id}")
     public String getDeitalProductPage(Model model, @PathVariable long id) {
@@ -55,8 +55,9 @@ public class ItemController {
     }
 
     @GetMapping("/cart")
-    public String getCartPage(Model model, HttpServletRequest request, @RequestParam(value = "search") Optional<String> nameSearch) {
-          if (nameSearch.isPresent()) {
+    public String getCartPage(Model model, HttpServletRequest request,
+            @RequestParam(value = "search") Optional<String> nameSearch) {
+        if (nameSearch.isPresent()) {
             // Tìm kiếm sản phẩm
             String nameProduct = nameSearch.get();
             Pageable pageable = PageRequest.of(0, 20);
@@ -93,9 +94,9 @@ public class ItemController {
     }
 
     @GetMapping("/checkout")
-    public String getCheckOutPage(Model model, HttpServletRequest request , @RequestParam(value = "search") Optional<String> nameSearch) {
+    public String getCheckOutPage(Model model, HttpServletRequest request,
+            @RequestParam(value = "search") Optional<String> nameSearch) {
         if (nameSearch.isPresent()) {
-            // Tìm kiếm sản phẩm
             String nameProduct = nameSearch.get();
             Pageable pageable = PageRequest.of(0, 20);
             Page<Product> listProductPage = productService.fetchProducts(pageable, nameProduct);
@@ -108,6 +109,8 @@ public class ItemController {
 
             return "client/homepage/show";
         }
+        List<Payment> listPay = this.paymentService.getAllPaymentsByStatus();
+
         HttpSession session = request.getSession(false);
         long id = (long) session.getAttribute("id");
         User currentUser = new User();
@@ -131,6 +134,7 @@ public class ItemController {
         model.addAttribute("totalProduct", totalProduct);
         model.addAttribute("addresses", addresses);
         model.addAttribute("cart", cart);
+        model.addAttribute("listPay", listPay);
         model.addAttribute("newAddress", new Address());
         model.addAttribute("title", "Trang thanh toán");
 
@@ -191,10 +195,10 @@ public class ItemController {
 
     @GetMapping("/update-cart-detail/{id}")
     @ResponseBody
-    public ResponseEntity<?> updateQuantityCart(@PathVariable long id , @RequestParam("quantity") long qty ) {
+    public ResponseEntity<?> updateQuantityCart(@PathVariable long id, @RequestParam("quantity") long qty) {
 
         try {
-            this.productService.handeUpdataCartDeatail(id,qty);
+            this.productService.handeUpdataCartDeatail(id, qty);
 
             return ResponseEntity.ok(new ResponseMessage("changed"));
         } catch (Exception e) {

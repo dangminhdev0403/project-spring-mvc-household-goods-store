@@ -162,18 +162,19 @@ uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
             <div class="cart-info__separate"></div>
             <h3 class="cart-info__sub-heading">Chọn hình thức thanh toán</h3>
 
-            <!-- Payment item 3 -->
+            <c:forEach var="pay" items="${listPay}" varStatus="sAd">
+
             <label>
               <article class="payment-item payment-item--pointer">
                 <img
-                  src="client/assets/img/payment/delivery-1.png"
+                  src="${pay.urlIcon}"
                   alt=""
                   class="payment-item__thumb"
                 />
                 <div class="payment-item__content">
                   <div class="payment-item__info">
                     <h3 class="payment-item__title">
-                      Thanh toán khi nhận hàng
+                      ${pay.name}
                     </h3>
                   </div>
 
@@ -185,39 +186,17 @@ uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
                       class="cart-info__checkbox-input payment-item__checkbox-input"
                     />
                     <span class="payment-item__cost format-price"
-                      >1000000
+                      >${pay.price}
                     </span>
                   </span>
                 </div>
               </article>
             </label>
 
-            <!-- Payment item 4 -->
-            <label>
-              <article class="payment-item payment-item--pointer">
-                <img
-                  src="client/assets/img/payment/delivery-2.png"
-                  alt=""
-                  class="payment-item__thumb"
-                />
-                <div class="payment-item__content">
-                  <div class="payment-item__info">
-                    <h3 class="payment-item__title">Chuyển khoản ngân hàng</h3>
-                  </div>
+            </c:forEach>
+     
 
-                  <span class="cart-info__checkbox payment-item__checkbox">
-                    <input
-                      type="radio"
-                      name="delivery-method"
-                      class="cart-info__checkbox-input payment-item__checkbox-input"
-                    />
-                    <span class="payment-item__cost format-price"
-                      >2000000
-                    </span>
-                  </span>
-                </div>
-              </article>
-            </label>
+        
           </div>
           <!-- end payment -->
 

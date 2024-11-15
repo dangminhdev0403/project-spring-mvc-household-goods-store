@@ -178,7 +178,6 @@ if (formRegister) {
 document.addEventListener('DOMContentLoaded', function() {
   const btnResetPass = document.querySelector('.email-reset');
   if (btnResetPass) {
-    console.log(btnResetPass);
     btnResetPass.addEventListener('input', function(e) {
       e.preventDefault();
       

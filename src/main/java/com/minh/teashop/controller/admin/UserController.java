@@ -124,6 +124,7 @@ public class UserController {
             }
             currentUser.setName(user.getName());
             currentUser.setPhone(user.getPhone());
+            currentUser.setRole(this.userService.getRoleByName(user.getRole().getName()));
 
             this.userService.handleSaveUser(currentUser);
         }

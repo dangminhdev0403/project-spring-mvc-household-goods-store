@@ -1,7 +1,8 @@
 package com.minh.teashop.domain.enumdomain;
 
-public enum RoleName  {
+public enum RoleName {
     ADMIN,
-    CUSTOMER
-    
+    CUSTOMER,
+    COLLABORATOR
+
 }

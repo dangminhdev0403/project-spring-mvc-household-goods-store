@@ -436,7 +436,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                       </div>
                       <div class="col col-stats ms-3 ms-sm-0">
                         <div class="numbers">
-                          <p class="card-category">Visitors</p>
+                          <p class="card-category">Cộng tác viên</p>
                           <h4 class="card-title">1,294</h4>
                         </div>
                       </div>
@@ -457,7 +457,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                       </div>
                       <div class="col col-stats ms-3 ms-sm-0">
                         <div class="numbers">
-                          <p class="card-category">Subscribers</p>
+                          <p class="card-category">Người đăng kí</p>
                           <h4 class="card-title">1303</h4>
                         </div>
                       </div>
@@ -478,7 +478,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                       </div>
                       <div class="col col-stats ms-3 ms-sm-0">
                         <div class="numbers">
-                          <p class="card-category">Sales</p>
+                          <p class="card-category">Doanh thu </p>
                           <h4 class="card-title">$ 1,345</h4>
                         </div>
                       </div>
@@ -499,7 +499,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                       </div>
                       <div class="col col-stats ms-3 ms-sm-0">
                         <div class="numbers">
-                          <p class="card-category">Order</p>
+                          <p class="card-category">Đơn hàng</p>
                           <h4 class="card-title">576</h4>
                         </div>
                       </div>

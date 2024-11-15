@@ -79,6 +79,7 @@ uri="http://www.springframework.org/tags/form" %>
                       path="role.name"
                     >
                       <form:option value="CUSTOMER">Customer</form:option>
+                      <form:option value="COLLABORATOR">Collaborator</form:option>
                     </form:select>
                   </div>
                 </div>

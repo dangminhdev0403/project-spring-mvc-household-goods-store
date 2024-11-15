@@ -703,53 +703,34 @@ if (togglePasswords) {
     });
   });
 }
-
 function renderPagin(element, currentPage, totalPage) {
   element.innerHTML = ''; // Xóa nội dung cũ
 
-  let startPage, endPage;
   let pagesToShow = [];
 
-  // Nếu trang hiện tại <= 15, hiển thị các trang xung quanh trang hiện tại
-  if (currentPage <= 15) {
-    startPage = Math.max(currentPage - 2, 1); // Tối thiểu là trang 1
-    endPage = Math.min(currentPage + 5, totalPage); // Tối đa là totalPage
+  if (totalPage <= 1) return; // Không cần phân trang nếu chỉ có 1 trang
 
-    // Thêm các trang trước và sau trang hiện tại
-    for (let i = startPage; i <= endPage; i++) {
-      pagesToShow.push(i);
-    }
-
-    // Thêm dấu "..." nếu có trang ở phía trước và sau dãy trang đã chọn
-    if (endPage < totalPage) {
-      pagesToShow.push('...');
-    }
-    pagesToShow.push(totalPage);
-
-  } else {
-    // Nếu trang hiện tại >= 26, hiển thị trang 1 và các trang cuối (ví dụ từ 26 đến 30)
-    startPage = Math.max(currentPage - 2, 1); // Tối thiểu là trang 1
-
-    endPage = totalPage;
-
-    // Thêm trang đầu tiên
+  // Hiển thị trang đầu tiên
+  if (currentPage > 3) {
     pagesToShow.push(1);
+    if (currentPage > 4) pagesToShow.push('...');
+  }
 
-    // Thêm dấu "..." nếu có các trang ở giữa
-    if (currentPage - 2 > 1) {
-      pagesToShow.push('...');
-    }
+  // Hiển thị các trang xung quanh trang hiện tại
+  const startPage = Math.max(1, currentPage - 2);
+  const endPage = Math.min(totalPage, currentPage + 2);
+  for (let i = startPage; i <= endPage; i++) {
+    pagesToShow.push(i);
+  }
 
-    // Thêm các trang gần cuối
-    for (let i = totalPage - 4; i <= totalPage; i++) {
-      pagesToShow.push(i);
-    }
-
-    
+  // Hiển thị trang cuối cùng
+  if (currentPage < totalPage - 2) {
+    if (currentPage < totalPage - 3) pagesToShow.push('...');
+    pagesToShow.push(totalPage);
   }
 
   // Tạo các liên kết trang
-  pagesToShow.forEach((page, index) => {
+  pagesToShow.forEach((page) => {
     const pageElement = document.createElement('a');
     pageElement.classList.add('page-link');
 
@@ -759,109 +740,53 @@ function renderPagin(element, currentPage, totalPage) {
       pageElement.href = '#'; // Không làm gì khi nhấp vào "..."
     } else {
       pageElement.textContent = page;
-      // Tạo href là đường dẫn hiện tại với tham số ?page=index
+
+      // Tạo URL với tham số ?page
       const currentUrl = new URL(window.location.href);
-      currentUrl.searchParams.set('page', page); // Thêm hoặc cập nhật tham số ?page
-      pageElement.href = currentUrl.toString(); // Gán href với đường dẫn mới
+      currentUrl.searchParams.set('page', page);
+      pageElement.href = currentUrl.toString();
 
       if (page === currentPage) {
         pageElement.classList.add('active'); // Đánh dấu trang hiện tại
       }
 
-      // Thêm sự kiện khi người dùng nhấn vào trang
+      // Thêm sự kiện khi nhấn vào trang
       pageElement.addEventListener('click', (event) => {
-        renderPagin(element, page, totalPage); // Gọi lại renderPagin với trang mới
+        event.preventDefault(); // Ngăn tải lại trang
+        renderPagin(element, page, totalPage); // Gọi lại để render trang mới
       });
     }
 
     element.appendChild(pageElement);
-  });
-}
-
-function renderPagin(element, currentPage, totalPage) {
-  element.innerHTML = ''; // Xóa nội dung cũ
-
-  let startPage, endPage;
-  let pagesToShow = [];
-  let displayedPages = new Set(); // Sử dụng Set để lưu các trang đã hiển thị
-
-  // Nếu trang hiện tại <= 15, hiển thị các trang xung quanh trang hiện tại
-  if (currentPage <= 15) {
-    startPage = Math.max(currentPage - 2, 1); // Tối thiểu là trang 1
-    endPage = Math.min(currentPage + 2, totalPage); // Tối đa là totalPage
-
-    // Thêm các trang trước và sau trang hiện tại
-    for (let i = startPage; i <= endPage; i++) {
-      pagesToShow.push(i);
-    }
-
-    // Thêm dấu "..." nếu có trang ở phía trước và sau dãy trang đã chọn
-    if (endPage < totalPage) {
-      pagesToShow.push('...');
-    }
-  } else {
-    // Nếu trang hiện tại >= 26, hiển thị trang 1 và các trang cuối (ví dụ từ 26 đến 30)
-    startPage = 1;
-    endPage = totalPage;
-
-    // Thêm trang đầu tiên
-    pagesToShow.push(1);
-
-    // Thêm dấu "..." nếu có các trang ở giữa
-    if (currentPage - 2 > 1) {
-      pagesToShow.push('...');
-    }
-
-    // Thêm các trang gần cuối
-    for (let i = totalPage - 4; i <= totalPage; i++) {
-      pagesToShow.push(i);
-    }
-  }
-
-  // Tạo các liên kết trang
-  pagesToShow.forEach((page) => {
-    // Kiểm tra nếu page đã có trong Set, nếu có thì bỏ qua
-    if (displayedPages.has(page)) return;
-
-    const pageElement = document.createElement('a');
-
-    if (page === '...') {
-      pageElement.textContent = '...';
-      pageElement.classList.add('ellipsis');
-      pageElement.href = '#'; // Không làm gì khi nhấp vào "..."
-    } else {
-      pageElement.textContent = page;
-      // Tạo href là đường dẫn hiện tại với tham số ?page=index
-      const currentUrl = new URL(window.location.href);
-      currentUrl.searchParams.set('page', page); // Thêm hoặc cập nhật tham số ?page
-      pageElement.href = currentUrl.toString(); // Gán href với đường dẫn mới
-
-      if (page === currentPage) {
-        pageElement.classList.add('active'); // Đánh dấu trang hiện tại
-      }
-
-      // Thêm sự kiện khi người dùng nhấn vào trang
-      pageElement.addEventListener('click', (event) => {
-        event.preventDefault(); // Ngừng hành động mặc định (không tải lại trang)
-        renderPagin(element, page, totalPage); // Gọi lại renderPagin với trang mới
-      });
-    }
-
-    element.appendChild(pageElement);
-    displayedPages.add(page); // Thêm page vào Set đã hiển thị
   });
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-  const parentPagins = document.querySelectorAll(".pagination"); // Lấy tất cả phần tử pagination
-  if (parentPagins.length) {
-    parentPagins.forEach((parent) => {
-      const totalPage = parseInt(parent.getAttribute("data-total-page"));
-      const currentPage = parseInt(
-        parent.querySelector(".page-link.active").textContent
-      );
+  const paginations = document.querySelectorAll(".pagination"); // Lấy tất cả phần tử phân trang
 
-      renderPagin(parent, currentPage, totalPage); // Render phân trang
-    });
-  }
+  paginations.forEach((pagination) => {
+    const totalPage = parseInt(pagination.getAttribute("data-total-page"));
+    const currentPage = parseInt(
+      pagination.querySelector(".page-link.active").textContent
+    );
+
+    renderPagin(pagination, currentPage, totalPage); // Render phân trang
+
+    const pageLinks =       pagination.querySelectorAll(".page-link");
+    if(pageLinks){
+      pageLinks.forEach((page)=>{
+        page.addEventListener('click',function(e){
+          e.preventDefault();
+        let hrefValue =  page.href ;
+          window.location.href = hrefValue; 
+        })
+
+      })
+    }
+
+   
+
+  });
+
+
 });

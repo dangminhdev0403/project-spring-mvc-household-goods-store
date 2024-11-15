@@ -26,13 +26,12 @@ uri="http://java.sun.com/jsp/jstl/core" %>
       <ul class="nav nav-secondary">
         <li class="nav-item active">
           <a
-            data-bs-toggle="collapse"
-            href="#dashboard"
+            href="/dashboard"
             class="collapsed"
-            aria-expanded="false"
+           
           >
             <i class="fas fa-home"></i>
-            <p>Dashboard</p>
+            <p href="/dashboard" >Dashboard</p>
           </a>
         </li>
         <li class="nav-section">
@@ -118,6 +117,22 @@ uri="http://java.sun.com/jsp/jstl/core" %>
               <li>
                 <a href="/admin/order">
                   <span class="sub-item">Danh sách đơn hàng</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a data-bs-toggle="collapse" href="#payment">
+            <i class="fas fa-clipboard-list"></i>
+            <p>Quản lí thanh toán</p>
+            <span class="caret"></span>
+          </a>
+          <div class="collapse" id="payment">
+            <ul class="nav nav-collapse">
+              <li>
+                <a href="/admin/payment">
+                  <span class="sub-item">Phương thức thanh toán</span>
                 </a>
               </li>
             </ul>
