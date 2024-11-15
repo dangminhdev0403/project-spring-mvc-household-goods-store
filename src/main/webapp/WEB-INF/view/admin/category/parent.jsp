@@ -1,5 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %> <%@ taglib prefix="c"
 uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
 
 <jsp:include page="../layout/header.jsp" />
 <div class="container">
@@ -47,6 +49,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                   <tr>
                     <td>STT</td>
                     <th>Tên</th>
+                    <th>Số danh mục con</th>
                   
                     <th style="width: 10%">Thao tác</th>
                   </tr>
@@ -60,7 +63,10 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                         </td>
                       <td>${category.name}</td>
                 
-
+                      <td>
+                        <c:set var="c" value="${fn:length(category.children)}" />
+                        ${c}
+                    </td>
                       <td>
                         <div class="form-button-action">
                           <a

@@ -58,7 +58,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
       </div>
     </c:if>
     <c:if test="${totalPages >= 1 }">
-      <div class="row row-cols-5 row-cols-lg-2 row-cols-sm-1 g-3">
+      <div class="row row-cols-5 row-cols-lg-2 row-cols-sm-1 g-3"   >
         <c:forEach var="product" items="${listProduct}">
           <div class="col">
             <article class="product-card">
@@ -108,7 +108,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
           </div>
         </c:forEach>
       </div>
-      <div class="pagination d-flex justify-content-center mt-5">
+      <div class="pagination d-flex justify-content-center mt-5" data-total-page ="${totalPages}" >
         <c:if test="${ currentPage > 1 }">
           <li class="page-item">
             <a

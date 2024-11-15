@@ -10,8 +10,6 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!-- MAIN -->
 <main class="product-page">
   <div class="container">
-   
-
     <!-- Breadcrumbs -->
     <div class="product-container">
       <ul class="breadcrumbs">
@@ -43,7 +41,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
             <div class="prod-preview__list">
               <div class="prod-preview__item">
                 <img
-                  src="/upload/products/${product.productImages[0].name}"
+                  src="${product.productImages[0].url}"
                   alt=""
                   class="prod-preview__img"
                 />
@@ -52,7 +50,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
             <div class="prod-preview__thumbs">
               <c:forEach var="image" items="${product.productImages}">
                 <img
-                  src="/upload/products/${image.name}"
+                  src="${image.url}"
                   alt="${image.name}"
                   class="prod-preview__thumb-img product.productImages"
                 />

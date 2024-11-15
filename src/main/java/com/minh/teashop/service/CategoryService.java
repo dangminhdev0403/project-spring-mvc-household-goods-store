@@ -1,9 +1,18 @@
 package com.minh.teashop.service;
 
+import java.io.IOException;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.minh.teashop.domain.Category;
 import com.minh.teashop.domain.ParentCategory;
@@ -72,8 +81,59 @@ public class CategoryService {
         this.parentCategoryRepository.delete(category);
     }
 
-    public Category  getByName(String name ){
+    public Category getByName(String name) {
         return this.categoryRepository.findByName(name);
+    }
+
+    @Transactional
+    public void importCategoriesFromExcel(MultipartFile file) throws IOException {
+        Workbook workbook = new XSSFWorkbook(file.getInputStream());
+        Sheet sheet = workbook.getSheetAt(0); // Lấy sheet đầu tiên từ file Excel
+
+        Iterator<Row> rowIterator = sheet.iterator();
+        while (rowIterator.hasNext()) {
+            Row row = rowIterator.next();
+            if (row.getRowNum() == 0) {
+                continue; // Bỏ qua dòng đầu tiên nếu là header
+            }
+
+            // Lấy tên danh mục cha và danh mục, kiểm tra ô có tồn tại và không null
+            String parentCategoryName = null;
+            String categoryName = null;
+
+            Cell parentCategoryCell = row.getCell(0); // Ô đầu tiên
+            if (parentCategoryCell != null) {
+                parentCategoryName = parentCategoryCell.getStringCellValue();
+            }
+
+            Cell categoryNameCell = row.getCell(1); // Ô thứ hai
+            if (categoryNameCell != null) {
+                categoryName = categoryNameCell.getStringCellValue();
+            }
+
+            if (parentCategoryName != null && categoryName != null) {
+                // Kiểm tra xem ParentCategory đã tồn tại chưa
+                ParentCategory parentCategory = parentCategoryRepository.findByName(parentCategoryName);
+                if (parentCategory == null) {
+                    parentCategory = new ParentCategory();
+                    parentCategory.setName(parentCategoryName);
+                    parentCategory = parentCategoryRepository.save(parentCategory);
+                }
+
+                // Tạo Category và lưu vào database
+                Category category = new Category();
+                category.setName(categoryName);
+                category.setParent(parentCategory);
+
+                categoryRepository.save(category);
+            } else {
+                // Nếu dữ liệu thiếu, bạn có thể xử lý theo cách riêng của bạn, ví dụ: log hoặc
+                // bỏ qua dòng đó.
+                System.out.println("Dữ liệu thiếu ở dòng " + row.getRowNum());
+            }
+        }
+
+        workbook.close();
     }
 
 }

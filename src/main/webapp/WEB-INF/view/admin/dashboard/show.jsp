@@ -1,6 +1,5 @@
-
-<%@page contentType="text/html" pageEncoding="UTF-8" %>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page contentType="text/html" pageEncoding="UTF-8" %> <%@ taglib prefix="c"
+uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -10,11 +9,7 @@
       content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
       name="viewport"
     />
-    <link
-      rel="icon"
-      href="img/kaiadmin/favicon.ico"
-      type="image/x-icon"
-    />
+    <link rel="icon" href="img/kaiadmin/favicon.ico" type="image/x-icon" />
 
     <!-- Fonts and icons -->
     <script src="/js/plugin/webfont/webfont.min.js"></script>
@@ -45,9 +40,9 @@
     <link rel="stylesheet" href="css/demo.css" />
   </head>
   <body>
-   <div class="wrapper">
+    <div class="wrapper">
       <!-- Sidebar -->
-      <jsp:include page = "../layout/sidebar.jsp"/>
+      <jsp:include page="../layout/sidebar.jsp" />
       <!-- End Sidebar -->
 
       <div class="main-panel">
@@ -141,10 +136,7 @@
                         <div class="notif-center">
                           <a href="#">
                             <div class="notif-img">
-                              <img
-                                src="/img/jm_denis.jpg"
-                                alt="Img Profile"
-                              />
+                              <img src="/img/jm_denis.jpg" alt="Img Profile" />
                             </div>
                             <div class="notif-content">
                               <span class="subject">Jimmy Denis</span>
@@ -154,10 +146,7 @@
                           </a>
                           <a href="#">
                             <div class="notif-img">
-                              <img
-                                src="/img/chadengle.jpg"
-                                alt="Img Profile"
-                              />
+                              <img src="/img/chadengle.jpg" alt="Img Profile" />
                             </div>
                             <div class="notif-content">
                               <span class="subject">Chad</span>
@@ -167,10 +156,7 @@
                           </a>
                           <a href="#">
                             <div class="notif-img">
-                              <img
-                                src="/img/mlane.jpg"
-                                alt="Img Profile"
-                              />
+                              <img src="/img/mlane.jpg" alt="Img Profile" />
                             </div>
                             <div class="notif-content">
                               <span class="subject">Jhon Doe</span>
@@ -182,10 +168,7 @@
                           </a>
                           <a href="#">
                             <div class="notif-img">
-                              <img
-                                src="/img/talha.jpg"
-                                alt="Img Profile"
-                              />
+                              <img src="/img/talha.jpg" alt="Img Profile" />
                             </div>
                             <div class="notif-content">
                               <span class="subject">Talha</span>
@@ -250,10 +233,7 @@
                           </a>
                           <a href="#">
                             <div class="notif-img">
-                              <img
-                                src="/img/profile2.jpg"
-                                alt="Img Profile"
-                              />
+                              <img src="/img/profile2.jpg" alt="Img Profile" />
                             </div>
                             <div class="notif-content">
                               <span class="block">
@@ -369,8 +349,8 @@
                   >
                     <div class="avatar-sm">
                       <img
-                      src="/upload/avatar/${sessionScope.avatar}"
-                      alt="..."
+                        src="${sessionScope.avatar}"
+                        alt="..."
                         class="avatar-img rounded-circle"
                       />
                     </div>
@@ -416,10 +396,10 @@
                             name="${_csrf.parameterName}"
                             value="${_csrf.token}"
                           />
-                          <button class="user-menu__link dropdown-item" >
+                          <button class="user-menu__link dropdown-item">
                             Đăng xuất
                           </button>
-                          </form>
+                        </form>
 
                         <!-- <a class="dropdown-item" href="#">Logout</a> -->
                       </li>
@@ -433,7 +413,6 @@
         </div>
 
         <div class="container">
-
           <div class="page-inner">
             <div
               class="d-flex align-items-left align-items-md-center flex-column flex-md-row pt-2 pb-4"
@@ -921,7 +900,6 @@
             </div>
           </div>
         </div>
-        
       </div>
       <!-- End Custom template -->
     </div>

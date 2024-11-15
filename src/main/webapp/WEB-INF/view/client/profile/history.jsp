@@ -99,7 +99,8 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                      
                       <a href="/product/${orderDetail.product.product_id}">
                         <img
-                          src="/upload/products/${orderDetail.product.productImages[0].name}"
+                                                 src="${orderDetail.product.productImages[0].url}"
+
                           alt=""
                           class="cart-item__thumb"
                         />

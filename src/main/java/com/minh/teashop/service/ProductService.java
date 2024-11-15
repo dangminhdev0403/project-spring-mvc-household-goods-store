@@ -27,6 +27,7 @@ import com.minh.teashop.domain.Category;
 import com.minh.teashop.domain.Order;
 import com.minh.teashop.domain.OrderDetail;
 import com.minh.teashop.domain.Product;
+import com.minh.teashop.domain.ProductImage;
 import com.minh.teashop.domain.Product_;
 import com.minh.teashop.domain.User;
 import com.minh.teashop.domain.dto.ProductSpecDTO;
@@ -35,12 +36,15 @@ import com.minh.teashop.repository.CartDetailRepository;
 import com.minh.teashop.repository.CartRepository;
 import com.minh.teashop.repository.OrderDetailRepository;
 import com.minh.teashop.repository.OrderRepository;
+import com.minh.teashop.repository.ProductImageRepository;
 import com.minh.teashop.repository.ProductRepository;
 import com.minh.teashop.service.specification.ProductSpecs;
 
 import jakarta.servlet.http.HttpSession;
+import lombok.AllArgsConstructor;
 
 @Service
+@AllArgsConstructor
 public class ProductService {
 
     private final ProductRepository productRepository;
@@ -51,18 +55,8 @@ public class ProductService {
     private final OrderRepository orderRepository;
     private final OrderDetailRepository orderDetailRepository;
     private final CategoryService categoryService;
-
-    public ProductService(ProductRepository productRepository, CartRepository cartRepository,
-            CartDetailRepository cartDetailRepository, UserService userService, OrderRepository orderRepository,
-            OrderDetailRepository orderDetailRepository, CategoryService categoryService) {
-        this.productRepository = productRepository;
-        this.cartRepository = cartRepository;
-        this.cartDetailRepository = cartDetailRepository;
-        this.userService = userService;
-        this.orderRepository = orderRepository;
-        this.orderDetailRepository = orderDetailRepository;
-        this.categoryService = categoryService;
-    }
+    private final ProductImageRepository productImageRepository;
+    private final UploadService uploadService;
 
     public List<Product> getListProducts() {
         List<Product> listProducts = this.productRepository.findAll();
@@ -306,10 +300,20 @@ public class ProductService {
                     product.setSku(skuCell.getStringCellValue());
                 }
 
-                // Lấy tên sản phẩm
+                // Lấy tên sản phẩm và kiểm tra tên đã tồn tại chưa
                 Cell nameCell = row.getCell(1);
                 if (nameCell != null && nameCell.getCellType() == CellType.STRING) {
-                    product.setName(nameCell.getStringCellValue());
+                    String productName = nameCell.getStringCellValue();
+
+                    // Kiểm tra tên sản phẩm trong cơ sở dữ liệu
+                    Product existingProduct = productRepository.findByName(productName);
+                    if (existingProduct != null) {
+                        // Nếu tên sản phẩm đã tồn tại, bỏ qua sản phẩm này
+                        System.out.println("Sản phẩm với tên " + productName + " đã tồn tại. Bỏ qua.");
+                        continue;
+                    }
+
+                    product.setName(productName);
                 }
 
                 // Lấy mô tả sản phẩm
@@ -340,13 +344,41 @@ public class ProductService {
                 double price = product.getFactor() * product.getFisrtPrice();
                 product.setPrice(price);
 
+                // Xử lý danh mục sản phẩm
                 Cell categoryCell = row.getCell(6);
                 if (categoryCell != null && categoryCell.getCellType() == CellType.STRING) {
                     String categoryName = categoryCell.getStringCellValue();
                     Category category = this.categoryService.getByName(categoryName);
-                    product.setCategory(category);
+                    if (category != null) {
+                        product.setCategory(category);
+                    } else {
+                        // Log thông báo nếu không tìm thấy danh mục
+                        System.out.println("Danh mục không tìm thấy: " + categoryName);
+                    }
                 }
 
+                productRepository.save(product);
+
+                // Xử lý hình ảnh sản phẩm
+                Cell imageCell = row.getCell(7);
+                if (imageCell != null && imageCell.getCellType() == CellType.STRING) {
+                    String imageProducts = imageCell.getStringCellValue();
+                    String[] listImages = imageProducts.split(",");
+                    for (String image : listImages) {
+                        if (!image.trim().isEmpty()) {
+                            ProductImage productImage = new ProductImage();
+                            productImage.setProduct(product);
+                            productImage.setName(image);
+                            String urlImage = this.uploadService.getImageUrl(image);
+                            if (urlImage != null) {
+                                productImage.setUrl(urlImage);
+                                this.productImageRepository.save(productImage);
+                            }
+                        }
+                    }
+                }
+
+                // Thêm sản phẩm vào danh sách
                 products.add(product);
             }
         }

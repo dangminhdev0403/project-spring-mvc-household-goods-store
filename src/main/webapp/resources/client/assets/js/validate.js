@@ -20,7 +20,7 @@ function showLoading() {
 const loginConstraints = {
   email: {
     presence: { message: "Vui lòng nhập email" },
-    email: { message: " không hợp lệ" },
+    email: { message: " không hợp lệ, xoá khoảng trống sau email" },
   },
   password: {
     presence: { message: "Vui lòng nhập mật khẩu" },

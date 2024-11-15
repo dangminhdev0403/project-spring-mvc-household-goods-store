@@ -11,7 +11,6 @@ uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <main class="checkout-page">
   <div class="container">
     <!-- Search bar -->
-   
 
     <!-- Breadcrumbs -->
     <div class="checkout-container">
@@ -49,7 +48,7 @@ uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
                   <article class="cart-item">
                     <a href="/product/${detail.product.product_id}">
                       <img
-                        src="/upload/products/${detail.product.productImages[0].name}"
+                        src="${detail.product.productImages[0].url}"
                         alt=""
                         class="cart-item__thumb"
                       />

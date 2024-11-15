@@ -242,3 +242,7 @@ a.disable {
   font-size: 1.8rem;
   display: block;
 }
+
+.form-check-input{
+  cursor: pointer;
+}

@@ -19,6 +19,7 @@ import com.minh.teashop.domain.Product;
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long>, JpaSpecificationExecutor<Product> {
     Optional<List<Product>> findByCategory(Category category);
+    Product findByName(String name );
 
     @SuppressWarnings("null")
     Page<Product> findAll(Specification<Product> spec, Pageable page);

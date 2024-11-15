@@ -148,7 +148,7 @@ uri="http://www.springframework.org/tags/form" %>
                    <c:if test="${not empty newProduct.productImages}">
                       
                         <c:forEach var="image" items="${newProduct.productImages}">
-                          <img src="/upload/products/${image.name}" alt="" width="100%" height="200" class="col-12 col-lg-4 ">
+                          <img src="${image.url}" alt="" width="100%" height="200" class="col-12 col-lg-4 ">
                    </c:forEach>
                     
                     </c:if>

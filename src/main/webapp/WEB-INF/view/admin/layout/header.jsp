@@ -401,7 +401,7 @@
                   >
                     <div class="avatar-sm">
                       <img
-                      src="/upload/avatar/${sessionScope.avatar}"
+                      src="${sessionScope.urlAvatar}"
                       alt="..."
                         class="avatar-img rounded-circle"
                       />

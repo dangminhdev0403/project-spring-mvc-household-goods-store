@@ -1,5 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %> <%@ taglib prefix="c"
 uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
 
 <jsp:include page="../layout/header.jsp" />
 <div class="container">
@@ -48,6 +50,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                     <td>STT</td>
                     <th>Tên</th>
                     <th>Danh mục cha</th>
+                    <th>Số sản phẩm</th>
 
                     <th style="width: 10%">Thao tác</th>
                   </tr>
@@ -63,7 +66,10 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                       <td>${status.index + 1}</td>
                       <td>${category.name}</td>
                       <td>${category.parent.name}</td>
-
+                      <td>
+                        <c:set var="productCount" value="${fn:length(category.products)}" />
+                        ${productCount}
+                    </td>
                       <td>
                         <div class="form-button-action">
                           <a

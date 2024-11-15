@@ -126,7 +126,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
             <div class="product-card__img-wrap">
               <a href="/product/${product.product_id}">
                 <img
-                  src="/upload/products/${product.productImages[0].name}"
+                  src="${product.productImages[0].url}"
                   alt="${product.productImages[0].name}"
                   class="product-card__thumb"
                 />
@@ -177,35 +177,41 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
       
       </div>
     </div>
-    <div class="pagination d-flex justify-content-center mt-5">
-      
+    <div class="pagination d-flex justify-content-center mt-5" data-total-page ="${totalPages}" >
       <c:if test="${ currentPage > 1 }">
         <li class="page-item">
-          <a class="disabled page-link" href="?page=${currentPage -1 }" aria-label="Previous">
+          <a
+            class="disabled page-link"
+            href="/?page=${currentPage -1 }"
+            aria-label="Previous"
+          >
             <span aria-hidden="true">«</span>
           </a>
         </li>
       </c:if>
 
-      <c:forEach begin="0" end="${totalPages }" varStatus="loop">
+      <c:forEach begin="0" end="${totalPages -1}" varStatus="loop">
         <li class="page-item">
           <a
             class="page-link ${(loop.index+1) eq currentPage ? 'active' : ''}"
-            href="?page=${loop.index+1}"
+            href="/?page=${loop.index+1}"
           >
             ${loop.index+1}
           </a>
         </li>
       </c:forEach>
 
-      <c:if test="${ currentPage == totalPages  }">
+      <c:if test="${ currentPage != totalPages  }">
         <li class="page-item">
-          <a class="disabled page-link" href="?page=${currentPage +1 }" aria-label="Next">
+          <a
+            class="disabled page-link"
+            href="/?page=${currentPage +1 }"
+            aria-label="Next"
+          >
             <span aria-hidden="true">»</span>
           </a>
         </li>
-</c:if>
-     
+      </c:if>
     </div>
   
   </section>

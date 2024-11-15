@@ -1,5 +1,5 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<%@page contentType="text/html" pageEncoding="UTF-8" %> <%@ taglib prefix="c"
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> <%@page
+contentType="text/html" pageEncoding="UTF-8" %> <%@ taglib prefix="c"
 uri="http://java.sun.com/jsp/jstl/core" %> <%@ taglib prefix="form"
 uri="http://www.springframework.org/tags/form" %> <%@ taglib
 uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
@@ -34,17 +34,24 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         <img class="icon" src="/client/assets/icons/arrow-left.svg" alt="" />
       </button>
 
-
       <div class="search nav-btn d-none d-md-flex">
-        <form action="#"  style="justify-content: space-around;display: flex;width: 100%;border: 1px solid #ccc;border-radius: 2rem;height: 100%;">
-          <input type="text" placeholder="tìm kiếm" name="search" >
-            <button class="btn-search">
-                <i class="fa fa-search"></i>
-            </button>
+        <form
+          action="#"
+          style="
+            justify-content: space-around;
+            display: flex;
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 2rem;
+            height: 100%;
+          "
+        >
+          <input type="text" placeholder="tìm kiếm" name="search" />
+          <button class="btn-search">
+            <i class="fa fa-search"></i>
+          </button>
         </form>
-        
-
-    </div>
+      </div>
 
       <a href="/cart" class="nav-btn d-none d-md-flex">
         <img
@@ -56,17 +63,13 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         <span class="nav-btn__qnt">${sessionScope.cartSum}</span>
       </a>
 
-    
-
       <ul class="navbar__list js-dropdown-list">
-       
         <li class="navbar__item">
-          <a href="/" class="navbar__link">
-           Trang chủ</a>
+          <a href="/" class="navbar__link"> Trang chủ</a>
         </li>
         <li class="navbar__item">
           <a href="#!" class="navbar__link">
-           Danh mục
+            Danh mục
             <img
               src="/client/assets/icons/arrow-down.svg"
               alt=""
@@ -77,46 +80,46 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
             <div class="dropdown__inner">
               <div class="top-menu">
                 <div class="sub-menu sub-menu--not-main">
-                  
                   <c:forEach var="category" items="${categories}">
                     <div class="sub-menu__column">
                       <!-- Menu column 1 -->
                       <div class="menu-column">
-                       
                         <div class="menu-column__content">
-                          <h2 class="menu-column__heading" >
-                            <a href="#!" style="font-size: 2.5rem;">${category.name}</a>
+                          <h2 class="menu-column__heading">
+                            <a href="#!" style="font-size: 2.5rem"
+                              >${category.name}</a
+                            >
                           </h2>
                           <ul class="menu-column__list">
-                            <c:forEach var="childCategory" items="${category.children}">
+                            <c:forEach
+                              var="childCategory"
+                              items="${category.children}"
+                            >
                               <li class="menu-column__item">
-                                <a href="/category/${childCategory.category_id}" class="menu-column__link" style="font-size: 1.8rem;">${childCategory.name}</a>
+                                <a
+                                  href="/category/${childCategory.category_id}"
+                                  class="menu-column__link"
+                                  style="font-size: 1.8rem"
+                                  >${childCategory.name}</a
+                                >
                               </li>
                             </c:forEach>
-
                           </ul>
                         </div>
                       </div>
                     </div>
-
                   </c:forEach>
-
-
-
                 </div>
               </div>
             </div>
           </div>
         </li>
         <li class="navbar__item">
-          <a href="/about" class="navbar__link">
-           Giới thiệu</a>
+          <a href="/about" class="navbar__link"> Giới thiệu</a>
         </li>
         <li class="navbar__item">
-          <a href="/contact" class="navbar__link">
-           Liên hệ</a>
+          <a href="/contact" class="navbar__link"> Liên hệ</a>
         </li>
-
       </ul>
     </nav>
     <div class="navbar__overlay js-toggle" toggle-target="#navbar"></div>
@@ -125,30 +128,26 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
     <div class="top-act">
       <div class="top-act__group d-md-none top-act__group--single">
         <div class="search">
-          <form action="#" style="border-radius: 2rem;">
-              <input type="text" placeholder="tìm kiếm"
-                     name="search" style="font-size: 2.5rem;" >
-              <button  class="btn-search">
-                  <i class="fa fa-search"></i>
-              </button>
+          <form action="#" style="border-radius: 2rem">
+            <input
+              type="text"
+              placeholder="tìm kiếm"
+              name="search"
+              style="font-size: 2.5rem"
+            />
+            <button class="btn-search">
+              <i class="fa fa-search"></i>
+            </button>
           </form>
+        </div>
       </div>
-      </div>
-          
 
       <c:if test="${not empty pageContext.request.userPrincipal}">
-      
-
-      
-      <div id="drop-cart" class="top-act__group d-md-none " >
-         
-        
-
-
-          <div  class="top-act__btn-wrap" >
+        <div id="drop-cart" class="top-act__group d-md-none">
+          <div class="top-act__btn-wrap">
             <a href="/cart" class="top-act__btn">
               <img
-               src="/client/assets/icons/buy.svg"
+                src="/client/assets/icons/buy.svg"
                 alt=""
                 class="icon top-act__icon"
               />
@@ -156,76 +155,91 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
             </a>
 
             <!-- Dropdown -->
-            <div class="act-dropdown" >
+            <div class="act-dropdown">
               <div class="act-dropdown__inner">
                 <img
-                 src="/client/assets/icons/arrow-up.png"
+                  src="/client/assets/icons/arrow-up.png"
                   alt=""
                   class="act-dropdown__arrow"
                 />
-                <div class="act-dropdown__top" style="justify-content: center;">
+                <div class="act-dropdown__top" style="justify-content: center">
                   <c:choose>
-                    <c:when test="${sessionScope.cartSum == 0}" >
-                      <h2 class="act-dropdown__title">Bạn chưa có sản phẩm trong giỏ hàng</h2>
+                    <c:when test="${sessionScope.cartSum == 0}">
+                      <h2 class="act-dropdown__title">
+                        Bạn chưa có sản phẩm trong giỏ hàng
+                      </h2>
                     </c:when>
-    <c:when test="${sessionScope.cartSum <= 3}" >
-      <h2 class="act-dropdown__title">Bạn có ${sessionScope.cartSum} sản phẩm trong giỏ hàng</h2>
-    </c:when>
-    <c:otherwise>
-      <h2 class="act-dropdown__title">3/${sessionScope.cartSum} sản phẩm trong giỏ hàng</h2>
-    </c:otherwise>
-</c:choose>
-       
-
-                  
+                    <c:when test="${sessionScope.cartSum <= 3}">
+                      <h2 class="act-dropdown__title">
+                        Bạn có ${sessionScope.cartSum} sản phẩm trong giỏ hàng
+                      </h2>
+                    </c:when>
+                    <c:otherwise>
+                      <h2 class="act-dropdown__title">
+                        3/${sessionScope.cartSum} sản phẩm trong giỏ hàng
+                      </h2>
+                    </c:otherwise>
+                  </c:choose>
                 </div>
 
-                <div class="row row-cols-3 gx-2 act-dropdown__list " style="justify-content: center;"  id ="dropdown__list">
-                  
-                                    <c:forEach begin ="0" end ="2" var="detailOfCart" items="${listDetail}" >
-                                      <div class="col">
-                                        <article class="cart-preview-item">
-                                          <div class="cart-preview-item__img-wrap">
-                                            <img
-                                             src="/upload/products/${detailOfCart.product.productImages[0].name}"
-                                              alt="  ${detailOfCart.product.name}"
-                                              class="cart-preview-item__thumb"
-                                            />
-                                          </div>
-                                          <h3 class="cart-preview-item__title">
-                                            ${detailOfCart.product.name}
-                                          </h3>
-                                          <p class="cart-preview-item__price">
-                                            <c:choose>
-                                              <c:when test="${detailOfCart.product.price != null}">
-                                                <c:if test="${detailOfCart.product.price % 1 != 0}">
-                                                  <fmt:formatNumber
-                                                    value="${detailOfCart.product.price}"
-                                                    pattern="#,##0.000"
-                                                  />
-                                                  đ
-                                                </c:if>
-                                                <c:if test="${detailOfCart.product.price % 1 == 0}">
-                                                  <fmt:formatNumber
-                                                    value="${detailOfCart.product.price}"
-                                                    pattern="#,##0"
-                                                  />
-                                                  đ
-                                                </c:if>
-                                              </c:when>
-                                            </c:choose>
-                                            </p>
-                                            
-                                        </article>
-                                      </div>
+                <div
+                  class="row row-cols-3 gx-2 act-dropdown__list"
+                  style="justify-content: center"
+                  id="dropdown__list"
+                >
+                  <c:forEach
+                    begin="0"
+                    end="2"
+                    var="detailOfCart"
+                    items="${listDetail}"
+                  >
+                    <div class="col">
+                      <article class="cart-preview-item">
+                        <div class="cart-preview-item__img-wrap">
+                          <img
+                            src="/upload/products/${detailOfCart.product.productImages[0].name}"
+                            alt="  ${detailOfCart.product.name}"
+                            class="cart-preview-item__thumb"
+                          />
+                        </div>
+                        <h3 class="cart-preview-item__title">
+                          ${detailOfCart.product.name}
+                        </h3>
+                        <p class="cart-preview-item__price">
+                          <c:choose>
+                            <c:when
+                              test="${detailOfCart.product.price != null}"
+                            >
+                              <c:if
+                                test="${detailOfCart.product.price % 1 != 0}"
+                              >
+                                <fmt:formatNumber
+                                  value="${detailOfCart.product.price}"
+                                  pattern="#,##0.000"
+                                />
+                                đ
+                              </c:if>
+                              <c:if
+                                test="${detailOfCart.product.price % 1 == 0}"
+                              >
+                                <fmt:formatNumber
+                                  value="${detailOfCart.product.price}"
+                                  pattern="#,##0"
+                                />
+                                đ
+                              </c:if>
+                            </c:when>
+                          </c:choose>
+                        </p>
+                      </article>
+                    </div>
                   </c:forEach>
-                    
-                  
-
-                
                 </div>
-                
-                <div class="cart-info__separate" style="margin: 0; margin-bottom: 2rem;"></div>
+
+                <div
+                  class="cart-info__separate"
+                  style="margin: 0; margin-bottom: 2rem"
+                ></div>
                 <div class="act-dropdown__checkout">
                   <a
                     href="/cart"
@@ -236,35 +250,28 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                 </div>
               </div>
             </div>
-           
           </div>
         </div>
 
         <div class="top-act__user">
-
-
-
-
-
           <c:if
-          test="${not empty sessionScope.urlAvatar &&  sessionScope.urlAvatar != 'NULL'}"
-        >
-        <img
-        src="${sessionScope.urlAvatar}"
-        alt=""
-        class="top-act__avatar"
-      />
-        </c:if>
-        <c:if
-          test="${  empty sessionScope.urlAvatar &&  sessionScope.urlAvatar == NULL  }"
-        >
-          <img
-            src="/client/assets/img/avatar/empty.jpg"
-            alt=""
-            class="profile-user__avatar"
-          />
-        </c:if>
-
+            test="${not empty sessionScope.urlAvatar &&  sessionScope.urlAvatar != 'NULL'}"
+          >
+            <img
+              src="${sessionScope.urlAvatar}"
+              alt=""
+              class="top-act__avatar"
+            />
+          </c:if>
+          <c:if
+            test="${  empty sessionScope.urlAvatar &&  sessionScope.urlAvatar == NULL  }"
+          >
+            <img
+              src="/client/assets/img/avatar/empty.jpg"
+              alt=""
+              class="profile-user__avatar"
+            />
+          </c:if>
 
           <!-- Dropdown -->
           <div class="act-dropdown top-act__dropdown">
@@ -278,7 +285,8 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
               <div class="user-menu__top">
                 <c:if test="${not empty sessionScope.avatar}">
                   <img
-                    src="/upload/avatar/${sessionScope.avatar}"
+                    src="${sessionScope.avatar}"
+                    src="${sessionScope.avatar}"
                     alt=""
                     class="user-menu__avatar"
                   />
@@ -301,13 +309,11 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
               <ul class="user-menu__list">
                 <li>
-                  <a href="/profile" class="user-menu__link"
-                    >Trang cá nhân</a
-                  >
+                  <a href="/profile" class="user-menu__link">Trang cá nhân</a>
                 </li>
                 <li>
-                  <a href="/order-history" class="user-menu__link"
-                    > Lịch sử mua hàng</a
+                  <a href="/order-history" class="user-menu__link">
+                    Lịch sử mua hàng</a
                   >
                 </li>
 
@@ -318,7 +324,10 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                       name="${_csrf.parameterName}"
                       value="${_csrf.token}"
                     />
-                    <button class="user-menu__link submit" style="font-size: 1.9rem">
+                    <button
+                      class="user-menu__link submit"
+                      style="font-size: 1.9rem"
+                    >
                       Đăng xuất
                     </button>
                   </form>

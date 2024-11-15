@@ -30,6 +30,53 @@ uri="http://www.springframework.org/tags/form" %>
       <div class="col-md-12">
         <div class="card">
           <div class="card-header">
+            <div class="card-title">Thêm mới danh mục excel</div>
+          </div>
+          <form
+            action="/admin/categories/create-excel" method="post"
+            
+            class="row"
+            enctype="multipart/form-data"
+          >
+          <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-6 col-lg-4">
+                
+                  <div class="form-group">
+                   
+                    <label for="fileCategory">File excel Danh mục</label>
+                    <input
+                    type="file"
+                    class="form-control"
+                    id="file-product"
+                    name="fileCategory"
+                    accept=".xlsx, .xls"
+                />
+
+                   
+                  </div>
+                 
+
+                
+              
+              </div>
+             
+             
+            
+             
+            </div>
+            </div>
+            <div class="card-action">
+              <button class="btn btn-success">Xác nhận</button>
+              <a href="/admin/products" class="btn btn-danger">Trờ về</a>
+            </div>
+          </form>
+        </div>
+
+
+        <div class="card">
+          <div class="card-header">
             <div class="card-title">Thêm mới danh mục</div>
           </div>
           <form:form

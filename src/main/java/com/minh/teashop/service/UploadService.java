@@ -53,4 +53,10 @@ public class UploadService {
             return false; // Deletion failed
         }
     }
+
+    public String getImageUrl(String nameImage ){
+        String  cloudName  = "dwjqosrrk";
+        return String.format("https://res.cloudinary.com/%s/image/upload/%s", 
+            cloudName, nameImage);
+    }
 }

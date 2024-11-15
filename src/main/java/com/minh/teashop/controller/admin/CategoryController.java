@@ -1,5 +1,6 @@
 package com.minh.teashop.controller.admin;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.minh.teashop.domain.Category;
@@ -165,6 +168,25 @@ public class CategoryController {
         redirectAttributes.addFlashAttribute("success", "Xoá thành công");
 
         return "redirect:/admin/categories-parent";
+    }
+
+    @PostMapping("/admin/categories/create-excel")
+    public String createCategoryByExcel(@RequestParam("fileCategory") MultipartFile file) {
+
+        try {
+          
+            this.categoryService.importCategoriesFromExcel(file);
+
+        } catch (IllegalStateException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "Import failed: " + e.getMessage();
+
+        } 
+
+        return "redirect:/admin/categories";
+
     }
 
 }

@@ -128,6 +128,10 @@ uri="http://www.springframework.org/tags/form" %>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/validate.js/0.13.1/validate.min.js"></script>
 
+
+
+
+
 <script src="/client/assets/js/validate.js"></script>
 <script src="/client/assets/js/axios.js"></script>
 <script src="/client/assets/js/myscripts.js"></script>
