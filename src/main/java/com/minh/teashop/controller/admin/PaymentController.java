@@ -95,4 +95,19 @@ public class PaymentController {
 
     }
 
+    @GetMapping("/admin/payment/delete/{id}")
+    public String getMethodName(@PathVariable long id) {
+
+        Payment newPayment = this.paymentService.getPayById(id);
+
+        if (newPayment.getUrlIcon() != null) {
+
+            this.uploadService.handleDeleteFileFromUrl(newPayment.getUrlIcon());
+        }
+
+        this.paymentService.handleDelePayment(newPayment);
+
+        return "redirect:/admin/payment";
+    }
+
 }

@@ -98,21 +98,21 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         <div class="col">
           <article class="product-card">
             <div class="product-card__img-wrap">
-              <a href="./product-detail.html">
-                <img src="./assets/img/product/item-1.png" alt="" class="product-card__thumb" />
+              <a   href="/clientproduct-detail.html">
+                <img   src="/client/assets/img/product/item-1.png" alt="" class="product-card__thumb" />
               </a>
               <button class="like-btn product-card__like-btn">
-                <img src="./assets/icons/heart.svg" alt="" class="like-btn__icon icon" />
-                <img src="./assets/icons/heart-red.svg" alt="" class="like-btn__icon--liked" />
+                <img   src="/client/assets/icons/heart.svg" alt="" class="like-btn__icon icon" />
+                <img   src="/client/assets/icons/heart-red.svg" alt="" class="like-btn__icon--liked" />
               </button>
             </div>
             <h3 class="product-card__title">
-              <a href="./product-detail.html">Coffee Beans - Espresso Arabica and Robusta Beans</a>
+              <a   href="/clientproduct-detail.html">Coffee Beans - Espresso Arabica and Robusta Beans</a>
             </h3>
             <p class="product-card__brand">Lavazza</p>
             <div class="product-card__row">
               <span class="product-card__price">$47.00</span>
-              <img src="./assets/icons/star.svg" alt="" class="product-card__star" />
+              <img   src="/client/assets/icons/star.svg" alt="" class="product-card__star" />
               <span class="product-card__score">4.3</span>
             </div>
           </article>

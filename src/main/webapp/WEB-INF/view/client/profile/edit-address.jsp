@@ -65,10 +65,13 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                           <h3 class="address-card__title">
                             ${adr.receiverName}
                           </h3>
-                          <p class="address-card__desc">${adr.fullAddress}</p>
+                          <p class="address-card__desc"></p>
                           <ul class="address-card__list">
                             <li class="address-card__list-item">
                               SĐT: ${adr.receiverPhone}
+                            </li>
+                            <li class="address-card__list-item">
+                              Địa chỉ: ${adr.receiverLocation}
                             </li>
                           </ul>
                         </div>
@@ -196,20 +199,20 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
           <div class="form__text-input form__text-input--small address-group" style="display: grid;
           grid-template-columns: repeat(3, 1fr);">
 
-            <img src="./assets/icons/form-error.svg" alt="" class="form__input-icon-error" />
+            <img   src="/client/assets/icons/form-error.svg" alt="" class="form__input-icon-error" />
  
             <!-- Select dialog -->
-            <form:select class="css_select tinh" id="tinh" name="tinh" title="Chọn Tỉnh Thành" style="height: 100%; border-right: 1px solid #d2d1d6; cursor: pointer;" path="city">
+            <form:select class="css_select tinh" id="tinh" name="tinh" title="Chọn Tỉnh Thành" style="height: 100%; border-right: 1px solid #d2d1d6; cursor: pointer;" path="cityId">
               <form:option value="0" style="cursor: pointer;">Tỉnh Thành</form:option>
               <!-- Các tùy chọn tỉnh thành sẽ được thêm vào đây -->
           </form:select>
       
-          <form:select class="css_select quan" id="quan" name="quan" title="Chọn Quận Huyện" style="height: 100%; border-right: 1px solid #d2d1d6; cursor: pointer;" path="district">
+          <form:select class="css_select quan" id="quan" name="quan" title="Chọn Quận Huyện" style="height: 100%; border-right: 1px solid #d2d1d6; cursor: pointer;" path="districtId">
               <form:option value="0" style="cursor: pointer;">Quận Huyện</form:option>
               <!-- Các tùy chọn quận huyện sẽ được thêm vào đây -->
           </form:select>
       
-          <form:select class="css_select phuong" id="phuong" name="phuong" title="Chọn Phường Xã" style="cursor: pointer;" path="ward">
+          <form:select class="css_select phuong" id="phuong" name="phuong" title="Chọn Phường Xã" style="cursor: pointer;" path="wardId">
               <form:option value="0" style="cursor: pointer;">Phường Xã</form:option>
               <!-- Các tùy chọn phường xã sẽ được thêm vào đây -->
           </form:select>
@@ -339,19 +342,18 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
               <!-- Select dialog -->
               <select data-city-id ="${address.cityId}" class="css_select tinh update"  name="city" title="Chọn Tỉnh Thành" style="height: 100%; border-right: 1px solid #d2d1d6; cursor: pointer;" path="city">
                
-                <option value="${address.city},${address.cityId}" style="cursor: pointer;"  class="firtsOption" tinhid ="${address.cityId}">${address.city}</option>
                 <!-- Các tùy chọn tỉnh thành sẽ được thêm vào đây -->
               </select>
         
             <select data-district-id ="${address.districtId}" class="css_select quan update"  name="district" title="Chọn Quận Huyện" style="height: 100%; border-right: 1px solid #d2d1d6; cursor: pointer;" path="district">
-              <option value="${address.district},${address.districtId}" style="cursor: pointer;"  class="firtsOption" quanid ="${address.districtId}">${address.district}</option>
+              <option value="${address.districtId}" style="cursor: pointer;"  class="firtsOption" quanid ="${address.districtId}"></option>
 
 
                 <!-- Các tùy chọn quận huyện sẽ được thêm vào đây -->
             </select>
         
             <select data-ward-id ="${address.wardId}" class="css_select phuong update"  name="ward" title="Chọn Phường Xã" style="cursor: pointer;" path="ward">
-              <option value="${address.ward},${address.wardId}" style="cursor: pointer;"  class="firtsOption" phuongid="${address.ward}">${address.ward}</option>
+              <option value="${address.wardId}" style="cursor: pointer;"  class="firtsOption"></option>
                 <!-- Các tùy chọn phường xã sẽ được thêm vào đây -->
             </select>
             </div>

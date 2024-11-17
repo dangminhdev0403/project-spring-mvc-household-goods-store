@@ -234,9 +234,9 @@ public class ProductService {
         // create Oder
         Order order = new Order();
         order.setUser(user);
-        order.setReceiverAddress(receiverAddress.getFullAddress());
         order.setReceiverName(receiverAddress.getReceiverName());
         order.setReceiverPhone(receiverAddress.getReceiverPhone());
+        order.setReceiverAddress(receiverAddress.getReceiverLocation());
         order.setStatus(OrderStatus.PENDING);
         order.setTotalPrice(total);
         order.setOrderDate(LocalDateTime.now());

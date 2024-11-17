@@ -197,7 +197,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                       <article class="cart-preview-item">
                         <div class="cart-preview-item__img-wrap">
                           <img
-                            src="/upload/products/${detailOfCart.product.productImages[0].name}"
+                            src="${detailOfCart.product.productImages[0].url}"
                             alt="  ${detailOfCart.product.name}"
                             class="cart-preview-item__thumb"
                           />

@@ -56,4 +56,8 @@ public class PaymentService {
         }
 
     }
+
+    public void handleDelePayment(Payment payment){
+        this.paymentRespository.delete(payment);
+    }
 }

@@ -7,13 +7,13 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.session.SessionRegistry;
+import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.web.session.HttpSessionEventPublisher;
 import org.springframework.session.security.web.authentication.SpringSessionRememberMeServices;
 
@@ -31,8 +31,8 @@ public class SecurityConfiguration {
     }
 
     @Bean
-    public UserDetailsService userDetailsService(UserService userService, SessionRegistry sessionRegistry) {
-        return new CustomUserDetailsService(userService, sessionRegistry);
+    public UserDetailsService userDetailsService(UserService userService) {
+        return new CustomUserDetailsService(userService);
     }
 
     @Bean
@@ -61,11 +61,6 @@ public class SecurityConfiguration {
     }
 
     @Bean
-    public SessionRegistry sessionRegistry() {
-        return new org.springframework.security.core.session.SessionRegistryImpl();
-    }
-
-    @Bean
     public HttpSessionEventPublisher httpSessionEventPublisher() {
         return new HttpSessionEventPublisher();
     }
@@ -76,10 +71,14 @@ public class SecurityConfiguration {
     }
 
     @Bean
+    public SessionRegistry sessionRegistry() {
+        return new SessionRegistryImpl();
+    }
+
+    @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(csrf -> csrf
-                        .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
+
                 .authorizeHttpRequests(authorize -> authorize
                         .dispatcherTypeMatchers(DispatcherType.FORWARD, DispatcherType.INCLUDE)
                         .permitAll()
@@ -95,19 +94,17 @@ public class SecurityConfiguration {
                         .anyRequest().authenticated())
 
                 .sessionManagement((sessionManagement) -> sessionManagement
-                        .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
-                        .invalidSessionUrl("/login?expired=true") // Chuyển hướng người dùng đến trang đăng nhập khi
-                                                                  // session hết hạn
-                        .maximumSessions(1)
+                        .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED) // Đảm bảo session được tạo ra khi cần
+                        .invalidSessionUrl("/login?expired=true") // Chuyển hướng đến trang login khi session hết hạn
+                        .maximumSessions(100)
                         .maxSessionsPreventsLogin(false))
 
                 .logout(logout -> logout
                         .logoutUrl("/logout")
-
-                        .deleteCookies("JSESSIONID").invalidateHttpSession(true)
+                        .deleteCookies("JSESSIONID")
+                        .invalidateHttpSession(true) // Đảm bảo session được hủy khi logout
                         .logoutSuccessUrl("/login?logout") // Chuyển hướng sau khi đăng xuất thành công
                 )
-                .rememberMe(r -> r.rememberMeServices(rememberMeServices()))
                 .formLogin(formLogin -> formLogin
                         .loginPage("/login")
                         .failureHandler(new CustomAuthenticationFailureHandler()) // Sử dụng handler tùy chỉnh

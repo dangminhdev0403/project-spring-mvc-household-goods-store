@@ -27,7 +27,6 @@ import com.minh.teashop.repository.UserRepository;
 import com.minh.teashop.repository.VerificationTokenRepository;
 import com.minh.teashop.service.specification.OrderSpecs;
 
-import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
 
 @Service
@@ -81,7 +80,7 @@ public class UserService {
         this.userRepository.deleteById(id);
     }
 
-    public void handleLockUser(long id ) {
+    public void handleLockUser(long id) {
         User user = this.getUserById(id);
 
         this.userRepository.softDelete(user);

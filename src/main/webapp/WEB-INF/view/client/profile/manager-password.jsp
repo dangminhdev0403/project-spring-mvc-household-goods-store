@@ -86,7 +86,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                           
 
                             <div class="form-card__bottom">
-                                <a class="btn btn--text" href="./profile.html">Cancel</a>
+                                <a class="btn btn--text"   href="/clientprofile.html">Cancel</a>
                                 <button class="btn btn--primary btn--rounded is-accept">Save</button>
                             </div>
                         </form:form>

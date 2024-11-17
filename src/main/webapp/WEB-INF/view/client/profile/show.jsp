@@ -80,7 +80,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
             <div class="row gy-3">
               <div class="col-12">
                 <h2 class="cart-info__heading">
-                  <a href="./profile.html">
+                  <a   href="/clientprofile.html">
                     <img
                       src="/client/assets/icons/arrow-left.svg"
                       alt=""

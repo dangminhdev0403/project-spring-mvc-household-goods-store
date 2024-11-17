@@ -1,4 +1,4 @@
-package com.minh.teashop.domain;
+package com.minh.teashop.domain.location;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -6,30 +6,36 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+
 @Entity
+@Table(name = "districts")
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
+public class District {
 
-public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-    private String receiverPhone;
-    private String receiverName;
-    private String receiverLocation;
-    private long cityId;
-    private long districtId; // Quận/Huyện
-    private long wardId; // Phường/Xã
-    private String address; // Địa chỉ chi tiết
+    private Long id;
+    private String name;
+    private String code;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    User user;
+    @JoinColumn(name = "province_id")
+    private Province province;
+
+    public District(String name, String code, Province province) {
+        this.name = name;
+        this.code = code;
+        this.province = province;
+    }
+
+    
 }

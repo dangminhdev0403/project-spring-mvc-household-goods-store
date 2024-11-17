@@ -138,6 +138,22 @@ uri="http://java.sun.com/jsp/jstl/core" %>
             </ul>
           </div>
         </li>
+        <li class="nav-item">
+          <a data-bs-toggle="collapse" href="#address">
+            <i class="fas fa-clipboard-list"></i>
+            <p>Quản lí địa chỉ</p>
+            <span class="caret"></span>
+          </a>
+          <div class="collapse" id="address">
+            <ul class="nav nav-collapse">
+              <li>
+                <a href="/admin/location">
+                  <span class="sub-item">Địa chỉ</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </li>
       </ul>
     </div>
   </div>

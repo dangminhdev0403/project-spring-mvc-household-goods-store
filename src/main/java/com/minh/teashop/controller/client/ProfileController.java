@@ -22,8 +22,10 @@ import com.minh.teashop.domain.Address;
 import com.minh.teashop.domain.Order;
 import com.minh.teashop.domain.Product;
 import com.minh.teashop.domain.User;
+import com.minh.teashop.domain.dto.AddressDTO;
 import com.minh.teashop.domain.dto.RegisterDTO;
 import com.minh.teashop.domain.upload.UploadResponse;
+import com.minh.teashop.service.LocationService;
 import com.minh.teashop.service.ProductService;
 import com.minh.teashop.service.UploadService;
 import com.minh.teashop.service.UserService;
@@ -31,22 +33,18 @@ import com.minh.teashop.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
 
 @Controller
+
+@AllArgsConstructor
 
 public class ProfileController {
     private final UserService userService;
     private final UploadService uploadService;
     private final PasswordEncoder passwordEncoder;
     private final ProductService productService;
-
-    public ProfileController(UserService userService, ProductService productService, UploadService uploadService,
-            PasswordEncoder passwordEncoder) {
-        this.userService = userService;
-        this.uploadService = uploadService;
-        this.passwordEncoder = passwordEncoder;
-        this.productService = productService;
-    }
+    private final LocationService locationService;
 
     @GetMapping("/profile")
     public String getProfilePage(HttpServletRequest request, Model model,
@@ -135,11 +133,6 @@ public class ProfileController {
             RedirectAttributes redirectAttributes, HttpServletRequest request) {
         String referer = request.getHeader("Referer");
 
-        if (address.getCity().equals("0") || address.getDistrict().equals("0") || address.getWard().equals("0")) {
-            redirectAttributes.addFlashAttribute("error", "Bạn chưa chọn đủ địa chỉ");
-            return "redirect:" + referer;
-        }
-
         HttpSession session = request.getSession(false);
         long id = (long) session.getAttribute("id");
         User currentUser = new User();
@@ -154,14 +147,43 @@ public class ProfileController {
 
         }
 
-        address.setCityWithId(address.getCity());
-        address.setDistrictWithId(address.getDistrict());
-        address.setWardWithId(address.getWard());
+        String fullAddress = this.locationService.handleGetFullAddress(address.getCityId(), address.getDistrictId(),
+                address.getWardId(), address.getAddress());
         address.setUser(currentUser);
+        address.setReceiverLocation(fullAddress);
         this.userService.handleSaveAddress(address);
         redirectAttributes.addFlashAttribute("success", "Thêm địa chỉ thành công");
 
         return "redirect:" + referer;
+    }
+
+    @PostMapping("/update-address")
+    public String handleUpdateAddress(@ModelAttribute AddressDTO addressDTO, RedirectAttributes redirectAttributes,
+            HttpServletRequest request) {
+        String referer = request.getHeader("Referer");
+
+        HttpSession session = request.getSession(false);
+        long id = (long) session.getAttribute("id");
+        User currentUser = new User();
+
+        currentUser.setUser_id(id);
+        Address currentAddress = new Address();
+        currentAddress.setUser(currentUser);
+        currentAddress.setId(addressDTO.getIdAddress());
+        currentAddress.setCityId(addressDTO.getCity());
+        currentAddress.setDistrictId(addressDTO.getDistrict());
+        currentAddress.setWardId(addressDTO.getWard());
+        currentAddress.setReceiverName(addressDTO.getReceiverName());
+        currentAddress.setReceiverPhone(addressDTO.getReceiverPhone());
+        currentAddress.setAddress(addressDTO.getAddress());
+        String location = this.locationService.handleGetFullAddress(addressDTO.getCity(), addressDTO.getDistrict(),
+                addressDTO.getWard(), addressDTO.getAddress());
+        currentAddress.setReceiverLocation(location);
+        this.userService.handleSaveAddress(currentAddress);
+        redirectAttributes.addFlashAttribute("success", "Cập nhật chỉ thành công");
+
+        return "redirect:" + referer;
+
     }
 
     @PostMapping("/delete-address")
@@ -170,50 +192,6 @@ public class ProfileController {
         String referer = request.getHeader("Referer");
         this.userService.handleDeleteAddressById(id);
         redirectAttributes.addFlashAttribute("success", "Xoá địa chỉ thành công");
-
-        return "redirect:" + referer;
-    }
-
-    @PostMapping("/update-address")
-    public String updateAddress(HttpServletRequest request, RedirectAttributes redirectAttributes,
-            @RequestParam("idAddress") long id,
-            @RequestParam("receiverName") String receiverName,
-            @RequestParam("receiverPhone") String receiverPhone,
-            @RequestParam("city") String city,
-            @RequestParam("district") String district,
-            @RequestParam("ward") String ward,
-            @RequestParam("address") String newAddress
-
-    ) {
-        String referer = request.getHeader("Referer");
-
-        if (city.equals("0") || district.equals("0") || ward.equals("0")) {
-            redirectAttributes.addFlashAttribute("error", "Bạn chưa chọn đủ địa chỉ");
-            return "redirect:" + referer;
-        }
-
-        HttpSession session = request.getSession(false);
-        long userId = (long) session.getAttribute("id");
-        User currentUser = new User();
-        currentUser.setUser_id(userId);
-
-        Address address = new Address();
-
-        address.setId(id);
-        address.setAddress(newAddress);
-        address.setReceiverName(receiverName);
-        address.setReceiverPhone(receiverPhone);
-        address.setCityWithId(city);
-        String arrDistrict[] = district.split(",");
-        String newDistrict = arrDistrict[0];
-        address.setDistrict(newDistrict);
-        String newDistrictId = arrDistrict[1];
-        address.setDistrictId(newDistrictId);
-        address.setWardWithId(ward);
-        address.setUser(currentUser);
-        this.userService.handleSaveAddress(address);
-
-        redirectAttributes.addFlashAttribute("success", "Cập nhật địa chỉ thành công");
 
         return "redirect:" + referer;
     }

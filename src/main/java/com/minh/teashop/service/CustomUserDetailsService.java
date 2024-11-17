@@ -2,9 +2,11 @@ package com.minh.teashop.service;
 
 import java.util.Collections;
 
-import org.springframework.security.authentication.DisabledException;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.session.SessionRegistry;
+import org.springframework.security.core.session.SessionRegistryImpl;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -14,31 +16,24 @@ import org.springframework.stereotype.Service;
 public class CustomUserDetailsService implements UserDetailsService {
 
     private final UserService userService;
-    private final SessionRegistry sessionRegistry;
 
-    public CustomUserDetailsService(UserService userService, SessionRegistry sessionRegistry) {
+    public CustomUserDetailsService(UserService userService) {
         this.userService = userService;
-        this.sessionRegistry = sessionRegistry;
     }
+
+  
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        // TODO Auto-generated method stub
         com.minh.teashop.domain.User user = this.userService.getUserByEmail(username);
         if (user == null) {
-            throw new UsernameNotFoundException("Email không tồn tại");
+            throw new UsernameNotFoundException("User not found");
         }
-        if (user.getDeletedAt() != null) {
-            sessionRegistry.getAllSessions(username, false)
-                    .forEach(session -> session.expireNow());
-            throw new DisabledException("Tài khoản của bạn đã bị vô hiệu hóa.");
-
-        }
-
-        return new org.springframework.security.core.userdetails.User(
+        return new User(
                 user.getEmail(),
                 user.getPassword(),
                 Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + user.getRole().getName())));
-
     }
 
 }

@@ -13,7 +13,7 @@
     </button>
 
     <!-- Logo -->
-    <a href="./" class="logo top-bar__logo">
+    <a href="/client" class="logo top-bar__logo">
       <img
         src="/client/assets/icons/logo.svg"
         alt="grocerymart"
@@ -28,13 +28,15 @@
         <img class="icon" src="/client/assets/icons/arrow-left.svg" alt="" />
       </button>
 
-      <a href="./checkout.html" class="nav-btn d-none d-md-flex">
-        <img src="/client/assets/icons/buy.svg" alt="" class="nav-btn__icon icon" />
+      <a href="/clientcheckout.html" class="nav-btn d-none d-md-flex">
+        <img
+          src="/client/assets/icons/buy.svg"
+          alt=""
+          class="nav-btn__icon icon"
+        />
         <span class="nav-btn__title">Cart</span>
         <span class="nav-btn__qnt">3</span>
       </a>
-
-     
 
       <ul class="navbar__list js-dropdown-list">
         <li class="navbar__item">
@@ -4721,7 +4723,7 @@
                 />
                 <div class="act-dropdown__top">
                   <h2 class="act-dropdown__title">You have 3 item(s)</h2>
-                  <a href="./favourite.html" class="act-dropdown__view-all"
+                  <a href="/clientfavourite.html" class="act-dropdown__view-all"
                     >See All</a
                   >
                 </div>
@@ -4780,7 +4782,7 @@
                 <div class="act-dropdown__separate"></div>
                 <div class="act-dropdown__checkout">
                   <a
-                    href="./checkout.html"
+                    href="/clientcheckout.html"
                     class="btn btn--primary btn--rounded act-dropdown__checkout-btn"
                   >
                     Check Out All
@@ -4812,7 +4814,7 @@
                 />
                 <div class="act-dropdown__top">
                   <h2 class="act-dropdown__title">You have 3 item(s)</h2>
-                  <a href="./checkout.html" class="act-dropdown__view-all"
+                  <a href="/clientcheckout.html" class="act-dropdown__view-all"
                     >See All</a
                   >
                 </div>
@@ -4888,7 +4890,7 @@
                 </div>
                 <div class="act-dropdown__checkout">
                   <a
-                    href="./checkout.html"
+                    href="/clientcheckout.html"
                     class="btn btn--primary btn--rounded act-dropdown__checkout-btn"
                   >
                     Check Out All
@@ -4900,7 +4902,11 @@
         </div>
 
         <div class="top-act__user">
-          <img src="/client/assets/img/avatar.jpg" alt="" class="top-act__avatar" />
+          <img
+            src="/client/assets/img/avatar.jpg"
+            alt=""
+            class="top-act__avatar"
+          />
 
           <!-- Dropdown -->
           <div class="act-dropdown top-act__dropdown">
@@ -4925,10 +4931,12 @@
 
               <ul class="user-menu__list">
                 <li>
-                  <a href="./profile.html" class="user-menu__link">Profile</a>
+                  <a href="/clientprofile.html" class="user-menu__link"
+                    >Profile</a
+                  >
                 </li>
                 <li>
-                  <a href="./favourite.html" class="user-menu__link"
+                  <a href="/clientfavourite.html" class="user-menu__link"
                     >Favourite list</a
                   >
                 </li>
