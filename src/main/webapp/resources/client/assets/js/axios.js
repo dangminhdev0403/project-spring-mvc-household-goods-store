@@ -383,3 +383,75 @@ if (btnDown) {
     });
   });
 }
+
+// cancel Order
+function handelDisable(checks) {
+  checks.forEach(function (checkbox) {
+    if (checkbox.checked) {
+      checkbox.classList.add("d-none");
+      document.querySelector(".check-all-box").classList.add("d-none");
+    }
+  });
+}
+function sendCancel(e) {
+  e.preventDefault();
+  let url = e.target.href;
+  const checks = document.querySelectorAll(
+    'input.checkbox[type="checkbox"][name="shipping-adress"]'
+  );
+  const selectedValues = [];
+
+  checks.forEach(function (checkbox) {
+    if (checkbox.checked) {
+      selectedValues.push(checkbox.value);
+    }
+  });
+
+  let selectVal = selectedValues.join(",");
+
+  if (selectVal.length === 0) {
+    swal("Lỗi", "Bạn chưa chọn đơn hàng nào.", "error");
+    return; // Nếu không có đơn hàng nào được chọn, dừng lại.
+  }
+
+  // Hiển thị hộp thoại xác nhận trước khi huỷ
+  swal({
+    title: "Bạn có chắc chắn muốn huỷ các đơn hàng này?",
+    text: "Hành động này sẽ không thể hoàn tác!",
+    icon: "warning",
+    buttons: ["Hủy", "Đồng ý"],
+    dangerMode: true, // Hiển thị chế độ cảnh báo
+  }).then((willCancel) => {
+    if (willCancel) {
+      // Nếu người dùng chọn đồng ý huỷ
+      axios
+        .get(url, {
+          params: {
+            selectedAddresses: selectVal, // Truyền danh sách địa chỉ dưới dạng query params
+          },
+          headers: {
+            "X-CSRF-TOKEN": csrfToken, // Thêm CSRF token nếu cần
+          },
+        })
+        .then((response) => {
+          handelDisable(checks); // Xử lý disable các checkbox sau khi huỷ
+          swal("Thành công", response.data.message, "success");
+        })
+        .catch((error) => {
+          // Hiển thị thông báo lỗi nếu có
+          swal(
+            "Lỗi",
+            error.response?.data?.message || "Đã xảy ra lỗi. Vui lòng thử lại.",
+            "error"
+          );
+        });
+    } else {
+      swal("Đã huỷ hành động", "Đơn hàng của bạn vẫn chưa bị huỷ", "info");
+    }
+  });
+}
+
+const btnSend = document.querySelector(".cart-info__checkout-all");
+if (btnSend) {
+  btnSend.addEventListener("click", (e) => sendCancel(e));
+}

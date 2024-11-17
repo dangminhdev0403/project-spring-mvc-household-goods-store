@@ -7,6 +7,8 @@ import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -24,8 +27,11 @@ import com.minh.teashop.domain.Product;
 import com.minh.teashop.domain.User;
 import com.minh.teashop.domain.dto.AddressDTO;
 import com.minh.teashop.domain.dto.RegisterDTO;
+import com.minh.teashop.domain.enumdomain.OrderStatus;
+import com.minh.teashop.domain.response.ResponseMessage;
 import com.minh.teashop.domain.upload.UploadResponse;
 import com.minh.teashop.service.LocationService;
+import com.minh.teashop.service.OrderService;
 import com.minh.teashop.service.ProductService;
 import com.minh.teashop.service.UploadService;
 import com.minh.teashop.service.UserService;
@@ -44,6 +50,7 @@ public class ProfileController {
     private final UploadService uploadService;
     private final PasswordEncoder passwordEncoder;
     private final ProductService productService;
+    private final OrderService orderService;
     private final LocationService locationService;
 
     @GetMapping("/profile")
@@ -121,11 +128,42 @@ public class ProfileController {
     }
 
     @PostMapping("/cancel-oder")
-    public String postMethodName(HttpServletRequest request) {
+    public String postMethodName(HttpServletRequest request, RedirectAttributes redirectAttributes,
+            @RequestParam("orderId") long id) {
         String referer = request.getHeader("Referer");
+
+        Order currentOrder = orderService.getOrderById(id);
+
+        currentOrder.setStatus(OrderStatus.CANCELED);
+        this.orderService.handleSaveOrder(currentOrder);
+        redirectAttributes.addFlashAttribute("success", "Huỷ đơn hàng thành công");
 
         return "redirect:" + referer;
 
+    }
+
+    @GetMapping("/cancel-many")
+    @ResponseBody
+    public ResponseEntity<ResponseMessage> cancelMany(@RequestParam("selectedAddresses") String selectedAddresses) {
+        try {
+        if (!selectedAddresses.isEmpty()) {
+            String[] idsOder = selectedAddresses.split(",");
+            for (String id : idsOder) {
+                long idOrder = Long.parseLong(id);
+                Order currentOrder = orderService.getOrderById(idOrder);
+                this.orderService.handleSaveOrder(currentOrder);
+                currentOrder.setStatus(OrderStatus.CANCELED);
+            }
+            return ResponseEntity.ok(new ResponseMessage("Huỷ thành công"));
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+            .body(new ResponseMessage("Chưa chọn đơn hàng nào"));
+        }
+
+    } catch (Exception e) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(new ResponseMessage("fail"));
+    }
     }
 
     @PostMapping("/add-address")

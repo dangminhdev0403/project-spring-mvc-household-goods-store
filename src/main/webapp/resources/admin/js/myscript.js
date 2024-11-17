@@ -1,4 +1,3 @@
-
 function formatNumber(num) {
   if (typeof num !== "number" || isNaN(num)) {
     return "0,00";
@@ -29,19 +28,27 @@ formatPriceElements.forEach((priceElement) => {
   let numberPrice = parseFloat(priceElement.textContent);
   priceElement.textContent = formatPrice(numberPrice);
 });
-
 document.addEventListener("DOMContentLoaded", function () {
   const formatDate = document.querySelectorAll(".format-date");
-  if (formatDate) {
-    formatDate.forEach((dateElement) => {
-      const textDate = dateElement.textContent; // Lấy nội dung văn bản
 
-      // Sử dụng Moment.js để định dạng lại ngày
-      const formattedDate = moment(textDate).utc().format("HH:mm DD/MM/YYYY");
+  // Đảm bảo rằng locale tiếng Việt đã được tải và sử dụng
+  moment.locale("vi"); // Đặt locale toàn cục là tiếng Việt
 
-      // Cập nhật nội dung văn bản của phần tử
-      dateElement.textContent = formattedDate;
-    });
-  }
+  formatDate.forEach((dateElement) => {
+    let textDate = dateElement.textContent.trim(); // Lấy nội dung văn bản
+    console.log("Trước khi xử lý:", textDate);
+
+    // Nếu chuỗi có phân số giây, cắt bỏ dư thừa
+    if (textDate.includes(".")) {
+      textDate = textDate.replace(/\.\d+$/, ""); // Loại bỏ phân số giây dư thừa
+    }
+
+    // Định dạng ngày giờ theo múi giờ UTC và chuyển đổi sang giờ Việt Nam
+    const formattedDate = moment(textDate) // Đảm bảo thời gian là UTC
+      .local() // Chuyển đổi từ UTC sang múi giờ địa phương (GMT+7 - Việt Nam)
+      .format("HH:mm DD/MM/YYYY"); // Định dạng giờ và ngày theo định dạng Việt Nam
+
+    // Cập nhật nội dung văn bản
+    dateElement.textContent = formattedDate;
+  });
 });
-

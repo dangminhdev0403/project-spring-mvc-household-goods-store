@@ -43,9 +43,9 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                     />
                   </label>
                   <a
-                    href="/client/checkout.html"
+                    href="/cancel-many"
                     style="margin-left: 7.2rem"
-                    class="cart-info__checkout-all btn btn--primary btn--rounded is-cancel"
+                    class="cart-info__checkout-all btn btn--primary btn--rounded "
                   >
                     Huỷ đơn đã chọn
                   </a>
@@ -56,30 +56,38 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
                 <div  class="d-flex" style="justify-content: space-between; align-items: baseline;">
                   <h1 class="cart-info__heading" style="padding-top: 2rem;"> 
-                    <input
+
+                    <c:if test = "${order.status eq 'PENDING'}">
+                      <input
                       type="checkbox"
                       name="shipping-adress"
                       class="cart-info__checkbox-input checkbox"
-  
+                      value="${order.id}"
                     />
+                    </c:if>
+                  
                  Đơn hàng vào <span class="format-date" style="margin-left: 1rem;"> ${order.orderDate}</span></h1>
                
                
 
-                <form action="/cancel-oder" method="post">
+                 <c:if test = "${order.status eq 'PENDING'}">
+                  <form action="/cancel-oder" method="post">
 
-                  <input
-                  type="hidden"
-                  name="${_csrf.parameterName}"
-                  value="${_csrf.token}"
-                />
-                <input type="hidden" >
-                  <button style="margin-left: auto;"
-                  class="cart-item__checkout-btn btn btn--primary btn--rounded is-cancel"
-                >
-                  Huỷ
-                </button>
-                </form>
+                    <input
+                    type="hidden"
+                    name="${_csrf.parameterName}"
+                    value="${_csrf.token}"
+                  />
+                  <input type="hidden" value="${order.id}" name ="orderId" />
+                    <button style="margin-left: auto;"
+                    class="cart-item__checkout-btn btn btn--primary btn--rounded is-cancel"
+                  >
+                    Huỷ
+                  </button>
+                  </form>
+                 </c:if>
+                 
+               
               </div>
                  
                   <c:forEach var="orderDetail" items="${order.orderDetail}">
