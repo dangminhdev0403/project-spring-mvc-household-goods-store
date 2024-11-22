@@ -26,12 +26,12 @@ uri="http://java.sun.com/jsp/jstl/core" %>
       <ul class="nav nav-secondary">
         <li class="nav-item active">
           <a
-            href="/dashboard"
+            href="/admin"
             class="collapsed"
            
           >
             <i class="fas fa-home"></i>
-            <p href="/dashboard" >Dashboard</p>
+            <p href="/admin" >Dashboard</p>
           </a>
         </li>
         <li class="nav-section">

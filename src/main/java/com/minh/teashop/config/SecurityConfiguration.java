@@ -83,6 +83,7 @@ public class SecurityConfiguration {
                         .dispatcherTypeMatchers(DispatcherType.FORWARD, DispatcherType.INCLUDE)
                         .permitAll()
                         .requestMatchers("/header-logined", "/", "/login", "/register", "/products/**", "/product/**",
+                                "/about", "/contact", "/buy-now/**",
                                 "/error", "/reset-pass", "/forgot-pass", "/change-pass-home",
                                 "/verify", "/category",
                                 "/client/**", "/css/**", "/js/**",
@@ -96,7 +97,7 @@ public class SecurityConfiguration {
                 .sessionManagement((sessionManagement) -> sessionManagement
                         .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED) // Đảm bảo session được tạo ra khi cần
                         .invalidSessionUrl("/login?expired=true") // Chuyển hướng đến trang login khi session hết hạn
-                        .maximumSessions(100)
+                        .maximumSessions(1)
                         .maxSessionsPreventsLogin(false))
 
                 .logout(logout -> logout

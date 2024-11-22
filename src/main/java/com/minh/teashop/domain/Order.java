@@ -35,6 +35,8 @@ public class Order {
     private String receiverName;
     private String receiverAddress;
     private String receiverPhone;
+    private String customerCode; // Trường mã khách hàng
+
 
     @JsonFormat(pattern = "HH:mm dd/MM/yyyy")
     private LocalDateTime orderDate; // Thêm trường để lưu ngày đặt hàng
@@ -42,7 +44,7 @@ public class Order {
     @Enumerated(EnumType.STRING) // Lưu trạng thái dưới dạng chuỗi
     private OrderStatus status;
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = true) // nullable để hỗ trợ khi User bị xóa
     private User user;
 
     @OneToMany(mappedBy = "order")

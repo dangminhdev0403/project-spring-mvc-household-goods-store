@@ -2,6 +2,7 @@ package com.minh.teashop.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -33,6 +34,9 @@ import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 public class UserService {
+
+
+
     UserRepository userRepository;
 
     RoleRepository roleRepository;
@@ -51,6 +55,8 @@ public class UserService {
     @Transactional
     public User handleSaveUser(User user) {
         try {
+            String cusCode = generateCustomerCode();
+            user.setCustomerCode(cusCode);
             return this.userRepository.save(user);
         } catch (Exception e) {
             // Ghi log chi tiết để kiểm tra nguyên nhân gây ra lỗi
@@ -174,5 +180,14 @@ public class UserService {
         }
         return true;
     }
+    
+    public  String generateCustomerCode() {
+        // Lấy ID mới nhất của người dùng đã đăng ký
+        Long userCount = this.userRepository.count();  // Đếm số người dùng hiện có trong database
+                Random rand = new Random();
+                String randomPart = String.format("%04d", rand.nextInt(10000));  // Phần ngẫu nhiên
 
+
+                return "CUSTOM-" + String.format("%04d", userCount + 1) + "-" + randomPart;
+    }
 }

@@ -29,7 +29,7 @@ public class CustomSuccessHandle implements AuthenticationSuccessHandler {
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
             Authentication authentication) throws IOException, ServletException {
-        String targetUrl = determineTargetUrl(authentication);
+        String targetUrl = determineTargetUrl(authentication, request);
 
         if (response.isCommitted()) {
             return;
@@ -39,9 +39,11 @@ public class CustomSuccessHandle implements AuthenticationSuccessHandler {
         clearAuthenticationAttributes(request, authentication);
     }
 
-    protected String determineTargetUrl(final Authentication authentication) {
+    protected String determineTargetUrl(final Authentication authentication, final HttpServletRequest request) {
+
         Map<String, String> roleTargetUrlMap = new HashMap<>();
         roleTargetUrlMap.put("ROLE_CUSTOMER", "/");
+        roleTargetUrlMap.put("ROLE_COLLABORATOR", "/");
         roleTargetUrlMap.put("ROLE_ADMIN", "/admin");
 
         final Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();

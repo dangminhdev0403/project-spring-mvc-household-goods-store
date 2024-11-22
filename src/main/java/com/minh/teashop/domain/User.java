@@ -43,6 +43,9 @@ public class User {
     private String phone;
     private String avatar;
     private String urlAvatar;
+    private String cccdFrontUrl;
+    private String cccdBackUrl;
+    private String customerCode; // Trường mã khách hàng
 
     @ManyToOne
     @JoinColumn(name = "role_id")
@@ -58,31 +61,29 @@ public class User {
 
     private boolean enabled;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.REMOVE)  // Xóa Token khi User bị xóa
+    @OneToOne(mappedBy = "user", cascade = CascadeType.REMOVE) // Xóa Token khi User bị xóa
     private VerificationToken verificationToken;
-    
-    @OneToOne(mappedBy = "user", cascade = CascadeType.REMOVE)  // Xóa Token khi User bị xóa
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.REMOVE) // Xóa Token khi User bị xóa
     private ResetToken resetToken;
 
+    private LocalDateTime deletedAt;
 
- private LocalDateTime deletedAt;
-
-    
     public ResetToken getResetToken() {
-    return resetToken;
-}
+        return resetToken;
+    }
 
-public void setResetToken(ResetToken resetToken) {
-    this.resetToken = resetToken;
-}
+    public void setResetToken(ResetToken resetToken) {
+        this.resetToken = resetToken;
+    }
 
-public LocalDateTime getDeletedAt() {
-    return deletedAt;
-}
+    public LocalDateTime getDeletedAt() {
+        return deletedAt;
+    }
 
-public void setDeletedAt(LocalDateTime deletedAt) {
-    this.deletedAt = deletedAt;
-}
+    public void setDeletedAt(LocalDateTime deletedAt) {
+        this.deletedAt = deletedAt;
+    }
 
     public List<Order> getOrders() {
         return orders;
@@ -179,6 +180,22 @@ public void setDeletedAt(LocalDateTime deletedAt) {
         return urlAvatar;
     }
 
+    public String getCccdFrontUrl() {
+        return cccdFrontUrl;
+    }
+
+    public void setCccdFrontUrl(String cccdFrontUrl) {
+        this.cccdFrontUrl = cccdFrontUrl;
+    }
+
+    public String getCccdBackUrl() {
+        return cccdBackUrl;
+    }
+
+    public void setCccdBackUrl(String cccdBackUrl) {
+        this.cccdBackUrl = cccdBackUrl;
+    }
+
     public void setUrlAvatar(String urlAvatar) {
         this.urlAvatar = urlAvatar;
     }
@@ -194,6 +211,14 @@ public void setDeletedAt(LocalDateTime deletedAt) {
     public User orElse(Object object) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'orElse'");
+    }
+
+    public String getCustomerCode() {
+        return customerCode;
+    }
+
+    public void setCustomerCode(String customerCode) {
+        this.customerCode = customerCode;
     }
 
 }

@@ -2,11 +2,13 @@ package com.minh.teashop.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import com.minh.teashop.domain.Order;
+import com.minh.teashop.domain.User;
 import com.minh.teashop.repository.OrderRepository;
 import com.minh.teashop.service.specification.OrderSpecs;
 
@@ -37,6 +39,28 @@ public class OrderService {
     }
 
     public Order handleSaveOrder(Order order) {
+
+        if (order.getCustomerCode() == null) {
+            String cusCode;
+            User currentUser = order.getUser();
+            if (currentUser != null) {
+                cusCode = currentUser.getCustomerCode();
+            } else {
+                cusCode = generateCustomerCode();
+
+            }
+            order.setCustomerCode(cusCode);
+        }
+
         return this.orderRepository.save(order);
+    }
+
+    public String generateCustomerCode() {
+        // Lấy ID mới nhất của người dùng đã đăng ký
+        Long userCount = this.orderRepository.count(); // Đếm số người dùng hiện có trong database
+        Random rand = new Random();
+        String randomPart = String.format("%04d", rand.nextInt(10000)); // Phần ngẫu nhiên
+
+        return "CUSTOM-" + String.format("%04d", userCount + 1) + "-" + randomPart;
     }
 }

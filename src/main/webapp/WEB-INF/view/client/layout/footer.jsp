@@ -7,12 +7,12 @@ uri="http://www.springframework.org/tags/form" %>
             <!-- Cột 1 -->
             <div class="footer__col">
                 <!-- Logo -->
-                <a href="/client" class="logo footer__logo">
-                    <img src="/client/assets/icons/logo.svg" alt="grocerymart" class="logo__img" />
-                    <h1 class="logo__title">Grocery Mart</h1>
+                <a href="/" class="logo footer__logo">
+                    <img src="/client/assets/icons/logo.svg" alt="Thế Giới Gia Dụng" class="logo__img" />
+                    <h1 class="logo__title">Thế Giới Gia Dụng</h1>
                 </a>
                 <p class="footer__desc">
-                    Grocery Mart - nơi bạn tìm thấy những sản phẩm tốt nhất cho nhu cầu hàng ngày của bạn.
+                    Thế Giới Gia Dụng - nơi bạn tìm thấy những sản phẩm tốt nhất cho nhu cầu hàng ngày của bạn.
                 </p>
 
                 
@@ -56,7 +56,7 @@ uri="http://www.springframework.org/tags/form" %>
             <div class="footer__col">
                 <h3 class="footer__heading">Liên hệ</h3>
                 <ul class="footer__list">
-                    <li><p class="footer__label">Email</p><a href="mailto:contact@grocerymart.com" class="footer__link">contact@grocerymart.com</a></li>
+                    <li><p class="footer__label">Email</p><a href="mailto:contact@Thế Giới Gia Dụng.com" class="footer__link">contact@Thế Giới Gia Dụng.com</a></li>
                     <li><p class="footer__label">Hotline</p><a href="tel:18008888" class="footer__link">18008888</a></li>
                     <li><p class="footer__label">Địa chỉ</p><p class="footer__text">Số 11D, Lô A10, Khu đô thị Nam Trung Yên, Phường Yên Hòa, Quận Cầu Giấy, TP. Hà Nội</p></li>
                     <li><p class="footer__label">Giờ làm việc</p><p class="footer__text">Thứ 2 - Thứ 6 08:00 sáng - 06:00 chiều</p></li>
@@ -65,7 +65,7 @@ uri="http://www.springframework.org/tags/form" %>
         </div>
 
         <div class="footer__bottom">
-            <p class="footer__copyright">© 2010 - 2025 Grocery Mart. Bản quyền thuộc về Grocery Mart.</p>
+            <p class="footer__copyright">© 2010 - 2025 Thế Giới Gia Dụng. Bản quyền thuộc về Thế Giới Gia Dụng.</p>
     
             <div class="footer__socials">
                 <a href="#!" class="footer__social-link footer__social-link--facebook"><img src="/client/assets/icons/facebook.svg" alt="" class="footer__social-icon" /></a>

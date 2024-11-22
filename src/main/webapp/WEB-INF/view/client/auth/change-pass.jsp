@@ -100,10 +100,10 @@ uri="http://www.springframework.org/tags/form" %>
         <a href="/" class="logo auth__intro-logo d-none d-md-flex">
           <img
             src="client/assets/icons/logo.svg"
-            alt="grocerymart"
+            alt="Thế Giới Gia Dụng"
             class="logo__img"
           />
-          <h1 class="logo__title">grocerymart</h1>
+          <h1 class="logo__title">Thế Giới Gia Dụng</h1>
         </a>
         <img
           src="client/assets/img/auth/intro.svg"
@@ -128,10 +128,10 @@ uri="http://www.springframework.org/tags/form" %>
           <a href="client/" class="logo">
             <img
               src="client/assets/icons/logo.svg"
-              alt="grocerymart"
+              alt="Thế Giới Gia Dụng"
               class="logo__img"
             />
-            <h1 class="logo__title">grocerymart</h1>
+            <h1 class="logo__title">Thế Giới Gia Dụng</h1>
           </a>
           <h1 class="auth__heading">Quên mật khẩu</h1>
           <p class="auth__desc">

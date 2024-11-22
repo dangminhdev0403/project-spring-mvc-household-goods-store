@@ -13,7 +13,7 @@
     </button>
 
     <!-- Logo -->
-    <a href="/client" class="logo top-bar__logo">
+    <a href="/" class="logo top-bar__logo">
       <img
         src="/client/assets/icons/logo.svg"
         alt="grocerymart"

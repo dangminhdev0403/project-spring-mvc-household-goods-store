@@ -83,9 +83,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                 </div>
                 <div class="filter__form-group">
                   <div class="form__tags">
-                    <button class="form__tag prod-info__tag">Small</button>
-                    <button class="form__tag prod-info__tag">Medium</button>
-                    <button class="form__tag prod-info__tag">Large</button>
+                   
                   </div>
                   <div
                     class="cart-item__input"
@@ -196,6 +194,14 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                         >
                           Thêm vào giỏ hàng
                         </a>
+                        
+                        <a  
+                        href="/buy-now/${product.product_id}"
+                        class="btn btn--primary buy-product-now"
+                        style="cursor: pointer ; margin-top: 1rem; background-color: #fa5e5e;"
+                      >
+                        Mua ngay
+                      </a>
                       </form>
 
                       <!-- <button class="like-btn prod-info__like-btn">
@@ -225,7 +231,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
       <div class="prod-tab js-tabs">
         <ul class="prod-tab__list">
           <li class="prod-tab__item prod-tab__item--current">Mô tả</li>
-          <li class="prod-tab__item">Bình luận (1100)</li>
+          <!-- <li class="prod-tab__item">Bình luận (1100)</li> -->
           <li class="prod-tab__item">Sản phẩm liên quan</li>
         </ul>
         <div class="prod-tab__contents">
@@ -238,167 +244,8 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
               </div>
             </div>
           </div>
-          <div class="prod-tab__content">
-            <div class="prod-content">
-              <h2 class="prod-content__heading">
-                What our customers are saying
-              </h2>
-              <div class="row row-cols-3 gx-lg-2 row-cols-md-1 gy-md-3">
-                <!-- Review card 1 -->
-                <div class="col">
-                  <div class="review-card">
-                    <div class="review-card__content">
-                      <img
-                        src="/client/assets/img/avatar/avatar-1.png"
-                        alt=""
-                        class="review-card__avatar"
-                      />
-                      <div class="review-card__info">
-                        <h4 class="review-card__title">Jakir Hussen</h4>
-                        <p class="review-card__desc">
-                          Great product, I love this Coffee Beans
-                        </p>
-                      </div>
-                    </div>
-                    <div class="review-card__rating">
-                      <div class="review-card__star-list">
-                        <img
-                          src="/client/assets/icons/star.svg"
-                          alt=""
-                          class="review-card__star"
-                        />
-                        <img
-                          src="/client/assets/icons/star.svg"
-                          alt=""
-                          class="review-card__star"
-                        />
-                        <img
-                          src="/client/assets/icons/star.svg"
-                          alt=""
-                          class="review-card__star"
-                        />
-                        <img
-                          src="/client/assets/icons/star-half.svg"
-                          alt=""
-                          class="review-card__star"
-                        />
-                        <img
-                          src="/client/assets/icons/star-blank.svg"
-                          alt=""
-                          class="review-card__star"
-                        />
-                      </div>
-                      <span class="review-card__rating-title"
-                        >(3.5) Review</span
-                      >
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Review card 2 -->
-                <div class="col">
-                  <div class="review-card">
-                    <div class="review-card__content">
-                      <img
-                        src="/client/assets/img/avatar/avatar-2.png"
-                        alt=""
-                        class="review-card__avatar"
-                      />
-                      <div class="review-card__info">
-                        <h4 class="review-card__title">Jubed Ahmed</h4>
-                        <p class="review-card__desc">
-                          Awesome Coffee, I love this Coffee Beans
-                        </p>
-                      </div>
-                    </div>
-                    <div class="review-card__rating">
-                      <div class="review-card__star-list">
-                        <img
-                          src="/client/assets/icons/star.svg"
-                          alt=""
-                          class="review-card__star"
-                        />
-                        <img
-                          src="/client/assets/icons/star.svg"
-                          alt=""
-                          class="review-card__star"
-                        />
-                        <img
-                          src="/client/assets/icons/star.svg"
-                          alt=""
-                          class="review-card__star"
-                        />
-                        <img
-                          src="/client/assets/icons/star-half.svg"
-                          alt=""
-                          class="review-card__star"
-                        />
-                        <img
-                          src="/client/assets/icons/star-blank.svg"
-                          alt=""
-                          class="review-card__star"
-                        />
-                      </div>
-                      <span class="review-card__rating-title"
-                        >(3.5) Review</span
-                      >
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Review card 3 -->
-                <div class="col">
-                  <div class="review-card">
-                    <div class="review-card__content">
-                      <img
-                        src="/client/assets/img/avatar/avatar-3.png"
-                        alt=""
-                        class="review-card__avatar"
-                      />
-                      <div class="review-card__info">
-                        <h4 class="review-card__title">Delwar Hussain</h4>
-                        <p class="review-card__desc">
-                          Great product, I like this Coffee Beans
-                        </p>
-                      </div>
-                    </div>
-                    <div class="review-card__rating">
-                      <div class="review-card__star-list">
-                        <img
-                          src="/client/assets/icons/star.svg"
-                          alt=""
-                          class="review-card__star"
-                        />
-                        <img
-                          src="/client/assets/icons/star.svg"
-                          alt=""
-                          class="review-card__star"
-                        />
-                        <img
-                          src="/client/assets/icons/star.svg"
-                          alt=""
-                          class="review-card__star"
-                        />
-                        <img
-                          src="/client/assets/icons/star-half.svg"
-                          alt=""
-                          class="review-card__star"
-                        />
-                        <img
-                          src="/client/assets/icons/star-blank.svg"
-                          alt=""
-                          class="review-card__star"
-                        />
-                      </div>
-                      <span class="review-card__rating-title"
-                        >(3.5) Review</span
-                      >
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <!-- comment -->
+          <!-- end comment -->
           <div class="prod-tab__content">
             <div class="prod-content">
               <h2 class="prod-content__heading">Có thể bạn quan tâm</h2>
@@ -413,8 +260,8 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                 >
                   <!-- Product card 1 -->
                   <div class="col">
-                    <article class="cart-preview-item">
-                      <div class="cart-preview-item__img-wrap">
+                    <article class="product-card">
+                      <div class="product-card__img-wrap">
                         <a href="/product/${pr.product_id}">
                           <img
                             src="${pr.productImages[0].url}"

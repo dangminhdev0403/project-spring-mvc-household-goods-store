@@ -57,7 +57,11 @@ function addToCart(url, quantity, qtyProduct) {
       }
     })
     .catch((error) => {
-      swal("Lỗi", error.message, "error");
+      // swal("Lỗi", error.message, "error");
+      window.location.href = "/login"; // Đường dẫn đến trang đăng nhập
+            swal("Lỗi", "Hãy đăng nhập để tiếp tục", "error");
+
+
     });
 }
 

@@ -5,7 +5,7 @@ uri="http://www.springframework.org/tags/form" %>
 <html lang="vi">
   <head>
     <meta name="_csrf" content="${_csrf.token}" />
-    <meta name="_csrf_header" content="${_csrf.headerName}" />  
+    <meta name="_csrf_header" content="${_csrf.headerName}" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Đăng nhập | Grocery Mart</title>
@@ -103,17 +103,22 @@ uri="http://www.springframework.org/tags/form" %>
           <a href="/" class="logo">
             <img
               src="client/assets/icons/logo.svg"
-              alt="grocerymart"
+              alt="Thế Giới Gia Dụng"
               class="logo__img"
             />
-            <h2 class="logo__title">grocerymart</h2>
+            <h2 class="logo__title">Thế Giới Gia Dụng</h2>
           </a>
           <h1 class="auth__heading">Chào mừng bạn trở lại!</h1>
           <p class="auth__desc">
             "Chúng tôi rất vui khi bạn trở lại! Bạn có quyền truy cập vào tất cả
             thông tin trước đây của mình."
           </p>
-          <form action="/login" method="post" class="form auth__form" id="form-login">
+          <form
+            action="/login"
+            method="post"
+            class="form auth__form"
+            id="form-login"
+          >
             <c:if test="${param.error != null}">
               <c:if test="${param.error eq 'not-found'}">
                 <p
@@ -161,7 +166,6 @@ uri="http://www.springframework.org/tags/form" %>
                   class="form__input"
                   autocomplete
                   autofocus
-                  
                 />
                 <img
                   src="client/assets/icons/message.svg"
@@ -200,7 +204,6 @@ uri="http://www.springframework.org/tags/form" %>
             </div>
             <div class="form__group auth__btn-group">
               <button class="btn btn--primary auth__btn">Đăng Nhập</button>
-             
             </div>
           </form>
 

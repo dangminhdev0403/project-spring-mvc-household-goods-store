@@ -200,6 +200,7 @@ public class HomePageController {
         user.setPassword(hashPassword);
         user.setRole(this.userService.getRoleByName("CUSTOMER"));
         user.setEnabled(false);
+        
         User newUser = this.userService.handleSaveUser(user);
 
         this.emailService.sendEmailVerify(newUser);

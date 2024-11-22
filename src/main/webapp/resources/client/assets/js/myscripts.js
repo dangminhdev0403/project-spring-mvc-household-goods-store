@@ -51,27 +51,30 @@ cartItems.forEach((cartItem) => {
   const updateTotalPrice = () => {
     let totalProduct = totalPrice(quantity, price);
     totalP.textContent = formatNumber(totalProduct);
+
     updateCartTotal(); // Cập nhật tổng giỏ hàng
   };
 
   // Sự kiện giảm số lượng
-  minusBtn.addEventListener("click", (e) => {
-    e.preventDefault();
+  if (minusBtn)
+    minusBtn.addEventListener("click", (e) => {
+      e.preventDefault();
 
-    if (quantity > 1) {
-      --quantity;
-      quantitySpan.textContent = quantity;
-      updateTotalPrice();
-    }
-  });
+      if (quantity > 1) {
+        --quantity;
+        quantitySpan.textContent = quantity;
+        updateTotalPrice();
+      }
+    });
 
   // Sự kiện tăng số lượng
-  plusBtn.addEventListener("click", (e) => {
-    e.preventDefault();
-    ++quantity;
-    quantitySpan.textContent = quantity;
-    updateTotalPrice();
-  });
+  if (plusBtn)
+    plusBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      ++quantity;
+      quantitySpan.textContent = quantity;
+      updateTotalPrice();
+    });
 });
 
 // Cập nhật tổng giỏ hàng
@@ -136,6 +139,7 @@ if (inputRadio1) {
   let currentShip = parseFloat(removeDotsAndLetters(priceShipSpan.textContent));
 
   const subTotalSpan = document.querySelector("#sub-total");
+
   let subTotal = parseFloat(removeDotsAndLetters(subTotalSpan.textContent));
 
   const sumPrice = document.querySelectorAll(".sum-total");
@@ -428,28 +432,33 @@ if (btnReset) {
     });
   });
 
-  // preview avatar
-  const fileInput = document.getElementById("avatarImg");
-  const previewImage = document.getElementById("img-preview");
-  if (fileInput && previewImage) {
-    fileInput.addEventListener("change", (event) => {
-      const file = event.target.files[0];
+  // Hàm xử lý preview ảnh
+  function setupImagePreview(fileInputId, previewImageId) {
+    const fileInput = document.getElementById(fileInputId);
+    const previewImage = document.getElementById(previewImageId);
 
-      if (file) {
-        // Tạo URL để hiển thị ảnh
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          previewImage.src = e.target.result;
-          previewImage.style.display = "block";
-        };
-        reader.readAsDataURL(file);
-      } else {
-        // Nếu không có file, ẩn preview
-        previewImage.src = "";
-        previewImage.style.display = "none";
-      }
-    });
+    if (fileInput && previewImage) {
+      fileInput.addEventListener("change", (event) => {
+        const file = event.target.files[0];
+
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            previewImage.src = e.target.result;
+            previewImage.style.display = "block";
+          };
+          reader.readAsDataURL(file);
+        } else {
+          previewImage.src = "";
+          previewImage.style.display = "none";
+        }
+      });
+    }
   }
+
+  // Cài đặt preview cho các cặp input và image
+  setupImagePreview("avatarImg", "img-preview");
+  setupImagePreview("avatarImg2", "img-preview2");
 }
 
 const togglePasswords = document.querySelectorAll(".togglePassword");
@@ -486,14 +495,14 @@ function renderPagin(element, currentPage, totalPage) {
 
   // Hiển thị các trang xung quanh trang hiện tại
   const startPage = Math.max(1, currentPage - 2);
-  const endPage = Math.min(totalPage, currentPage + 2);
+  const endPage = Math.min(totalPage, currentPage + 4);
   for (let i = startPage; i <= endPage; i++) {
     pagesToShow.push(i);
   }
 
   // Hiển thị trang cuối cùng
   if (currentPage < totalPage - 2) {
-    if (currentPage < totalPage - 3) pagesToShow.push("...");
+    if (currentPage < totalPage - 5) pagesToShow.push("...");
     pagesToShow.push(totalPage);
   }
 
@@ -543,6 +552,19 @@ document.addEventListener("DOMContentLoaded", function () {
     const pageLinks = pagination.querySelectorAll(".page-link");
     if (pageLinks) {
       pageLinks.forEach((page) => {
+        const next = page.nextElementSibling;
+        const prev = page.previousElementSibling;
+
+        if (next || prev) {
+          if (next && next.href === page.href) {
+            // Remove the next element if it's a duplicate
+            next.remove();
+          } else if (prev && prev.href === page.href) {
+            // Remove the current element if it's a duplicate
+            page.remove();
+          }
+        }
+
         page.addEventListener("click", function (e) {
           e.preventDefault();
           let hrefValue = page.href;
@@ -670,16 +692,121 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
-
-
 document.addEventListener("DOMContentLoaded", function () {
-  const sellectAll = document.querySelector('.check-all-box');
-  if(sellectAll){
-    const selects = document.querySelectorAll('input.checkbox');
-    const count = selects.length;  // Đếm số phần tử trong NodeList
-    if(count === 0){
-      sellectAll.classList.add('d-none');
+  const sellectAll = document.querySelector(".check-all-box");
+  if (sellectAll) {
+    const selects = document.querySelectorAll("input.checkbox");
+    const count = selects.length; // Đếm số phần tử trong NodeList
+    if (count === 0) {
+      sellectAll.classList.add("d-none");
     }
   }
-})
+});
 
+const btnBuys = document.querySelectorAll("a.buy-product-now");
+if (btnBuys) {
+  btnBuys.forEach((btn) => {
+    btn.addEventListener("click", function (e) {
+      e.preventDefault();
+      url = btn.href;
+      const form = btn.closest("form");
+      form.setAttribute("action", url);
+
+      form.submit();
+    });
+  });
+}
+
+// pay now
+const prevBtn = document.getElementById("prev-btn");
+const nextBtn = document.getElementById("next-btn");
+const qty1 = document.querySelectorAll("span.quantity");
+const sumPrice2 = document.querySelectorAll("span.sumPrice");
+const total2 = document.querySelectorAll("span.sum-total");
+const shipSpans = document.querySelectorAll(
+  "span.payment-item__cost.format-price"
+);
+
+const inputTotal = document.getElementById("total-place");
+const priceSpan = document.querySelector("span.cart-item__status.format-price");
+// console.log(priceSpan.textContent);
+
+const price = parseFloat(removeDotsAndLetters(priceSpan.textContent));
+
+if (prevBtn) {
+  prevBtn.addEventListener("click", function (e) {
+    e.preventDefault();
+    let shipPrice;
+    if (shipSpans) {
+      shipSpans.forEach((shipSpan) => {
+        const radio = shipSpan.parentElement.querySelector(
+          'input[type="radio"]'
+        );
+        if (radio.checked === true) {
+          shipPrice = parseFloat(removeDotsAndLetters(shipSpan.textContent));
+        }
+      });
+    }
+
+    if (qty1) {
+      qty1.forEach((qty, index) => {
+        quantity = parseInt(qty.textContent);
+        if (quantity > 1) {
+          // Kiểm tra để không giảm dưới 0
+          qty.textContent = --quantity;
+
+          if (sumPrice2 && sumPrice2[index]) {
+            let totalPrice = parseFloat(quantity) * price;
+            sumPrice2[index].textContent = formatNumber(totalPrice);
+            if (total2 && total2[index + 1]) {
+              total2[index].textContent = formatNumber(shipPrice + totalPrice);
+              inputTotal.value = shipPrice + totalPrice;
+            }
+          }
+        }
+      });
+    }
+  });
+}
+
+if (nextBtn) {
+  nextBtn.addEventListener("click", function (e) {
+    e.preventDefault();
+    let shipPrice;
+    if (shipSpans) {
+      shipSpans.forEach((shipSpan) => {
+        const radio = shipSpan.parentElement.querySelector(
+          'input[type="radio"]'
+        );
+        if (radio.checked === true) {
+          shipPrice = parseFloat(removeDotsAndLetters(shipSpan.textContent));
+        }
+      });
+    }
+
+    if (qty1) {
+      qty1.forEach((qty, index) => {
+        quantity = parseInt(qty.textContent);
+        qty.textContent = ++quantity;
+        if (sumPrice2 && sumPrice2[index]) {
+          let totalPrice = parseFloat(quantity) * price;
+
+          sumPrice2[index].textContent = formatNumber(totalPrice);
+
+          if (total2 && total2[index]) {
+            total2[index].textContent = formatNumber(shipPrice + totalPrice);
+            inputTotal.value = shipPrice + totalPrice;
+          }
+        }
+      });
+    }
+  });
+}
+
+window.addEventListener("DOMContentLoaded", () => {
+  const radio = document.querySelector('input[type="radio"]');
+ 
+      radio.setAttribute("checked", "checked");
+   
+  
+});

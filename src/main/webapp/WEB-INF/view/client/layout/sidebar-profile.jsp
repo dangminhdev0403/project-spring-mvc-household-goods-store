@@ -81,21 +81,21 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
             Lịch sử mua hàng
           </a>
         </li>
+
+        <li>
+          <a href="affiliates" class="profile-menu__link">
+            <span class="profile-menu__icon">
+              <img src="/client/assets/icons/gift-2.svg" alt="" class="icon" />
+            </span>
+            Đăng kí cộng tác viên
+          </a>
+        </li>
         <li>
           <a href="#!" class="profile-menu__link">
             <span class="profile-menu__icon">
               <img src="/client/assets/icons/heart.svg" alt="" class="icon" />
             </span>
             Chờ cập nhật
-          </a>
-        </li>
-        <li>
-          <a href="#!" class="profile-menu__link">
-            <span class="profile-menu__icon">
-              <img src="/client/assets/icons/gift-2.svg" alt="" class="icon" />
-            </span>
-            Chờ cập nhật
-
           </a>
         </li>
       </ul>

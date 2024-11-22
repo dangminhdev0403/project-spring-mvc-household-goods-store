@@ -113,8 +113,14 @@ uri="http://www.springframework.org/tags/form" %>
                     <button type="button" class="close-btn border-0 bg-danger rounded-circle text-white removeImage" ><i class="fas fa-times"></i></button>
                     <img class="imagePreview" src="" alt="Preview" style="max-width: 283px; display: none;">
                 </div>
+
+
                 </div>
               </div>
+              <div class="col-md-6 col-lg-4 " style="display: flex; gap: 30px;">
+                <img src="${newUser.cccdFrontUrl}" style="width: 50%;" alt="">
+                <img src="${newUser.cccdBackUrl}"  style="width: 50%;"alt="">
+</div>
             </div>
           </div>
           <div class="card-action">

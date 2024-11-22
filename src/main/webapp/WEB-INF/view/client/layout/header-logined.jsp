@@ -22,10 +22,10 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
     <a href="/" class="logo top-bar__logo">
       <img
         src="/client/assets/icons/logo.svg"
-        alt="grocerymart"
+        alt="Thế Giới Gia Dụng"
         class="logo__img top-bar__logo-img"
       />
-      <h1 class="logo__title top-bar__logo-title">grocerymart</h1>
+      <h1 class="logo__title top-bar__logo-title">Thế Giới Gia Dụng</h1>
     </a>
 
     <!-- Navbar -->
@@ -117,9 +117,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         <li class="navbar__item">
           <a href="/about" class="navbar__link"> Giới thiệu</a>
         </li>
-        <li class="navbar__item">
-          <a href="/contact" class="navbar__link"> Liên hệ</a>
-        </li>
+      
       </ul>
     </nav>
     <div class="navbar__overlay js-toggle" toggle-target="#navbar"></div>

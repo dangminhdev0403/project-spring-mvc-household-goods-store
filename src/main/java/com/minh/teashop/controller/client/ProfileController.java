@@ -93,7 +93,7 @@ public class ProfileController {
     public String getOrderHistoryPage(Model model, HttpServletRequest request,
             @RequestParam(value = "search") Optional<String> nameSearch,
             @RequestParam(value = "page", defaultValue = "1") int page) {
-        Pageable pageable = PageRequest.of(page - 1, 5);
+        Pageable pageable = PageRequest.of(page - 1, 10);
 
         if (nameSearch.isPresent()) {
             // Tìm kiếm sản phẩm
@@ -146,24 +146,24 @@ public class ProfileController {
     @ResponseBody
     public ResponseEntity<ResponseMessage> cancelMany(@RequestParam("selectedAddresses") String selectedAddresses) {
         try {
-        if (!selectedAddresses.isEmpty()) {
-            String[] idsOder = selectedAddresses.split(",");
-            for (String id : idsOder) {
-                long idOrder = Long.parseLong(id);
-                Order currentOrder = orderService.getOrderById(idOrder);
-                this.orderService.handleSaveOrder(currentOrder);
-                currentOrder.setStatus(OrderStatus.CANCELED);
+            if (!selectedAddresses.isEmpty()) {
+                String[] idsOder = selectedAddresses.split(",");
+                for (String id : idsOder) {
+                    long idOrder = Long.parseLong(id);
+                    Order currentOrder = orderService.getOrderById(idOrder);
+                    this.orderService.handleSaveOrder(currentOrder);
+                    currentOrder.setStatus(OrderStatus.CANCELED);
+                }
+                return ResponseEntity.ok(new ResponseMessage("Huỷ thành công"));
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body(new ResponseMessage("Chưa chọn đơn hàng nào"));
             }
-            return ResponseEntity.ok(new ResponseMessage("Huỷ thành công"));
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-            .body(new ResponseMessage("Chưa chọn đơn hàng nào"));
-        }
 
-    } catch (Exception e) {
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(new ResponseMessage("fail"));
-    }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new ResponseMessage("fail"));
+        }
     }
 
     @PostMapping("/add-address")
@@ -372,6 +372,89 @@ public class ProfileController {
         redirectAttributes.addFlashAttribute("success", "Cập nhật thành công");
         return "redirect:/manager-password";
 
+    }
+
+    @GetMapping("/affiliates")
+    public String getResgisAffilate(HttpServletRequest request, Model model,
+            @RequestParam(value = "search") Optional<String> nameSearch) {
+
+        if (nameSearch.isPresent()) {
+            // Tìm kiếm sản phẩm
+            String nameProduct = nameSearch.get();
+            Pageable pageable = PageRequest.of(0, 20);
+            Page<Product> listProductPage = productService.fetchProducts(pageable, nameProduct);
+
+            model.addAttribute("listProduct", listProductPage.getContent());
+            model.addAttribute("currentPage", 1);
+            model.addAttribute("totalPages", listProductPage.getTotalPages());
+            model.addAttribute("nameProduct", nameProduct);
+            model.addAttribute("title", "Trang chủ");
+
+            return "client/homepage/show";
+        }
+
+        // Hiển thị trang quản lý tài khoản nếu không có tìm kiếm
+        HttpSession session = request.getSession(false);
+        if (session != null && session.getAttribute("id") != null) {
+            long id = (long) session.getAttribute("id");
+            User currentUser = userService.getUserById(id);
+
+            model.addAttribute("currentUser", currentUser);
+            model.addAttribute("title", "Đăng kí công tác viên");
+            model.addAttribute("enabled", currentUser.isEnabled());
+
+            return "client/profile/affiliates";
+        }
+        return "client/profile/affiliates";
+    }
+
+    @PostMapping("register-affilate")
+    public String handleResAffilate(HttpServletRequest request, Model model,
+            @RequestParam("cccdFrontUrl") MultipartFile cccdFrontUrl,
+            @RequestParam("cccdBackUrl") MultipartFile cccdBackUrl,
+            RedirectAttributes redirectAttributes) {
+        HttpSession session = request.getSession(false);
+
+        long id = (long) session.getAttribute("id");
+        User currentUser = this.userService.getUserById(id);
+
+        if (currentUser != null) {
+
+            if (currentUser.isEnabled() != false) {
+                if (cccdFrontUrl.getOriginalFilename() != "" && cccdBackUrl.getOriginalFilename() != "")
+
+                {
+
+                    if (currentUser.getCccdBackUrl() != null || currentUser.getCccdFrontUrl() != null) {
+                        this.uploadService.handleDeleteFile(currentUser.getCccdFrontUrl());
+                        this.uploadService.handleDeleteFile(currentUser.getCccdBackUrl());
+
+                    }
+
+                    UploadResponse response = this.uploadService.handleSaveUploadFile(cccdFrontUrl, "cccd");
+                    UploadResponse response2 = this.uploadService.handleSaveUploadFile(cccdFrontUrl, "cccd");
+
+                    currentUser.setCccdFrontUrl(response.getUrl());
+                    currentUser.setCccdBackUrl(response2.getUrl());
+
+                    this.userService.handleSaveUser(currentUser);
+
+                } else {
+                    redirectAttributes.addFlashAttribute("error", "Bạn chưa nhập đủ thông tin");
+                    return "redirect:/affiliates";
+
+                }
+
+            }else{
+                redirectAttributes.addFlashAttribute("error", "Email chưa được xác thực");
+                return "redirect:/affiliates";
+
+            }
+
+        }
+        redirectAttributes.addFlashAttribute("sucess", "Gửi yêu cầu thành công");
+
+        return "redirect:/affiliates";
     }
 
 }

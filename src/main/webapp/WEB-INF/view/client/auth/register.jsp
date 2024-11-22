@@ -5,7 +5,7 @@ uri="http://www.springframework.org/tags/form" %>
 <html lang="vi">
   <head>
     <meta name="_csrf" content="${_csrf.token}" />
-    <meta name="_csrf_header" content="${_csrf.headerName}" />  
+    <meta name="_csrf_header" content="${_csrf.headerName}" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Đăng ký | Grocery Mart</title>
@@ -30,9 +30,9 @@ uri="http://www.springframework.org/tags/form" %>
     />
     <link rel="manifest" href="client/assets/favicon/site.webmanifest" />
     <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
-  />
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
     <meta name="msapplication-TileColor" content="#da532c" />
     <meta name="theme-color" content="#ffffff" />
 
@@ -82,7 +82,6 @@ uri="http://www.springframework.org/tags/form" %>
       }
     </style>
 
-
     <style>
       .form__group.invalid .form__text-input {
         border-color: #ed4337;
@@ -100,10 +99,10 @@ uri="http://www.springframework.org/tags/form" %>
         <a href="/" class="logo auth__intro-logo d-none d-md-flex">
           <img
             src="client/assets/icons/logo.svg"
-            alt="grocerymart"
+            alt="Thế Giới Gia Dụng"
             class="logo__img"
           />
-          <h1 class="logo__title">grocerymart</h1>
+          <h1 class="logo__title">Thế Giới Gia Dụng</h1>
         </a>
         <img
           src="client/assets/img/auth/intro.svg"
@@ -128,10 +127,10 @@ uri="http://www.springframework.org/tags/form" %>
           <a href="client/" class="logo">
             <img
               src="client/assets/icons/logo.svg"
-              alt="grocerymart"
+              alt="Thế Giới Gia Dụng"
               class="logo__img"
             />
-            <h1 class="logo__title">grocerymart</h1>
+            <h1 class="logo__title">Thế Giới Gia Dụng</h1>
           </a>
           <h1 class="auth__heading">Đăng Ký</h1>
           <p class="auth__desc">
@@ -228,12 +227,23 @@ uri="http://www.springframework.org/tags/form" %>
                   class="form__input pass-input"
                   path="password"
                 />
-                <i class="fas fa-eye togglePassword form__input-icon" style="cursor: pointer; font-size: 2rem;"  ></i>
-
+                <i
+                  class="fas fa-eye togglePassword form__input-icon"
+                  style="cursor: pointer; font-size: 2rem"
+                ></i>
               </div>
               ${errorPassword}
 
-              <span class="form__error d-block"><ul><li style=" margin-top: 2rem;">Mật khẩu phải có ít nhất 6 ký tự</li><li style=" margin-top: 2rem;">Một chữ cái hoa và một chữ số</li></ul></span>
+              <span class="form__error d-block"
+                ><ul>
+                  <li style="margin-top: 2rem">
+                    Mật khẩu phải có ít nhất 6 ký tự
+                  </li>
+                  <li style="margin-top: 2rem">
+                    Một chữ cái hoa và một chữ số
+                  </li>
+                </ul></span
+              >
             </div>
 
             <c:set var="errorConfirmPassword">
@@ -256,15 +266,16 @@ uri="http://www.springframework.org/tags/form" %>
                   class="form__input pass-input"
                   path="confirmPassword"
                 />
-                <i class="fas fa-eye togglePassword form__input-icon" style="cursor: pointer; font-size: 2rem;"  ></i>
-
+                <i
+                  class="fas fa-eye togglePassword form__input-icon"
+                  style="cursor: pointer; font-size: 2rem"
+                ></i>
               </div>
               ${errorConfirmPassword}
             </div>
 
             <div class="form__group auth__btn-group">
               <button class="btn btn--primary auth__btn">Đăng Ký</button>
-              
             </div>
           </form:form>
 
@@ -275,7 +286,8 @@ uri="http://www.springframework.org/tags/form" %>
         </div>
       </div>
     </main>
-  
-  <script src="/client/assets/js/res.js"></script>
-  <jsp:include page="../layout/footer.jsp" />
 
+    <script src="/client/assets/js/res.js"></script>
+    <jsp:include page="../layout/footer.jsp" />
+  </body>
+</html>

@@ -173,6 +173,31 @@ public class ItemController {
         return ResponseEntity.ok("Thêm vào giỏ hàng thành công");
     }
 
+    @PostMapping("/buy-now/{id}")
+    public String handleBuyNow(RedirectAttributes redirectAttributes, Model model, @PathVariable long id,
+            HttpServletRequest request, @RequestParam("quantity") long qty) {
+        // HttpSession session = request.getSession(false);
+
+        long productId = id;
+
+        Optional<Product> currentProductOptional = this.productService.fetchProductById(productId);
+        if (currentProductOptional.isPresent()) {
+            Product currentProduct = currentProductOptional.get();
+            List<Payment> listPay = this.paymentService.getAllPaymentsByStatus();
+
+            model.addAttribute("product", currentProduct);
+            model.addAttribute("qty", qty);
+            model.addAttribute("listPay", listPay);
+        } else {
+            redirectAttributes.addFlashAttribute("error", "Sản phẩm không tồn tại!");
+            return "redirect:/";
+
+        }
+
+
+        return "client/cart/pay-now";
+    }
+
     @PostMapping("/delete-cart/{id}")
     public String deleteCart(@PathVariable long id, RedirectAttributes redirectAttributes, HttpServletRequest request) {
         HttpSession session = request.getSession(false);

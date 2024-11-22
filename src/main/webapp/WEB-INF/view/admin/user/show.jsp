@@ -45,6 +45,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
               >
                 <thead>
                   <tr>
+                    <th>Mã KH</th>
                     <th>Tên</th>
                     <th>Email</th>
                     <th>Quyền</th>
@@ -58,9 +59,14 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                   <c:forEach var="user" items="${listUsers}">
                     <c:if test="${user.user_id != sessionScope.id}">
                       <tr>
+                        <td>${user.customerCode}</td>
                         <td>${user.name}</td>
                         <td>${user.email}</td>
-                        <td>${user.role.name}</td>
+                        <td>${user.role.name}
+
+
+
+                        </td>
                         <td >
                           <c:choose>
                             <c:when test="${user.enabled}">

@@ -1387,7 +1387,7 @@ html.dark {
   --cate-item-title-color: #fff;
   --filter-btn-color: #fff;
   --filter-btn-bg: #171c28;
-  --product-card-bg: #171c28;
+  --product-card-bg:rgb(15 15 20 / 20%);
   --product-card-shadow: rgba(0, 0, 0, 0.2);
   --filter-form-bg: var(--dropdown-bg-color);
   --filter-form-shadow: rgba(0, 0, 0, 0.4);
@@ -2550,6 +2550,7 @@ html {
 }
 
 .product-card {
+  border: 1px solid #d5d5d5;
   display: flex;
   flex-direction: column;
   height: 100%;

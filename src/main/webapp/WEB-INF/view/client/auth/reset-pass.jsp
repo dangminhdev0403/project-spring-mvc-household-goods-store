@@ -88,10 +88,10 @@ uri="http://www.springframework.org/tags/form" %>
           <a href="/" class="logo">
             <img
               src="client/assets/icons/logo.svg"
-              alt="grocerymart"
+              alt="Thế Giới Gia Dụng"
               class="logo__img"
             />
-            <h2 class="logo__title">grocerymart</h2>
+            <h2 class="logo__title">Thế Giới Gia Dụng</h2>
           </a>
           <h1 class="auth__heading">Quên mật khẩu</h1>
           <p class="auth__desc">
@@ -117,7 +117,6 @@ uri="http://www.springframework.org/tags/form" %>
                   type="email"
                   name="email"
                   id="email"
-                  
                   placeholder="Nhập email của bạn"
                   class="form__input email email-reset"
                   required
@@ -134,7 +133,8 @@ uri="http://www.springframework.org/tags/form" %>
             <div class="form__group auth__btn-group">
               <a
                 class="btn btn--primary auth__btn submit-reset"
-                style="cursor: pointer" id="reset-pass"
+                style="cursor: pointer"
+                id="reset-pass"
                 >Gửi yêu cầu</a
               >
               <p id="wait-p" class="btn btn--primary auth__btn d-none"></p>
