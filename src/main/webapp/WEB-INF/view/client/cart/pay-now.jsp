@@ -177,7 +177,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                         <p class="cart-info__desc">
                             Hoàn tất đơn hàng của bạn bằng cách cung cấp thông tin chi tiết thanh toán.
                         </p>
-                        <form action="" class="form cart-info__form">
+                        <form action="/place-horder-now" class="form cart-info__form" method="post">
                             <div class="form__group">
                                 <label for="email" class="form__label form__label--medium">Địa chỉ email</label>
                                 <p  style="display: block; font-size: 1.7rem; color: rgb(27, 212, 85);">Bạn có thể xem lịch sử đơn hàng tại email</p>
@@ -266,7 +266,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                               >2000000</span
                             >
                           </div>
-                        <a href="#!" class="cart-info__next-btn btn btn--primary btn--rounded">Thanh toán</a>
+                        <a href="#!" class="cart-info__next-btn btn btn--primary btn--rounded " >Đặt hàng</a>
                     </div>
                     <div class="cart-info">
                         <a href="#!">

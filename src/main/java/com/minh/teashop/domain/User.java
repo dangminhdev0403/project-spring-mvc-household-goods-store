@@ -46,6 +46,7 @@ public class User {
     private String cccdFrontUrl;
     private String cccdBackUrl;
     private String customerCode; // Trường mã khách hàng
+    
 
     @ManyToOne
     @JoinColumn(name = "role_id")

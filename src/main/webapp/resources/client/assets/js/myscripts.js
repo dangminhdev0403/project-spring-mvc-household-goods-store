@@ -729,9 +729,13 @@ const shipSpans = document.querySelectorAll(
 
 const inputTotal = document.getElementById("total-place");
 const priceSpan = document.querySelector("span.cart-item__status.format-price");
-// console.log(priceSpan.textContent);
+if(priceSpan) {
+ var price = parseFloat(removeDotsAndLetters(priceSpan.textContent));
+}
 
-const price = parseFloat(removeDotsAndLetters(priceSpan.textContent));
+
+
+
 
 if (prevBtn) {
   prevBtn.addEventListener("click", function (e) {
@@ -805,8 +809,10 @@ if (nextBtn) {
 
 window.addEventListener("DOMContentLoaded", () => {
   const radio = document.querySelector('input[type="radio"]');
- 
-      radio.setAttribute("checked", "checked");
+  if(radio){
+    radio.setAttribute("checked", "checked");
+
+  }
    
   
 });

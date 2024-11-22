@@ -37,6 +37,7 @@ public class Product {
     private Double factor;
     private Double fisrtPrice;
     private String sku;
+    private String slug;
     private LocalDateTime deletedAt;
 
     @ManyToOne

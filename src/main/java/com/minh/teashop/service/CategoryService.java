@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.minh.teashop.domain.Category;
 import com.minh.teashop.domain.ParentCategory;
 import com.minh.teashop.domain.Product;
+import com.minh.teashop.domain.ultil.SlugUtils;
 import com.minh.teashop.repository.CategoryRepository;
 import com.minh.teashop.repository.ParentCategoryRepository;
 import com.minh.teashop.repository.ProductRepository;
@@ -40,6 +41,8 @@ public class CategoryService {
     }
 
     public Category handleSavCategory(Category category) {
+        category.setSlug(SlugUtils.generateSlug(category.getName()));
+
         return this.categoryRepository.save(category);
     }
 
@@ -74,6 +77,7 @@ public class CategoryService {
     }
 
     public ParentCategory handleSaveParentCategory(ParentCategory category) {
+        category.setSlug(SlugUtils.generateSlug(category.getName()));
         return this.parentCategoryRepository.save(category);
     }
 
@@ -123,6 +127,7 @@ public class CategoryService {
                 // Tạo Category và lưu vào database
                 Category category = new Category();
                 category.setName(categoryName);
+                category.setSlug(SlugUtils.generateSlug(categoryName));
                 category.setParent(parentCategory);
 
                 categoryRepository.save(category);

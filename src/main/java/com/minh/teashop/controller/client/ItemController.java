@@ -188,6 +188,7 @@ public class ItemController {
             model.addAttribute("product", currentProduct);
             model.addAttribute("qty", qty);
             model.addAttribute("listPay", listPay);
+            model.addAttribute("title", "Trang thanh toán");
         } else {
             redirectAttributes.addFlashAttribute("error", "Sản phẩm không tồn tại!");
             return "redirect:/";
@@ -197,6 +198,10 @@ public class ItemController {
 
         return "client/cart/pay-now";
     }
+
+
+
+    
 
     @PostMapping("/delete-cart/{id}")
     public String deleteCart(@PathVariable long id, RedirectAttributes redirectAttributes, HttpServletRequest request) {

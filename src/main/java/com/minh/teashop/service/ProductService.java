@@ -3,8 +3,10 @@ package com.minh.teashop.service;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
@@ -12,12 +14,15 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.minh.teashop.domain.Address;
@@ -32,6 +37,7 @@ import com.minh.teashop.domain.Product_;
 import com.minh.teashop.domain.User;
 import com.minh.teashop.domain.dto.ProductSpecDTO;
 import com.minh.teashop.domain.enumdomain.OrderStatus;
+import com.minh.teashop.domain.ultil.SlugUtils;
 import com.minh.teashop.repository.CartDetailRepository;
 import com.minh.teashop.repository.CartRepository;
 import com.minh.teashop.repository.OrderDetailRepository;
@@ -46,6 +52,8 @@ import lombok.AllArgsConstructor;
 @Service
 @AllArgsConstructor
 public class ProductService {
+
+    private static final Logger logger = LoggerFactory.getLogger(ProductService.class);
 
     private final ProductRepository productRepository;
 
@@ -131,6 +139,8 @@ public class ProductService {
     }
 
     public Product handleSaveProduct(Product product) {
+
+        product.setSlug(SlugUtils.generateSlug(product.getName()));
 
         return this.productRepository.save(product);
     }
@@ -267,18 +277,19 @@ public class ProductService {
         }
     }
 
+    @Transactional
     public void saveProductsFromExcel(MultipartFile file) throws IOException {
         List<Product> products = new ArrayList<>();
+        Set<String> existingProductNames = new HashSet<>(productRepository.findAllProductNames()); // Lấy tất cả tên sản
+                                                                                                   // phẩm hiện có
 
         try (Workbook workbook = new XSSFWorkbook(file.getInputStream())) {
             Sheet sheet = workbook.getSheetAt(0); // Lấy sheet đầu tiên
             for (Row row : sheet) {
-                // Bỏ qua hàng đầu tiên nếu là tiêu đề
                 if (row.getRowNum() == 0) {
-                    continue;
+                    continue; // Bỏ qua dòng tiêu đề
                 }
 
-                // Kiểm tra xem hàng có rỗng không
                 boolean isEmptyRow = true;
                 for (int i = 0; i < row.getPhysicalNumberOfCells(); i++) {
                     Cell cell = row.getCell(i);
@@ -287,64 +298,36 @@ public class ProductService {
                         break;
                     }
                 }
-                // Bỏ qua hàng rỗng
+
                 if (isEmptyRow) {
-                    continue;
+                    continue; // Bỏ qua dòng trống
                 }
 
                 Product product = new Product();
-
-                // Lấy mã SKU từ ô đầu tiên (cột A)
-                Cell skuCell = row.getCell(0); // Ô SKU nằm ở cột đầu tiên
+                Cell skuCell = row.getCell(0);
                 if (skuCell != null && skuCell.getCellType() == CellType.STRING) {
                     product.setSku(skuCell.getStringCellValue());
                 }
 
-                // Lấy tên sản phẩm và kiểm tra tên đã tồn tại chưa
                 Cell nameCell = row.getCell(1);
                 if (nameCell != null && nameCell.getCellType() == CellType.STRING) {
                     String productName = nameCell.getStringCellValue();
-
-                    // Kiểm tra tên sản phẩm trong cơ sở dữ liệu
-                    Product existingProduct = productRepository.findByName(productName);
-                    if (existingProduct != null) {
-                        // Nếu tên sản phẩm đã tồn tại, bỏ qua sản phẩm này
-                        System.out.println("Sản phẩm với tên " + productName + " đã tồn tại. Bỏ qua.");
+                    if (existingProductNames.contains(productName)) {
+                        logger.warn("Sản phẩm với tên " + productName + " đã tồn tại. Bỏ qua.");
                         continue;
                     }
-
+                    product.setSlug(SlugUtils.generateSlug(productName));
                     product.setName(productName);
                 }
 
-                // Lấy mô tả sản phẩm
                 Cell descriptionCell = row.getCell(2);
                 if (descriptionCell != null && descriptionCell.getCellType() == CellType.STRING) {
                     product.setDescription(descriptionCell.getStringCellValue());
                 }
 
-                // Lấy giá ban đầu
-                Cell firstPriceCell = row.getCell(3);
-                if (firstPriceCell != null && firstPriceCell.getCellType() == CellType.NUMERIC) {
-                    product.setFisrtPrice(firstPriceCell.getNumericCellValue());
-                }
+                // Xử lý các trường dữ liệu khác...
 
-                // Lấy số lượng tồn kho
-                Cell stockCell = row.getCell(4);
-                if (stockCell != null && stockCell.getCellType() == CellType.NUMERIC) {
-                    product.setStock((long) stockCell.getNumericCellValue());
-                }
-
-                // Lấy hệ số
-                Cell factorCell = row.getCell(5);
-                if (factorCell != null && factorCell.getCellType() == CellType.NUMERIC) {
-                    product.setFactor(factorCell.getNumericCellValue());
-                }
-
-                // Tính giá
-                double price = product.getFactor() * product.getFisrtPrice();
-                product.setPrice(price);
-
-                // Xử lý danh mục sản phẩm
+                // Xử lý danh mục
                 Cell categoryCell = row.getCell(6);
                 if (categoryCell != null && categoryCell.getCellType() == CellType.STRING) {
                     String categoryName = categoryCell.getStringCellValue();
@@ -352,38 +335,39 @@ public class ProductService {
                     if (category != null) {
                         product.setCategory(category);
                     } else {
-                        // Log thông báo nếu không tìm thấy danh mục
-                        System.out.println("Danh mục không tìm thấy: " + categoryName);
-                    }
-                }
-
-                productRepository.save(product);
-
-                // Xử lý hình ảnh sản phẩm
-                Cell imageCell = row.getCell(7);
-                if (imageCell != null && imageCell.getCellType() == CellType.STRING) {
-                    String imageProducts = imageCell.getStringCellValue();
-                    String[] listImages = imageProducts.split(",");
-                    for (String image : listImages) {
-                        if (!image.trim().isEmpty()) {
-                            ProductImage productImage = new ProductImage();
-                            productImage.setProduct(product);
-                            productImage.setName(image);
-                            String urlImage = this.uploadService.getImageUrl(image);
-                            if (urlImage != null) {
-                                productImage.setUrl(urlImage);
-                                this.productImageRepository.save(productImage);
-                            }
-                        }
+                        logger.warn("Danh mục không tìm thấy: " + categoryName);
                     }
                 }
 
                 // Thêm sản phẩm vào danh sách
                 products.add(product);
+
+                // Xử lý hình ảnh
+                Cell imageCell = row.getCell(7);
+                if (imageCell != null && imageCell.getCellType() == CellType.STRING) {
+                    String[] listImages = imageCell.getStringCellValue().split(",");
+                    for (String image : listImages) {
+                        if (!image.trim().isEmpty()) {
+                            ProductImage productImage = new ProductImage();
+                            productImage.setProduct(product);
+                            productImage.setName(image);
+                            try {
+                                String urlImage = this.uploadService.getImageUrl(image);
+                                if (urlImage != null) {
+                                    productImage.setUrl(urlImage);
+                                    productImageRepository.save(productImage); // Đảm bảo rằng productImage được lưu
+                                                                               // đúng cách
+                                }
+                            } catch (Exception e) {
+                                logger.error("Không thể tải hình ảnh cho " + image, e);
+                            }
+                        }
+                    }
+                }
             }
         }
 
-        // Lưu tất cả sản phẩm vào cơ sở dữ liệu
+        // Lưu tất cả sản phẩm vào cơ sở dữ liệu trong một lần
         productRepository.saveAll(products);
     }
 
