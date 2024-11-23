@@ -797,8 +797,8 @@ if (nextBtn) {
 
           sumPrice2[index].textContent = formatNumber(totalPrice);
 
-          if (total2 && total2[index]) {
-            total2[index].textContent = formatNumber(shipPrice + totalPrice);
+          if (total2 && total2[index + 1]) {
+            total2[index+1].textContent = formatNumber(shipPrice + totalPrice);
             inputTotal.value = shipPrice + totalPrice;
           }
         }

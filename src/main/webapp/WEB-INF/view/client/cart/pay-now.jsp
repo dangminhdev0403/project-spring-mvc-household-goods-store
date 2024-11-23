@@ -157,7 +157,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                                  
                                   class="cart-info__checkbox-input payment-item__checkbox-input"
                                 />
-                                <span class="payment-item__cost format-price"
+                                <span class="payment-item__cost format-price sumPrice"
                                   >${pay.price}
                                 </span>
                               </span>

@@ -325,7 +325,27 @@ public class ProductService {
                     product.setDescription(descriptionCell.getStringCellValue());
                 }
 
-                // Xử lý các trường dữ liệu khác...
+                // Lấy giá ban đầu
+                Cell firstPriceCell = row.getCell(3);
+                if (firstPriceCell != null && firstPriceCell.getCellType() == CellType.NUMERIC) {
+                    product.setFisrtPrice(firstPriceCell.getNumericCellValue());
+                }
+
+                // Lấy số lượng tồn kho
+                Cell stockCell = row.getCell(4);
+                if (stockCell != null && stockCell.getCellType() == CellType.NUMERIC) {
+                    product.setStock((long) stockCell.getNumericCellValue());
+                }
+
+                // Lấy hệ số
+                Cell factorCell = row.getCell(5);
+                if (factorCell != null && factorCell.getCellType() == CellType.NUMERIC) {
+                    product.setFactor(factorCell.getNumericCellValue());
+                }
+
+                // Tính giá
+                double price = product.getFactor() * product.getFisrtPrice();
+                product.setPrice(price);
 
                 // Xử lý danh mục
                 Cell categoryCell = row.getCell(6);

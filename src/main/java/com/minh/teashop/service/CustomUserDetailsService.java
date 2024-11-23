@@ -2,10 +2,7 @@ package com.minh.teashop.service;
 
 import java.util.Collections;
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.session.SessionRegistry;
-import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -20,8 +17,6 @@ public class CustomUserDetailsService implements UserDetailsService {
     public CustomUserDetailsService(UserService userService) {
         this.userService = userService;
     }
-
-  
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

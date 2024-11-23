@@ -37,7 +37,7 @@ public class EmailService {
     @Autowired
     private ResetPasswordRepository resetPasswordRepository;
 
-    private static final int WAIT_TIME_SECONDS = 15; //  15 giây
+    private static final int WAIT_TIME_SECONDS = 15; // 15 giây
 
     @Cacheable(value = "emailCache", key = "#sessionId", unless = "#result == null")
     public LocalDateTime getLastSentEmailTime(String sessionId) {
