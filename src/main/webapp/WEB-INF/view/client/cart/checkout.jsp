@@ -211,7 +211,7 @@ uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
               <!-- Cart item 1 -->
               <c:forEach var="detail" items="${cartDetails}" varStatus="s">
                 <article class="cart-item">
-                  <a href="/product/${detail.product.product_id}">
+                  <a href="/product/${detail.product.slug}-${detail.product.product_id}">
                     <img
  src="${detail.product.productImages[0].url}"
                     alt="${detail.product.name}"

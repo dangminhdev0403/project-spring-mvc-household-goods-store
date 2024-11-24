@@ -35,8 +35,6 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class UserService {
 
-
-
     UserRepository userRepository;
 
     RoleRepository roleRepository;
@@ -180,14 +178,31 @@ public class UserService {
         }
         return true;
     }
-    
-    public  String generateCustomerCode() {
+
+    public String generateCustomerCode() {
         // Lấy ID mới nhất của người dùng đã đăng ký
-        Long userCount = this.userRepository.count();  // Đếm số người dùng hiện có trong database
-                Random rand = new Random();
-                String randomPart = String.format("%04d", rand.nextInt(10000));  // Phần ngẫu nhiên
+        Long userCount = this.userRepository.count(); // Đếm số người dùng hiện có trong database
+        Random rand = new Random();
+        String randomPart = String.format("%04d", rand.nextInt(10000)); // Phần ngẫu nhiên
 
-
-                return "CUSTOM-" + String.format("%04d", userCount + 1) + "-" + randomPart;
+        return "CUSTOM-" + String.format("%04d", userCount + 1) + "-" + randomPart;
     }
+
+    public String generateCustomerCodeForNotLogin() {
+        String customCode;
+        Random rand = new Random();
+
+        do {
+            // Đếm số lượng đơn hàng hiện có trong cơ sở dữ liệu
+            Long orderCount = this.orderRepository.count();
+
+            // Tạo mã mới
+            String randomPart = String.format("%04d", rand.nextInt(10000)); // Phần ngẫu nhiên
+            customCode = "GUEST-" + String.format("%04d", orderCount + 1) + "-" + randomPart;
+
+        } while (orderRepository.existsBycustomerCode(customCode)); // Kiểm tra mã đã tồn tại
+
+        return customCode;
+    }
+
 }

@@ -26,7 +26,10 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
           </a>
         </li>
         <li>
-          <a href="/product/${product.product_id}" class="breadcrumbs__link">
+          <a
+            href="/product/${product.slug}-${product.product_id}"
+            class="breadcrumbs__link"
+          >
             ${product.name}
           </a>
         </li>
@@ -82,9 +85,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                   </div>
                 </div>
                 <div class="filter__form-group">
-                  <div class="form__tags">
-                   
-                  </div>
+                  <div class="form__tags"></div>
                   <div
                     class="cart-item__input"
                     style="display: inline-flex; margin-top: 3rem"
@@ -172,15 +173,9 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                     <div class="prod-info__row">
                       <form
                         action="/add-product-to-cart/${product.product_id}"
-                        method="post"
                         class="form"
+                        
                       >
-                        <input
-                          type="hidden"
-                          name="${_csrf.parameterName}"
-                          value="${_csrf.token}"
-                        />
-
                         <input
                           type="hidden"
                           name="quantity"
@@ -194,14 +189,18 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                         >
                           Thêm vào giỏ hàng
                         </a>
-                        
-                        <a  
-                        href="/buy-now/${product.product_id}"
-                        class="btn btn--primary buy-product-now"
-                        style="cursor: pointer ; margin-top: 1rem; background-color: #fa5e5e;"
-                      >
-                        Mua ngay
-                      </a>
+
+                        <a
+                          href="/buy-now/${product.slug}-${product.product_id}"
+                          class="btn btn--primary buy-product-now"
+                          style="
+                            cursor: pointer;
+                            margin-top: 1rem;
+                            background-color: #fa5e5e;
+                          "
+                        >
+                          Mua ngay
+                        </a>
                       </form>
 
                       <!-- <button class="like-btn prod-info__like-btn">

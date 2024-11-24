@@ -35,6 +35,7 @@ import com.minh.teashop.domain.Product;
 import com.minh.teashop.domain.ProductImage;
 import com.minh.teashop.domain.Product_;
 import com.minh.teashop.domain.User;
+import com.minh.teashop.domain.dto.PayRequest;
 import com.minh.teashop.domain.dto.ProductSpecDTO;
 import com.minh.teashop.domain.enumdomain.OrderStatus;
 import com.minh.teashop.domain.ultil.SlugUtils;
@@ -240,6 +241,39 @@ public class ProductService {
 
     }
 
+    public void handlePayNow(PayRequest payRequest, User user) {
+        Order order = new Order();
+        order.setReceiverName(payRequest.getReceiverName());
+        order.setReceiverPhone(payRequest.getReceiverPhone());
+        order.setReceiverAddress(payRequest.getAddress());
+        order.setStatus(OrderStatus.PENDING);
+        double total = Double.parseDouble(payRequest.getTotalPrice());
+        order.setTotalPrice(total);
+        order.setOrderDate(LocalDateTime.now());
+        if (user.getUser_id() == 0) {
+            order.setCustomerCode(user.getCustomerCode());
+        } else {
+            order.setUser(user);
+            order.setCustomerCode(user.getCustomerCode());
+
+        }
+        order = this.orderRepository.save(order);
+        OrderDetail orderDetail = new OrderDetail();
+
+        orderDetail.setOrder(order);
+        long productId = Long.parseLong(payRequest.getProductId());
+
+        Product product = this.productRepository.findById(productId).isEmpty() ? new Product() : this.productRepository.findById(productId).get() ;
+
+        long qty = Long.parseLong(payRequest.getQuantity());
+        orderDetail.setProduct(product);
+        orderDetail.setQuantity(qty );
+        orderDetail.setPrice(qty * product.getPrice() );
+
+        orderDetail = this.orderDetailRepository.save(orderDetail);
+
+    }
+
     public void handlePlaceOrder(User user, HttpSession session, Address receiverAddress, double total) {
         // create Oder
         Order order = new Order();
@@ -250,6 +284,7 @@ public class ProductService {
         order.setStatus(OrderStatus.PENDING);
         order.setTotalPrice(total);
         order.setOrderDate(LocalDateTime.now());
+        order.setCustomerCode(user.getCustomerCode());
         order = this.orderRepository.save(order);
 
         Cart cart = this.cartRepository.findByUser(user);
@@ -260,7 +295,7 @@ public class ProductService {
                     OrderDetail orderDetail = new OrderDetail();
                     orderDetail.setOrder(order);
                     orderDetail.setProduct(cd.getProduct());
-                    orderDetail.setPrice(cd.getPrice());
+                    orderDetail.setPrice(cd.getPrice()*cd.getQuantity());
                     orderDetail.setQuantity(cd.getQuantity());
 
                     this.orderDetailRepository.save(orderDetail);

@@ -29,16 +29,12 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @Controller
 public class OrderController {
-    private final ProductService productService;
     private final ExcelExportService excelExportService;
-    private final UserService userService;
     private final OrderService orderService;
 
     public OrderController(ProductService productService, UserService userService, OrderService orderService,
             ExcelExportService excelExportService) {
-        this.productService = productService;
         this.excelExportService = excelExportService;
-        this.userService = userService;
         this.orderService = orderService;
     }
 
@@ -89,9 +85,8 @@ public class OrderController {
         List<Map<String, Object>> orderList = new ArrayList<>();
 
         for (OrderDetail detail : orderDetails) {
-            
 
-            Double price = detail.getPrice() ;
+            Double price = detail.getPrice();
             String priceFormat = NumberFormat.getInstance(Locale.getDefault()).format(price) + " đ";
             Double total = detail.getPrice() * detail.getQuantity();
             String totalFormat = NumberFormat.getInstance(Locale.getDefault()).format(total) + " đ";
@@ -113,7 +108,5 @@ public class OrderController {
                 orderList,
                 response);
     }
-
-    
 
 }

@@ -1,3 +1,27 @@
+function alert(notice, message, formElement) {
+  swal({
+    title: notice,
+    text: message,
+    icon: "warning", // Sử dụng "icon" thay vì "type"
+    buttons: {
+      cancel: {
+        text: "Huỷ bỏ", // Tùy chỉnh nút "Huỷ bỏ"
+        visible: true,
+        className: "btn btn-danger",
+      },
+      confirm: {
+        text: "Đồng ý",
+        className: "btn btn-success",
+      },
+    },
+    reverseButtons: false,
+  }).then((willDelete) => {
+    if (willDelete) {
+      formElement.submit();
+    } else {
+    }
+  });
+}
 
 function showLoading() {
   swal({
@@ -51,11 +75,11 @@ const resConstraints = {
   },
 };
 
-const emailConstraints ={
+const emailConstraints = {
   email: {
     email: { message: " không hợp lệ" },
-  }
-}
+  },
+};
 
 const formLogin = document.querySelector("#form-login");
 
@@ -168,22 +192,20 @@ if (formRegister) {
       } else {
         formRegister.submit();
         showLoading();
-
       }
     }
   });
 }
 
-
-document.addEventListener('DOMContentLoaded', function() {
-  const btnResetPass = document.querySelector('.email-reset');
+document.addEventListener("DOMContentLoaded", function () {
+  const btnResetPass = document.querySelector(".email-reset");
   if (btnResetPass) {
-    btnResetPass.addEventListener('input', function(e) {
+    btnResetPass.addEventListener("input", function (e) {
       e.preventDefault();
-      
-      const data ={
-        email: e.target.value 
-      }
+
+      const data = {
+        email: e.target.value,
+      };
 
       const errors = validate(data, emailConstraints);
 
@@ -192,21 +214,78 @@ document.addEventListener('DOMContentLoaded', function() {
         .querySelectorAll(".form__group")
         .forEach((el) => el.classList.remove("invalid"));
 
-        if(errors){
-          displayError2(btnResetPass, errors['email']);
-
-        }
-
+      if (errors) {
+        displayError2(btnResetPass, errors["email"]);
+      }
     });
-
-
   }
-
-  
-    
-  
-
 });
+
+const payNowConstraints = {
+  email: {
+    presence: { allowEmpty: false, message: "Vui lòng nhập email" },
+    email: { message: "Email không hợp lệ" },
+  },
+  receiverName: {
+    presence: { allowEmpty: false, message: "Vui lòng nhập Tên người nhận" },
+    length: { minimum: 2, message: "Tên người nhận phải có ít nhất 2 ký tự" },
+  },
+  receiverPhone: {
+    presence: { allowEmpty: false, message: "Vui lòng nhập SDT người nhận" },
+
+    format: {
+      pattern: /^[0-9]{10,11}$/, // Chỉ chấp nhận số điện thoại có 10 hoặc 11 chữ số
+      message: "SDT người nhận phải là số có 10 hoặc 11 số",
+    },
+  },
+  address: {
+    presence: {
+      allowEmpty: false,
+      message: "Vui lòng nhập địa chỉ",
+    },
+  },
+};
+
+const valPaynow = (e) => {
+  e.preventDefault();
+  document.querySelectorAll(".form__error").forEach((el) => el.remove());
+  document
+    .querySelectorAll(".form__group")
+    .forEach((el) => el.classList.remove("invalid"));
+
+  const email = document.getElementById("email");
+  const receiverName = document.getElementById("receiverName");
+  const receiverPhone = document.getElementById("receiverPhone");
+  const address = document.getElementById("address");
+
+  const emailValid = validateField(email, payNowConstraints.email);
+  const nameValid = validateField(receiverName, payNowConstraints.receiverName);
+  const phoneValid = validateField(
+    receiverPhone,
+    payNowConstraints.receiverPhone
+  );
+  const addressValid = validateField(address, payNowConstraints.address);
+
+  if (emailValid && nameValid && phoneValid && addressValid) {
+    const notice = "Xác nhận đặt hàng";
+    const message = "Bạn có muốn đặt hàng?";
+    const form = document.getElementById("form-pay-now");
+    alert(notice, message, form);
+  }
+};
+const btnPay = document.querySelector("#pay-now");
+if (btnPay) {
+  btnPay.addEventListener("click", (e) => valPaynow(e));
+}
+
+const validateField = (field, constraints) => {
+  const errors = validate.single(field.value, constraints);
+  if (errors) {
+    displayError(field, errors[0]);
+    return false;
+  }
+  return true;
+};
 // Hàm hiển thị lỗi
 function displayError(input, message) {
   const parent = input.closest(".form__group");
@@ -216,14 +295,13 @@ function displayError(input, message) {
   spanError.classList.add("form__error", "d-block");
 
   let textExcess = ["Password", "Confirm password"];
-if(textExcess)
- {
-  textExcess.forEach((text) => {
-    if (message.includes(text)) {
-      message = message.replace(new RegExp(text, "gi"), "").trim(); // Loại bỏ từ "Password" (không phân biệt chữ hoa/thường)
-    }
-  });
- }
+  if (textExcess) {
+    textExcess.forEach((text) => {
+      if (message.includes(text)) {
+        message = message.replace(new RegExp(text, "gi"), "").trim(); // Loại bỏ từ "Password" (không phân biệt chữ hoa/thường)
+      }
+    });
+  }
 
   if (message.includes(",")) {
     // Nếu có dấu phẩy, chia chuỗi thành các phần tử li
@@ -238,7 +316,6 @@ if(textExcess)
   parent.appendChild(spanError);
 }
 
-
 // Hàm hiển thị lỗi 2
 function displayError2(input, message) {
   const parent = input.closest(".form__group");
@@ -247,8 +324,6 @@ function displayError2(input, message) {
   const spanError = document.createElement("span");
   spanError.classList.add("form__error", "d-block");
 
- 
   spanError.innerHTML = message; // Sử dụng innerHTML để chèn HTML
   parent.appendChild(spanError);
 }
-

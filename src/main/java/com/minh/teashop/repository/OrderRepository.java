@@ -15,5 +15,9 @@ import com.minh.teashop.domain.User;
 public interface OrderRepository extends JpaRepository<Order, Long>, JpaSpecificationExecutor<Order> {
     Optional<List<Order>> findByUser(User user);
 
-    Page<Order> findAll(Specification<Order> spec ,Pageable page);
+    @SuppressWarnings("null")
+    Page<Order> findAll(Specification<Order> spec, Pageable page);
+
+    boolean existsBycustomerCode(String customerCode);
+
 }

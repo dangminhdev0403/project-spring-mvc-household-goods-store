@@ -46,7 +46,8 @@ uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
               <div class="cart-info__list">
                 <c:forEach var="detail" items="${cartDetails}" varStatus="s">
                   <article class="cart-item">
-                    <a href="/product/${detail.product.product_id}">
+                    <a href="/product/${detail.product.slug}-${detail.product.product_id}">
+                    <a href="/product/${detail.product.slug}-${detail.product.product_id}">
                       <img
                         src="${detail.product.productImages[0].url}"
                         alt=""
@@ -56,7 +57,7 @@ uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
                     <div class="cart-item__content">
                       <div class="cart-item__content-left">
                         <h3 class="cart-item__title">
-                          <a href="/product/${detail.product.product_id}">
+                          <a href="/product/${detail.product.slug}-${detail.product.product_id}">
                             ${detail.product.name}
                           </a>
                         </h3>

@@ -9,6 +9,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +28,7 @@ import com.minh.teashop.domain.CartDetail;
 import com.minh.teashop.domain.Payment;
 import com.minh.teashop.domain.Product;
 import com.minh.teashop.domain.User;
+import com.minh.teashop.domain.dto.PayRequest;
 import com.minh.teashop.domain.response.ResponseMessage;
 import com.minh.teashop.service.PaymentService;
 import com.minh.teashop.service.ProductService;
@@ -41,7 +45,7 @@ public class ItemController {
     private final UserService userService;
     private final PaymentService paymentService;
 
-    @GetMapping("/product/{id}")
+    @GetMapping("/product/{slug}-{id}")
     public String getDeitalProductPage(Model model, @PathVariable long id) {
         Optional<Product> productOptional = this.productService.fetchProductById(id);
         if (productOptional.isPresent()) {
@@ -173,36 +177,6 @@ public class ItemController {
         return ResponseEntity.ok("Thêm vào giỏ hàng thành công");
     }
 
-    @PostMapping("/buy-now/{id}")
-    public String handleBuyNow(RedirectAttributes redirectAttributes, Model model, @PathVariable long id,
-            HttpServletRequest request, @RequestParam("quantity") long qty) {
-        // HttpSession session = request.getSession(false);
-
-        long productId = id;
-
-        Optional<Product> currentProductOptional = this.productService.fetchProductById(productId);
-        if (currentProductOptional.isPresent()) {
-            Product currentProduct = currentProductOptional.get();
-            List<Payment> listPay = this.paymentService.getAllPaymentsByStatus();
-
-            model.addAttribute("product", currentProduct);
-            model.addAttribute("qty", qty);
-            model.addAttribute("listPay", listPay);
-            model.addAttribute("title", "Trang thanh toán");
-        } else {
-            redirectAttributes.addFlashAttribute("error", "Sản phẩm không tồn tại!");
-            return "redirect:/";
-
-        }
-
-
-        return "client/cart/pay-now";
-    }
-
-
-
-    
-
     @PostMapping("/delete-cart/{id}")
     public String deleteCart(@PathVariable long id, RedirectAttributes redirectAttributes, HttpServletRequest request) {
         HttpSession session = request.getSession(false);
@@ -244,7 +218,8 @@ public class ItemController {
 
         HttpSession session = request.getSession(false);
         long id = (long) session.getAttribute("id");
-        User currentUser = new User();
+        User currentUser = this.userService.getUserById(id);
+
         currentUser.setUser_id(id);
         Address receiverAddress = this.userService.getAddressById(idAddress);
 
@@ -253,5 +228,76 @@ public class ItemController {
 
         return "redirect:/order-history";
     }
+
+    @GetMapping("/buy-now/{slug}-{id}")
+    public String handleBuyNow(RedirectAttributes redirectAttributes, Model model, @PathVariable long id,
+            HttpServletRequest request, @RequestParam("quantity") long qty) {
+        // HttpSession session = request.getSession(false);
+
+        long productId = id;
+
+        Optional<Product> currentProductOptional = this.productService.fetchProductById(productId);
+        if (currentProductOptional.isPresent()) {
+            Product currentProduct = currentProductOptional.get();
+            List<Payment> listPay = this.paymentService.getAllPaymentsByStatus();
+
+            model.addAttribute("product", currentProduct);
+            model.addAttribute("qty", qty);
+            model.addAttribute("listPay", listPay);
+            model.addAttribute("title", "Trang thanh toán");
+        } else {
+            redirectAttributes.addFlashAttribute("error", "Sản phẩm không tồn tại!");
+            return "redirect:/";
+
+        }
+
+        return "client/cart/pay-now";
+    }
+
+    @PostMapping("/place-now")
+    public String handlePlaceNow(RedirectAttributes redirectAttributes, PayRequest payRequest,
+            HttpServletRequest request) {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || !authentication.isAuthenticated() ||
+                authentication instanceof AnonymousAuthenticationToken) {
+
+            // System.out.println("User is not logged in.");
+            User newUser = new User();
+            String custCode = this.userService.generateCustomerCodeForNotLogin();
+            newUser.setCustomerCode(custCode);
+            this.productService.handlePayNow(payRequest, newUser);
+
+        } else {
+            HttpSession session = request.getSession(false);
+            long id = (long) session.getAttribute("id");
+            User currentUser = this.userService.getUserById(id);
+
+            this.productService.handlePayNow(payRequest, currentUser);
+            redirectAttributes.addFlashAttribute("success", "Đặt hàng thành công");
+            return "redirect:/order-history";
+
+        }
+
+        redirectAttributes.addFlashAttribute("success", "Hãy kiểm tra hộp thư của bạn");
+
+        return "redirect:/";
+    }
+
+    // @GetMapping("/test")
+    // public String getMethodName() {
+
+    // Authentication authentication =
+    // SecurityContextHolder.getContext().getAuthentication();
+
+    // if (authentication == null || !authentication.isAuthenticated() ||
+    // authentication instanceof AnonymousAuthenticationToken) {
+    // System.out.println("User is not logged in.");
+    // } else {
+    // System.out.println("User is logged in with username: " +
+    // authentication.getName());
+    // }
+    // return new String();
+    // }
 
 }

@@ -117,7 +117,6 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         <li class="navbar__item">
           <a href="/about" class="navbar__link"> Giới thiệu</a>
         </li>
-      
       </ul>
     </nav>
     <div class="navbar__overlay js-toggle" toggle-target="#navbar"></div>
@@ -336,8 +335,8 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         </div>
       </c:if>
       <c:if test="${ empty pageContext.request.userPrincipal}">
-        <a href="/login" class="btn btn--text d-md-none">Đăng nhập</a>
-        <a href="/register" class="top-act__sign-up btn btn--primary"
+        <a href="/login" class="btn btn--primary p-md-0">Đăng nhập</a>
+        <a href="/register" class="top-act__sign-up btn btn--primary d-md-none"
           >Đăng kí</a
         >
       </c:if>

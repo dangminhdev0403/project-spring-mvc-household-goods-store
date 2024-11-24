@@ -124,7 +124,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         <div class="col">
           <article class="product-card">
             <div class="product-card__img-wrap">
-              <a href="/product/${product.product_id}">
+              <a href="/product/${product.slug}-${product.product_id}">
                 <img
                   src="${product.productImages[0].url}"
                   alt="${product.productImages[0].name}"
@@ -133,7 +133,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
               </a>
             </div>
             <h3 class="product-card__title">
-              <a href="/product/${product.product_id}"> ${product.name}</a>
+              <a href="/product/${product.slug}-${product.product_id}"> ${product.name}</a>
             </h3>
             <p class="product-card__brand">${product.category.name}</p>
             <div class="product-card__row">
