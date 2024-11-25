@@ -20,4 +20,5 @@ public interface OrderRepository extends JpaRepository<Order, Long>, JpaSpecific
 
     boolean existsBycustomerCode(String customerCode);
 
+    Optional<Order> findByCustomerCode(String customerCode);
 }

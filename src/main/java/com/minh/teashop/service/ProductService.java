@@ -241,7 +241,7 @@ public class ProductService {
 
     }
 
-    public void handlePayNow(PayRequest payRequest, User user) {
+    public Order handlePayNow(PayRequest payRequest, User user) {
         Order order = new Order();
         order.setReceiverName(payRequest.getReceiverName());
         order.setReceiverPhone(payRequest.getReceiverPhone());
@@ -252,6 +252,7 @@ public class ProductService {
         order.setOrderDate(LocalDateTime.now());
         if (user.getUser_id() == 0) {
             order.setCustomerCode(user.getCustomerCode());
+            
         } else {
             order.setUser(user);
             order.setCustomerCode(user.getCustomerCode());
@@ -271,6 +272,8 @@ public class ProductService {
         orderDetail.setPrice(qty * product.getPrice() );
 
         orderDetail = this.orderDetailRepository.save(orderDetail);
+
+        return order ;
 
     }
 

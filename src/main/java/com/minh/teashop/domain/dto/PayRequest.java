@@ -11,12 +11,11 @@ import lombok.Setter;
 @NoArgsConstructor
 public class PayRequest {
     private String receiverName;
+    private String email;
     private String receiverPhone;
     private String address;
     private String productId;
     private String totalPrice;
     private String quantity;
-
-
 
 }

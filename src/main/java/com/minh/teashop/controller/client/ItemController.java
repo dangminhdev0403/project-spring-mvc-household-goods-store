@@ -25,15 +25,19 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.minh.teashop.domain.Address;
 import com.minh.teashop.domain.Cart;
 import com.minh.teashop.domain.CartDetail;
+import com.minh.teashop.domain.Order;
 import com.minh.teashop.domain.Payment;
 import com.minh.teashop.domain.Product;
 import com.minh.teashop.domain.User;
 import com.minh.teashop.domain.dto.PayRequest;
 import com.minh.teashop.domain.response.ResponseMessage;
+import com.minh.teashop.service.EmailService;
+import com.minh.teashop.service.OrderService;
 import com.minh.teashop.service.PaymentService;
 import com.minh.teashop.service.ProductService;
 import com.minh.teashop.service.UserService;
 
+import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
@@ -44,6 +48,8 @@ public class ItemController {
     private final ProductService productService;
     private final UserService userService;
     private final PaymentService paymentService;
+    private final EmailService emailService;
+    private final OrderService orderService;
 
     @GetMapping("/product/{slug}-{id}")
     public String getDeitalProductPage(Model model, @PathVariable long id) {
@@ -256,7 +262,7 @@ public class ItemController {
 
     @PostMapping("/place-now")
     public String handlePlaceNow(RedirectAttributes redirectAttributes, PayRequest payRequest,
-            HttpServletRequest request) {
+            HttpServletRequest request) throws MessagingException {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || !authentication.isAuthenticated() ||
@@ -266,8 +272,9 @@ public class ItemController {
             User newUser = new User();
             String custCode = this.userService.generateCustomerCodeForNotLogin();
             newUser.setCustomerCode(custCode);
-            this.productService.handlePayNow(payRequest, newUser);
+            Order order = this.productService.handlePayNow(payRequest, newUser);
 
+            this.emailService.sendEmailHistoryORder(payRequest.getEmail(), order);
         } else {
             HttpSession session = request.getSession(false);
             long id = (long) session.getAttribute("id");
@@ -282,6 +289,24 @@ public class ItemController {
         redirectAttributes.addFlashAttribute("success", "Hãy kiểm tra hộp thư của bạn");
 
         return "redirect:/";
+    }
+
+    @GetMapping("/history-order")
+    public String getOrderHistoryPageWhenNotLogin(@RequestParam("guest") String customCode, Model model,
+            RedirectAttributes redirectAttributes) {
+        Order order = this.orderService.getOrderByCustomerCode(customCode);
+        if (order == null) {
+            redirectAttributes.addFlashAttribute("error", "Đơn hàng không tồn tại");
+            return "redirect:/";
+
+        } else {
+            model.addAttribute("order", order);
+            model.addAttribute("title", "Lịch sử mua hàng");
+
+            return "client/page/order-history";
+
+        }
+
     }
 
     // @GetMapping("/test")

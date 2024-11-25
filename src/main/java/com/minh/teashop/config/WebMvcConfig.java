@@ -9,7 +9,7 @@ import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
-
+@SuppressWarnings("null")
 @Configuration
 @EnableWebMvc
 public class WebMvcConfig implements WebMvcConfigurer {

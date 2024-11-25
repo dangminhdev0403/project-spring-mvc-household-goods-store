@@ -55,7 +55,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                   >
                     <tr>
                       <td>${status.index + 1 }</td>
-                      <td>${order.user.customerCode }</td>
+                      <td>${order.customerCode }</td>
                       <td>${order.receiverName} , ${order.receiverAddress}</td>
                       <td>${order.receiverPhone}</td>
                       <td class="format-date">${order.orderDate}</td>

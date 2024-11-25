@@ -10,6 +10,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.minh.teashop.domain.Order;
 import com.minh.teashop.domain.User;
 import com.minh.teashop.domain.verifymail.ResetToken;
 import com.minh.teashop.domain.verifymail.VerificationToken;
@@ -175,6 +176,26 @@ public class EmailService {
         String content = createEmailContentForReconfirmation(verificationUrl);
 
         helper.setTo(user.getEmail());
+        helper.setSubject(subject);
+        helper.setText(content, true);
+
+        mailSender.send(message);
+
+    }
+
+    public void sendEmailHistoryORder(String email, Order order) throws MessagingException {
+
+        String verificationUrl = ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path("/history-order")
+                .queryParam("guest", order.getCustomerCode()) // Thay bằng token thực tế
+                .toUriString();
+
+        MimeMessage message = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
+        String subject = "Lịch sử đơn hàng";
+        String content = createHistoryOrder(verificationUrl);
+
+        helper.setTo(email);
         helper.setSubject(subject);
         helper.setText(content, true);
 
@@ -596,4 +617,96 @@ public class EmailService {
                 "</body>" +
                 "</html>";
     }
+
+    //
+
+    private String createHistoryOrder(String url) {
+        return "<!DOCTYPE html>" +
+                "<html>" +
+                "<head>" +
+                "<title>Lịch sử đơn hàng</title>" +
+                "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />" +
+                "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">" +
+                "<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\" />" +
+                "<style type=\"text/css\">" +
+                "@media screen { " +
+                "@font-face { " +
+                "font-family: 'Lato'; " +
+                "font-style: normal; " +
+                "font-weight: 400; " +
+                "src: local('Lato Regular'), local('Lato-Regular'), " +
+                "url(https://fonts.gstatic.com/s/lato/v11/qIIYRU-oROkIk8vfvxw6QvesZW2xOQ-xsNqO47m55DA.woff) format('woff'); "
+                +
+                "} " +
+                "} " +
+                "body, table, td, a { " +
+                "-webkit-text-size-adjust: 100%; " +
+                "-ms-text-size-adjust: 100%; " +
+                "} " +
+                "img { " +
+                "-ms-interpolation-mode: bicubic; " +
+                "} " +
+                "body { " +
+                "margin: 0 !important; " +
+                "padding: 0 !important; " +
+                "width: 100% !important; " +
+                "} " +
+                "</style>" +
+                "</head>" +
+                "<body style=\"background-color: #f4f4f4; margin: 0 !important; padding: 0 !important;\">" +
+                "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">" +
+                "<tr>" +
+                "<td bgcolor=\"#5bd4a7\" align=\"center\">" +
+                "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" style=\"max-width: 600px;\">" +
+                "<tr>" +
+                "<td align=\"center\" style=\"padding: 40px 10px 40px 10px;\"> </td>" +
+                "</tr>" +
+                "</table>" +
+                "</td>" +
+                "</tr>" +
+                "<tr>" +
+                "<td bgcolor=\"#5bd4a7\" align=\"center\">" +
+                "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" style=\"max-width: 600px;\">" +
+                "<tr>" +
+                "<td bgcolor=\"#ffffff\" align=\"center\" style=\"padding: 40px 20px 20px 20px; border-radius: 4px 4px 0px 0px;\">"
+                +
+                "<h1 style=\"font-size: 48px; font-weight: 400;\">Lịch sử đơn hàng của bạn</h1>" +
+                "</td>" +
+                "</tr>" +
+                "</table>" +
+                "</td>" +
+                "</tr>" +
+                "<tr>" +
+                "<td bgcolor=\"#f4f4f4\" align=\"center\">" +
+                "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" style=\"max-width: 600px;\">" +
+                "<tr>" +
+                "<td bgcolor=\"#ffffff\" align=\"left\" style=\"padding: 20px 30px; color: #666666; font-size: 18px;\">"
+                +
+                "<p>Chúng tôi đã ghi nhận các đơn hàng của bạn. Nhấn vào nút bên dưới để xem chi tiết lịch sử mua hàng.</p>"
+                +
+                "</td>" +
+                "</tr>" +
+                "<tr>" +
+                "<td bgcolor=\"#ffffff\" align=\"center\">" +
+                "<a href=\"" + url +
+                "\" style=\"background-color: #5bd4a7; color: #ffffff; padding: 15px 30px; text-decoration: none; font-size: 20px; font-weight: bold;\">Xem Lịch Sử Đơn Hàng</a>"
+                +
+                "</td>" +
+                "</tr>" +
+                "<tr>" +
+                "<td bgcolor=\"#ffffff\" align=\"left\" style=\"padding: 20px 30px; color: #666666; font-size: 18px;\">"
+                +
+                "<p>Nếu bạn gặp sự cố khi đặt hàng, vui lòng liên hệ với bộ phận hỗ trợ của chúng tôi.</p>" +
+                "</td>" +
+                "</tr>" +
+                "<tr>" +
+                "<td bgcolor=\"#5bd4a7\" align=\"center\" style=\"padding: 30px;\">" +
+                "<p style=\"margin: 0;\">© 2024 Công ty của bạn. Tất cả quyền được bảo lưu.</p>" +
+                "</td>" +
+                "</tr>" +
+                "</table>" +
+                "</body>" +
+                "</html>";
+    }
+
 }

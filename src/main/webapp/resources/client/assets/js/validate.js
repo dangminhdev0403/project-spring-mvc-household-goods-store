@@ -18,6 +18,7 @@ function alert(notice, message, formElement) {
   }).then((willDelete) => {
     if (willDelete) {
       formElement.submit();
+      showLoading();
     } else {
     }
   });

@@ -29,6 +29,12 @@ public class OrderService {
         return this.orderRepository.findAll(specification);
     }
 
+    public Order getOrderByCustomerCode(String customerCode) {
+        Order order = this.orderRepository.findByCustomerCode(customerCode).isEmpty() ? null
+                : this.orderRepository.findByCustomerCode(customerCode).get();
+        return order;
+    };
+
     public Order getOrderById(long id) {
         Optional<Order> orderOptional = this.orderRepository.findById(id);
         if (orderOptional.isPresent()) {

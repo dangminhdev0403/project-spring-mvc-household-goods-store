@@ -67,7 +67,7 @@ public class OrderController {
         currentOrder.setReceiverAddress(updateOrder.getReceiverAddress());
         currentOrder.setReceiverPhone(updateOrder.getReceiverPhone());
         currentOrder.setStatus(updateOrder.getStatus());
-        Order updatedOrder = this.orderService.handleSaveOrder(currentOrder);
+        this.orderService.handleSaveOrder(currentOrder);
         redirectAttributes.addFlashAttribute("success", "Cập nhật thành công");
 
         return "redirect:/admin/update/" + id;
