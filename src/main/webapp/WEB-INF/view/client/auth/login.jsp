@@ -119,16 +119,19 @@ uri="http://www.springframework.org/tags/form" %>
             class="form auth__form"
             id="form-login"
           >
-            <c:if test="${param.error != null}">
-              <c:if test="${param.error eq 'not-found'}">
+            <c:if
+              test="${param.error != null }"
+            >
+              <c:if test="${param.error eq 'not-found' || param.error eq  'unknown-error'}">
                 <p
                   class="form__error"
                   style="display: block; font-size: 1.8rem; text-align: center"
                 >
                   Thông tin đăng nhập không chính xác
                 </p>
+                
               </c:if>
-              <c:if test="${param.error eq 'locked'}">
+              <c:if test="${param.error eq 'locked' }">
                 <p
                   class="form__error"
                   style="display: block; font-size: 1.8rem; text-align: center"

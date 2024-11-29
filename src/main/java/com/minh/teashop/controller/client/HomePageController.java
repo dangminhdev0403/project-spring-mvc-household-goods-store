@@ -91,9 +91,6 @@ public class HomePageController {
 
     }
 
-
-
-
     @GetMapping("/header-logined")
     public String getHeaderLogined(Model model, HttpServletRequest request) {
         HttpSession session = request.getSession(false);
@@ -137,9 +134,9 @@ public class HomePageController {
     }
 
     @GetMapping("/category/{idCategory}")
-    public String getMethodName(Model model, ProductSpecDTO productSpec, 
-    @PathVariable("idCategory") long idCategory,
-    @RequestParam(value = "search") Optional<String> nameSearch
+    public String getMethodName(Model model, ProductSpecDTO productSpec,
+            @PathVariable("idCategory") long idCategory,
+            @RequestParam(value = "search") Optional<String> nameSearch
 
     ) {
 
@@ -157,7 +154,7 @@ public class HomePageController {
         } catch (Exception e) {
         }
 
-        Page<Product> listProductPage = this.productService.fetchProductsByCategory(category, productSpec,nameProduct);
+        Page<Product> listProductPage = this.productService.fetchProductsByCategory(category, productSpec, nameProduct);
         List<Product> listProduct = listProductPage.getContent().size() > 0 ? listProductPage.getContent()
                 : new ArrayList<Product>();
 
@@ -200,7 +197,7 @@ public class HomePageController {
         user.setPassword(hashPassword);
         user.setRole(this.userService.getRoleByName("CUSTOMER"));
         user.setEnabled(false);
-        
+
         User newUser = this.userService.handleSaveUser(user);
 
         this.emailService.sendEmailVerify(newUser);
@@ -265,34 +262,33 @@ public class HomePageController {
         return "client/auth/reset-pass";
     }
 
-@GetMapping("/reset-password")
-@ResponseBody
-public Map<String, Object> resetPassword(@RequestParam("email") String email,
-        HttpServletRequest request) throws MessagingException {
-    Map<String, Object> response = new HashMap<>();
+    @GetMapping("/reset-password")
+    @ResponseBody
+    public Map<String, Object> resetPassword(@RequestParam("email") String email,
+            HttpServletRequest request) throws MessagingException {
+        Map<String, Object> response = new HashMap<>();
 
-    boolean checkExist = this.userService.checkEmailExist(email);
-    if (!checkExist) {
-        response.put("status", "error");
-        response.put("message", "Email không tồn tại");
+        boolean checkExist = this.userService.checkEmailExist(email);
+        if (!checkExist) {
+            response.put("status", "error");
+            response.put("message", "Email không tồn tại");
+            return response;
+        }
+
+        User currentUser = this.userService.getUserByEmail(email);
+        boolean checkEnable = currentUser.isEnabled();
+        if (!checkEnable) {
+            response.put("status", "error");
+            response.put("message", "Email chưa được kích hoạt.");
+            return response;
+        }
+
+        this.emailService.sendEmailResetPass(currentUser);
+
+        response.put("status", "success");
+        response.put("message", "Chúng tôi đã gửi email xác thực đến hộp thư của bạn.");
         return response;
     }
-
-    User currentUser = this.userService.getUserByEmail(email);
-    boolean checkEnable = currentUser.isEnabled();
-    if (!checkEnable) {
-        response.put("status", "error");
-        response.put("message", "Email chưa được kích hoạt.");
-        return response;
-    }
-
-    this.emailService.sendEmailResetPass(currentUser);
-
-    response.put("status", "success");
-    response.put("message", "Chúng tôi đã gửi email xác thực đến hộp thư của bạn.");
-    return response;
-}
-
 
     @GetMapping("/reset-pass")
     public String resetPasswordPage(Model model, @RequestParam("token") String token,
@@ -371,14 +367,43 @@ public Map<String, Object> resetPassword(@RequestParam("email") String email,
         return response;
     }
 
+    @GetMapping("/affiliate-overview")
+    public String getAboutPage(HttpServletRequest request, Model model) {
+        Map<String, Object> searchResult = (Map<String, Object>) request.getAttribute("searchResult");
+        if (searchResult != null) {
+            model.addAllAttributes(searchResult);
 
-    @GetMapping("/about")
-    public String getAboutPage() {
+            return "client/homepage/show";
+
+        }
+
+        HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("id") == null) {
+            model.addAttribute("title", "Tổng quan về chương trình Affiliate.");
+            return "client/page/about";
+        }
+        long id = (long) session.getAttribute("id");
+        
+        User currentUser = this.userService.getUserById(id);
+        if (currentUser != null) {
+            if (currentUser.getRole().getName().equals("COLLABORATOR")) {
+                model.addAttribute("title", "Trang cộng tác viên.");
+
+                return "client/profile/manager-affile";
+
+            }
+
+        }
+
+        model.addAttribute("title", "Tổng quan về chương trình Affiliate.");
         return "client/page/about";
     }
+
     @GetMapping("/contact")
-    public String getContactPage() {
+    public String getContactPage(Model model) {
+
+        model.addAttribute("title", "Tổng quan về chương trình affiliate.");
         return "client/page/contact";
     }
-    
+
 }

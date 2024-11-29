@@ -53,6 +53,7 @@ public class CustomSuccessHandle implements AuthenticationSuccessHandler {
                 return roleTargetUrlMap.get(authorityName);
             }
         }
+        
 
         throw new IllegalStateException("User role not found");
     }
@@ -71,6 +72,7 @@ public class CustomSuccessHandle implements AuthenticationSuccessHandler {
             session.setAttribute("id", user.getUser_id());
             session.setAttribute("email", user.getEmail());
             session.setAttribute("urlAvatar", user.getUrlAvatar());
+            session.setAttribute("role", user.getRole().getName());
 
             long sum = user.getCart() == null ? 0 : user.getCart().getSum();
 

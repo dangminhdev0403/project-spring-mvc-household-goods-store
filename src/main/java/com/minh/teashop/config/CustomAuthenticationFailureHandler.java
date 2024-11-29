@@ -18,11 +18,12 @@ public class CustomAuthenticationFailureHandler implements AuthenticationFailure
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
             AuthenticationException exception) throws IOException, ServletException {
-        String errorMessage = "locked";
+        String errorMessage = "unknown-error";
 
         if (exception instanceof UsernameNotFoundException) {
             errorMessage = "not-found";
-        } else if (exception instanceof DisabledException) {
+        } 
+        if (exception instanceof DisabledException) {
             errorMessage = "locked";
         }
         String encodedMessage = URLEncoder.encode(errorMessage, StandardCharsets.UTF_8);

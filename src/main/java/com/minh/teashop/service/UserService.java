@@ -53,8 +53,11 @@ public class UserService {
     @Transactional
     public User handleSaveUser(User user) {
         try {
-            String cusCode = generateCustomerCode();
-            user.setCustomerCode(cusCode);
+            if (user.getCustomerCode() == null) {
+                String cusCode = generateCustomerCode();
+                user.setCustomerCode(cusCode);
+            }
+
             return this.userRepository.save(user);
         } catch (Exception e) {
             // Ghi log chi tiết để kiểm tra nguyên nhân gây ra lỗi

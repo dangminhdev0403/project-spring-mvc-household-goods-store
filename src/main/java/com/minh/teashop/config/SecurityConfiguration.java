@@ -82,7 +82,7 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(authorize -> authorize
                         .dispatcherTypeMatchers(DispatcherType.FORWARD, DispatcherType.INCLUDE)
                         .permitAll()
-                        .requestMatchers("/header-logined", "/", "/login", "/register", "/products/**", "/product/**","/cancel-oder",
+                        .requestMatchers("/header-logined", "/", "/login", "/register", "/products/**", "/product/**","/cancel-oder","/?search","/category/**","/affiliate-overview",
                                 "/history-order/**",
                                 "/test",
                                 "/place-now",

@@ -8,84 +8,158 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!-- end Header -->
 
 <!-- MAIN -->
-<main class="checkout-page">
-    <div class="container">
-        <!-- Search bar -->
-        <div class="checkout-container">
-            <div class="search-bar d-none d-md-flex">
-                <input type="text" name="" id="" placeholder="Search for item" class="search-bar__input" />
-                <button class="search-bar__submit">
-                    <img src="/client/assets/icons/search.svg" alt="" class="search-bar__icon icon" />
-                </button>
-            </div>
-        </div>
 
-        <!-- Breadcrumbs -->
-        <div class="checkout-container">
-            <ul class="breadcrumbs checkout-page__breadcrumbs">
-                <li>
-                    <a href="/" class="breadcrumbs__link">
-                        Trang chủ 
-                        <img src="/client/assets/icons/arrow-right.svg" alt="" />
-                    </a>
-                </li>
-                <li>
-                    <a href="/about" class="breadcrumbs__link">
-                       Giới thiệu
-                        <img src="/client/assets/icons/arrow-right.svg" alt="" />
-                    </a>
-                </li>
-              
-            </ul>
-        </div>
+<main class="affiliate-page">
+  <div class="blur-circle blur-circle-1"></div>
+  <div class="blur-circle blur-circle-2"></div>
 
-        <!-- Checkout content -->
-        <div class="checkout-container">
-            <div class="row gy-xl-3">
-                <div class="col-12 col-xl-12">
-                    <div class="cart-info">
-                        <h1 class="cart-info__heading">Về Chúng tôi</h1>
-                        <div class="cart-info__separate"></div>
-
-                        <article class="cart-item" style="display: block; padding: 0;">
-                        <h2 class="cart-info__heading cart-info__heading--lv2" style="padding-bottom: 1rem;">
-                            Chào mừng bạn 
-
-                        </h2>
-                        <p style="padding-bottom: 3rem;">Chúng tôi cung cấp các vật dụng chất lượng cao và đa dạng cho gia đình và cuộc sống. Với thiết kế hiện đại và tiện dụng, sản phẩm của chúng tôi sẽ giúp bạn nâng cao chất lượng cuộc sống hàng ngày.</p>
-
-                            </article>
-                            <article class="cart-item" style="display: block; padding: 0;">
-                                <h2 class="cart-info__heading cart-info__heading--lv2" style="padding-bottom: 1rem; padding-top: 2rem;">
-                                    Sứ Mệnh Của Chúng Tôi
-
-                                </h2>
-                                <p style="padding-bottom: 3rem;">Sứ mệnh của chúng tôi là cung cấp các sản phẩm không chỉ bền bỉ, an toàn mà còn mang lại giá trị cho cuộc sống của bạn. Chúng tôi luôn cải tiến để đáp ứng mọi nhu cầu của khách hàng.</p>
-
-                                    </article>
-                                    <article class="cart-item" style="display: block; padding: 0;">
-                                        <h2 class="cart-info__heading cart-info__heading--lv2" style="padding-bottom: 1rem; padding-top: 2rem;">
-                                            Tại Sao Chọn Chúng Tôi?
-        
-                                        </h2>
-                                        <ul>
-                                            <li style="padding-bottom: 3rem;"><strong class="store-highlight">Chất lượng hàng đầu:</strong> Chúng tôi cam kết cung cấp sản phẩm đạt tiêu chuẩn chất lượng và an toàn.</li>
-                                            <li style="padding-bottom: 3rem;"><strong class="store-highlight">Dịch vụ tận tâm:</strong> Đội ngũ chăm sóc khách hàng nhiệt tình, luôn sẵn sàng hỗ trợ bạn.</li>
-                                            <li style="padding-bottom: 3rem;"><strong class="store-highlight">Giá cả hợp lý:</strong> Mang đến các sản phẩm với mức giá cạnh tranh nhất trên thị trường.</li>
-                                        </ul>
-        
-                                            </article>
-
-                    </div>
-                </div>
-               
-            </div>
-        </div>
+  <section class="hero" id="home">
+    <div class="container2 hero-content">
+      <h1>Kiếm tiền không giới hạn cùng chúng tôi</h1>
+      <p>
+        Tham gia cộng đồng affiliate hàng đầu Việt Nam và tận hưởng commission
+        hấp dẫn cùng hệ thống hỗ trợ chuyên nghiệp
+      </p>
+      <a href="/affiliates" class="btn" style="cursor: pointer; z-index: 1; position: relative;">Bắt đầu ngay</a>
     </div>
+  </section>
+
+  <div class="container2">
+    <div class="stats ">
+      <div class="stat-card">
+        <div class="stat-number">30%</div>
+        <div class="stat-label">Hoa hồng</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">24/7</div>
+        <div class="stat-label">Hỗ trợ</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">10K+</div>
+        <div class="stat-label">Đối tác</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">1M+</div>
+        <div class="stat-label">Đơn hàng</div>
+      </div>
+    </div>
+  </div>
+
+  <section class="benefits" id="benefits">
+    <div class="container2">
+      <h2 class="section-title">Lợi ích khi tham gia</h2>
+      <div class="benefit-cards">
+        <div class="benefit-card">
+          <i class="fas fa-percentage benefit-icon"></i>
+          <h3>Hoa hồng cao</h3>
+          <p>Nhận đến 30% hoa hồng cho mỗi đơn hàng thành công</p>
+        </div>
+        <div class="benefit-card">
+          <i class="fas fa-money-bill-wave benefit-icon"></i>
+          <h3>Thanh toán nhanh</h3>
+          <p>Thanh toán đúng hạn vào ngày 15 hàng tháng</p>
+        </div>
+        <div class="benefit-card">
+          <i class="fas fa-headset benefit-icon"></i>
+          <h3>Hỗ trợ 24/7</h3>
+          <p>Đội ngũ hỗ trợ chuyên nghiệp luôn sẵn sàng giúp đỡ</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="products" id="products">
+    <div class="container2">
+      <h2 class="section-title">Sản phẩm nổi bật</h2>
+  <div class="product-grid">
+
+        <div class="product-card">
+          <img
+            src="https://via.placeholder.com/400x300"
+            alt="Product 1"
+            class="product-image"
+          />
+          <div class="product-info">
+            <h3 class="product-title">Sản phẩm cao cấp 1</h3>
+            <span class="commission">Hoa hồng: 30%</span>
+            <p>Mô tả chi tiết về sản phẩm và các ưu điểm nổi bật</p>
+            <a href="#" class="btn">Lấy link affiliate</a>
+          </div>
+        </div>
+        <div class="product-card">
+          <img
+            src="https://via.placeholder.com/400x300"
+            alt="Product 2"
+            class="product-image"
+          />
+          <div class="product-info">
+            <h3 class="product-title">Sản phẩm cao cấp 2</h3>
+            <span class="commission">Hoa hồng: 25%</span>
+            <p>Mô tả chi tiết về sản phẩm và các ưu điểm nổi bật</p>
+            <a href="#" class="btn">Lấy link affiliate</a>
+          </div>
+        </div>
+        <div class="product-card">
+          <img
+            src="https://via.placeholder.com/400x300"
+            alt="Product 3"
+            class="product-image"
+          />
+          <div class="product-info">
+            <h3 class="product-title">Sản phẩm cao cấp 3</h3>
+            <span class="commission">Hoa hồng: 20%</span>
+            <p>Mô tả chi tiết về sản phẩm và các ưu điểm nổi bật</p>
+            <a href="#" class="btn">Lấy link affiliate</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // Animations
+    anime({
+      targets: ".hero-content",
+      translateY: [50, 0],
+      opacity: [0, 1],
+      duration: 1000,
+      easing: "easeOutExpo",
+    });
+
+    anime({
+      targets: ".stat-card",
+      translateY: [50, 0],
+      opacity: [0, 1],
+      delay: anime.stagger(100),
+      duration: 800,
+      easing: "easeOutExpo",
+    });
+
+    anime({
+      targets: ".benefit-card",
+      translateY: [50, 0],
+      opacity: [0, 1],
+      delay: anime.stagger(100),
+      duration: 800,
+      easing: "easeOutExpo",
+    });
+
+    // Dark mode toggle
+   
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+      anchor.addEventListener("click", function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute("href")).scrollIntoView({
+          behavior: "smooth",
+        });
+      });
+    });
+  </script>
 </main>
 
 <!-- Footer -->
 <jsp:include page="../layout/footer.jsp" />
 
 <!--end footer  -->
-

@@ -421,6 +421,8 @@ public class ProfileController {
         if (currentUser != null) {
 
             if (currentUser.isEnabled() != false) {
+
+                
                 if (cccdFrontUrl.getOriginalFilename() != "" && cccdBackUrl.getOriginalFilename() != "")
 
                 {
@@ -432,7 +434,7 @@ public class ProfileController {
                     }
 
                     UploadResponse response = this.uploadService.handleSaveUploadFile(cccdFrontUrl, "cccd");
-                    UploadResponse response2 = this.uploadService.handleSaveUploadFile(cccdFrontUrl, "cccd");
+                    UploadResponse response2 = this.uploadService.handleSaveUploadFile(cccdBackUrl, "cccd");
 
                     currentUser.setCccdFrontUrl(response.getUrl());
                     currentUser.setCccdBackUrl(response2.getUrl());
@@ -452,6 +454,7 @@ public class ProfileController {
             }
 
         }
+
         redirectAttributes.addFlashAttribute("sucess", "Gửi yêu cầu thành công");
 
         return "redirect:/affiliates";

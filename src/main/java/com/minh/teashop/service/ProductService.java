@@ -3,8 +3,10 @@ package com.minh.teashop.service;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
@@ -252,7 +254,7 @@ public class ProductService {
         order.setOrderDate(LocalDateTime.now());
         if (user.getUser_id() == 0) {
             order.setCustomerCode(user.getCustomerCode());
-            
+
         } else {
             order.setUser(user);
             order.setCustomerCode(user.getCustomerCode());
@@ -264,16 +266,17 @@ public class ProductService {
         orderDetail.setOrder(order);
         long productId = Long.parseLong(payRequest.getProductId());
 
-        Product product = this.productRepository.findById(productId).isEmpty() ? new Product() : this.productRepository.findById(productId).get() ;
+        Product product = this.productRepository.findById(productId).isEmpty() ? new Product()
+                : this.productRepository.findById(productId).get();
 
         long qty = Long.parseLong(payRequest.getQuantity());
         orderDetail.setProduct(product);
-        orderDetail.setQuantity(qty );
-        orderDetail.setPrice(qty * product.getPrice() );
+        orderDetail.setQuantity(qty);
+        orderDetail.setPrice(qty * product.getPrice());
 
         orderDetail = this.orderDetailRepository.save(orderDetail);
 
-        return order ;
+        return order;
 
     }
 
@@ -298,7 +301,7 @@ public class ProductService {
                     OrderDetail orderDetail = new OrderDetail();
                     orderDetail.setOrder(order);
                     orderDetail.setProduct(cd.getProduct());
-                    orderDetail.setPrice(cd.getPrice()*cd.getQuantity());
+                    orderDetail.setPrice(cd.getPrice() * cd.getQuantity());
                     orderDetail.setQuantity(cd.getQuantity());
 
                     this.orderDetailRepository.save(orderDetail);
@@ -445,4 +448,20 @@ public class ProductService {
         }
     }
 
+    public Map<String, Object> searchProducts(Optional<String> nameSearch, int page, int size) {
+        Map<String, Object> result = new HashMap<>();
+
+        if (nameSearch.isPresent()) {
+            String nameProduct = nameSearch.get();
+            Pageable pageable = PageRequest.of(page - 1, size);
+            Page<Product> listProductPage = this.fetchProducts(pageable, nameProduct);
+
+            result.put("listProduct", listProductPage.getContent());
+            result.put("currentPage", page);
+            result.put("totalPages", listProductPage.getTotalPages());
+            result.put("nameProduct", nameProduct);
+        }
+
+        return result;
+    }
 }

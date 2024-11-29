@@ -115,7 +115,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
           </div>
         </li>
         <li class="navbar__item">
-          <a href="/about" class="navbar__link"> Giới thiệu</a>
+          <a href="/affiliate-overview" class="navbar__link">Affilate</a>
         </li>
       </ul>
     </nav>

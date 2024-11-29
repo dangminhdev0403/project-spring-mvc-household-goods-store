@@ -67,6 +67,11 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                                            <span class="format-price"> ${order.orderDetail[0].product.price}</span>
                                             | <span class="cart-item__status"> ${order.status.displayName}</span>
                                         </p>
+
+                                        <p class="cart-item__price-wrap">
+                                            ${order.receiverName} (${order.receiverPhone}),
+                                            ${order.receiverAddress} 
+                                          </p>
                                         <div class="cart-item__ctrl cart-item__ctrl--md-block">
                                             <div class="cart-item__input">
                                                 ${order.orderDetail[0].product.category.name}

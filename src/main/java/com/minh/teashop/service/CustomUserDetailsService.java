@@ -2,6 +2,7 @@ package com.minh.teashop.service;
 
 import java.util.Collections;
 
+import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -24,6 +25,9 @@ public class CustomUserDetailsService implements UserDetailsService {
         com.minh.teashop.domain.User user = this.userService.getUserByEmail(username);
         if (user == null) {
             throw new UsernameNotFoundException("User not found");
+        }
+        if (user.getDeletedAt() != null) {
+            throw new DisabledException("Account is disabled");
         }
         return new User(
                 user.getEmail(),

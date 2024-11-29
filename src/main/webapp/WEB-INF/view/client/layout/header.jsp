@@ -49,6 +49,8 @@ uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
     <!-- Scripts -->
     <script src="/client/assets/js/scripts.js"></script>
     <script src="/client/assets/js/res.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <style>
       .alert {

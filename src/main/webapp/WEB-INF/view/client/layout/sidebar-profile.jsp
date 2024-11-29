@@ -82,7 +82,9 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
           </a>
         </li>
 
-        <li>
+      
+          <c:if test ="${sessionScope.role eq 'CUSTOMER'}">
+            <li>
           <a href="affiliates" class="profile-menu__link">
             <span class="profile-menu__icon">
               <img src="/client/assets/icons/gift-2.svg" alt="" class="icon" />
@@ -90,6 +92,9 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
             Đăng kí cộng tác viên
           </a>
         </li>
+          </c:if>
+        
+    
         <li>
           <a href="#!" class="profile-menu__link">
             <span class="profile-menu__icon">

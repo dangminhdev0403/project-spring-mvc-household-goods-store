@@ -28,8 +28,12 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                
                 <h2 class="cart-info__heading">Tham gia cộng tác viên</h2>
                 <p class="cart-info__desc profile__desc">
-                    "Gia nhập ngay đội ngũ cộng tác viên của chúng tôi để kiếm thêm thu nhập hấp dẫn, không cần vốn, linh hoạt thời gian và cơ hội nhận thưởng cao!                </p>
-                <div class="row gy-md-2 row-cols-2 row-cols-lg-1">
+                  Gia nhập ngay đội ngũ cộng tác viên của chúng tôi để kiếm thêm thu nhập hấp dẫn, không cần vốn, linh hoạt thời gian và cơ hội nhận thưởng cao!
+                  <br>
+                  Liên hệ Zalo ngay tại số <strong>0343921331</strong> để được duyệt đăng ký sớm nhất và bắt đầu hành trình cộng tác viên của bạn!
+                
+                </p>
+                  <div class="row gy-md-2 row-cols-2 row-cols-lg-1">
                   <!-- Account info 1 -->
                   <div class="col">
                     <a href="#" style="cursor: default;">
@@ -120,22 +124,10 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                     accept=".png, .jpg, .jpeg" name="cccdFrontUrl"  />
 
 
-                  <c:if
-                  test="${not empty currentUser.cccdFrontUrl &&  currentUser.cccdFrontUrl != 'NULL'}"
-                >
-                  
-                <img   src="${currentUser.cccdFrontUrl}" style="max-width: 52%; border: 1px solid #ccc; margin-top: 2rem;"
-                alt="Avatar" id="img-preview">
+            
+            <img   src="" style="max-width: 52%; border: 1px solid #ccc; margin-top: 2rem;"
+            id="img-preview"/>
 
-                </c:if>
-                <c:if
-              test="${ empty currentUser.cccdBackUrl }"
-            >
-              
-            <img   src="aa" style="max-width: 52%; border: 1px solid #ccc; margin-top: 2rem;"
-            alt="CCCD mặt trước" id="img-preview">
-
-            </c:if>
 
                 <label style="margin-top: 1rem;"
                       for="avatarImg  "
@@ -146,22 +138,11 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                 <input  class="form-control upload-img" type="file" id="avatarImg2" 
                 accept=".png, .jpg, .jpeg" name="cccdBackUrl"  />
 
-                <c:if
-                test="${not empty currentUser.cccdBackUrl &&  currentUser.cccdBackUrl != 'NULL'}"
-              >
-                
-              <img   src="${currentUser.cccdBackUrl}" style="max-width: 52%; border: 1px solid #ccc; margin-top: 2rem;"
-              alt="Avatar" id="img-preview2">
-
-              </c:if>
-              <c:if
-              test="${ empty currentUser.cccdBackUrl }"
-            >
               
-            <img   src="aa" style="max-width: 52%; border: 1px solid #ccc; margin-top: 2rem;"
-            alt="CCCD mặt sau" id="img-preview2">
+             
+            <img   src="" style="max-width: 52%; border: 1px solid #ccc; margin-top: 2rem;"
+                 id="img-preview2">
 
-            </c:if>
 
 
                     </div>
