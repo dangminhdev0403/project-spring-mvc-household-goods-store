@@ -1,0 +1,112 @@
+    /* Khung chứa */
+    .khung {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 15px;
+    }
+
+    /* Hàng */
+    .hang {
+        display: flex;
+        flex-wrap: wrap;
+        margin: -15px;
+    }
+
+    /* Cột */
+    .cot {
+        padding: 15px;
+        flex: 1;
+    }
+
+    /* Kích thước cột desktop */
+    .d-1 { flex: 0 0 8.333333%; max-width: 8.333333%; }
+    .d-2 { flex: 0 0 16.666667%; max-width: 16.666667%; }
+    .d-3 { flex: 0 0 25%; max-width: 25%; }
+    .d-4 { flex: 0 0 33.333333%; max-width: 33.333333%; }
+    .d-5 { flex: 0 0 41.666667%; max-width: 41.666667%; }
+    .d-6 { flex: 0 0 50%; max-width: 50%; }
+    .d-7 { flex: 0 0 58.333333%; max-width: 58.333333%; }
+    .d-8 { flex: 0 0 66.666667%; max-width: 66.666667%; }
+    .d-9 { flex: 0 0 75%; max-width: 75%; }
+    .d-10 { flex: 0 0 83.333333%; max-width: 83.333333%; }
+    .d-11 { flex: 0 0 91.666667%; max-width: 91.666667%; }
+    .d-12 { flex: 0 0 100%; max-width: 100%; }
+
+    /* Tablet */
+    @media (max-width: 768px) {
+        .t-1 { flex: 0 0 8.333333%; max-width: 8.333333%; }
+        .t-2 { flex: 0 0 16.666667%; max-width: 16.666667%; }
+        .t-3 { flex: 0 0 25%; max-width: 25%; }
+        .t-4 { flex: 0 0 33.333333%; max-width: 33.333333%; }
+        .t-5 { flex: 0 0 41.666667%; max-width: 41.666667%; }
+        .t-6 { flex: 0 0 50%; max-width: 50%; }
+        .t-7 { flex: 0 0 58.333333%; max-width: 58.333333%; }
+        .t-8 { flex: 0 0 66.666667%; max-width: 66.666667%; }
+        .t-9 { flex: 0 0 75%; max-width: 75%; }
+        .t-10 { flex: 0 0 83.333333%; max-width: 83.333333%; }
+        .t-11 { flex: 0 0 91.666667%; max-width: 91.666667%; }
+        .t-12 { flex: 0 0 100%; max-width: 100%; }
+    }
+
+    /* Mobile */
+    @media (max-width: 576px) {
+        .m-1 { flex: 0 0 8.333333%; max-width: 8.333333%; }
+        .m-2 { flex: 0 0 16.666667%; max-width: 16.666667%; }
+        .m-3 { flex: 0 0 25%; max-width: 25%; }
+        .m-4 { flex: 0 0 33.333333%; max-width: 33.333333%; }
+        .m-5 { flex: 0 0 41.666667%; max-width: 41.666667%; }
+        .m-6 { flex: 0 0 50%; max-width: 50%; }
+        .m-7 { flex: 0 0 58.333333%; max-width: 58.333333%; }
+        .m-8 { flex: 0 0 66.666667%; max-width: 66.666667%; }
+        .m-9 { flex: 0 0 75%; max-width: 75%; }
+        .m-10 { flex: 0 0 83.333333%; max-width: 83.333333%; }
+        .m-11 { flex: 0 0 91.666667%; max-width: 91.666667%; }
+        .m-12 { flex: 0 0 100%; max-width: 100%; }
+    }
+
+    /* Ví dụ box */
+    .hop {
+        background: #000;
+        color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        text-align: center;
+        transition: all 0.3s ease;
+    }
+
+    .hop:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+
+
+    .grid {
+        display: grid;
+        gap: 20px;
+        padding: 20px;
+        max-width: 1200px;
+        margin: 0 auto;
+        grid-template-columns: repeat(3, 1fr); /* 3 cột bằng nhau trên PC */
+    }
+
+      /* Tablet & Mobile */
+      @media (max-width: 768px) {
+        .grid {
+            grid-template-columns: 1fr; /* 1 cột dọc */
+        }
+    }
+
+    /* Demo styling */
+    .box {
+        background: #000;
+        color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        min-height: 200px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+        transition: transform 0.3s ease;
+    }

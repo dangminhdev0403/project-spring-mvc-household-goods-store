@@ -243,12 +243,15 @@ public class ProductService {
 
     }
 
-    public Order handlePayNow(PayRequest payRequest, User user) {
+    public Order handlePayNow(PayRequest payRequest, User user, String affiCode) {
         Order order = new Order();
         order.setReceiverName(payRequest.getReceiverName());
         order.setReceiverPhone(payRequest.getReceiverPhone());
         order.setReceiverAddress(payRequest.getAddress());
         order.setStatus(OrderStatus.PENDING);
+
+        User affiUser = this.userService.getUserByCutomerCode(affiCode);
+        order.setAffiliate(affiUser);
         double total = Double.parseDouble(payRequest.getTotalPrice());
         order.setTotalPrice(total);
         order.setOrderDate(LocalDateTime.now());
@@ -280,8 +283,23 @@ public class ProductService {
 
     }
 
-    public void handlePlaceOrder(User user, HttpSession session, Address receiverAddress, double total) {
+    public void handlePlaceOrder(User user, HttpSession session, Address receiverAddress, double total, String ref) {
         // create Oder
+        String productId = null;
+        String referralCode = null;
+        User refUser = null;
+        Product refProduct = null;
+        if (ref != null) {
+            int separatorIndex = ref.indexOf('-');
+            if (separatorIndex != -1) {
+                productId = ref.substring(0, separatorIndex);
+                referralCode = ref.substring(separatorIndex + 1);
+                refUser = this.userService.getUserByCutomerCode(referralCode);
+
+                refProduct = this.productRepository.findByProductId(Long.parseLong(productId));
+            }
+        }
+
         Order order = new Order();
         order.setUser(user);
         order.setReceiverName(receiverAddress.getReceiverName());
@@ -291,6 +309,7 @@ public class ProductService {
         order.setTotalPrice(total);
         order.setOrderDate(LocalDateTime.now());
         order.setCustomerCode(user.getCustomerCode());
+
         order = this.orderRepository.save(order);
 
         Cart cart = this.cartRepository.findByUser(user);
@@ -301,6 +320,10 @@ public class ProductService {
                     OrderDetail orderDetail = new OrderDetail();
                     orderDetail.setOrder(order);
                     orderDetail.setProduct(cd.getProduct());
+                    if (cd.getProduct() == refProduct && refProduct != null) {
+                        order.setAffiliate(refUser);
+
+                    }
                     orderDetail.setPrice(cd.getPrice() * cd.getQuantity());
                     orderDetail.setQuantity(cd.getQuantity());
 

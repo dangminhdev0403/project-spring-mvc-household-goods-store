@@ -12,14 +12,23 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
+import com.minh.teashop.component.AffiliateLinkInterceptor;
+import com.minh.teashop.component.ReferralInterceptor;
 import com.minh.teashop.component.SearchInterceptor;
+
 @SuppressWarnings("null")
 @Configuration
 @EnableWebMvc
 public class WebMvcConfig implements WebMvcConfigurer {
 
     @Autowired
+    private AffiliateLinkInterceptor affiliateLinkInterceptor ;
+    @Autowired
+    private ReferralInterceptor referralInterceptor;
+
+    @Autowired
     private SearchInterceptor searchInterceptor;
+
     @Bean
     public ViewResolver viewResolver() {
         final InternalResourceViewResolver bean = new InternalResourceViewResolver();
@@ -31,9 +40,12 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(referralInterceptor).addPathPatterns("/**");
+        registry.addInterceptor(affiliateLinkInterceptor).addPathPatterns("/product/**");
         registry.addInterceptor(searchInterceptor)
-                .addPathPatterns("/about");  // Thêm các pattern URL mà bạn muốn áp dụng interceptor
+                .addPathPatterns("/about"); // Thêm các pattern URL mà bạn muốn áp dụng interceptor
     }
+
     @Override
     public void configureViewResolvers(ViewResolverRegistry registry) {
         registry.viewResolver(viewResolver());

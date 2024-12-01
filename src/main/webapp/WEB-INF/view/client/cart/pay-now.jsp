@@ -290,20 +290,22 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                 type="text"
                 name="productId"
                 value="${product.product_id}"
+                style="display: none"
+
               />
 
               <input
                 type="text"
                 id="total-place"
                 name="totalPrice"
-                style="display: block"
+                style="display: none"
               />
               <input
                 type="text"
                 id="quantity"
                 value="${qty}"
                 name="quantity"
-                style="display: block"
+                style="display: none"
               />
             </form>
             <div class="cart-info__row">

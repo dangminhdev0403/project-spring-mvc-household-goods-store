@@ -146,10 +146,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                     </div>
                   </div>
                   <div class="prod-info__card">
-                    <div class="prod-info__row">
-                      <span class="prod-info__price">$500.00</span>
-                      <span class="prod-info__tax">10%</span>
-                    </div>
+                   
                     <p class="prod-info__total-price">
                       <c:choose>
                         <c:when test="${product.price != null}">
@@ -174,7 +171,6 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                       <form
                         action="/add-product-to-cart/${product.product_id}"
                         class="form"
-                        
                       >
                         <input
                           type="hidden"
@@ -261,7 +257,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                   <div class="col">
                     <article class="product-card">
                       <div class="product-card__img-wrap">
-                        <a href="/product/${pr.product_id}">
+                        <a href="/product/${pr.slug}-${pr.product_id}">
                           <img
                             src="${pr.productImages[0].url}"
                             alt="${pr.name}"
@@ -270,7 +266,9 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                         </a>
                       </div>
                       <h3 class="product-card__title">
-                        <a href="/product/${pr.product_id}"> ${pr.name}</a>
+                        <a href="/product/${pr.slug}-${pr.product_id}">
+                          ${pr.name}</a
+                        >
                       </h3>
                       <p class="product-card__brand">${pr.category.name}</p>
                       <div class="product-card__row">

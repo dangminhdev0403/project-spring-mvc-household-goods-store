@@ -37,7 +37,6 @@ public class Order {
     private String receiverPhone;
     private String customerCode; // Trường mã khách hàng
 
-
     @JsonFormat(pattern = "HH:mm dd/MM/yyyy")
     private LocalDateTime orderDate; // Thêm trường để lưu ngày đặt hàng
 
@@ -46,6 +45,10 @@ public class Order {
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = true) // nullable để hỗ trợ khi User bị xóa
     private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "affiliate_id") // Cộng tác viên giới thiệu
+    private User affiliate;
 
     @OneToMany(mappedBy = "order")
     List<OrderDetail> OrderDetail;

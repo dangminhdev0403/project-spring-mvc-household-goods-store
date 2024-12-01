@@ -595,7 +595,7 @@ function populateSelect(data, selectElement, text, idLocation) {
     selectElement.innerHTML = "";
 
     const defaultOption = document.createElement("option");
-    defaultOption.value = "";
+    defaultOption.value = null;
     defaultOption.textContent = text; // Bỏ khoảng cách thừa ở đây
     selectElement.appendChild(defaultOption);
 
@@ -647,7 +647,6 @@ function getWard(e, baseUrl) {
 
   e.preventDefault();
   idHuyen = e.target.value;
-  console.log(idHuyen);
   let urlDistricts = baseUrl + "/wards/" + idHuyen;
 
   getData(urlDistricts, xaSelect, text);
@@ -687,7 +686,7 @@ document.addEventListener("DOMContentLoaded", function () {
       let urlWards = baseUrl + "/wards/" + idQuan;
       idXa = select.getAttribute("data-ward-id");
 
-      getData(urlWards, select, "Quận/Huyện", idXa);
+      getData(urlWards, select, "Phường/Xã", idXa);
     });
   }
 });
@@ -721,10 +720,17 @@ if (btnBuys) {
 
 window.addEventListener("DOMContentLoaded", () => {
   const radio = document.querySelector('input[type="radio"]');
+  const radio2 = document.querySelector('span.cart-info__checkbox input');
+  if (radio2) {
+    radio2.setAttribute("checked", "checked");
+  }
+
   if (radio) {
     radio.setAttribute("checked", "checked");
   }
 });
+
+
 
 window.addEventListener("DOMContentLoaded", () => {
   const scrollPosition = localStorage.getItem("scrollPosition");

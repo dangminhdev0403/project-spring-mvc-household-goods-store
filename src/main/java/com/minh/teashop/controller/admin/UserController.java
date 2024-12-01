@@ -126,22 +126,23 @@ public class UserController {
             currentUser.setName(user.getName());
             currentUser.setPhone(user.getPhone());
             currentUser.setRole(this.userService.getRoleByName(user.getRole().getName()));
-            String original = currentUser.getCustomerCode();
+            String original = currentUser.getCustomerCode() == null ? userService.generateCustomerCode()
+                    : currentUser.getCustomerCode();
 
             // So sánh chuỗi bằng phương thức equals()
             if (currentUser.getRole().getName().equals("CUSTOMER")) {
-
-                if (original.startsWith("CTV")) {
-                    // Nếu là "CTV", thay đổi thành "CUSTOM"
-                    original = "CUSTOM" + original.substring(3);
+                // Thay "affi" thành "CUSTOM" nếu chuỗi bắt đầu bằng "affi"
+                if (original.startsWith("affi")) {
+                    original = original.replaceFirst("^affi", "CUSTOM");
                 }
 
             } else if (currentUser.getRole().getName().equals("COLLABORATOR")) {
+                // Thay "CUSTOM" thành "affi" nếu chuỗi bắt đầu bằng "CUSTOM"
                 if (original.startsWith("CUSTOM")) {
-                    // Nếu là "CUSTOM", thay đổi thành "CTV"
-                    original = "CTV" + original.substring(6);
+                    original = original.replaceFirst("^CUSTOM", "affi");
                 }
             }
+
             currentUser.setCustomerCode(original);
 
             this.userService.handleSaveUser(currentUser);

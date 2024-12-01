@@ -318,12 +318,12 @@ public class HomePageController {
 
     @PostMapping("/change-pass-home")
     public String handleChangePassword(RedirectAttributes redirectAttributes,
-            @ModelAttribute("userPass") @Valid RegisterDTO registerDTO, @RequestParam("token") String token,
+            @ModelAttribute("userPass")@Valid RegisterDTO registerDTO, @RequestParam("token") String token,
             BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
+        // if (bindingResult.hasErrors()) {
 
-            return "client/auth/change-pass";
-        }
+        //     return "client/auth/change-pass";
+        // }
 
         String hassPass = this.passwordEncoder.encode(registerDTO.getPassword());
 

@@ -21,6 +21,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     User findByEmail(String email);
 
+    User findByCustomerCode(String customerCode);
+
     boolean existsByEmail(String email);
 
     @Query("SELECT u FROM User u WHERE u.deletedAt IS NULL")

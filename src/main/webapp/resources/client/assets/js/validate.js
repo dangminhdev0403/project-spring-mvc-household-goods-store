@@ -62,7 +62,7 @@ const resConstraints = {
     presence: { message: "Vui lòng nhập mật khẩu" },
     length: { minimum: 6, message: "Mật khẩu phải có ít nhất 6 ký tự" },
     format: {
-      pattern: /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{6,}$/,
+      pattern: /^(?=.*[A-Z])(?=.*\d)(?=.*[\W_])[A-Za-z\d\W_]{6,}$/,
       message:
         "Mật khẩu phải có ít nhất 6 ký tự, Một chữ cái hoa và một chữ số",
     },
@@ -287,6 +287,130 @@ const validateField = (field, constraints) => {
   }
   return true;
 };
+
+const passResetConstraints = {
+  password: {
+    presence: {
+      allowEmpty: false,
+      message: "Vui lòng nhập mật khẩu",
+    },
+    format: {
+      pattern: /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d\W_]{6,}$/,
+
+      message:
+        "Mật khẩu phải có ít nhất 6 ký tự, Một chữ cái hoa và một chữ số",
+    },
+  },
+  confirmPassword: {
+    presence: { allowEmpty: false, message: "Vui lòng xác nhận mật khẩu" },
+  },
+};
+
+const btnReset2 = document.getElementById("reset-password");
+if (btnReset2) {
+  btnReset2.addEventListener("click", function (e) {
+    e.preventDefault();
+    document.querySelectorAll(".form__error").forEach((el) => el.remove());
+    document
+      .querySelectorAll(".form__group")
+      .forEach((el) => el.classList.remove("invalid"));
+    const password = document.getElementById("password");
+    const confirmPassword = document.getElementById("confirmPassword");
+
+    const passValid = validateField(password, passResetConstraints.password);
+    const confirmPasswordValid = validateField(
+      confirmPassword,
+      passResetConstraints.confirmPassword
+    );
+    if (passValid && confirmPasswordValid) {
+      if (password.value.trim() !== confirmPassword.value.trim()) {
+        displayError(confirmPassword, "Mật khẩu không trùng khớp");
+      } else {
+        const notice = "Xác nhận thay đổi";
+        const message = "Bạn có muốn thay đổi mật khẩu?";
+        const form = document.getElementById("change-password");
+        alert(notice, message, form);
+      }
+    }
+  });
+}
+
+const addressConstraints = {
+  receiverName: {
+    presence: { allowEmpty: false, message: "Vui lòng nhập tên" },
+  },
+  receiverPhone: {
+    presence: { allowEmpty: false, message: "Vui lòng nhập số điện thoại" },
+    format: {
+      pattern: /^[0-9]{10,11}$/, // Chỉ chấp nhận số điện thoại có 10 hoặc 11 chữ số
+      message: "SDT phải là số có 10 hoặc 11 số",
+    },
+  },
+  address: {
+    presence: { allowEmpty: false, message: "Vui lòng nhập địa chỉ chi tiết" },
+  },
+};
+const addresses = document.querySelectorAll(".form");
+if (addresses) {
+  addresses.forEach((form) => {
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      document.querySelectorAll(".form__error").forEach((el) => el.remove());
+      document
+        .querySelectorAll(".form__group")
+        .forEach((el) => el.classList.remove("invalid"));
+
+      const receiverName = form.querySelector(".receiverName");
+      const receiverPhone = form.querySelector(".receiverPhone");
+      const address = form.querySelector(".address");
+      const tinh = form.querySelector("select.tinh");
+      
+      const quan = form.querySelector("select.quan");
+      const phuong = form.querySelector("select.phuong");
+      let isValid = true;
+
+      const receiverNameValid = validateField(
+        receiverName,
+        addressConstraints.receiverName
+      );
+      const receiverPhoneValid = validateField(
+        receiverPhone,
+        addressConstraints.receiverPhone
+      );
+      const addressValid = validateField(address, addressConstraints.address);
+
+      if(receiverNameValid&& addressValid&& receiverPhoneValid){
+        if (tinh.value === "null") {
+                  displayError(tinh, "chọn Tỉnh/Thành phố!");
+          
+          isValid = false;
+        }
+      
+        if (quan.value === "null") {
+           displayError(quan, "chọn Quận/Huyện!");
+           
+
+          isValid = false;
+        }
+      
+        if (phuong.value === "null") {
+                  displayError(phuong, "chọn Phường/Xã!");
+
+          isValid = false;
+        }
+
+       
+        
+        if(isValid === true){
+          form.submit();
+          showLoading();
+        }
+         
+      }
+    });
+  });
+}
+
 // Hàm hiển thị lỗi
 function displayError(input, message) {
   const parent = input.closest(".form__group");

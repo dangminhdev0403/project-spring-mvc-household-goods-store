@@ -131,10 +131,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
   </div>
 </main>
 
-<!-- Footer -->
-<jsp:include page="../layout/footer.jsp" />
 
-<!--end footer  -->
 
 <div id="add-new-address" class="modal hide" style="--content-width: 650px">
   <div class="modal__content">
@@ -158,8 +155,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                 path="receiverName"
                 id="name"
                 placeholder="Họ và tên"
-                class="form__input"
-                minlength="2"
+                class="form__input receiverName"
 
               />
               <img
@@ -168,7 +164,6 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                 class="form__input-icon-error"
               />
             </div>
-            <p class="form__error">Nhập tối thiểu 2 kí tự</p>
 
           </div>
           <div class="form__group">
@@ -178,13 +173,12 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
             <div class="form__text-input form__text-input--small">
               <form:input
                 type="tel"
-                name="phone"
+                name="phone receiverPhone"
                 id="phone"
                 path="receiverPhone"
 
                 placeholder="Số điện thoại"
-                class="form__input"
-                minlength="10"
+                class="form__input receiverPhone"
               />
               <img
                 src="client/assets/icons/form-error.svg"
@@ -192,33 +186,35 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                 class="form__input-icon-error"
               />
             </div>
-            <p class="form__error">Số điện thoại phải có ít nhất 10 ký tự</p>
           </div>
         </div>
-        <div class="form__group">
-          <div class="form__text-input form__text-input--small address-group" style="display: grid;
-          grid-template-columns: repeat(3, 1fr);">
+        <div class="form__group grid" style="padding: 2rem 0 0 0;">
+          <!-- <div class="form__text-input form__text-input--small address-group grid" > -->
 
-            <img   src="/client/assets/icons/form-error.svg" alt="" class="form__input-icon-error" />
  
             <!-- Select dialog -->
-            <form:select class="css_select tinh" id="tinh" name="tinh" title="Chọn Tỉnh Thành" style="height: 100%; border-right: 1px solid #d2d1d6; cursor: pointer;" path="cityId">
+            <form:select class="css_select tinh form__text-input " id="tinh" name="tinh" title="Chọn Tỉnh Thành" style="text-align: center; cursor: pointer; padding: 0;" path="cityId">
               <form:option value="0" style="cursor: pointer;">Tỉnh Thành</form:option>
               <!-- Các tùy chọn tỉnh thành sẽ được thêm vào đây -->
           </form:select>
       
-          <form:select class="css_select quan" id="quan" name="quan" title="Chọn Quận Huyện" style="height: 100%; border-right: 1px solid #d2d1d6; cursor: pointer;" path="districtId">
+          <form:select class="css_select quan form__text-input" id="quan" name="quan" title="Chọn Quận Huyện" style="text-align: center; cursor: pointer; padding: 0;" path="districtId">
               <form:option value="0" style="cursor: pointer;">Quận Huyện</form:option>
               <!-- Các tùy chọn quận huyện sẽ được thêm vào đây -->
           </form:select>
       
-          <form:select class="css_select phuong" id="phuong" name="phuong" title="Chọn Phường Xã" style="cursor: pointer;" path="wardId">
+          <form:select class="css_select phuong form__text-input form__text-input--large" id="phuong" name="phuong" title="Chọn Phường Xã" style="text-align: center;cursor: pointer; padding: 0;" path="wardId">
               <form:option value="0" style="cursor: pointer;">Phường Xã</form:option>
               <!-- Các tùy chọn phường xã sẽ được thêm vào đây -->
           </form:select>
           
           </div>
-        </div>
+
+
+         
+        
+        
+        <!-- </div> -->
 
 
 
@@ -233,7 +229,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
               path="address"
               id="address"
               placeholder="Địa chỉ (Khu vực và đường)"
-              class="form__text-area-input"
+              class="form__text-area-input address"
             ></form:textarea>
             <img
               src="client/assets/icons/form-error.svg"
@@ -256,7 +252,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         <button
         
           
-          class="btn btn--small btn--primary modal__btn btn--no-margin submit"
+          class="btn btn--small btn--primary modal__btn btn--no-margin  " id="add-address"
         >
           Tạo
         </button>
@@ -295,8 +291,8 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                   name="receiverName"
                   id="name"
                   placeholder="Họ và tên"
-                  class="form__input"
-                  minlength="2"
+                  class="form__input receiverName "
+                 
                 value="${address.receiverName}"
                 />
                 <img
@@ -321,8 +317,8 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                   value="${address.receiverPhone}"
   
                   placeholder="Số điện thoại"
-                  class="form__input"
-                  minlength="10"
+                  class="form__input receiverPhone"
+                  
                 />
                 <img
                   src="client/assets/icons/form-error.svg"
@@ -330,34 +326,36 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                   class="form__input-icon-error"
                 />
               </div>
-              <p class="form__error">Số điện thoại phải có ít nhất 10 ký tự</p>
             </div>
           </div>
-          <div class="form__group">
-            <div class="form__text-input form__text-input--small address-group" style="display: grid;
-            grid-template-columns: repeat(3, 1fr);">
+          <div class="form__group grid" style="padding: 2rem 0 0 0;">
+            <!-- <div class="form__text-input form__text-input--small address-group " > -->
             
-              <img src="./assets/icons/form-error.svg" alt="" class="form__input-icon-error" />
    
               <!-- Select dialog -->
-              <select data-city-id ="${address.cityId}" class="css_select tinh update"  name="city" title="Chọn Tỉnh Thành" style="height: 100%; border-right: 1px solid #d2d1d6; cursor: pointer;" path="city">
+              <select data-city-id ="${address.cityId}" class="css_select tinh form__text-input  update"  name="city" title="Chọn Tỉnh Thành" style="text-align: center; cursor: pointer; padding: 0;" path="city">
                
                 <!-- Các tùy chọn tỉnh thành sẽ được thêm vào đây -->
               </select>
         
-            <select data-district-id ="${address.districtId}" class="css_select quan update"  name="district" title="Chọn Quận Huyện" style="height: 100%; border-right: 1px solid #d2d1d6; cursor: pointer;" path="district">
+            <select data-district-id ="${address.districtId}" class="css_select quan form__text-input update"  name="district" title="Chọn Quận Huyện" style="text-align: center; cursor: pointer; padding: 0;" path="district">
               <option value="${address.districtId}" style="cursor: pointer;"  class="firtsOption" quanid ="${address.districtId}"></option>
 
 
                 <!-- Các tùy chọn quận huyện sẽ được thêm vào đây -->
             </select>
         
-            <select data-ward-id ="${address.wardId}" class="css_select phuong update"  name="ward" title="Chọn Phường Xã" style="cursor: pointer;" path="ward">
+            <select data-ward-id ="${address.wardId}" class="css_select phuong form__text-input form__text-input--large update"  name="ward" title="Chọn Phường Xã" style="text-align: center; cursor: pointer; padding: 0;" path="ward">
               <option value="${address.wardId}" style="cursor: pointer;"  class="firtsOption"></option>
                 <!-- Các tùy chọn phường xã sẽ được thêm vào đây -->
             </select>
+
+            <!-- Select dialog -->
+          
+
+
             </div>
-          </div>
+          <!-- </div> -->
   
   
   
@@ -372,7 +370,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                 id="address"
                 placeholder="Địa chỉ (Khu vực và đường)"
                 value ="address.address"
-                class="form__text-area-input"
+                class="form__text-area-input address"
                
               >${address.address}</textarea>
              
@@ -393,7 +391,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
           <button
           
             
-            class="btn btn--small btn--primary modal__btn btn--no-margin submit"
+            class="btn btn--small btn--primary modal__btn btn--no-margin "
           >
             Sửa
           </button>
@@ -405,3 +403,8 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
   </div>
     </c:forEach>
     </c:if>
+
+<!-- Footer -->
+<jsp:include page="../layout/footer.jsp" />
+
+<!--end footer  -->

@@ -43,7 +43,8 @@ uri="http://www.springframework.org/tags/form" %>
     <link rel="stylesheet" href="client/assets/css/main.css" />
 
     <!-- Scripts -->
-    <script src="client/assets/js/scripts.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/validate.js/0.13.1/validate.min.js"></script>
+
     <style>
       .alert {
         position: relative;
@@ -135,13 +136,14 @@ uri="http://www.springframework.org/tags/form" %>
           </a>
           <h1 class="auth__heading">Quên mật khẩu</h1>
           <p class="auth__desc">
-            Tạo tài khoản của bạn và mua sắm như một chuyên gia để tiết kiệm.
+            "Thay đổi mật khẩu để bảo vệ tài khoản và tiếp tục mua sắm tiết kiệm như một chuyên gia."
           </p>
           <form:form
             action="/change-pass-home"
             modelAttribute="userPass"
             method="post"
             class="form auth__form"
+            id="change-password"
           >
 
           <input
@@ -204,7 +206,7 @@ uri="http://www.springframework.org/tags/form" %>
             </div>
 
             <div class="form__group auth__btn-group">
-              <button class="btn btn--primary auth__btn">Đặt lại</button>
+              <button class="btn btn--primary auth__btn" id="reset-password">Đặt lại</button>
              
             </div>
           </form:form>

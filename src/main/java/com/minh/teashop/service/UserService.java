@@ -78,6 +78,10 @@ public class UserService {
         return this.userRepository.findById(id);
     }
 
+    public User getUserByCutomerCode(String code){
+        return this.userRepository.findByCustomerCode(code);
+    }
+
     @Transactional
     public void deleteAUser(long id) {
         User user = new User();

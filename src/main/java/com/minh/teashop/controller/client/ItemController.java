@@ -38,6 +38,7 @@ import com.minh.teashop.service.ProductService;
 import com.minh.teashop.service.UserService;
 
 import jakarta.mail.MessagingException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
@@ -223,13 +224,15 @@ public class ItemController {
             RedirectAttributes redirectAttributes) {
 
         HttpSession session = request.getSession(false);
+        String lastRef = (String)session.getAttribute("ref");
+
         long id = (long) session.getAttribute("id");
         User currentUser = this.userService.getUserById(id);
 
         currentUser.setUser_id(id);
         Address receiverAddress = this.userService.getAddressById(idAddress);
 
-        this.productService.handlePlaceOrder(currentUser, session, receiverAddress, total);
+        this.productService.handlePlaceOrder(currentUser, session, receiverAddress, total,lastRef);
         redirectAttributes.addFlashAttribute("success", "Đơn hàng của bạn đã được đặt thành công!");
 
         return "redirect:/order-history";
@@ -262,31 +265,54 @@ public class ItemController {
 
     @PostMapping("/place-now")
     public String handlePlaceNow(RedirectAttributes redirectAttributes, PayRequest payRequest,
-            HttpServletRequest request) throws MessagingException {
+            HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        String referralCode = null;
+        String productId = null;
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null || !authentication.isAuthenticated() ||
-                authentication instanceof AnonymousAuthenticationToken) {
+        try {
+            String lastRef = (String)session.getAttribute("ref");
+            if (lastRef != null) {
 
-            // System.out.println("User is not logged in.");
-            User newUser = new User();
-            String custCode = this.userService.generateCustomerCodeForNotLogin();
-            newUser.setCustomerCode(custCode);
-            Order order = this.productService.handlePayNow(payRequest, newUser);
+                int separatorIndex = lastRef.indexOf('-');
+                if (separatorIndex != -1) {
+                    productId = lastRef.substring(0, separatorIndex);
+                    referralCode = lastRef.substring(separatorIndex + 1);
+                } else {
+                    // Nếu không tìm thấy dấu '-', coi toàn bộ lastRef là productId
+                    productId = lastRef;
+                }
 
-            this.emailService.sendEmailHistoryORder(payRequest.getEmail(), order);
-        } else {
-            HttpSession session = request.getSession(false);
-            long id = (long) session.getAttribute("id");
-            User currentUser = this.userService.getUserById(id);
 
-            this.productService.handlePayNow(payRequest, currentUser);
-            redirectAttributes.addFlashAttribute("success", "Đặt hàng thành công");
-            return "redirect:/order-history";
 
+            }
+
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            if (authentication == null || !authentication.isAuthenticated() ||
+                    authentication instanceof AnonymousAuthenticationToken) {
+
+                User newUser = new User();
+                String custCode = this.userService.generateCustomerCodeForNotLogin();
+                newUser.setCustomerCode(custCode);
+                Order order = this.productService.handlePayNow(payRequest, newUser, referralCode);
+
+                this.emailService.sendEmailHistoryORder(payRequest.getEmail(), order);
+                redirectAttributes.addFlashAttribute("success", "Hãy kiểm tra hộp thư của bạn");
+            } else {
+                long id = (long) session.getAttribute("id");
+                User currentUser = this.userService.getUserById(id);
+
+                this.productService.handlePayNow(payRequest, currentUser, referralCode);
+                redirectAttributes.addFlashAttribute("success", "Đặt hàng thành công");
+                return "redirect:/order-history";
+            }
+        } catch (MessagingException e) {
+            // Log the exception
+            redirectAttributes.addFlashAttribute("error", "Có lỗi xảy ra khi gửi email. Vui lòng thử lại sau.");
+        } catch (Exception e) {
+            // Log the exception
+            redirectAttributes.addFlashAttribute("error", "Có lỗi xảy ra khi xử lý đơn hàng. Vui lòng thử lại sau.");
         }
-
-        redirectAttributes.addFlashAttribute("success", "Hãy kiểm tra hộp thư của bạn");
 
         return "redirect:/";
     }
@@ -307,6 +333,19 @@ public class ItemController {
 
         }
 
+    }
+
+    // Phương thức giúp lấy mã giới thiệu từ cookies
+    private String getReferralCodeFromCookies(HttpServletRequest request) {
+        Cookie[] cookies = request.getCookies(); // Lấy tất cả cookies từ request
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if ("referral".equals(cookie.getName())) { // Kiểm tra nếu cookie có tên là "referral"
+                    return cookie.getValue(); // Trả về giá trị của cookie
+                }
+            }
+        }
+        return null; // Nếu không tìm thấy cookie "referral", trả về null
     }
 
     // @GetMapping("/test")
