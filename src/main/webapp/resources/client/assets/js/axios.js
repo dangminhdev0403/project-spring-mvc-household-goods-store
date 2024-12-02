@@ -59,9 +59,7 @@ function addToCart(url, quantity, qtyProduct) {
     .catch((error) => {
       // swal("Lỗi", error.message, "error");
       window.location.href = "/login"; // Đường dẫn đến trang đăng nhập
-            swal("Lỗi", "Hãy đăng nhập để tiếp tục", "error");
-
-
+      swal("Lỗi", "Hãy đăng nhập để tiếp tục", "error");
     });
 }
 
@@ -459,3 +457,406 @@ const btnSend = document.querySelector(".cart-info__checkout-all");
 if (btnSend) {
   btnSend.addEventListener("click", (e) => sendCancel(e));
 }
+
+function openWithdrawModal() {
+  const modal = document.getElementById("withdrawModal2024");
+  showLoading("customerList");
+
+  modal.style.display = "flex";
+  anime({
+    targets: ".ctv-withdraw-2024 .w24-modal-content",
+    translateY: [20, 0],
+    opacity: [0, 1],
+    duration: 500,
+    easing: "easeOutCubic",
+  });
+}
+
+function closeWithdrawModal() {
+  anime({
+    targets: ".ctv-withdraw-2024 .w24-modal-content",
+    translateY: [0, 20],
+    opacity: [1, 0],
+    duration: 300,
+    easing: "easeInCubic",
+    complete: function () {
+      document.getElementById("withdrawModal2024").style.display = "none";
+      document.getElementById("withdrawForm").reset();
+    },
+  });
+}
+
+function formatAmount(input) {
+  let value = input.value.replace(/\D/g, "");
+  if (value > 50000000) value = 50000000;
+  if (value < 0) value = 0;
+  input.value = value;
+
+  const formatted = new Intl.NumberFormat("vi-VN", {
+    style: "currency",
+    currency: "VND",
+  }).format(value);
+
+  document.getElementById("amountError").textContent =
+    value < 100000 ? "Số tiền tối thiểu là 100,000đ" : "";
+}
+
+function handleWithdraw(event) {
+  event.preventDefault();
+  const submitBtn = document.getElementById("submitBtn");
+  const loading = document.getElementById("withdrawLoading");
+
+  submitBtn.disabled = true;
+  loading.style.display = "flex";
+
+  // Simulate API call
+  setTimeout(() => {
+    loading.style.display = "none";
+    showSuccess();
+  }, 2000);
+}
+
+function showSuccess() {
+  const modalContent = document.querySelector(
+    ".ctv-withdraw-2024 .w24-modal-content"
+  );
+  modalContent.innerHTML = `
+        <div style="text-align: center;">
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+            </svg>
+            <h2 style="margin: 1rem 0;">Thành Công!</h2>
+            <p style="margin-bottom: 2rem;">
+                Yêu cầu rút tiền đã được gửi.<br>
+                Chúng tôi sẽ xử lý trong vòng 24h.
+            </p>
+            <button class="w24-submit-btn" onclick="closeWithdrawModal()">Đóng</button>
+        </div>
+    `;
+}
+
+// Close modal when clicking outside
+document
+  .getElementById("withdrawModal2024")
+  .addEventListener("click", function (e) {
+    if (e.target == this) {
+      closeWithdrawModal();
+    }
+  });
+
+function formatDate(dateString) {
+  const options = { year: "numeric", month: "2-digit", day: "2-digit" };
+  return new Date(dateString).toLocaleDateString("vi-VN", options);
+}
+
+function formatCurrency(amount) {
+  return new Intl.NumberFormat("vi-VN", {
+    style: "currency",
+    currency: "VND",
+  }).format(amount);
+}
+
+function handleWithdraw() {
+  // Implement withdraw functionality
+  console.log("Withdraw clicked");
+}
+
+function showLoading(elementId) {
+  const element = document.getElementById(elementId);
+  element.innerHTML = `
+            <tr>
+                <td colspan="6">
+                    <div class="loading">
+                        <div class="loading-spinner"></div>
+                    </div>
+                </td>
+            </tr>
+        `;
+}
+
+// All JavaScript functions are namespaced with ctv_
+
+
+function ctv_handleReferral() {
+  const modal = document.getElementById("ctv_dash_v2_referralModal");
+  modal.style.display = "flex";
+  modal.innerHTML = `
+              <div class="ctv_dash_v2_modal_content">
+                  <button class="ctv_dash_v2_modal_close" onclick="ctv_closeModal('ctv_dash_v2_referralModal')">&times;</button>
+                  <h2>Danh Sách Khách Hàng</h2>
+                  <div class="ctv_dash_v2_table_wrapper">
+                      <div class="ctv_dash_v2_loading">
+                          <div class="ctv_dash_v2_spinner"></div>
+                      </div>
+                  </div>
+              </div>
+          `;
+
+  // Simulate API call
+  setTimeout(ctv_loadCustomerData, 1000);
+}
+
+function ctv_handleAnalytics() {
+  const modal = document.getElementById("ctv_dash_v2_analyticsModal");
+  modal.style.display = "flex";
+  modal.innerHTML = `
+              <div class="ctv_dash_v2_modal_content">
+                  <button class="ctv_dash_v2_modal_close" onclick="ctv_closeModal('ctv_dash_v2_analyticsModal')">&times;</button>
+                  <h2>Lịch Sử Đơn Hàng</h2>
+                  <div class="ctv_dash_v2_table_wrapper">
+                      <div class="ctv_dash_v2_loading">
+                          <div class="ctv_dash_v2_spinner"></div>
+                      </div>
+                  </div>
+              </div>
+          `;
+
+  // Simulate API call
+  setTimeout(ctv_loadOrderData, 1000);
+}
+
+function ctv_closeModal(modalId) {
+  const modal = document.getElementById(modalId);
+  anime({
+    targets: `#${modalId} .ctv_dash_v2_modal_content`,
+    opacity: 0,
+    scale: 0.9,
+    duration: 300,
+    easing: "easeInOutQuad",
+    complete: () => {
+      modal.style.display = "none";
+    },
+  });
+}
+
+// Add more JavaScript functions as needed
+
+// Initialize animations
+document.addEventListener("DOMContentLoaded", () => {
+  anime({
+    targets: ".ctv_dash_v2_container",
+    opacity: [0, 1],
+    translateY: [20, 0],
+    duration: 800,
+    easing: "easeOutExpo",
+  });
+});
+
+function ctv_loadCustomerData() {
+  const tableWrapper = document.querySelector(
+    "#ctv_dash_v2_referralModal .ctv_dash_v2_table_wrapper"
+  );
+
+  // Dữ liệu mẫu - trong thực tế sẽ được lấy từ API
+  const customers = [
+    {
+      id: 1,
+      name: "Nguyễn Văn A",
+      date: "2024-01-15",
+      orders: 5,
+      value: "12,500,000đ",
+      status: "active",
+    },
+    {
+      id: 2,
+      name: "Trần Thị B",
+      date: "2024-01-14",
+      orders: 3,
+      value: "8,900,000đ",
+      status: "inactive",
+    },
+    {
+      id: 3,
+      name: "Lê Văn C",
+      date: "2024-01-13",
+      orders: 7,
+      value: "15,600,000đ",
+      status: "pending",
+    },
+    {
+      id: 4,
+      name: "Phạm Thị D",
+      date: "2024-01-12",
+      orders: 4,
+      value: "9,800,000đ",
+      status: "active",
+    },
+  ];
+
+  const tableHTML = `
+      <table class="ctv_dash_v2_table">
+          <thead>
+              <tr>
+                  <th>ID</th>
+                  <th>Họ Tên</th>
+                  <th>Ngày Tham Gia</th>
+                  <th>Số Đơn</th>
+                  <th>Tổng Giá Trị</th>
+                  <th>Trạng Thái</th>
+                
+              </tr>
+          </thead>
+          <tbody>
+              ${customers
+                .map(
+                  (customer) => `
+                  <tr>
+                      <td>#${customer.id}</td>
+                      <td>${customer.name}</td>
+                      <td>${customer.date}</td>
+                      <td>${customer.orders}</td>
+                      <td>${customer.value}</td>
+                      <td>
+                          <span class="ctv_dash_v2_status ctv_dash_v2_status_${
+                            customer.status
+                          }">
+                              ${
+                                customer.status === "active"
+                                  ? "Hoạt động"
+                                  : customer.status === "inactive"
+                                  ? "Ngừng hoạt động"
+                                  : "Chờ duyệt"
+                              }
+                          </span>
+                      </td>
+                     
+                  </tr>
+              `
+                )
+                .join("")}
+          </tbody>
+      </table>
+  `;
+
+  tableWrapper.innerHTML = tableHTML;
+
+  // Animation cho modal content
+  anime({
+    targets: "#ctv_dash_v2_referralModal .ctv_dash_v2_modal_content",
+    opacity: [0, 1],
+    scale: [0.9, 1],
+    duration: 300,
+    easing: "easeOutExpo",
+  });
+}
+
+function ctv_loadOrderData() {
+  const tableWrapper = document.querySelector(
+    "#ctv_dash_v2_analyticsModal .ctv_dash_v2_table_wrapper"
+  );
+
+  // Dữ liệu mẫu - trong thực tế sẽ được lấy từ API
+  const orders = [
+    {
+      id: "DH001",
+      customer: "Nguyễn Văn A",
+      date: "2024-01-15",
+      value: "2,500,000đ",
+      commission: "250,000đ",
+      status: "completed",
+    },
+    {
+      id: "DH002",
+      customer: "Trần Thị B",
+      date: "2024-01-14",
+      value: "1,800,000đ",
+      commission: "180,000đ",
+      status: "pending",
+    },
+    {
+      id: "DH003",
+      customer: "Lê Văn C",
+      date: "2024-01-13",
+      value: "3,600,000đ",
+      commission: "360,000đ",
+      status: "processing",
+    },
+    {
+      id: "DH004",
+      customer: "Phạm Thị D",
+      date: "2024-01-12",
+      value: "4,800,000đ",
+      commission: "480,000đ",
+      status: "completed",
+    },
+  ];
+
+  const tableHTML = `
+      <table class="ctv_dash_v2_table">
+          <thead>
+              <tr>
+                  <th>Mã ĐH</th>
+                  <th>Khách Hàng</th>
+                  <th>Ngày Đặt</th>
+                  <th>Giá Trị</th>
+                  <th>Hoa Hồng</th>
+                  <th>Trạng Thái</th>
+                
+              </tr>
+          </thead>
+          <tbody>
+              ${orders
+                .map(
+                  (order) => `
+                  <tr>
+                      <td>${order.id}</td>
+                      <td>${order.customer}</td>
+                      <td>${order.date}</td>
+                      <td>${order.value}</td>
+                      <td>${order.commission}</td>
+                      <td>
+                          <span class="ctv_dash_v2_status ctv_dash_v2_status_${
+                            order.status
+                          }">
+                              ${
+                                order.status === "completed"
+                                  ? "Hoàn thành"
+                                  : order.status === "pending"
+                                  ? "Chờ xử lý"
+                                  : "Đang xử lý"
+                              }
+                          </span>
+                      </td>
+                      
+                  </tr>
+              `
+                )
+                .join("")}
+          </tbody>
+      </table>
+  `;
+
+  tableWrapper.innerHTML = tableHTML;
+
+  // Animation cho modal content
+  anime({
+    targets: "#ctv_dash_v2_analyticsModal .ctv_dash_v2_modal_content",
+    opacity: [0, 1],
+    scale: [0.9, 1],
+    duration: 300,
+    easing: "easeOutExpo",
+  });
+}
+
+function ctv_viewCustomerDetail(customerId) {
+  // Xử lý xem chi tiết khách hàng
+  console.log("Xem chi tiết khách hàng:", customerId);
+  // Implement chi tiết khách hàng ở đây
+}
+
+function ctv_viewOrderDetail(orderId) {
+  // Xử lý xem chi tiết đơn hàng
+  console.log("Xem chi tiết đơn hàng:", orderId);
+  // Implement chi tiết đơn hàng ở đây
+}
+
+// Thêm event listener cho click outside modal để đóng
+document.addEventListener("click", (e) => {
+  const modals = document.getElementsByClassName("ctv_dash_v2_modal");
+  Array.from(modals).forEach((modal) => {
+    if (e.target === modal) {
+      ctv_closeModal(modal.id);
+    }
+  });
+});
