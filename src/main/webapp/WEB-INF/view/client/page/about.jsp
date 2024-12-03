@@ -68,53 +68,111 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
     </div>
   </section>
 
-  <section class="products" id="products">
-    <div class="container2">
-      <h2 class="section-title">Sản phẩm nổi bật</h2>
-  <div class="product-grid">
+  <section class="guide-section" id="guide">
+    <div class="container">
+        <h2 class="section-title" style="background: var(--primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+            Hướng Dẫn Tham Gia
+        </h2>
+        
+        <div class="guide-container">
+            <!-- Registration Guide -->
+            <div class="guide-block glass-morphism">
+                <h3 class="guide-title">
+                    <i class="fas fa-user-plus" style="color: var(--accent);"></i>
+                    Hướng Dẫn Đăng Ký
+                </h3>
+                <div class="steps-container">
+                    <div class="step-card glass-card">
+                        <div class="step-number gradient-bg">1</div>
+                        <div class="step-content">
+                            <h4>Đăng Ký Tài Khoản</h4>
+                            <p>Điền thông tin cá nhân và tạo tài khoản affiliate của bạn</p>
+                            <c:if test="${sessionScope.role == null ||  sessionScope.role == 'CUSTOMER'}">
+                              <a href="/affiliates" class="btn-step gradient-bg">Đăng Ký Ngay</a>
 
-        <div class="product-card">
-          <img
-            src="https://via.placeholder.com/400x300"
-            alt="Product 1"
-            class="product-image"
-          />
-          <div class="product-info">
-            <h3 class="product-title">Sản phẩm cao cấp 1</h3>
-            <span class="commission">Hoa hồng: 30%</span>
-            <p>Mô tả chi tiết về sản phẩm và các ưu điểm nổi bật</p>
-            <a href="#" class="btn">Lấy link affiliate</a>
-          </div>
+                            </c:if>
+                            <c:if test="${sessionScope.role != null &&  sessionScope.role != 'CUSTOMER'}">
+                              <a href="#" class="btn-step gradient-bg">Đẵ đăng ký</a>
+
+                            </c:if>
+                           
+                        </div>
+                    </div>
+
+                    <div class="step-card glass-card">
+                        <div class="step-number gradient-bg">2</div>
+                        <div class="step-content">
+                            <h4>Xác Thực Thông Tin</h4>
+                            <p>Xác minh email và số điện thoại của bạn để đảm bảo an toàn  sử dụng dịch vụ.</p>
+                            <c:choose>
+                              <c:when test="${not empty isEnable && isEnable == 'true'}">
+                                  <a href="#" class="btn-step gradient-bg">Đã Xác Thực</a>
+                              </c:when>
+                              <c:otherwise>
+                                  <a href="/profile" class="btn-step gradient-bg">Xác Thực Ngay</a>
+                              </c:otherwise>
+                          </c:choose>
+                        </div>
+                    </div>
+
+                    <div class="step-card glass-card">
+                        <div class="step-number gradient-bg">3</div>
+                        <div class="step-content">
+                            <h4>Bắt đầu kiếm thu nhập</h4>
+                            <p>Hãy khám phá ngay các cơ hội kiếm thu nhập hấp dẫn!</p>
+                            <a href="/profile" class="btn-step gradient-bg">Hoàn Tất</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Operation Guide -->
+            <div class="guide-block glass-morphism">
+                <h3 class="guide-title">
+                    <i class="fas fa-cogs" style="color: var(--accent);"></i>
+                    Hướng Dẫn Hoạt Động
+                </h3>
+                <div class="operation-cards">
+                    <div class="operation-card glass-card">
+                        <i class="fas fa-link"></i>
+                        <h4>Lấy Link Affiliate</h4>
+                        <p> Lấy link affiliate trực tiếp từ trang sản phẩm bất kì</p>
+                        <div class="card-progress">
+                            <div class="progress-bar"></div>
+                        </div>
+                    </div>
+
+                    <div class="operation-card glass-card">
+                        <i class="fas fa-share-alt"></i>
+                        <h4>Chia Sẻ Link</h4>
+                        <p>Chia sẻ link qua mạng xã hội, blog, website...</p>
+                        <div class="card-progress">
+                            <div class="progress-bar"></div>
+                        </div>
+                    </div>
+
+                    <div class="operation-card glass-card">
+                        <i class="fas fa-chart-line"></i>
+                        <h4>Theo Dõi Hiệu Quả</h4>
+                        <p>Kiểm tra số liệu thống kê và doanh thu real-time</p>
+                        <div class="card-progress">
+                            <div class="progress-bar"></div>
+                        </div>
+                    </div>
+
+                    <div class="operation-card glass-card">
+                        <i class="fas fa-wallet"></i>
+                        <h4>Nhận Hoa Hồng</h4>
+                        <p>Nhận thanh toán tự động vào ngày 15 hàng tháng</p>
+                        <div class="card-progress">
+                            <div class="progress-bar"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="product-card">
-          <img
-            src="https://via.placeholder.com/400x300"
-            alt="Product 2"
-            class="product-image"
-          />
-          <div class="product-info">
-            <h3 class="product-title">Sản phẩm cao cấp 2</h3>
-            <span class="commission">Hoa hồng: 25%</span>
-            <p>Mô tả chi tiết về sản phẩm và các ưu điểm nổi bật</p>
-            <a href="#" class="btn">Lấy link affiliate</a>
-          </div>
-        </div>
-        <div class="product-card">
-          <img
-            src="https://via.placeholder.com/400x300"
-            alt="Product 3"
-            class="product-image"
-          />
-          <div class="product-info">
-            <h3 class="product-title">Sản phẩm cao cấp 3</h3>
-            <span class="commission">Hoa hồng: 20%</span>
-            <p>Mô tả chi tiết về sản phẩm và các ưu điểm nổi bật</p>
-            <a href="#" class="btn">Lấy link affiliate</a>
-          </div>
-        </div>
-      </div>
     </div>
-  </section>
+</section>
 
   <script>
     // Animations

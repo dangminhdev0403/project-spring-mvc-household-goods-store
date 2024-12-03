@@ -9,6 +9,7 @@ import com.minh.teashop.domain.enumdomain.OrderStatus;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -42,7 +43,7 @@ public class Order {
 
     @Enumerated(EnumType.STRING) // Lưu trạng thái dưới dạng chuỗi
     private OrderStatus status;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = true) // nullable để hỗ trợ khi User bị xóa
     private User user;
 

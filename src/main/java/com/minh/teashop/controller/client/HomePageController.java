@@ -35,6 +35,7 @@ import com.minh.teashop.domain.dto.ProductSpecDTO;
 import com.minh.teashop.domain.dto.RegisterDTO;
 import com.minh.teashop.domain.verifymail.ResetToken;
 import com.minh.teashop.domain.verifymail.VerificationToken;
+import com.minh.teashop.service.AffiliateService;
 import com.minh.teashop.service.CategoryService;
 import com.minh.teashop.service.EmailService;
 import com.minh.teashop.service.ProductService;
@@ -44,8 +45,10 @@ import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
 
 @Controller
+@AllArgsConstructor
 public class HomePageController {
     private static final int WAIT_TIME_SECONDS = 15;
 
@@ -53,6 +56,7 @@ public class HomePageController {
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
     private final EmailService emailService;
+    private final AffiliateService affiliateService;
 
     private final CategoryService categoryService;
 
@@ -64,14 +68,7 @@ public class HomePageController {
         }
     }
 
-    public HomePageController(ProductService productService, UserService userService, PasswordEncoder passwordEncoder,
-            EmailService emailService, CategoryService categoryService) {
-        this.productService = productService;
-        this.userService = userService;
-        this.passwordEncoder = passwordEncoder;
-        this.emailService = emailService;
-        this.categoryService = categoryService;
-    }
+ 
 
     @GetMapping("/")
     public String getHomePage(Model model,
@@ -380,20 +377,28 @@ public class HomePageController {
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("id") == null) {
             model.addAttribute("title", "Tổng quan về chương trình Affiliate.");
+            
             return "client/page/about";
         }
+
         long id = (long) session.getAttribute("id");
         
         User currentUser = this.userService.getUserById(id);
         if (currentUser != null) {
             if (currentUser.getRole().getName().equals("COLLABORATOR")) {
+
+
+                long countOrder = this.affiliateService.getCountOrderByAffilate(id);
+                model.addAttribute("countOrder",countOrder);
                 model.addAttribute("title", "Trang cộng tác viên.");
 
                 return "client/profile/manager-affile";
 
             }
-
+            Boolean isEnable = currentUser.isEnabled() ;
+            model.addAttribute("isEnable" ,isEnable);
         }
+       
 
         model.addAttribute("title", "Tổng quan về chương trình Affiliate.");
         return "client/page/about";

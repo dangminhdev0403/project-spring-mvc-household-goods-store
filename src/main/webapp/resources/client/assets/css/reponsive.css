@@ -414,17 +414,22 @@
   color: #0d9488;
 }
 
-.ctv_dash_v2_status_completed {
-    
-    background: #e3fcef;
-    color: #0d9488;
-  }
-.ctv_dash_v2_status_inactive {
+.ctv_dash_v2_status_completed,
+.ctv_dash_v2_status_DELIVERED {
+  background: #e3fcef;
+  color: #0d9488;
+}
+.ctv_dash_v2_status_inactive,
+.ctv_dash_v2_status_CANCELED,
+.ctv_dash_v2_status_RETURNED {
   background: #fee2e2;
   color: #dc2626;
 }
 
-.ctv_dash_v2_status_pending {
+.ctv_dash_v2_status_pending,
+.ctv_dash_v2_status_PENDING,
+.ctv_dash_v2_status_PROCESSING,
+.ctv_dash_v2_status_SHIPPING {
   background: #fef3c7;
   color: #d97706;
 }

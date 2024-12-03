@@ -1,8 +1,12 @@
 package com.minh.teashop.config;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -22,7 +26,7 @@ import com.minh.teashop.component.SearchInterceptor;
 public class WebMvcConfig implements WebMvcConfigurer {
 
     @Autowired
-    private AffiliateLinkInterceptor affiliateLinkInterceptor ;
+    private AffiliateLinkInterceptor affiliateLinkInterceptor;
     @Autowired
     private ReferralInterceptor referralInterceptor;
 
@@ -44,6 +48,11 @@ public class WebMvcConfig implements WebMvcConfigurer {
         registry.addInterceptor(affiliateLinkInterceptor).addPathPatterns("/product/**");
         registry.addInterceptor(searchInterceptor)
                 .addPathPatterns("/about"); // Thêm các pattern URL mà bạn muốn áp dụng interceptor
+    }
+
+    @Override
+    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+        converters.add(new MappingJackson2HttpMessageConverter());
     }
 
     @Override

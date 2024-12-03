@@ -23,7 +23,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
       </div>
       <div class="card">
         <h3>Đơn Hàng</h3>
-        <div class="stats">127</div>
+        <div class="stats">${countOrder}</div>
         <p>Tháng này</p>
       </div>
     </div>
@@ -184,9 +184,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <div id="ctv_dash_v2_analyticsModal" class="ctv_dash_v2_modal">
     <!-- Modal content will be dynamically inserted -->
 </div>
-<script>
-  
-</script>
+
 
 <!-- Footer -->
 <jsp:include page="../layout/footer.jsp" />

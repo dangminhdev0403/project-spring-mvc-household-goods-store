@@ -83,12 +83,13 @@ public class SecurityConfiguration {
                         .dispatcherTypeMatchers(DispatcherType.FORWARD, DispatcherType.INCLUDE)
                         .permitAll()
                         .requestMatchers("/header-logined", "/", "/login", "/register", "/products/**", "/product/**",
+
                                 "/cancel-oder", "/?search", "/category/**", "/affiliate-overview",
                                 "/history-order/**",
                                 "/test",
                                 "/place-now",
                                 "/about", "/contact", "/buy-now/**",
-                                "/error", "/reset-pass", "/forgot-pass", "/change-pass-home","/reset-password",
+                                "/error", "/reset-pass", "/forgot-pass", "/change-pass-home", "/reset-password",
                                 "/verify", "/category",
                                 "/client/**", "/css/**", "/js/**",
                                 "/upload/**")

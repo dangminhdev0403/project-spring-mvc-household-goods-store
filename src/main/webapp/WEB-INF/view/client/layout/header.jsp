@@ -45,7 +45,7 @@ uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
     <link rel="stylesheet" href="/client/assets/css/main.css" />
     <link rel="stylesheet" href="/client/assets/css/style.css" />
     <link rel="stylesheet" href="/client/assets/css/reponsive.css" />
-    
+
     <link rel="stylesheet" href="/client/assets/css/sweetalert2.min.css" />
 
     <!-- Scripts -->
@@ -53,7 +53,10 @@ uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
     <script src="/client/assets/js/res.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://dangminhdev0403.github.io/lib-javascript/scripts.js"></script>
+    <script src="https://unpkg.com/json5@2/dist/index.min.js"></script>
 
+    
     <style>
       .alert {
         position: relative;

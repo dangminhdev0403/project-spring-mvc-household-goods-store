@@ -1,4 +1,5 @@
 // Cart
+
 function addItem(stock) {
   const title = document.querySelector(
     ".act-dropdown__top .act-dropdown__title"
@@ -46,7 +47,6 @@ function addToCart(url, quantity, qtyProduct) {
       },
     })
     .then((response) => {
-      console.log(response.data); // 'Sản phẩm đã được thêm vào giỏ hàng'
       if (response.data !== "added") {
         addItem(parseInt(qtyProduct.textContent) + 1);
         qtyProduct.textContent = parseInt(qtyProduct.textContent) + 1;
@@ -454,13 +454,13 @@ function sendCancel(e) {
 }
 
 const btnSend = document.querySelector(".cart-info__checkout-all");
+
 if (btnSend) {
   btnSend.addEventListener("click", (e) => sendCancel(e));
 }
 
 function openWithdrawModal() {
   const modal = document.getElementById("withdrawModal2024");
-  showLoading("customerList");
 
   modal.style.display = "flex";
   anime({
@@ -537,9 +537,9 @@ function showSuccess() {
 }
 
 // Close modal when clicking outside
-document
-  .getElementById("withdrawModal2024")
-  .addEventListener("click", function (e) {
+const closeWidthdraw = document.getElementById("withdrawModal2024");
+if (closeWidthdraw)
+  closeWidthdraw.addEventListener("click", function (e) {
     if (e.target == this) {
       closeWithdrawModal();
     }
@@ -548,6 +548,40 @@ document
 function formatDate(dateString) {
   const options = { year: "numeric", month: "2-digit", day: "2-digit" };
   return new Date(dateString).toLocaleDateString("vi-VN", options);
+}
+
+function processOrderDate(orderDate) {
+  // Tạo đối tượng Date từ từng phần tử trong mảng
+  const date = new Date(
+    orderDate[0],
+    orderDate[1] - 1,
+    orderDate[2],
+    orderDate[3],
+    orderDate[4],
+    orderDate[5]
+  );
+  const formattedDate = date.toLocaleString("vi-VN", {
+    weekday: "long", // Tên ngày trong tuần
+    year: "numeric", // Năm
+    month: "long", // Tháng
+    day: "numeric", // Ngày
+    hour: "2-digit", // Giờ (2 chữ số)
+    minute: "2-digit", // Phút (2 chữ số)
+    second: "2-digit", // Giây (2 chữ số)
+    hour12: false, // Định dạng 24 giờ
+  });
+  const cleanedDate = formattedDate
+    .replace("Thứ Hai", "T2")
+    .replace("Thứ Ba", "T3")
+    .replace("Thứ Tư", "T4")
+    .replace("Thứ Năm", "T5")
+    .replace("Thứ Sáu", "T6")
+    .replace("Thứ Bảy", "T7")
+    .replace("Chủ Nhật", "CN")
+    .replace("Tháng ", "T")
+    .replace("tháng ", "T")
+    .replace("lúc ", ""); // Loại bỏ từ "lúc"
+  return cleanedDate;
 }
 
 function formatCurrency(amount) {
@@ -577,14 +611,14 @@ function showLoading(elementId) {
 
 // All JavaScript functions are namespaced with ctv_
 
-
 function ctv_handleReferral() {
   const modal = document.getElementById("ctv_dash_v2_referralModal");
   modal.style.display = "flex";
   modal.innerHTML = `
               <div class="ctv_dash_v2_modal_content">
                   <button class="ctv_dash_v2_modal_close" onclick="ctv_closeModal('ctv_dash_v2_referralModal')">&times;</button>
-                  <h2>Danh Sách Khách Hàng</h2>
+                  <h2 style ="font-weight: bold;
+    font-size: 2rem;">Danh Sách Khách Hàng</h2>
                   <div class="ctv_dash_v2_table_wrapper">
                       <div class="ctv_dash_v2_loading">
                           <div class="ctv_dash_v2_spinner"></div>
@@ -601,9 +635,10 @@ function ctv_handleAnalytics() {
   const modal = document.getElementById("ctv_dash_v2_analyticsModal");
   modal.style.display = "flex";
   modal.innerHTML = `
-              <div class="ctv_dash_v2_modal_content">
+              <div class="ctv_dash_v2_modal_content" id="tableWrapper">
                   <button class="ctv_dash_v2_modal_close" onclick="ctv_closeModal('ctv_dash_v2_analyticsModal')">&times;</button>
-                  <h2>Lịch Sử Đơn Hàng</h2>
+                  <h2 style ="font-weight: bold;
+    font-size: 2rem;">Lịch Sử Đơn Hàng</h2>
                   <div class="ctv_dash_v2_table_wrapper">
                       <div class="ctv_dash_v2_loading">
                           <div class="ctv_dash_v2_spinner"></div>
@@ -648,97 +683,92 @@ function ctv_loadCustomerData() {
     "#ctv_dash_v2_referralModal .ctv_dash_v2_table_wrapper"
   );
 
-  // Dữ liệu mẫu - trong thực tế sẽ được lấy từ API
-  const customers = [
-    {
-      id: 1,
-      name: "Nguyễn Văn A",
-      date: "2024-01-15",
-      orders: 5,
-      value: "12,500,000đ",
-      status: "active",
-    },
-    {
-      id: 2,
-      name: "Trần Thị B",
-      date: "2024-01-14",
-      orders: 3,
-      value: "8,900,000đ",
-      status: "inactive",
-    },
-    {
-      id: 3,
-      name: "Lê Văn C",
-      date: "2024-01-13",
-      orders: 7,
-      value: "15,600,000đ",
-      status: "pending",
-    },
-    {
-      id: 4,
-      name: "Phạm Thị D",
-      date: "2024-01-12",
-      orders: 4,
-      value: "9,800,000đ",
-      status: "active",
-    },
-  ];
-
-  const tableHTML = `
-      <table class="ctv_dash_v2_table">
-          <thead>
-              <tr>
-                  <th>ID</th>
-                  <th>Họ Tên</th>
-                  <th>Ngày Tham Gia</th>
-                  <th>Số Đơn</th>
-                  <th>Tổng Giá Trị</th>
-                  <th>Trạng Thái</th>
-                
-              </tr>
-          </thead>
-          <tbody>
-              ${customers
-                .map(
-                  (customer) => `
-                  <tr>
-                      <td>#${customer.id}</td>
-                      <td>${customer.name}</td>
-                      <td>${customer.date}</td>
-                      <td>${customer.orders}</td>
-                      <td>${customer.value}</td>
-                      <td>
-                          <span class="ctv_dash_v2_status ctv_dash_v2_status_${
-                            customer.status
-                          }">
-                              ${
-                                customer.status === "active"
-                                  ? "Hoạt động"
-                                  : customer.status === "inactive"
-                                  ? "Ngừng hoạt động"
-                                  : "Chờ duyệt"
-                              }
-                          </span>
-                      </td>
-                     
-                  </tr>
-              `
-                )
-                .join("")}
-          </tbody>
-      </table>
+  const fetchData = async () => {
+    const loadingHTML = `
+    <div style="text-align: center; padding: 20px;">
+      <div class="loading-spinner"></div>
+      <p>Đang tải dữ liệu...</p>
+    </div>
   `;
+    const response = await axios.get("/get-customer-by-ref");
+    const customers = response.data.content;
 
-  tableWrapper.innerHTML = tableHTML;
+    const tableHTML = `
+      <table class="ctv_dash_v2_table">
+        <thead>
+            <tr>
+                <th>Mã KH</th>
+                <th>Họ Tên</th>
+                <th>Số Đơn</th>
+                <th>Tổng Giá Trị</th>
+                <th>Trạng Thái</th>
+              
+            </tr>
+        </thead>
+        <tbody>
+            ${customers
+              .map(
+                (customer) => `
+                <tr>
+                    <td>#${customer.customerCode}</td>
+                    <td>${customer.nameCustomer}</td>
+                    <td>${customer.countOrders}</td>
+                    <td>${formatNumber(customer.subTotal)}</td>
+                    <td>
+                        <span class="ctv_dash_v2_status ctv_dash_v2_status_${
+                          customer.enabled == true ? "active" : "inactive"
+                        }">
+
+
+                            ${
+                              customer.enabled === true
+                                ? "Hoạt động"
+                                : "Tạm khoá "
+                            }
+                        </span>
+                    </td>
+                   
+                </tr>
+            `
+              )
+              .join("")}
+        </tbody>
+    </table>
+`;
+
+    tableWrapper.innerHTML = tableHTML;
+    anime({
+      targets: "#ctv_dash_v2_referralModal .ctv_dash_v2_modal_content",
+      opacity: [0, 1],
+      scale: [0.9, 1],
+      duration: 300,
+      easing: "easeOutExpo",
+    });
+  };
+  fetchData();
 
   // Animation cho modal content
-  anime({
-    targets: "#ctv_dash_v2_referralModal .ctv_dash_v2_modal_content",
-    opacity: [0, 1],
-    scale: [0.9, 1],
-    duration: 300,
-    easing: "easeOutExpo",
-  });
+  
+}
+
+function fixInvalidJson(invalidJson) {
+  try {
+    // Loại bỏ các ký tự thừa có thể
+    const correctedJson = invalidJson
+      .replace(/,(?=\s*[\]}])/g, "") // Xóa dấu phẩy thừa
+      .replace(/[\]}]+$/g, "") // Xóa các dấu đóng dư thừa ở cuối
+      .replace(/([{[])\s*(,)/g, "$1") // Xóa dấu phẩy thừa ngay sau dấu mở
+      .replace(/}\s*}/g, "}"); // Xóa các cặp đóng không khớp
+
+    // Thử parse JSON
+    console.log(correctedJson);
+
+    const parsed = JSON.parse(correctedJson);
+    return parsed;
+  } catch (error) {
+    console.error("Không thể sửa JSON:", error.message);
+    throw new Error("JSON vẫn không hợp lệ sau khi chỉnh sửa.");
+  }
 }
 
 function ctv_loadOrderData() {
@@ -747,42 +777,63 @@ function ctv_loadOrderData() {
   );
 
   // Dữ liệu mẫu - trong thực tế sẽ được lấy từ API
-  const orders = [
-    {
-      id: "DH001",
-      customer: "Nguyễn Văn A",
-      date: "2024-01-15",
-      value: "2,500,000đ",
-      commission: "250,000đ",
-      status: "completed",
-    },
-    {
-      id: "DH002",
-      customer: "Trần Thị B",
-      date: "2024-01-14",
-      value: "1,800,000đ",
-      commission: "180,000đ",
-      status: "pending",
-    },
-    {
-      id: "DH003",
-      customer: "Lê Văn C",
-      date: "2024-01-13",
-      value: "3,600,000đ",
-      commission: "360,000đ",
-      status: "processing",
-    },
-    {
-      id: "DH004",
-      customer: "Phạm Thị D",
-      date: "2024-01-12",
-      value: "4,800,000đ",
-      commission: "480,000đ",
-      status: "completed",
-    },
-  ];
 
-  const tableHTML = `
+  // Function to format price to VND
+  const formatPrice = (price) => {
+    return new Intl.NumberFormat("vi-VN", {
+      style: "currency",
+      currency: "VND",
+    }).format(price);
+  };
+
+  // Function to get status badge
+  const getStatusBadge = (status) => {
+    const statusMap = {
+      PENDING: { color: "#ffd700", text: "Chờ Xử Lý" },
+      PROCESSING: { color: "#1e90ff", text: "Đang Xử Lý" },
+      COMPLETED: { color: "#32cd32", text: "Hoàn Thành" },
+      CANCELLED: { color: "#ff4500", text: "Đã Hủy" },
+    };
+
+    const statusInfo = statusMap[status] || { color: "#808080", text: status };
+    return `<span style="
+    background-color: ${statusInfo.color}; 
+    color: white;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 0.9em;
+    font-weight: 500;">${statusInfo.text}</span>`;
+  };
+
+  const getOrders = async () => {
+    try {
+      const loadingHTML = `
+      <div style="text-align: center; padding: 20px;">
+        <div class="loading-spinner"></div>
+        <p>Đang tải dữ liệu...</p>
+      </div>
+    `;
+      tableWrapper.innerHTML = loadingHTML;
+
+      const response = await axios.get("/get-order-by-ref");
+      ///  console.log(response.data);
+
+      // Ví dụ sử dụng
+      const data = response.data;
+
+      const orders = data.content;
+      console.log(orders);
+
+      if (!orders || orders.length === 0) {
+        tableWrapper.innerHTML = `
+        <div style="text-align: center; padding: 20px;">
+          <p>Không có đơn hàng nào.</p>
+        </div>
+      `;
+        return;
+      }
+
+      const tableHTML = `
       <table class="ctv_dash_v2_table">
           <thead>
               <tr>
@@ -801,9 +852,11 @@ function ctv_loadOrderData() {
                   (order) => `
                   <tr>
                       <td>${order.id}</td>
-                      <td>${order.customer}</td>
-                      <td>${order.date}</td>
-                      <td>${order.value}</td>
+                      <td>${order.receiverName}</td>
+                      <td>${processOrderDate(order.orderDate)}</td>
+                      <td class ="format-price">${formatPrice(
+                        order.totalPrice
+                      )}</td>
                       <td>${order.commission}</td>
                       <td>
                           <span class="ctv_dash_v2_status ctv_dash_v2_status_${
@@ -827,7 +880,67 @@ function ctv_loadOrderData() {
       </table>
   `;
 
-  tableWrapper.innerHTML = tableHTML;
+      tableWrapper.innerHTML = tableHTML;
+
+      // Add animation
+      anime({
+        targets: "table tr",
+        opacity: [0, 1],
+        translateY: [20, 0],
+        delay: anime.stagger(100),
+      });
+    } catch (error) {
+      console.error("Lỗi khi tải dữ liệu:", error);
+      tableWrapper.innerHTML = `
+      <div style="
+        text-align: center;
+        padding: 20px;
+        color: #ff0000;
+      ">
+        <p>Đã xảy ra lỗi khi tải dữ liệu. Vui lòng thử lại sau.</p>
+      </div>
+    `;
+    }
+  };
+
+  // Add necessary CSS
+  const style = document.createElement("style");
+  style.textContent = `
+  .loading-spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #009879;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  @media (max-width: 768px) {
+    table {
+      font-size: 0.8em;
+    }
+    
+    td, th {
+      padding: 8px 10px !important;
+    }
+    
+    button {
+      padding: 4px 8px !important;
+      font-size: 0.9em;
+    }
+  }
+`;
+
+  document.head.appendChild(style);
+
+  // Initialize
+  getOrders();
 
   // Animation cho modal content
   anime({
@@ -837,18 +950,6 @@ function ctv_loadOrderData() {
     duration: 300,
     easing: "easeOutExpo",
   });
-}
-
-function ctv_viewCustomerDetail(customerId) {
-  // Xử lý xem chi tiết khách hàng
-  console.log("Xem chi tiết khách hàng:", customerId);
-  // Implement chi tiết khách hàng ở đây
-}
-
-function ctv_viewOrderDetail(orderId) {
-  // Xử lý xem chi tiết đơn hàng
-  console.log("Xem chi tiết đơn hàng:", orderId);
-  // Implement chi tiết đơn hàng ở đây
 }
 
 // Thêm event listener cho click outside modal để đóng

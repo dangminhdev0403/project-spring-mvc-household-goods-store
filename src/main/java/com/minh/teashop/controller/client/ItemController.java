@@ -335,18 +335,7 @@ public class ItemController {
 
     }
 
-    // Phương thức giúp lấy mã giới thiệu từ cookies
-    private String getReferralCodeFromCookies(HttpServletRequest request) {
-        Cookie[] cookies = request.getCookies(); // Lấy tất cả cookies từ request
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                if ("referral".equals(cookie.getName())) { // Kiểm tra nếu cookie có tên là "referral"
-                    return cookie.getValue(); // Trả về giá trị của cookie
-                }
-            }
-        }
-        return null; // Nếu không tìm thấy cookie "referral", trả về null
-    }
+  
 
     // @GetMapping("/test")
     // public String getMethodName() {
