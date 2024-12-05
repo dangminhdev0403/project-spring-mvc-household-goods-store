@@ -68,6 +68,7 @@ public class ProductService {
     private final CategoryService categoryService;
     private final ProductImageRepository productImageRepository;
     private final UploadService uploadService;
+    private final AffiliateService affiliateService;
 
     public List<Product> getListProducts() {
         List<Product> listProducts = this.productRepository.findAll();
@@ -251,7 +252,7 @@ public class ProductService {
         order.setStatus(OrderStatus.PENDING);
 
         User affiUser = this.userService.getUserByCutomerCode(affiCode);
-        order.setAffiliate(affiUser);
+
         double total = Double.parseDouble(payRequest.getTotalPrice());
         order.setTotalPrice(total);
         order.setOrderDate(LocalDateTime.now());
@@ -275,7 +276,16 @@ public class ProductService {
         long qty = Long.parseLong(payRequest.getQuantity());
         orderDetail.setProduct(product);
         orderDetail.setQuantity(qty);
-        orderDetail.setPrice(qty * product.getPrice());
+        double price = qty * product.getPrice();
+        orderDetail.setPrice(price);
+        if (affiUser != null) {
+            double commission = 0;
+            orderDetail.setAffiliate(affiUser);
+            commission = price * affiUser.getCollaborator().getCommissionRate();
+            orderDetail.setCommissionRate(affiUser.getCollaborator().getCommissionRate());
+            this.affiliateService.updateCollaborator(affiUser, commission);
+
+        }
 
         orderDetail = this.orderDetailRepository.save(orderDetail);
 
@@ -285,6 +295,7 @@ public class ProductService {
 
     public void handlePlaceOrder(User user, HttpSession session, Address receiverAddress, double total, String ref) {
         // create Oder
+        double commission = 0;
         String productId = null;
         String referralCode = null;
         User refUser = null;
@@ -320,19 +331,29 @@ public class ProductService {
                     OrderDetail orderDetail = new OrderDetail();
                     orderDetail.setOrder(order);
                     orderDetail.setProduct(cd.getProduct());
-                    if (cd.getProduct() == refProduct && refProduct != null) {
-                        order.setAffiliate(refUser);
+                    double subtotal = cd.getPrice() * cd.getQuantity();
+                    orderDetail.setPrice(subtotal);
+                    orderDetail.setQuantity(cd.getQuantity());
+
+                    if (cd.getProduct() == refProduct && refProduct != null && refUser != null
+                            && !refUser.getRole().getName().equals("ADMIN")) {
+                        orderDetail.setAffiliate(refUser);
+
+                        commission = orderDetail.getPrice() * refUser.getCollaborator().getCommissionRate();
+
+                        this.affiliateService.updateCollaborator(refUser, commission);
+                        orderDetail.setCommissionRate(refUser.getCollaborator().getCommissionRate());
 
                     }
-                    orderDetail.setPrice(cd.getPrice() * cd.getQuantity());
-                    orderDetail.setQuantity(cd.getQuantity());
 
                     this.orderDetailRepository.save(orderDetail);
 
                 }
+
                 for (CartDetail cd : cartDetails) {
                     this.cartDetailRepository.deleteById(cd.getId());
                 }
+
                 this.cartRepository.delete(cart);
 
                 session.setAttribute("cartSum", 0);

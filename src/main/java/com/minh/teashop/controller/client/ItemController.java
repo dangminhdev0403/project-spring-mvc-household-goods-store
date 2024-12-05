@@ -38,7 +38,6 @@ import com.minh.teashop.service.ProductService;
 import com.minh.teashop.service.UserService;
 
 import jakarta.mail.MessagingException;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
@@ -224,7 +223,7 @@ public class ItemController {
             RedirectAttributes redirectAttributes) {
 
         HttpSession session = request.getSession(false);
-        String lastRef = (String)session.getAttribute("ref");
+        String lastRef = (String) session.getAttribute("ref");
 
         long id = (long) session.getAttribute("id");
         User currentUser = this.userService.getUserById(id);
@@ -232,7 +231,7 @@ public class ItemController {
         currentUser.setUser_id(id);
         Address receiverAddress = this.userService.getAddressById(idAddress);
 
-        this.productService.handlePlaceOrder(currentUser, session, receiverAddress, total,lastRef);
+        this.productService.handlePlaceOrder(currentUser, session, receiverAddress, total, lastRef);
         redirectAttributes.addFlashAttribute("success", "Đơn hàng của bạn đã được đặt thành công!");
 
         return "redirect:/order-history";
@@ -271,7 +270,7 @@ public class ItemController {
         String productId = null;
 
         try {
-            String lastRef = (String)session.getAttribute("ref");
+            String lastRef = (String) session.getAttribute("ref");
             if (lastRef != null) {
 
                 int separatorIndex = lastRef.indexOf('-');
@@ -282,8 +281,6 @@ public class ItemController {
                     // Nếu không tìm thấy dấu '-', coi toàn bộ lastRef là productId
                     productId = lastRef;
                 }
-
-
 
             }
 
@@ -334,8 +331,6 @@ public class ItemController {
         }
 
     }
-
-  
 
     // @GetMapping("/test")
     // public String getMethodName() {

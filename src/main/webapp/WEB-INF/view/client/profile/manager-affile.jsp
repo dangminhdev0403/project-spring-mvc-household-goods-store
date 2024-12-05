@@ -13,17 +13,17 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
     <div class="cards">
       <div class="card">
         <h3>Doanh Thu</h3>
-        <div class="stats">₫15.75M</div>
+        <div class="stats format-price">${collaborator.totalEarnings}</div>
         <p>↑ 12% tháng trước</p>
       </div>
       <div class="card">
         <h3>Hoa Hồng</h3>
-        <div class="stats">₫3.25M</div>
+        <div class="stats format-price">${collaborator.balance}</div>
         <p>Khả dụng</p>
       </div>
       <div class="card">
-        <h3>Đơn Hàng</h3>
-        <div class="stats">${countOrder}</div>
+        <h3>Số dư có thể rút</h3>
+        <div class="stats format-price">${collaborator.availableBalance}</div>
         <p>Tháng này</p>
       </div>
     </div>
@@ -39,6 +39,9 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
     </div>
 
     <div class="table-container">
+      <h1 style="font-size: 2rem; font-weight: bold; margin-bottom: 1rem">
+        Lịch sử rút tiền
+      </h1>
       <table class="table">
         <thead>
           <tr>
@@ -111,20 +114,23 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
       <button class="w24-modal-close" onclick="closeWithdrawModal()">×</button>
       <h2 style="margin-bottom: 1.5rem; text-align: center">Rút Tiền</h2>
 
-      <form class="w24-form" id="withdrawForm" onsubmit="handleWithdraw(event)">
-        <div class="w24-input-group">
+      <form class="w24-form" id="withdrawForm" onsubmit="handleWithdraw(event)" action="">
+        <div class="w24-input-group input-container">
           <label class="w24-label">Số Tiền Muốn Rút</label>
-          <input
-            type="number"
-            class="w24-input"
-            id="withdrawAmount"
-            min="100000"
-            max="50000000"
-            placeholder="Tối thiểu 100,000đ"
-            required
-            oninput="formatAmount(this)"
-          />
-          <div class="w24-error" id="amountError"></div>
+          <div class="input-wrapper">
+            <input
+                type="text"
+                class="w24-input"
+                id="withdrawAmount"
+                placeholder="Tối thiểu 50,000đ"
+                max="${collaborator.availableBalance}"
+                required
+                oninput="formatAmount(this)"
+                onkeydown="handleKeydown(event)"
+            />
+          
+        </div>
+        <div id="errorMessage" class="error-message" style="color: red; padding-top: 1.2rem;"></div>
         </div>
 
         <div class="w24-input-group">
@@ -176,15 +182,14 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 </div>
 
 <!-- modal list customer -->
-   <!-- Modals -->
-   <div id="ctv_dash_v2_referralModal" class="ctv_dash_v2_modal">
-    <!-- Modal content will be dynamically inserted -->
+<!-- Modals -->
+<div id="ctv_dash_v2_referralModal" class="ctv_dash_v2_modal">
+  <!-- Modal content will be dynamically inserted -->
 </div>
 
 <div id="ctv_dash_v2_analyticsModal" class="ctv_dash_v2_modal">
-    <!-- Modal content will be dynamically inserted -->
+  <!-- Modal content will be dynamically inserted -->
 </div>
-
 
 <!-- Footer -->
 <jsp:include page="../layout/footer.jsp" />

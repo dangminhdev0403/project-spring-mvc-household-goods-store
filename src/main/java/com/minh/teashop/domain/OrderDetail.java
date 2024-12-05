@@ -19,20 +19,27 @@ import lombok.Setter;
 @Entity
 @Table(name = "order_details")
 public class OrderDetail {
-      @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private long id;
 
-    private long quantity;
-    private double price;
+  private long quantity;
+  private double price;
+  private double commissionRate;
 
-    // order_id: long
-    @ManyToOne
-    @JoinColumn(name = "order_id")
-    private Order order;
 
-    // product_id: long
-    @ManyToOne
-    @JoinColumn(name = "product_id")
-    private Product product;
+  // order_id: long
+  @ManyToOne
+  @JoinColumn(name = "order_id")
+  private Order order;
+
+  // product_id: long
+  @ManyToOne
+  @JoinColumn(name = "product_id")
+  private Product product;
+
+  @ManyToOne
+  @JoinColumn(name = "affiliate_id") // Cộng tác viên giới thiệu
+  private User affiliate;
+  
 }

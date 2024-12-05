@@ -8,17 +8,18 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import com.minh.teashop.domain.Order;
+import com.minh.teashop.domain.OrderDetail;
 import com.minh.teashop.domain.User;
 import com.minh.teashop.repository.OrderRepository;
 import com.minh.teashop.service.specification.OrderSpecs;
 
+import lombok.AllArgsConstructor;
+
 @Service
+@AllArgsConstructor
 public class OrderService {
     private final OrderRepository orderRepository;
-
-    public OrderService(OrderRepository orderRepository) {
-        this.orderRepository = orderRepository;
-    }
+    private final AffiliateService affiliateService;
 
     public List<Order> getListOders() {
         return this.orderRepository.findAll();
@@ -56,6 +57,19 @@ public class OrderService {
 
             }
             order.setCustomerCode(cusCode);
+        }
+
+        for (OrderDetail cd : order.getOrderDetail()) {
+            User userAffiliate = cd.getAffiliate();
+            if (userAffiliate != null) {
+                double commission;
+                double totalPrice = cd.getPrice();
+
+                commission = cd.getCommissionRate() * totalPrice;
+                this.affiliateService.updateCollaborator(userAffiliate, commission, order);
+
+            }
+
         }
 
         return this.orderRepository.save(order);

@@ -87,11 +87,11 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                         <div class="step-content">
                             <h4>Đăng Ký Tài Khoản</h4>
                             <p>Điền thông tin cá nhân và tạo tài khoản affiliate của bạn</p>
-                            <c:if test="${sessionScope.role == null ||  sessionScope.role == 'CUSTOMER'}">
+                            <c:if test="${sessionScope.role == null}">
                               <a href="/affiliates" class="btn-step gradient-bg">Đăng Ký Ngay</a>
 
                             </c:if>
-                            <c:if test="${sessionScope.role != null &&  sessionScope.role != 'CUSTOMER'}">
+                            <c:if test="${sessionScope.role != null}">
                               <a href="#" class="btn-step gradient-bg">Đẵ đăng ký</a>
 
                             </c:if>
@@ -120,7 +120,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                         <div class="step-content">
                             <h4>Bắt đầu kiếm thu nhập</h4>
                             <p>Hãy khám phá ngay các cơ hội kiếm thu nhập hấp dẫn!</p>
-                            <a href="/profile" class="btn-step gradient-bg">Hoàn Tất</a>
+                            <a href="#" class="btn-step gradient-bg">Hoàn Tất</a>
                         </div>
                     </div>
                 </div>

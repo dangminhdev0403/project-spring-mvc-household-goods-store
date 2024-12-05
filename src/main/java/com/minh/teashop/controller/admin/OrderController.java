@@ -19,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.minh.teashop.domain.Order;
 import com.minh.teashop.domain.OrderDetail;
 import com.minh.teashop.domain.enumdomain.OrderStatus;
+import com.minh.teashop.service.AffiliateService;
 import com.minh.teashop.service.ExcelExportService;
 import com.minh.teashop.service.OrderService;
 import com.minh.teashop.service.ProductService;
@@ -26,17 +27,17 @@ import com.minh.teashop.service.UserService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.AllArgsConstructor;
 
 @Controller
+@AllArgsConstructor
 public class OrderController {
     private final ExcelExportService excelExportService;
     private final OrderService orderService;
+        private final AffiliateService affiliateService ;
 
-    public OrderController(ProductService productService, UserService userService, OrderService orderService,
-            ExcelExportService excelExportService) {
-        this.excelExportService = excelExportService;
-        this.orderService = orderService;
-    }
+
+  
 
     @GetMapping("/admin/order")
     public String getOrderAdminPage(Model model, HttpServletRequest request) {

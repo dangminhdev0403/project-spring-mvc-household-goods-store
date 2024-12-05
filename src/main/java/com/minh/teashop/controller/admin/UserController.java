@@ -131,6 +131,13 @@ public class UserController {
 
             // So sánh chuỗi bằng phương thức equals()
             if (currentUser.getRole().getName().equals("CUSTOMER")) {
+                if (currentUser.getCollaborator() != null) {
+                    Long idCompa = currentUser.getCollaborator().getId();
+
+                    this.userService.handleDeleteCollaborator(idCompa);
+
+                }
+
                 // Thay "affi" thành "CUSTOM" nếu chuỗi bắt đầu bằng "affi"
                 if (original.startsWith("affi")) {
                     original = original.replaceFirst("^affi", "CUSTOM");
@@ -140,6 +147,11 @@ public class UserController {
                 // Thay "CUSTOM" thành "affi" nếu chuỗi bắt đầu bằng "CUSTOM"
                 if (original.startsWith("CUSTOM")) {
                     original = original.replaceFirst("^CUSTOM", "affi");
+                    if (currentUser.getCollaborator() == null) {
+
+                        this.userService.handleSaveCollaborator(currentUser);
+
+                    }
                 }
             }
 

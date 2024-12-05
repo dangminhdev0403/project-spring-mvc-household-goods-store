@@ -41,13 +41,12 @@ public class User {
     private String email;
 
     private String phone;
-    
+
     private String avatar;
     private String urlAvatar;
     private String cccdFrontUrl;
     private String cccdBackUrl;
     private String customerCode; // Trường mã khách hàng
-    
 
     @ManyToOne
     @JoinColumn(name = "role_id")
@@ -62,6 +61,9 @@ public class User {
     private Cart cart;
 
     private boolean enabled;
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.REMOVE)
+    private Collaborator collaborator;
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.REMOVE) // Xóa Token khi User bị xóa
     private VerificationToken verificationToken;
@@ -221,6 +223,14 @@ public class User {
 
     public void setCustomerCode(String customerCode) {
         this.customerCode = customerCode;
+    }
+
+    public Collaborator getCollaborator() {
+        return collaborator;
+    }
+
+    public void setCollaborator(Collaborator collaborator) {
+        this.collaborator = collaborator;
     }
 
 }

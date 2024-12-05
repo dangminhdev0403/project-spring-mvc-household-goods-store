@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.minh.teashop.domain.Address;
+import com.minh.teashop.domain.Collaborator;
 import com.minh.teashop.domain.Order;
 import com.minh.teashop.domain.ParentCategory;
 import com.minh.teashop.domain.Role;
@@ -20,6 +21,7 @@ import com.minh.teashop.domain.User;
 import com.minh.teashop.domain.dto.RegisterDTO;
 import com.minh.teashop.domain.mapper.UserMapper;
 import com.minh.teashop.repository.AddressRepository;
+import com.minh.teashop.repository.CollaboratorRepository;
 import com.minh.teashop.repository.OrderRepository;
 import com.minh.teashop.repository.ParentCategoryRepository;
 import com.minh.teashop.repository.ResetPasswordRepository;
@@ -35,9 +37,10 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class UserService {
 
-    UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    RoleRepository roleRepository;
+    private final RoleRepository roleRepository;
+    private final CollaboratorRepository collaboratorRepository;
     private final UserMapper userMapper;
     private final AddressRepository addressRepository;
     private final OrderRepository orderRepository;
@@ -51,6 +54,25 @@ public class UserService {
     }
 
     @Transactional
+    public Collaborator handleSaveCollaborator(User collaborator) {
+        Collaborator newCollaborator = new Collaborator();
+        Collaborator existingCollaborator = this.collaboratorRepository.findTopByCommissionRateNot(0);
+        if(existingCollaborator != null){
+            double commissionRate = existingCollaborator.getCommissionRate();
+            newCollaborator.setCommissionRate(commissionRate);
+        }
+
+        newCollaborator.setUser(collaborator);
+        return this.collaboratorRepository.save(newCollaborator);
+    }
+
+    @Transactional
+    public void handleDeleteCollaborator(long id) {
+
+        this.collaboratorRepository.deleteCollaboratorById(id);
+
+    }
+
     public User handleSaveUser(User user) {
         try {
             if (user.getCustomerCode() == null) {
@@ -78,7 +100,7 @@ public class UserService {
         return this.userRepository.findById(id);
     }
 
-    public User getUserByCutomerCode(String code){
+    public User getUserByCutomerCode(String code) {
         return this.userRepository.findByCustomerCode(code);
     }
 

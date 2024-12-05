@@ -62,6 +62,29 @@ uri="http://java.sun.com/jsp/jstl/core" %>
           </div>
         </li>
         <li class="nav-item">
+          <a data-bs-toggle="collapse" href="#affiliate">
+            <i class="fas fa-list"></i>
+            <p>Quản lí cộng tác viên</p>
+            <span class="caret"></span>
+          </a>
+          <div class="collapse" id="affiliate">
+            <ul class="nav nav-collapse">
+              <li>
+                <a href="/admin/affiliate/commission ">
+                  <span class="sub-item">Thay đổi lợi nhuận</span>
+                </a>
+              </li>
+              
+              <li>
+                <a href="/admin/affiliate/widthdraw">
+                  <span class="sub-item"> Danh sách đơn rút tiền</span>
+                </a>
+              </li>
+             
+            </ul>
+          </div>
+        </li>
+        <li class="nav-item">
           <a data-bs-toggle="collapse" href="#categories">
             <i class="fas fa-list"></i>
             <p>Quản lí danh mục</p>

@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   formatDate.forEach((dateElement) => {
     let textDate = dateElement.textContent.trim(); // Lấy nội dung văn bản
-    console.log("Trước khi xử lý:", textDate);
+   
 
     // Nếu chuỗi có phân số giây, cắt bỏ dư thừa
     if (textDate.includes(".")) {

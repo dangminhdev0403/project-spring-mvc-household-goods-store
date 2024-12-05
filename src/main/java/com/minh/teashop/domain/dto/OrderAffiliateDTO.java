@@ -17,5 +17,8 @@ public class OrderAffiliateDTO {
     private OrderStatus status;
     private double totalPrice;
     private String receiverName; // Tên khách hàng
+    private double commission;
+
+    
 
 }

@@ -17,6 +17,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -43,14 +44,22 @@ public class Order {
 
     @Enumerated(EnumType.STRING) // Lưu trạng thái dưới dạng chuỗi
     private OrderStatus status;
+
+    @Transient // Không được lưu vào cơ sở dữ liệu
+    private OrderStatus prevStatus;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = true) // nullable để hỗ trợ khi User bị xóa
     private User user;
 
-    @ManyToOne
-    @JoinColumn(name = "affiliate_id") // Cộng tác viên giới thiệu
-    private User affiliate;
+   
 
     @OneToMany(mappedBy = "order")
     List<OrderDetail> OrderDetail;
+
+    public void setStatus(OrderStatus newStatus) {
+        if (this.status != null) {
+            this.prevStatus = this.status; // Lưu trạng thái hiện tại vào prevStatus
+        }
+        this.status = newStatus; // Cập nhật trạng thái mới
+    }
 }

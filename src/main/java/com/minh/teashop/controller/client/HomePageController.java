@@ -28,6 +28,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.minh.teashop.domain.Cart;
 import com.minh.teashop.domain.CartDetail;
 import com.minh.teashop.domain.Category;
+import com.minh.teashop.domain.Collaborator;
 import com.minh.teashop.domain.ParentCategory;
 import com.minh.teashop.domain.Product;
 import com.minh.teashop.domain.User;
@@ -67,8 +68,6 @@ public class HomePageController {
             model.addAttribute("_csrf", csrfToken);
         }
     }
-
- 
 
     @GetMapping("/")
     public String getHomePage(Model model,
@@ -315,11 +314,11 @@ public class HomePageController {
 
     @PostMapping("/change-pass-home")
     public String handleChangePassword(RedirectAttributes redirectAttributes,
-            @ModelAttribute("userPass")@Valid RegisterDTO registerDTO, @RequestParam("token") String token,
+            @ModelAttribute("userPass") @Valid RegisterDTO registerDTO, @RequestParam("token") String token,
             BindingResult bindingResult) {
         // if (bindingResult.hasErrors()) {
 
-        //     return "client/auth/change-pass";
+        // return "client/auth/change-pass";
         // }
 
         String hassPass = this.passwordEncoder.encode(registerDTO.getPassword());
@@ -377,28 +376,27 @@ public class HomePageController {
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("id") == null) {
             model.addAttribute("title", "Tổng quan về chương trình Affiliate.");
-            
+
             return "client/page/about";
         }
 
         long id = (long) session.getAttribute("id");
-        
+
         User currentUser = this.userService.getUserById(id);
         if (currentUser != null) {
             if (currentUser.getRole().getName().equals("COLLABORATOR")) {
 
+                Collaborator collaborator = this.affiliateService.findCollaboratorByUser(currentUser);
 
-                long countOrder = this.affiliateService.getCountOrderByAffilate(id);
-                model.addAttribute("countOrder",countOrder);
+                model.addAttribute("collaborator", collaborator);
                 model.addAttribute("title", "Trang cộng tác viên.");
 
                 return "client/profile/manager-affile";
 
             }
-            Boolean isEnable = currentUser.isEnabled() ;
-            model.addAttribute("isEnable" ,isEnable);
+            Boolean isEnable = currentUser.isEnabled();
+            model.addAttribute("isEnable", isEnable);
         }
-       
 
         model.addAttribute("title", "Tổng quan về chương trình Affiliate.");
         return "client/page/about";

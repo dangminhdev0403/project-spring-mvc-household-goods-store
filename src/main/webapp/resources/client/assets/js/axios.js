@@ -481,35 +481,189 @@ function closeWithdrawModal() {
     easing: "easeInCubic",
     complete: function () {
       document.getElementById("withdrawModal2024").style.display = "none";
-      document.getElementById("withdrawForm").reset();
+      const withdrawForm = document.getElementById("withdrawForm");
+      if (withdrawForm) withdrawForm.reset();
     },
   });
 }
 
+const MIN_VALUE = 50000;
+const maxVal = document.querySelector("#withdrawAmount");
+
+let MAX_VALUE;
+
+if (maxVal) {
+  MAX_VALUE = maxVal.max;
+}
+const STEP = 1000;
+let continuousTimer = null;
+let continuousInterval = null;
+let accelerationFactor = 1;
+const MAX_ACCELERATION = 10;
+
 function formatAmount(input) {
-  let value = input.value.replace(/\D/g, "");
-  if (value > 50000000) value = 50000000;
-  if (value < 0) value = 0;
-  input.value = value;
+  let cursorPosition = input.selectionStart;
+  let value = input.value.replace(/[^\d,]/g, "");
+  let parts = value.split(",");
+  let beforeComma = parts[0] || "";
+  let afterComma = parts[1] || "";
 
-  const formatted = new Intl.NumberFormat("vi-VN", {
-    style: "currency",
-    currency: "VND",
-  }).format(value);
+  let numValue = parseInt(beforeComma.replace(/\D/g, "")) || 0;
 
-  document.getElementById("amountError").textContent =
-    value < 100000 ? "Số tiền tối thiểu là 100,000đ" : "";
+  if (numValue < MIN_VALUE) {
+    showError("Số tiền tối thiểu là 50,000đ");
+  } else if (numValue > MAX_VALUE) {
+    showError("Số tiền vượt quá số dư khả dụng");
+    numValue = MAX_VALUE;
+  } else {
+    hideError();
+  }
+
+  let formattedValue = numValue.toLocaleString("en-US").replace(/,/g, ".");
+
+  if (afterComma) {
+    formattedValue += "," + afterComma;
+  }
+
+  input.value = formattedValue;
+
+  const newCursorPosition =
+    cursorPosition + (input.value.length - value.length);
+  input.setSelectionRange(newCursorPosition, newCursorPosition);
 }
 
+function startIncrease() {
+  increaseValue();
+  accelerationFactor = 1;
+  // Initial delay before continuous increase
+  continuousTimer = setTimeout(() => {
+    continuousInterval = setInterval(() => {
+      accelerationFactor = Math.min(accelerationFactor + 0.5, MAX_ACCELERATION);
+      increaseValue();
+    }, 50); // Faster interval for smoother increment
+  }, 500); // Initial delay
+}
+
+function startDecrease() {
+  decreaseValue();
+  accelerationFactor = 1;
+  // Initial delay before continuous decrease
+  continuousTimer = setTimeout(() => {
+    continuousInterval = setInterval(() => {
+      accelerationFactor = Math.min(accelerationFactor + 0.5, MAX_ACCELERATION);
+      decreaseValue();
+    }, 50); // Faster interval for smoother decrement
+  }, 500); // Initial delay
+}
+
+function stopContinuous() {
+  if (continuousTimer) clearTimeout(continuousTimer);
+  if (continuousInterval) clearInterval(continuousInterval);
+  continuousTimer = null;
+  continuousInterval = null;
+  accelerationFactor = 1;
+}
+
+function handleKeydown(event) {
+  if (event.key === "ArrowUp") {
+    event.preventDefault();
+    increaseValue();
+  } else if (event.key === "ArrowDown") {
+    event.preventDefault();
+    decreaseValue();
+  }
+}
+
+function increaseValue() {
+  const input = document.getElementById("withdrawAmount");
+  const value = input.value.split(",")[0].replace(/\./g, "");
+  const currentValue = parseInt(value) || 0;
+  const increment = Math.round(STEP * accelerationFactor);
+  input.value = Math.min(MAX_VALUE, currentValue + increment);
+  formatAmount(input);
+  animateButton("increase");
+}
+
+function decreaseValue() {
+  const input = document.getElementById("withdrawAmount");
+  const value = input.value.split(",")[0].replace(/\./g, "");
+  const currentValue = parseInt(value) || 0;
+  const decrement = Math.round(STEP * accelerationFactor);
+  input.value = Math.max(MIN_VALUE, currentValue - decrement);
+  formatAmount(input);
+  animateButton("decrease");
+}
+
+function animateButton(type) {
+  const buttonIndex = type === "increase" ? 1 : 0;
+  anime({
+    targets: ".spinner-button:nth-child(" + (buttonIndex + 1) + ")",
+    scale: [0.95, 1],
+    duration: 100,
+    easing: "easeOutQuad",
+  });
+}
+
+function showError(message) {
+  const errorElement = document.getElementById("errorMessage");
+  errorElement.textContent = message;
+  errorElement.style.display = "block";
+
+  anime({
+    targets: "#errorMessage",
+    opacity: [0, 1],
+    translateY: ["-10px", "0px"],
+    duration: 300,
+    easing: "easeOutQuad",
+  });
+}
+
+function hideError() {
+  const errorElement = document.getElementById("errorMessage");
+  errorElement.style.display = "none";
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  const input = document.getElementById("withdrawAmount");
+  if (input) input.addEventListener("blur", () => formatAmount(input));
+});
 function handleWithdraw(event) {
   event.preventDefault();
   const submitBtn = document.getElementById("submitBtn");
   const loading = document.getElementById("withdrawLoading");
+  const withdrawAmount = document.getElementById("withdrawAmount");
+  const bankSelect = document.getElementById("bankSelect");
+  const accountNumber = document.getElementById("accountNumber");
+  const accountName = document.getElementById("accountName");
 
   submitBtn.disabled = true;
   loading.style.display = "flex";
 
-  // Simulate API call
+  const requestData = {
+    withdrawAmount: withdrawAmount.value,
+    bankSelect: bankSelect.value,
+    accountNumber: accountNumber.value,
+    accountName: accountName.value,
+  };
+
+  const getWithdrwa = async () => {
+    const response = await axios({
+      method: "get",
+
+      url: "/withdraw",
+
+      params: requestData,
+      headers: {
+        "X-CSRF-TOKEN": csrfToken, // Gửi CSRF token trong header
+      },
+    });
+
+    const data = await response.data;
+
+    console.log(data);
+  };
+
+  getWithdrwa();
   setTimeout(() => {
     loading.style.display = "none";
     showSuccess();
@@ -589,11 +743,6 @@ function formatCurrency(amount) {
     style: "currency",
     currency: "VND",
   }).format(amount);
-}
-
-function handleWithdraw() {
-  // Implement withdraw functionality
-  console.log("Withdraw clicked");
 }
 
 function showLoading(elementId) {
@@ -748,7 +897,6 @@ function ctv_loadCustomerData() {
   fetchData();
 
   // Animation cho modal content
-  
 }
 
 function fixInvalidJson(invalidJson) {
@@ -789,16 +937,48 @@ function ctv_loadOrderData() {
   // Function to get status badge
   const getStatusBadge = (status) => {
     const statusMap = {
-      PENDING: { color: "#ffd700", text: "Chờ Xử Lý" },
-      PROCESSING: { color: "#1e90ff", text: "Đang Xử Lý" },
-      COMPLETED: { color: "#32cd32", text: "Hoàn Thành" },
-      CANCELLED: { color: "#ff4500", text: "Đã Hủy" },
+      PENDING: {
+        backgroundColor: "#f8ffb8",
+        textColor: "#000000",
+        text: "Đang chờ",
+        darkBackgroundColor: "#e6c200", // Màu đậm hơn
+      },
+      PROCESSING: {
+        backgroundColor: "#e9f6fa",
+        textColor: "#ffffff",
+        text: "Đang xử lý",
+        darkBackgroundColor: "#187bcd", // Màu đậm hơn
+      },
+      SHIPPING: {
+        backgroundColor: "#f5fcff",
+        textColor: "#ffffff",
+        text: "Đang giao",
+        darkBackgroundColor: "#009acd", // Màu đậm hơn
+      },
+      DELIVERED: {
+        backgroundColor: "#e3fcef",
+        textColor: "#ffffff",
+        text: "Đã giao",
+        darkBackgroundColor: "#28a328", // Màu đậm hơn
+      },
+      CANCELED: {
+        backgroundColor: "#f1ddd6",
+        textColor: "#ffffff",
+        text: "Đã hủy",
+        darkBackgroundColor: "#e03e00", // Màu đậm hơn
+      },
+      RETURNED: {
+        backgroundColor: "#f1ddd6",
+        textColor: "#ffffff",
+        text: "Đã trả",
+        darkBackgroundColor: "#e0533f", // Màu đậm hơn
+      },
     };
 
-    const statusInfo = statusMap[status] || { color: "#808080", text: status };
+    const statusInfo = statusMap[status] || { color: "#ffff", text: status };
     return `<span style="
-    background-color: ${statusInfo.color}; 
-    color: white;
+    background-color: ${statusInfo.darkBackgroundColor}; 
+    color: ${statusInfo.backgroundColor};
     padding: 5px 10px;
     border-radius: 15px;
     font-size: 0.9em;
@@ -857,19 +1037,13 @@ function ctv_loadOrderData() {
                       <td class ="format-price">${formatPrice(
                         order.totalPrice
                       )}</td>
-                      <td>${order.commission}</td>
+                      <td>${formatPrice(
+                        order.commission * order.totalPrice
+                      )}</td>
                       <td>
-                          <span class="ctv_dash_v2_status ctv_dash_v2_status_${
-                            order.status
-                          }">
-                              ${
-                                order.status === "completed"
-                                  ? "Hoàn thành"
-                                  : order.status === "pending"
-                                  ? "Chờ xử lý"
-                                  : "Đang xử lý"
-                              }
-                          </span>
+                       ${getStatusBadge(order.status)}
+
+                        
                       </td>
                       
                   </tr>
