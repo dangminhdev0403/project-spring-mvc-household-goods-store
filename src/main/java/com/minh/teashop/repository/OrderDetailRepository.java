@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -36,5 +37,8 @@ public interface OrderDetailRepository extends JpaRepository<OrderDetail, Long> 
 
     @Query("SELECT DISTINCT od.order.user FROM OrderDetail od WHERE od.affiliate.id = :affiliateId")
     Page<User> findUsersByAffiliateId(@Param("affiliateId") Long affiliateId, Pageable pageable);
+
+        List<OrderDetail> findAll(Specification<OrderDetail> spec);
+
 
 }

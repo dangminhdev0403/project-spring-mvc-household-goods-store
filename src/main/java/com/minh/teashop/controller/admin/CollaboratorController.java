@@ -59,17 +59,17 @@ public class CollaboratorController {
 
     @PostMapping("/admin/widthdraw/update/{id}")
     public String updateWithdrwal(@PathVariable long id, @ModelAttribute("widthdraw") Withdrawal withdrawal,
+            RedirectAttributes redirectAttributes,
             HttpServletRequest request) {
         String referer = request.getHeader("Referer");
 
-              
-                this.affiliateService.handleSaveWithdrawal(withdrawal ,id);
+        this.affiliateService.handleSaveWithdrawal(withdrawal, id);
+
+        redirectAttributes.addFlashAttribute("success", "Xoá thành công");
+
         if (referer != null && !referer.isEmpty()) {
 
-
-
             return "redirect:" + referer;
-
 
         }
         return "redirect:/admin/affiliate/widthdraw"; // Ví dụ trang danh sách

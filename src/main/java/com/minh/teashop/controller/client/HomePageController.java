@@ -1,6 +1,8 @@
 package com.minh.teashop.controller.client;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -25,6 +27,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.minh.teashop.domain.Cart;
 import com.minh.teashop.domain.CartDetail;
 import com.minh.teashop.domain.Category;
@@ -364,7 +368,7 @@ public class HomePageController {
     }
 
     @GetMapping("/affiliate-overview")
-    public String getAboutPage(HttpServletRequest request, Model model) {
+    public String getAboutPage(HttpServletRequest request, Model model) throws JsonProcessingException {
         Map<String, Object> searchResult = (Map<String, Object>) request.getAttribute("searchResult");
         if (searchResult != null) {
             model.addAllAttributes(searchResult);
@@ -385,10 +389,14 @@ public class HomePageController {
         User currentUser = this.userService.getUserById(id);
         if (currentUser != null) {
             if (currentUser.getRole().getName().equals("COLLABORATOR")) {
+                int currentYear = LocalDate.now().getYear();
 
                 Collaborator collaborator = this.affiliateService.findCollaboratorByUser(currentUser);
+                Map<Month, Double> monthlyRevenue = this.affiliateService.getAffiliateRevenueForYear(id, currentYear);
 
                 model.addAttribute("collaborator", collaborator);
+                model.addAttribute("currentYear", currentYear);
+                model.addAttribute("monthlyRevenue", new ObjectMapper().writeValueAsString(monthlyRevenue));
                 model.addAttribute("title", "Trang cộng tác viên.");
 
                 return "client/profile/manager-affile";
@@ -400,13 +408,6 @@ public class HomePageController {
 
         model.addAttribute("title", "Tổng quan về chương trình Affiliate.");
         return "client/page/about";
-    }
-
-    @GetMapping("/contact")
-    public String getContactPage(Model model) {
-
-        model.addAttribute("title", "Tổng quan về chương trình affiliate.");
-        return "client/page/contact";
     }
 
 }

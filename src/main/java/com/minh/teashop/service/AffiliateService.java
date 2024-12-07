@@ -1,10 +1,16 @@
 package com.minh.teashop.service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Month;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import com.minh.teashop.domain.Collaborator;
@@ -18,6 +24,7 @@ import com.minh.teashop.domain.enumdomain.WithdrawStatus;
 import com.minh.teashop.repository.CollaboratorRepository;
 import com.minh.teashop.repository.OrderDetailRepository;
 import com.minh.teashop.repository.WithdrawalRepository;
+import com.minh.teashop.service.specification.OrderDetailSpecs;
 
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
@@ -170,5 +177,33 @@ public class AffiliateService {
         }
 
         return true;
+    }
+
+    public Map<Month, Double> getAffiliateRevenueForYear(long affiliateId, int year) {
+
+
+        // Tạo một Map để lưu doanh thu của mỗi tháng
+        Map<Month, Double> monthlyRevenue = new LinkedHashMap<>();
+
+        // Lặp qua tất cả 12 tháng
+        for (Month month : Month.values()) {
+            // Kết hợp các Specification cho mỗi tháng
+            Specification<OrderDetail> spec = Specification.where(OrderDetailSpecs.hasDeliveredStatus())
+                    .and(OrderDetailSpecs.isAffiliate(affiliateId))
+                    .and(OrderDetailSpecs.isOrderInMonth(year, month));
+
+            // Lấy tất cả OrderDetail thỏa mãn Specification
+            List<OrderDetail> orderDetails = detailRepository.findAll(spec);
+
+            // Tính doanh thu cho tháng hiện tại
+            double totalRevenue = orderDetails.stream()
+                    .mapToDouble(od -> od.getPrice() * od.getCommissionRate())
+                    .sum();
+
+            // Lưu doanh thu vào Map
+            monthlyRevenue.put(month, totalRevenue);
+        }
+
+        return monthlyRevenue;
     }
 }

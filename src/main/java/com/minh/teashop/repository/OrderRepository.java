@@ -8,8 +8,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 
 import com.minh.teashop.domain.Order;
 import com.minh.teashop.domain.User;
@@ -23,7 +21,5 @@ public interface OrderRepository extends JpaRepository<Order, Long>, JpaSpecific
     boolean existsBycustomerCode(String customerCode);
 
     Optional<Order> findByCustomerCode(String customerCode);
-
-   
 
 }

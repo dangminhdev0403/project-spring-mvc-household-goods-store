@@ -14,7 +14,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
       <div class="card">
         <h3>Doanh Thu</h3>
         <div class="stats format-price">${collaborator.totalEarnings}</div>
-        <p>trong 12 tháng</p>
+        <p>trong năm ${currentYear}</p>
       </div>
       <div class="card">
         <h3>Hoa Hồng</h3>
@@ -89,46 +89,52 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
     </div>
   </div>
 
-  <script>
-    const ctx = document.getElementById("revenueChart").getContext("2d");
-    new Chart(ctx, {
-      type: "line",
-      data: {
-        labels: ["T1", "T2", "T3", "T4", "T5", "T6"],
-        datasets: [
-          {
-            label: "Doanh Thu",
-            data: [12, 19, 3, 5, 2, 3],
-            borderColor: "#3b82f6",
-            tension: 0.4,
-            fill: true,
-            backgroundColor: "rgba(59, 130, 246, 0.1)",
-          },
-        ],
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-      },
-    });
+    <script>
+        // Lấy dữ liệu doanh thu từ model
+        const monthOrder = [
+  "JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE",
+  "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"
+];
 
-    function handleAction(type) {
-      anime({
-        targets: ".card",
-        scale: [1, 1.02, 1],
-        duration: 300,
-      });
-    }
 
-    // Initial animation
-    anime({
-      targets: ".card",
-      translateY: [10, 0],
-      opacity: [0, 1],
-      delay: anime.stagger(100),
-      duration: 500,
-    });
-  </script>
+const monthlyRevenue = JSON.parse('${monthlyRevenue}');
+
+       
+      
+        // Chuyển đổi từ Map sang array
+        const labels = [];
+        const data = [];
+        const monthNumbers = [
+  1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12
+];
+        // Duyệt qua dữ liệu tháng và doanh thu
+        Object.entries(monthlyRevenue).forEach(([month, revenue]) => {
+          const monthNumber = monthOrder.indexOf(month) + 1;
+            labels.push(monthNumber);  // Lưu tên tháng
+            data.push(revenue);  // Lưu doanh thu
+        });
+
+        // Vẽ biểu đồ
+        const ctx = document.getElementById("revenueChart").getContext("2d");
+        new Chart(ctx, {
+            type: "line",
+            data: {
+                labels: labels,  // Danh sách tháng
+                datasets: [{
+                    label: "Doanh Thu",
+                    data: data,  // Dữ liệu doanh thu
+                    borderColor: "#3b82f6",
+                    tension: 0.4,
+                    fill: true,
+                    backgroundColor: "rgba(59, 130, 246, 0.1)"
+                }],
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false
+            }
+        });
+    </script>
 </main>
 
 <!-- rút tiền -->
