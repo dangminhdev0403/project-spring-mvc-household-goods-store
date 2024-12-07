@@ -27,14 +27,8 @@ uri="http://java.sun.com/jsp/jstl/core" %>
         <div class="card">
           <div class="card-header">
             <div class="d-flex align-items-center">
-              <h4 class="card-title">Bảng danh mục</h4>
-              <a
-                href="/admin/categories/create"
-                class="btn btn-primary btn-round ms-auto"
-              >
-                <i class="fa fa-plus"></i>
-                Thêm mới danh mục
-              </a>
+              <h4 class="card-title">Danh sách đơn rút tiền</h4>
+              
             </div>
           </div>
           <div class="card-body">
@@ -47,15 +41,49 @@ uri="http://java.sun.com/jsp/jstl/core" %>
               >
                 <thead>
                   <tr>
-                    <td>STT</td>
-                    <th>Tên</th>
-                    <th>Danh mục cha</th>
-                    <th>Số sản phẩm</th>
-
-                    <th style="width: 10%">Thao tác</th>
+                    <th>Mã đơn</th>
+                    <th>Ngày Tạo </th>
+                    <th>Tên chủ tài khoản</th>
+                    <th>Tên ngân hàng</th>
+                    <th>Số tài khoản</th>
+                    <th>Số Tiền</th>
+                    <th>Trạng Thái</th>
+                    <th>Thao tác</th>
                   </tr>
                 </thead>
+                <tbody>
+                  <c:forEach
+                  var="withdraw"
+                  items="${widthdraws}"
+                 
+                >
 
+          <tr>
+                  <td>${withdraw.id}</td>
+                  <td class="format-date">${withdraw.createdAt}</td>
+                  <td>${withdraw.accountName}</td>
+                  <td>${withdraw.bankSelect}</td>
+                  <td>${withdraw.accountNumber}</td>
+                  <td class="format-price">${withdraw.amount}</td>
+                  <td>
+                    
+                    ${withdraw.status.displayName}
+                    </td>
+                    <td>
+                      <div class="form-button-action">
+                        <a
+                          href="/admin/withdrawal/update/${withdraw.id}"
+                          data-bs-toggle="tooltip"
+                          title=""
+                          class="btn btn-link btn-primary btn-lg"
+                          data-original-title="Edit Task"
+                        >
+                          <i class="fa fa-edit"></i>
+                        </a>
+                        </div>
+          </tr>
+                </c:forEach>
+                </tbody>
                
               </table>
             </div>

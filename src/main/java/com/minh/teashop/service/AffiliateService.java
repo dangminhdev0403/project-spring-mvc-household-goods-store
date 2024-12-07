@@ -1,5 +1,8 @@
 package com.minh.teashop.service;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -26,6 +29,47 @@ public class AffiliateService {
     private final OrderDetailRepository detailRepository;
     private final CollaboratorRepository collaboratorRepository;
     private final WithdrawalRepository withdrawalRepository;
+
+    public Withdrawal findWithWithdrawalById(long id) {
+        return this.withdrawalRepository.findById(id);
+    }
+
+    public Withdrawal handleSaveWithdrawal(Withdrawal withdrawal, long id) {
+        // Tìm Withdrawal hiện tại theo ID
+        Withdrawal existingWithdrawal = this.findWithWithdrawalById(id);
+
+        if (existingWithdrawal == null || withdrawal == null) {
+            return null; // Không tìm thấy hoặc dữ liệu không hợp lệ
+        }
+
+        Collaborator currentCollaborator = existingWithdrawal.getCollaborator();
+        double currentBalance = currentCollaborator.getAvailableBalance();
+
+        // Cập nhật trạng thái Withdrawal
+        existingWithdrawal.setStatus(withdrawal.getStatus());
+
+        // Kiểm tra trạng thái trước và sau để xử lý hoàn tiền
+        if (existingWithdrawal.getPrevStatus() != WithdrawStatus.REFUNDED
+                && withdrawal.getStatus() == WithdrawStatus.REFUNDED) {
+            // Hoàn tiền khi chuyển sang REFUNDED
+            double refunded = currentBalance + withdrawal.getAmount();
+            currentCollaborator.setAvailableBalance(refunded);
+        } else if (withdrawal.getStatus() != WithdrawStatus.REFUNDED) {
+            // Trừ tiền nếu không phải trạng thái REFUNDED
+            double newBalance = currentBalance - withdrawal.getAmount();
+            if (newBalance > 0) {
+                currentCollaborator.setAvailableBalance(newBalance);
+            }
+        }
+
+        // Lưu lại dữ liệu
+        this.collaboratorRepository.save(currentCollaborator);
+        return this.withdrawalRepository.save(existingWithdrawal);
+    }
+
+    public List<Withdrawal> getListWWithdrawals() {
+        return this.withdrawalRepository.findAll();
+    }
 
     @Transactional
     public void updateAllCommissionRates(double newCommissionRate) {
@@ -113,12 +157,13 @@ public class AffiliateService {
 
             this.collaboratorRepository.save(collaborator);
             Withdrawal withdrawal = new Withdrawal();
-            withdrawal.setAmount(Double.parseDouble(withdrawRequest.getWithdrawAmount()));
+            withdrawal.setAmount(amount);
             withdrawal.setStatus(WithdrawStatus.PENDING);
             withdrawal.setCollaborator(collaborator);
             withdrawal.setBankSelect(withdrawRequest.getBankSelect());
             withdrawal.setAccountName(withdrawRequest.getAccountName());
             withdrawal.setAccountNumber(withdrawRequest.getAccountNumber());
+            withdrawal.setCreatedAt(LocalDateTime.now());
             this.withdrawalRepository.save(withdrawal);
         } else {
             return false;

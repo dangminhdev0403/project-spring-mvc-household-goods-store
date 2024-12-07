@@ -84,6 +84,8 @@ public class AffiliateController {
         Collaborator collaborator = this.affiliateService.findCollaboratorByUser(currentUser);
         boolean saveWithdraw = this.affiliateService.handleWithdrawal(withdrawRequest, collaborator);
         if (saveWithdraw == false) {
+
+            
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body("Yêu cầu rút tiền không thành công. Vui lòng kiểm tra số dư hoặc thông tin rút tiền.");
 

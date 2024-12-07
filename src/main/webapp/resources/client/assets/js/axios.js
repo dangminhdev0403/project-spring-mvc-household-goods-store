@@ -627,6 +627,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const input = document.getElementById("withdrawAmount");
   if (input) input.addEventListener("blur", () => formatAmount(input));
 });
+
 function handleWithdraw(event) {
   event.preventDefault();
   const submitBtn = document.getElementById("submitBtn");
@@ -646,6 +647,42 @@ function handleWithdraw(event) {
     accountName: accountName.value,
   };
 
+  const table = document.getElementById("table_withdrawal");
+  const rows = table.querySelectorAll("tr");
+
+  let lastId = 0;
+
+  if (rows.length > 1) {
+    // Kiểm tra nếu bảng có dữ liệu (bỏ qua header)
+    const lastRow = rows[rows.length - 1];
+    const lastIdCell = lastRow.querySelector("td:first-child");
+    lastId = parseInt(lastIdCell.textContent) || 0; // Lấy giá trị ID từ cột đầu tiên
+  }
+
+  const newId = lastId + 1; // Tăng ID lên 1 cho hàng mới
+  const tr = `
+  <tr>
+  <td>${newId}</td>
+              <td class="format-date">${new Date().toLocaleString()}</td>
+              <td>${requestData.accountName}</td>
+              <td>${requestData.bankSelect}</td>
+              <td>${requestData.accountNumber}</td>
+              <td class="format-price">${requestData.withdrawAmount} đ</td>
+              <td>
+                <span
+                  class="ctv_dash_v2_status_PENDING"
+                  style="
+                    border-radius: 3rem;
+                    padding: 0.4rem 0.8rem;
+                    line-height: 3rem;
+                  "
+                  >Chờ xử lý
+  </span
+                >
+              </td>
+            </tr>
+  
+  `;
   const getWithdrwa = async () => {
     const response = await axios({
       method: "get",
@@ -659,8 +696,9 @@ function handleWithdraw(event) {
     });
 
     const data = await response.data;
-
-    console.log(data);
+    if (data && table) {
+      table.insertAdjacentHTML("beforeend", tr);
+    }
   };
 
   getWithdrwa();
@@ -745,7 +783,7 @@ function formatCurrency(amount) {
   }).format(amount);
 }
 
-function showLoading(elementId) {
+function showLoading2(elementId) {
   const element = document.getElementById(elementId);
   element.innerHTML = `
             <tr>

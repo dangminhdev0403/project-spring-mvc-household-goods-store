@@ -14,7 +14,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
       <div class="card">
         <h3>Doanh Thu</h3>
         <div class="stats format-price">${collaborator.totalEarnings}</div>
-        <p>↑ 12% tháng trước</p>
+        <p>trong 12 tháng</p>
       </div>
       <div class="card">
         <h3>Hoa Hồng</h3>
@@ -42,25 +42,49 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
       <h1 style="font-size: 2rem; font-weight: bold; margin-bottom: 1rem">
         Lịch sử rút tiền
       </h1>
-      <table class="table">
+      <table class="table" id="table_withdrawal">
         <thead>
           <tr>
+            <th>Mã đơn</th>
             <th>Ngày</th>
-            <th>Ngày</th>
-            <th>Loại</th>
+            <th>Tên chủ tài khoản</th>
+            <th>Tên ngân hàng</th>
+            <th>Số tài khoản</th>
             <th>Số Tiền</th>
             <th>Trạng Thái</th>
           </tr>
         </thead>
-        <tbody>
+        <c:if test="${empty collaborator.withdrawals}">
           <tr>
-            <td>15/11</td>
-            <td>15/11</td>
-            <td>Rút tiền</td>
-            <td>₫2.5M</td>
-            <td><span class="status">Hoàn thành</span></td>
+            <td style="text-align: center; font-size: 1.9rem; font-weight: 500;"><h1>Chưa có đơn rút tiền</h1></td>
           </tr>
-        </tbody>
+        </c:if>
+        <c:if test="${ not empty collaborator.withdrawals}">
+          
+          <tbody>
+            <c:forEach var="withdraw" items="${collaborator.withdrawals}">
+              <tr>
+                <td>${withdraw.id}</td>
+                <td class="format-date">${withdraw.createdAt}</td>
+                <td>${withdraw.accountName}</td>
+                <td>${withdraw.bankSelect}</td>
+                <td>${withdraw.accountNumber}</td>
+                <td class="format-price">${withdraw.amount}</td>
+                <td>
+                  <span
+                    class="ctv_dash_v2_status_${withdraw.status}"
+                    style="
+                      border-radius: 3rem;
+                      padding: 0.4rem 0.8rem;
+                      line-height: 3rem;
+                    "
+                    >${withdraw.status.displayName}</span
+                  >
+                </td>
+              </tr>
+            </c:forEach>
+          </tbody>
+        </c:if>
       </table>
     </div>
   </div>
@@ -114,23 +138,31 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
       <button class="w24-modal-close" onclick="closeWithdrawModal()">×</button>
       <h2 style="margin-bottom: 1.5rem; text-align: center">Rút Tiền</h2>
 
-      <form class="w24-form" id="withdrawForm" onsubmit="handleWithdraw(event)" action="">
+      <form
+        class="w24-form"
+        id="withdrawForm"
+        onsubmit="handleWithdraw(event)"
+        action=""
+      >
         <div class="w24-input-group input-container">
           <label class="w24-label">Số Tiền Muốn Rút</label>
           <div class="input-wrapper">
             <input
-                type="text"
-                class="w24-input"
-                id="withdrawAmount"
-                placeholder="Tối thiểu 50,000đ"
-                max="${collaborator.availableBalance}"
-                required
-                oninput="formatAmount(this)"
-                onkeydown="handleKeydown(event)"
+              type="text"
+              class="w24-input"
+              id="withdrawAmount"
+              placeholder="Tối thiểu 50,000đ"
+              max="${collaborator.availableBalance}"
+              required
+              oninput="formatAmount(this)"
+              onkeydown="handleKeydown(event)"
             />
-          
-        </div>
-        <div id="errorMessage" class="error-message" style="color: red; padding-top: 1.2rem;"></div>
+          </div>
+          <div
+            id="errorMessage"
+            class="error-message"
+            style="color: red; padding-top: 1.2rem"
+          ></div>
         </div>
 
         <div class="w24-input-group">

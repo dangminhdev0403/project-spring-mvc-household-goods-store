@@ -415,13 +415,15 @@
 }
 
 .ctv_dash_v2_status_completed,
+.ctv_dash_v2_status_COMPLETED,
 .ctv_dash_v2_status_DELIVERED {
   background: #e3fcef;
   color: #0d9488;
 }
 .ctv_dash_v2_status_inactive,
-.ctv_dash_v2_status_CANCELED,
-.ctv_dash_v2_status_RETURNED {
+.ctv_dash_v2_status_CANCELLED,
+.ctv_dash_v2_status_RETURNED ,
+.ctv_dash_v2_status_REFUNDED {
   background: #fee2e2;
   color: #dc2626;
 }
