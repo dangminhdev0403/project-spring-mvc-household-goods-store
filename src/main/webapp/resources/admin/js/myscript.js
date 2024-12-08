@@ -24,6 +24,7 @@ function formatPrice(price) {
 
 // Sử dụng hàm formatPrice trong mã của bạn
 const formatPriceElements = document.querySelectorAll(".format-price");
+
 formatPriceElements.forEach((priceElement) => {
   let numberPrice = parseFloat(priceElement.textContent);
   priceElement.textContent = formatPrice(numberPrice);

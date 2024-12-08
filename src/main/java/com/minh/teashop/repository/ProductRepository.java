@@ -24,7 +24,7 @@ public interface ProductRepository extends JpaRepository<Product, Long>, JpaSpec
 
     Product findByName(String name);
     @Query("SELECT p FROM Product p WHERE p.product_id = :productId")
-Product findByProductId(@Param("productId") long productId);
+    Product findByProductId(@Param("productId") long productId);
 
     @SuppressWarnings("null")
     Page<Product> findAll(Specification<Product> spec, Pageable page);

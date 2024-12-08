@@ -1,5 +1,6 @@
 package com.minh.teashop.service;
 
+import java.time.Month;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.minh.teashop.domain.Order;
 import com.minh.teashop.domain.OrderDetail;
 import com.minh.teashop.domain.User;
+import com.minh.teashop.domain.enumdomain.OrderStatus;
 import com.minh.teashop.repository.OrderRepository;
 import com.minh.teashop.service.specification.OrderSpecs;
 
@@ -83,4 +85,37 @@ public class OrderService {
 
         return "CUSTOM-" + String.format("%04d", userCount + 1) + "-" + randomPart;
     }
+
+    public double getTotalPriceOrder(OrderStatus status, int year) {
+        double totalRevenue = 0;
+        for (Month month : Month.values()) {
+            // Kết hợp các Specification cho mỗi tháng
+            Specification<Order> spec = Specification.where(OrderSpecs.hasOrderStatus(status))
+                    .and(OrderSpecs.isOrderInMonth(year, month));
+
+            // Lấy tất cả OrderDetail thỏa mãn Specification
+            List<Order> orders = this.orderRepository.findAll(spec);
+
+            // Tính doanh thu cho tháng hiện tại
+            totalRevenue = orders.stream()
+                    .mapToDouble(o -> o.getTotalPrice())
+                    .sum();
+
+        }
+        return totalRevenue;
+
+    }
+
+    public long getTotalOrder(int year){
+
+        long toltalOrder = 0 ;
+
+        Specification<Order> spec = Specification.where(OrderSpecs.isOrderInYear(year));
+
+        // Đếm số lượng đơn hàng thỏa mãn điều kiện
+        toltalOrder = this.orderRepository.count(spec);
+        return toltalOrder;
+    }
+
+
 }

@@ -40,6 +40,8 @@ uri="http://java.sun.com/jsp/jstl/core" %>
     <link rel="stylesheet" href="css/demo.css" />
   </head>
   <body>
+    <div id="map"></div>
+
     <div class="wrapper">
       <!-- Sidebar -->
       <jsp:include page="../layout/sidebar.jsp" />
@@ -437,7 +439,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                       <div class="col col-stats ms-3 ms-sm-0">
                         <div class="numbers">
                           <p class="card-category">Cộng tác viên</p>
-                          <h4 class="card-title">1,294</h4>
+                          <h4 class="card-title">${countCollaborator}</h4>
                         </div>
                       </div>
                     </div>
@@ -458,7 +460,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                       <div class="col col-stats ms-3 ms-sm-0">
                         <div class="numbers">
                           <p class="card-category">Người đăng kí</p>
-                          <h4 class="card-title">1303</h4>
+                          <h4 class="card-title">${countRes}</h4>
                         </div>
                       </div>
                     </div>
@@ -479,7 +481,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                       <div class="col col-stats ms-3 ms-sm-0">
                         <div class="numbers">
                           <p class="card-category">Doanh thu </p>
-                          <h4 class="card-title">$ 1,345</h4>
+                          <span class="card-title format-price">${totalPriceOrder}</span>
                         </div>
                       </div>
                     </div>
@@ -500,7 +502,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                       <div class="col col-stats ms-3 ms-sm-0">
                         <div class="numbers">
                           <p class="card-category">Đơn hàng</p>
-                          <h4 class="card-title">576</h4>
+                          <h4 class="card-title">${totalOrder}</h4>
                         </div>
                       </div>
                     </div>
@@ -904,6 +906,8 @@ uri="http://java.sun.com/jsp/jstl/core" %>
       <!-- End Custom template -->
     </div>
     <!--   Core JS Files   -->
+    <script src="/js/myscript.js"></script>
+
     <script src="/js/core/jquery-3.7.1.min.js"></script>
     <script src="/js/core/popper.min.js"></script>
     <script src="/js/core/bootstrap.min.js"></script>
@@ -927,8 +931,8 @@ uri="http://java.sun.com/jsp/jstl/core" %>
     <script src="/js/plugin/bootstrap-notify/bootstrap-notify.min.js"></script>
 
     <!-- jQuery Vector Maps -->
-    <script src="/js/plugin/jsvectormap/jsvectormap.min.js"></script>
-    <script src="/js/plugin/jsvectormap/world.js"></script>
+    <!-- <script src="/js/plugin/jsvectormap/jsvectormap.min.js"></script>
+    <script src="/js/plugin/jsvectormap/world.js"></script> -->
 
     <!-- Sweet Alert -->
     <script src="/js/plugin/sweetalert/sweetalert.min.js"></script>

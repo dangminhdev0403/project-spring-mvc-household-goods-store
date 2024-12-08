@@ -19,6 +19,7 @@ import com.minh.teashop.domain.ParentCategory;
 import com.minh.teashop.domain.Role;
 import com.minh.teashop.domain.User;
 import com.minh.teashop.domain.dto.RegisterDTO;
+import com.minh.teashop.domain.enumdomain.RoleName;
 import com.minh.teashop.domain.mapper.UserMapper;
 import com.minh.teashop.repository.AddressRepository;
 import com.minh.teashop.repository.CollaboratorRepository;
@@ -29,6 +30,7 @@ import com.minh.teashop.repository.RoleRepository;
 import com.minh.teashop.repository.UserRepository;
 import com.minh.teashop.repository.VerificationTokenRepository;
 import com.minh.teashop.service.specification.OrderSpecs;
+import com.minh.teashop.service.specification.UserSpecs;
 
 import lombok.AllArgsConstructor;
 
@@ -57,7 +59,7 @@ public class UserService {
     public Collaborator handleSaveCollaborator(User collaborator) {
         Collaborator newCollaborator = new Collaborator();
         Collaborator existingCollaborator = this.collaboratorRepository.findTopByCommissionRateNot(0);
-        if(existingCollaborator != null){
+        if (existingCollaborator != null) {
             double commissionRate = existingCollaborator.getCommissionRate();
             newCollaborator.setCommissionRate(commissionRate);
         }
@@ -215,6 +217,12 @@ public class UserService {
         String randomPart = String.format("%04d", rand.nextInt(10000)); // Phần ngẫu nhiên
 
         return "CUSTOM-" + String.format("%04d", userCount + 1) + "-" + randomPart;
+    }
+
+    public long getCountBy(String roleName) {
+        Specification<User> spec = UserSpecs.hasRoleName(roleName); // Lọc theo RoleName
+
+        return this.userRepository.count(spec);
     }
 
     public String generateCustomerCodeForNotLogin() {
