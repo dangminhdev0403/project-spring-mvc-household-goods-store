@@ -128,10 +128,16 @@ uri="http://www.springframework.org/tags/form" %>
                    
                   </div>
                 </div>
+
+
+
                 <div class="col-12 col-lg-4 ">
                   <div class="form-group">
   
                     <label for="avatarImg">Ảnh sản phẩm</label>
+                    <textarea type="textarea" value="">
+                      ${newProduct.productImages[0].name},${newProduct.productImages[1].name},${newProduct.productImages[2].name}
+                      </textarea>
                     <input  class="form-control upload-img" type="file" id="productsImg" 
                     accept=".png, .jpg, .jpeg" name="productsImg" multiple/>
   

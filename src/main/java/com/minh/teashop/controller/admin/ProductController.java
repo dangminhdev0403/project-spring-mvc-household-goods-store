@@ -150,9 +150,11 @@ public class ProductController {
     }
 
     @PostMapping("/admin/product/update")
-    public String handleUpdateProduct(@ModelAttribute("newProduct") Product product,
+    public String handleUpdateProduct(@ModelAttribute("newProduct") Product product, HttpServletRequest request,
             RedirectAttributes redirectAttributes,
             @RequestParam("productsImg") MultipartFile[] files) {
+                String referer = request.getHeader("Referer");
+
         Product currentProduct = this.productService.fetchProductById(product.getProduct_id()).get();
         if (currentProduct != null) {
             if (files.length != 0 && files[0].getOriginalFilename() != "") {
@@ -192,10 +194,10 @@ public class ProductController {
             this.productService.handleSaveProduct(currentProduct); // Thay đổi ở đây
 
         }
-        redirectAttributes.addFlashAttribute("success", "Cập nhật thành công");
+        // redirectAttributes.addFlashAttribute("success", "Cập nhật thành công");
 
-        return "redirect:/admin/products";
-    }
+        return "redirect:" + referer;
+        }
 
     @GetMapping("/admin/product/lock/{id}")
     public String handleLockProduct(@PathVariable long id,  RedirectAttributes redirectAttributes) {
