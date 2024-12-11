@@ -51,4 +51,13 @@ public class Product {
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     List<CartDetail> cartDetails;
 
+    public void addImage(ProductImage image) {
+        productImages.add(image);
+        image.setProduct(this);
+    }
+    
+    public void removeImage(ProductImage image) {
+        productImages.remove(image);
+        image.setProduct(null);
+    }
 }

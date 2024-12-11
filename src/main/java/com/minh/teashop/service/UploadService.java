@@ -29,8 +29,7 @@ public class UploadService {
         try {
             // Upload file to Cloudinary
             Map<String, Object> uploadResult = cloudinary.uploader().upload(file.getBytes(),
-                    ObjectUtils.asMap("public_id",
-                            System.currentTimeMillis() + "-" + file.getOriginalFilename()));
+                    ObjectUtils.asMap("public_id", System.currentTimeMillis() + "-" + file.getOriginalFilename()));
 
             // Get the file URL from Cloudinary response
             fileName = (String) uploadResult.get("public_id");

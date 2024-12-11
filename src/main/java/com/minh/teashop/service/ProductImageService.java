@@ -15,25 +15,27 @@ import com.minh.teashop.repository.ProductImageRepository;
 public class ProductImageService {
 
     ProductImageRepository imageRepository;
-    ProductService productService ;
-
-   
+    ProductService productService;
 
     public ProductImageService(ProductImageRepository imageRepository, ProductService productService) {
         this.imageRepository = imageRepository;
         this.productService = productService;
     }
 
-
-
     public ProductImage handleSaveImage(ProductImage image) {
         return this.imageRepository.save(image);
     }
 
-    public List<ProductImage> getImagesByProduct(Product product){
+    public List<ProductImage> getImagesByProduct(Product product) {
         return this.imageRepository.findByProduct(product);
     }
-    public void handleDeleteImage(ProductImage productImage){
+
+    public void handleDeleteImage(ProductImage productImage) {
+        Product product = productImage.getProduct();
+        if (product != null) {
+            product.removeImage(productImage);
+        }
+
         this.imageRepository.delete(productImage);
     }
 }

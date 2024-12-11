@@ -26,7 +26,7 @@ public class ProductImage {
     private String name;
     private String url;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;
 }

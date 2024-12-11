@@ -11,4 +11,6 @@ import com.minh.teashop.domain.ProductImage;
 @Repository
 public interface ProductImageRepository extends JpaRepository<ProductImage, Long> {
     List<ProductImage> findByProduct(Product product);
+    void deleteById(long id);
+
 }

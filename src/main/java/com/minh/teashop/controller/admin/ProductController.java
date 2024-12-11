@@ -37,8 +37,7 @@ public class ProductController {
     private final UploadService uploadService;
     private final ProductImageService productImageService;
 
-    
-     @ModelAttribute
+    @ModelAttribute
     public void addCsrfToken(Model model, HttpServletRequest request) {
         CsrfToken csrfToken = (CsrfToken) request.getAttribute(CsrfToken.class.getName());
         if (csrfToken != null) {
@@ -153,20 +152,22 @@ public class ProductController {
     public String handleUpdateProduct(@ModelAttribute("newProduct") Product product, HttpServletRequest request,
             RedirectAttributes redirectAttributes,
             @RequestParam("productsImg") MultipartFile[] files) {
-                String referer = request.getHeader("Referer");
+        String referer = request.getHeader("Referer");
 
         Product currentProduct = this.productService.fetchProductById(product.getProduct_id()).get();
         if (currentProduct != null) {
             if (files.length != 0 && files[0].getOriginalFilename() != "") {
                 List<ProductImage> listImagesCurrent = this.productImageService.getImagesByProduct(currentProduct);
                 for (ProductImage image : listImagesCurrent) {
-
-                    this.uploadService.handleDeleteFile(image.getName());
-                    this.productImageService.handleDeleteImage(image);
+                    if (image != null) {
+                        this.uploadService.handleDeleteFile(image.getName());
+                        this.productImageService.handleDeleteImage(image);
+                    }
 
                 }
                 for (int i = 0; i < files.length; i++) {
                     // upload file
+                    
                     UploadResponse response = this.uploadService.handleSaveUploadFile(files[i], "products");
 
                     String imageProduct = response.getFinalName();
@@ -197,22 +198,22 @@ public class ProductController {
         // redirectAttributes.addFlashAttribute("success", "Cập nhật thành công");
 
         return "redirect:" + referer;
-        }
+    }
 
     @GetMapping("/admin/product/lock/{id}")
-    public String handleLockProduct(@PathVariable long id,  RedirectAttributes redirectAttributes) {
-         this.productService.handleDisabbleProduct(id);
+    public String handleLockProduct(@PathVariable long id, RedirectAttributes redirectAttributes) {
+        this.productService.handleDisabbleProduct(id);
         redirectAttributes.addFlashAttribute("success", "Cập nhật thành công");
 
         return "redirect:/admin/products";
     }
+
     @GetMapping("/admin/product/unlock/{id}")
-    public String handleUnLockProduct(@PathVariable long id,  RedirectAttributes redirectAttributes) {
-         this.productService.handleRestoreProduct(id);
+    public String handleUnLockProduct(@PathVariable long id, RedirectAttributes redirectAttributes) {
+        this.productService.handleRestoreProduct(id);
         redirectAttributes.addFlashAttribute("success", "Cập nhật thành công");
 
         return "redirect:/admin/products";
     }
-    
 
 }
