@@ -120,7 +120,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                         <div class="step-content">
                             <h4>Bắt đầu kiếm thu nhập</h4>
                             <p>Hãy khám phá ngay các cơ hội kiếm thu nhập hấp dẫn!</p>
-                            <a href="#" class="btn-step gradient-bg">Hoàn Tất</a>
+                            <a href="/affiliates" class="btn-step gradient-bg">Liên hệ</a>
                         </div>
                     </div>
                 </div>

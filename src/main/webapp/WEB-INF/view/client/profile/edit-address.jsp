@@ -269,7 +269,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
   <div id="update-address-${address.id}" class="modal hide" style="--content-width: 650px">
     <div class="modal__content">
-      <form action="/update-address" class="form" method="post">
+      <form action="/update-address" class="form address" method="post">
         <input
         type="hidden"
         name="${_csrf.parameterName}"

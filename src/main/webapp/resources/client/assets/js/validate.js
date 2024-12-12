@@ -280,12 +280,15 @@ if (btnPay) {
 }
 
 const validateField = (field, constraints) => {
-  const errors = validate.single(field.value, constraints);
-  if (errors) {
-    displayError(field, errors[0]);
-    return false;
+  if (field != null) {
+    const errors = validate.single(field.value, constraints);
+    if (errors) {
+      displayError(field, errors[0]);
+      return false;
+    }
   }
   return true;
+
 };
 
 const passResetConstraints = {
@@ -350,7 +353,7 @@ const addressConstraints = {
     presence: { allowEmpty: false, message: "Vui lòng nhập địa chỉ chi tiết" },
   },
 };
-const addresses = document.querySelectorAll(".form");
+const addresses = document.querySelectorAll(".form.address");
 if (addresses) {
   addresses.forEach((form) => {
     form.addEventListener("submit", function (e) {
@@ -364,7 +367,7 @@ if (addresses) {
       const receiverPhone = form.querySelector(".receiverPhone");
       const address = form.querySelector(".address");
       const tinh = form.querySelector("select.tinh");
-      
+
       const quan = form.querySelector("select.quan");
       const phuong = form.querySelector("select.phuong");
       let isValid = true;
@@ -379,33 +382,29 @@ if (addresses) {
       );
       const addressValid = validateField(address, addressConstraints.address);
 
-      if(receiverNameValid&& addressValid&& receiverPhoneValid){
-        if (tinh.value === "null") {
-                  displayError(tinh, "chọn Tỉnh/Thành phố!");
-          
+      if (receiverNameValid && addressValid && receiverPhoneValid) {
+        if (tinh.value === "null" ) {
+          displayError(tinh, "chọn Tỉnh/Thành phố!");
+
           isValid = false;
         }
-      
+
         if (quan.value === "null") {
-           displayError(quan, "chọn Quận/Huyện!");
-           
+          displayError(quan, "chọn Quận/Huyện!");
 
           isValid = false;
         }
-      
+
         if (phuong.value === "null") {
-                  displayError(phuong, "chọn Phường/Xã!");
+          displayError(phuong, "chọn Phường/Xã!");
 
           isValid = false;
         }
 
-       
-        
-        if(isValid === true){
+        if (isValid === true) {
           form.submit();
           showLoading();
         }
-         
       }
     });
   });

@@ -365,14 +365,14 @@ public class ProductService {
     @Transactional
     public void saveProductsFromExcel(MultipartFile file) throws IOException {
         List<Product> products = new ArrayList<>();
-        Set<String> existingProductNames = new HashSet<>(productRepository.findAllProductNames()); // Lấy tất cả tên sản
-                                                                                                   // phẩm hiện có
+        List<ProductImage> productImages = new ArrayList<>(); // Danh sách để lưu trữ tất cả ProductImage
+        Set<String> existingProductNames = new HashSet<>(productRepository.findAllProductNames());
 
         try (Workbook workbook = new XSSFWorkbook(file.getInputStream())) {
-            Sheet sheet = workbook.getSheetAt(0); // Lấy sheet đầu tiên
+            Sheet sheet = workbook.getSheetAt(0);
             for (Row row : sheet) {
                 if (row.getRowNum() == 0) {
-                    continue; // Bỏ qua dòng tiêu đề
+                    continue;
                 }
 
                 boolean isEmptyRow = true;
@@ -385,7 +385,7 @@ public class ProductService {
                 }
 
                 if (isEmptyRow) {
-                    continue; // Bỏ qua dòng trống
+                    continue;
                 }
 
                 Product product = new Product();
@@ -410,29 +410,24 @@ public class ProductService {
                     product.setDescription(descriptionCell.getStringCellValue());
                 }
 
-                // Lấy giá ban đầu
                 Cell firstPriceCell = row.getCell(3);
                 if (firstPriceCell != null && firstPriceCell.getCellType() == CellType.NUMERIC) {
                     product.setFisrtPrice(firstPriceCell.getNumericCellValue());
                 }
 
-                // Lấy số lượng tồn kho
                 Cell stockCell = row.getCell(4);
                 if (stockCell != null && stockCell.getCellType() == CellType.NUMERIC) {
                     product.setStock((long) stockCell.getNumericCellValue());
                 }
 
-                // Lấy hệ số
                 Cell factorCell = row.getCell(5);
                 if (factorCell != null && factorCell.getCellType() == CellType.NUMERIC) {
                     product.setFactor(factorCell.getNumericCellValue());
                 }
 
-                // Tính giá
                 double price = product.getFactor() * product.getFisrtPrice();
                 product.setPrice(price);
 
-                // Xử lý danh mục
                 Cell categoryCell = row.getCell(6);
                 if (categoryCell != null && categoryCell.getCellType() == CellType.STRING) {
                     String categoryName = categoryCell.getStringCellValue();
@@ -444,24 +439,32 @@ public class ProductService {
                     }
                 }
 
-                // Thêm sản phẩm vào danh sách
                 products.add(product);
 
-                // Xử lý hình ảnh
                 Cell imageCell = row.getCell(7);
                 if (imageCell != null && imageCell.getCellType() == CellType.STRING) {
                     String[] listImages = imageCell.getStringCellValue().split(",");
                     for (String image : listImages) {
                         if (!image.trim().isEmpty()) {
+                            String result = "";
+                            int lastIndex = image.lastIndexOf('.');
+                            if (lastIndex != -1) {
+                                // Lấy tất cả ký tự sau dấu . cuối cùng
+                                result = image.substring(lastIndex + 1);
+                            }
+
                             ProductImage productImage = new ProductImage();
                             productImage.setProduct(product);
                             productImage.setName(image);
                             try {
                                 String urlImage = this.uploadService.getImageUrl(image);
+                                if (result != "") {
+                                    urlImage = this.uploadService.getImageUrl(image) + "." + result;
+
+                                }
                                 if (urlImage != null) {
                                     productImage.setUrl(urlImage);
-                                    productImageRepository.save(productImage); // Đảm bảo rằng productImage được lưu
-                                                                               // đúng cách
+                                    productImages.add(productImage); // Thêm vào danh sách thay vì lưu ngay lập tức
                                 }
                             } catch (Exception e) {
                                 logger.error("Không thể tải hình ảnh cho " + image, e);
@@ -472,8 +475,11 @@ public class ProductService {
             }
         }
 
-        // Lưu tất cả sản phẩm vào cơ sở dữ liệu trong một lần
+        // Lưu tất cả sản phẩm vào cơ sở dữ liệu
         productRepository.saveAll(products);
+
+        // Sau khi lưu tất cả sản phẩm, lưu tất cả hình ảnh sản phẩm
+        productImageRepository.saveAll(productImages);
     }
 
     public void handleDisabbleProduct(long id) {

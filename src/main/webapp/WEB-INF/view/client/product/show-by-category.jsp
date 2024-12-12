@@ -78,7 +78,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         
 
         <div class="row col-12 " style="margin: 0; ">
-          <h2 class="home__heading row col-12">Sản phẩm theo danh mục ${category.name}
+          <h2 class="home__heading row col-12">Sản phẩm theo danh mục: ${category.name}
             <c:if test ="${not empty nameProduct}">
               với từ khoá :" ${nameProduct}"
 
@@ -88,131 +88,107 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
           <c:if test ="${ empty listProduct}">
             <h1 class=" home__heading " style="color: #c90504; height: 5%;"> Không có sản phẩm nào được tìm thấy. </h1>
 
-</c:if>
+          </c:if>
 
 
         </div>
 
-         
-        <!-- Product card 1
-        <div class="col">
-          <article class="product-card">
-            <div class="product-card__img-wrap">
-              <a   href="/clientproduct-detail.html">
-                <img   src="/client/assets/img/product/item-1.png" alt="" class="product-card__thumb" />
-              </a>
-              <button class="like-btn product-card__like-btn">
-                <img   src="/client/assets/icons/heart.svg" alt="" class="like-btn__icon icon" />
-                <img   src="/client/assets/icons/heart-red.svg" alt="" class="like-btn__icon--liked" />
-              </button>
-            </div>
-            <h3 class="product-card__title">
-              <a   href="/clientproduct-detail.html">Coffee Beans - Espresso Arabica and Robusta Beans</a>
-            </h3>
-            <p class="product-card__brand">Lavazza</p>
-            <div class="product-card__row">
-              <span class="product-card__price">$47.00</span>
-              <img   src="/client/assets/icons/star.svg" alt="" class="product-card__star" />
-              <span class="product-card__score">4.3</span>
-            </div>
-          </article>
-        </div> -->
-
-          <!-- động -->
-        
-      <c:forEach var="product" items="${listProduct}">
-        <div class="col">
-          <article class="product-card">
-            <div class="product-card__img-wrap">
-              <a href="/product/${product.slug}-${product.product_id}">
-                <img
-                  src="${product.productImages[0].url}"
-                  alt="${product.productImages[0].name}"
-                  class="product-card__thumb"
-                />
-              </a>
-            </div>
-            <h3 class="product-card__title">
-              <a href="/product/${product.slug}-${product.product_id}"> ${product.name}</a>
-            </h3>
-            <p class="product-card__brand">${product.category.name}</p>
-            <div class="product-card__row">
-              <span class="product-card__price">
-                <c:choose>
-                  <c:when test="${product.price != null}">
-                    <c:if test="${product.price % 1 != 0}">
-                      <fmt:formatNumber
-                        value="${product.price}"
-                        pattern="#,##0.000"
-                      />
-                      đ
-                    </c:if>
-                    <c:if test="${product.price % 1 == 0}">
-                      <fmt:formatNumber
-                        value="${product.price}"
-                        pattern="#,##0"
-                      />
-                      đ
-                    </c:if>
-                  </c:when>
-                </c:choose>
-              </span>
-
-              <img
-                src="/client/assets/icons/star.svg"
-                alt=""
-                class="product-card__star"
-              />
-              <span class="product-card__score">4.3</span>
-            </div>
-          </article>
-        </div>
-      </c:forEach>
-
-        
-
+        <c:if test ="${not empty listProduct}">
+          <c:forEach var="product" items="${listProduct}">
+            <div class="col">
+              <article class="product-card">
+                <div class="product-card__img-wrap">
+                  <a href="/product/${product.slug}-${product.product_id}">
+                    <img
+                      src="${product.productImages[0].url}"
+                      alt="${product.productImages[0].name}"
+                      class="product-card__thumb"
+                    />
+                  </a>
+                </div>
+                <h3 class="product-card__title">
+                  <a href="/product/${product.slug}-${product.product_id}"> ${product.name}</a>
+                </h3>
+                <p class="product-card__brand">${product.category.name}</p>
+                <div class="product-card__row">
+                  <span class="product-card__price">
+                    <c:choose>
+                      <c:when test="${product.price != null}">
+                        <c:if test="${product.price % 1 != 0}">
+                          <fmt:formatNumber
+                            value="${product.price}"
+                            pattern="#,##0.000"
+                          />
+                          đ
+                        </c:if>
+                        <c:if test="${product.price % 1 == 0}">
+                          <fmt:formatNumber
+                            value="${product.price}"
+                            pattern="#,##0"
+                          />
+                          đ
+                        </c:if>
+                      </c:when>
+                    </c:choose>
+                  </span>
     
-
-
-      
-      </div>
-    </div>
-    <div class="pagination d-flex justify-content-center mt-5" data-total-page ="${totalPages}" >
-      <c:if test="${ currentPage > 1 }">
-        <li class="page-item">
-          <a
-            class="disabled page-link"
-            href="/?page=${currentPage -1 }"
-            aria-label="Previous"
-          >
-            <span aria-hidden="true">«</span>
-          </a>
-        </li>
-      </c:if>
-
-      <c:forEach begin="0" end="${totalPages -1}" varStatus="loop">
-        <li class="page-item">
-          <a
-            class="page-link ${(loop.index+1) eq currentPage ? 'active' : ''}"
-            href="/?page=${loop.index+1}"
-          >
-            ${loop.index+1}
-          </a>
-        </li>
-      </c:forEach>
-
-      <c:if test="${ currentPage != totalPages  }">
-        <li class="page-item">
-          <a
-            class="disabled page-link"
-            href="/?page=${currentPage +1 }"
-            aria-label="Next"
-          >
-            <span aria-hidden="true">»</span>
-          </a>
-        </li>
-      </c:if>
-    </div>
+                  <img
+                    src="/client/assets/icons/star.svg"
+                    alt=""
+                    class="product-card__star"
+                  />
+                </div>
+              </article>
+            </div>
+          </c:forEach>
+    
+            
+    
+        
+    
+    
+          
+          </div>
+        </div>
+        <div class="pagination d-flex justify-content-center mt-5" data-total-page ="${totalPages}" >
+          <c:if test="${ currentPage > 1 }">
+            <li class="page-item">
+              <a
+                class="disabled page-link"
+                href="/?page=${currentPage -1 }"
+                aria-label="Previous"
+              >
+                <span aria-hidden="true">«</span>
+              </a>
+            </li>
+          </c:if>
+    
+          <c:forEach begin="0" end="${totalPages -1}" varStatus="loop">
+            <li class="page-item">
+              <a
+                class="page-link ${(loop.index+1) eq currentPage ? 'active' : ''}"
+                href="/?page=${loop.index+1}"
+              >
+                ${loop.index+1}
+              </a>
+            </li>
+          </c:forEach>
+    
+          <c:if test="${ currentPage != totalPages  }">
+            <li class="page-item">
+              <a
+                class="disabled page-link"
+                href="/?page=${currentPage +1 }"
+                aria-label="Next"
+              >
+                <span aria-hidden="true">»</span>
+              </a>
+            </li>
+          </c:if>
+        </div>
+</c:if>
+        
+    
   
   </section>
 </main>

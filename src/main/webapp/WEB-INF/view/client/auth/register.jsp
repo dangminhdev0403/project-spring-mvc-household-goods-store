@@ -240,7 +240,7 @@ uri="http://www.springframework.org/tags/form" %>
                     Mật khẩu phải có ít nhất 6 ký tự
                   </li>
                   <li style="margin-top: 2rem">
-                    Một chữ cái hoa và một chữ số
+                    Một chữ cái hoa ,một chữ số,một ký tự đặc biệt
                   </li>
                 </ul></span
               >

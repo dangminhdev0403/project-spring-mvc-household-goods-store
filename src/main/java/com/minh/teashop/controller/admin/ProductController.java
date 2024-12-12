@@ -160,14 +160,14 @@ public class ProductController {
                 List<ProductImage> listImagesCurrent = this.productImageService.getImagesByProduct(currentProduct);
                 for (ProductImage image : listImagesCurrent) {
                     if (image != null) {
-                        this.uploadService.handleDeleteFile(image.getName());
+                        // this.uploadService.handleDeleteFile(image.getName());
                         this.productImageService.handleDeleteImage(image);
                     }
 
                 }
                 for (int i = 0; i < files.length; i++) {
                     // upload file
-                    
+
                     UploadResponse response = this.uploadService.handleSaveUploadFile(files[i], "products");
 
                     String imageProduct = response.getFinalName();
