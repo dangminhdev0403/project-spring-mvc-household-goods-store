@@ -115,14 +115,14 @@ function updateCartTotal() {
 }
 
 //  submit form,
-function submitForm(e) {
+function submitForm() {
   e.preventDefault();
-  formOf.submit();
+  let formOf = buttonSubmit.closest("form");
+  if(formOf)formOf.submit();
 }
 const buttonSubmits = document.querySelectorAll(".submit");
 if (buttonSubmits) {
   buttonSubmits.forEach((buttonSubmit) => {
-    let formOf = buttonSubmit.closest("form");
     if (formOf) {
       buttonSubmit.addEventListener("click", submitForm);
     }
@@ -720,7 +720,7 @@ if (btnBuys) {
 
 window.addEventListener("DOMContentLoaded", () => {
   const radio = document.querySelector('input[type="radio"]');
-  const radio2 = document.querySelector('span.cart-info__checkbox input');
+  const radio2 = document.querySelector("span.cart-info__checkbox input");
   if (radio2) {
     radio2.setAttribute("checked", "checked");
   }
@@ -729,8 +729,6 @@ window.addEventListener("DOMContentLoaded", () => {
     radio.setAttribute("checked", "checked");
   }
 });
-
-
 
 window.addEventListener("DOMContentLoaded", () => {
   const scrollPosition = localStorage.getItem("scrollPosition");
