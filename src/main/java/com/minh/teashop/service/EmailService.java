@@ -1,5 +1,6 @@
 package com.minh.teashop.service;
 
+import java.io.UnsupportedEncodingException;
 import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -111,6 +112,16 @@ public class EmailService {
         String subject = "Xác thực tài khoản";
         String content = createEmailContent(verificationUrl);
 
+        try {
+            helper.setFrom("thegoidagung@tggd123321.com", "Thế giới gia dụng");
+        } catch (UnsupportedEncodingException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (MessagingException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } // Thay "Minh Dev" bằng tên bạn muốn hiển thị.
+
         helper.setTo(user.getEmail());
         helper.setSubject(subject);
         helper.setText(content, true);
@@ -143,6 +154,11 @@ public class EmailService {
         MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
         String subject = "Quên mật khẩu";
         String content = createResetPass(verificationUrl);
+        try {
+            helper.setFrom("thegoidagung@tggd123321.com", "Thế giới gia dụng");
+        } catch (UnsupportedEncodingException | MessagingException e) {
+            e.printStackTrace();
+        } // Thay "Minh Dev" bằng tên bạn muốn hiển thị.
 
         helper.setTo(user.getEmail());
         helper.setSubject(subject);
@@ -174,6 +190,14 @@ public class EmailService {
         MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
         String subject = "Xác thực tài khoản";
         String content = createEmailContentForReconfirmation(verificationUrl);
+        try {
+            helper.setFrom("thegoidagung@tggd123321.com", "Thế giới gia dụng");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (MessagingException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } // Thay "Minh Dev" bằng tên bạn muốn hiển thị.
 
         helper.setTo(user.getEmail());
         helper.setSubject(subject);
@@ -194,6 +218,15 @@ public class EmailService {
         MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
         String subject = "Lịch sử đơn hàng";
         String content = createHistoryOrder(verificationUrl);
+        try {
+            helper.setFrom("thegoidagung@tggd123321.com", "Thế giới gia dụng");
+        } catch (UnsupportedEncodingException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (MessagingException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } // Thay "Minh Dev" bằng tên bạn muốn hiển thị.
 
         helper.setTo(email);
         helper.setSubject(subject);

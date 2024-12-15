@@ -30,6 +30,7 @@ import lombok.AllArgsConstructor;
 public class AffiliateController {
 
     private final AffiliateService affiliateService;
+    
 
     @GetMapping("/get-customer-by-ref")
     public ResponseEntity<Page<CustomerAffiliateDTO>> getUsersByAffiliateId(HttpServletRequest request,

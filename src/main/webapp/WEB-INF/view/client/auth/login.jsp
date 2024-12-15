@@ -198,12 +198,7 @@ uri="http://www.springframework.org/tags/form" %>
               </div>
             </div>
             <div class="form__group form__group--inline">
-              <a
-                href="/forgot-pass"
-                style="font-size: 2rem"
-                class="auth__link form__pull-right"
-                >Quên mật khẩu?</a
-              >
+              <!-- <a href="/forgot-pass" style="font-size: 2rem" class="auth__link form__pull-right">Quên mật khẩu?</a> -->
             </div>
             <div class="form__group auth__btn-group">
               <button class="btn btn--primary auth__btn">Đăng Nhập</button>

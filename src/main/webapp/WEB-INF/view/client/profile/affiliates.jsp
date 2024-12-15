@@ -198,7 +198,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                          
                         </div>
                        
-                        <c:if test="${enabled == false}">
+                        <!-- <c:if test="${enabled == false}">
                           <p class="cart-info__desc profile__desc " style="font-size: 1.8rem; color: rgb(226, 57, 57);" >Email của bạn phải được xác thực trước.
                             <div action="/verify-again" >
                               <input
@@ -211,7 +211,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                             </div>
   
                             </p>
-                        </c:if>
+                        </c:if> -->
                        
 
                       

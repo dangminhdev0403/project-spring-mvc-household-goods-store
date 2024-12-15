@@ -103,13 +103,13 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                         <div class="step-number gradient-bg">2</div>
                         <div class="step-content">
                             <h4>Xác Thực Thông Tin</h4>
-                            <p>Xác minh email và số điện thoại của bạn để đảm bảo an toàn  sử dụng dịch vụ.</p>
+                            <p>Liên hệ với chúng tôi để xác thực thông tin.</p>
                             <c:choose>
                               <c:when test="${not empty isEnable && isEnable == 'true'}">
                                   <a href="#" class="btn-step gradient-bg">Đã Xác Thực</a>
                               </c:when>
                               <c:otherwise>
-                                  <a href="/profile" class="btn-step gradient-bg">Xác Thực Ngay</a>
+                                  <a href="/affiliates" class="btn-step gradient-bg">Liên hệ</a>
                               </c:otherwise>
                           </c:choose>
                         </div>
