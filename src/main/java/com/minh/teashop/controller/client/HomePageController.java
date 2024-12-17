@@ -200,9 +200,11 @@ public class HomePageController {
 
         User newUser = this.userService.handleSaveUser(user);
 
-        this.emailService.sendEmailVerify(newUser);
+        // this.emailService.sendEmailVerify(newUser);
 
-        redirectAttributes.addFlashAttribute("success", "Chúng tôi đã gửi email xác thực đến hộp thư của bạn");
+        // redirectAttributes.addFlashAttribute("success", "Chúng tôi đã gửi email xác thực đến hộp thư của bạn");
+
+        redirectAttributes.addFlashAttribute("success", "Đăng kí thành công");
 
         return "redirect:/login";
 

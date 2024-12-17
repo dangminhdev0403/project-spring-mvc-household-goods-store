@@ -1,0 +1,30 @@
+version: "3.8"
+services:
+  db:
+    image: mysql:8.0 # Sử dụng phiên bản MySQL phù hợp
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_DATABASE: teashop
+    ports:
+      - "3307:3306" # Cổng 3307 trên host ánh xạ đến 3306 trên container
+    expose:
+      - "3306" # Cho phép container backend truy cập qua cổng này
+    volumes:
+      - ./data2.sql:/docker-entrypoint-initdb.d/data2.sql # Khởi tạo database từ file SQL
+      - mysql_data:/var/lib/mysql                        # Lưu dữ liệu database vào volume
+
+  backend:
+    build:
+      context: ./ # Nơi lưu Dockerfile
+      dockerfile: Dockerfile
+    environment:
+      - DB_PORT=3306 
+      - DB_HOST=db # Tên service "db" sẽ tự động ánh xạ trong Docker network
+    ports:
+      - "8080:8080" # Cổng 8080 trên host ánh xạ đến 8080 trên container
+    depends_on:
+      - db # Đảm bảo backend khởi động sau khi db sẵn sàng
+
+volumes:
+  mysql_data: # Volume để lưu trữ dữ liệu MySQL

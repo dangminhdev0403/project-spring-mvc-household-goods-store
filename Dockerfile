@@ -19,19 +19,8 @@ RUN mvn clean package -DskipTests
 FROM amazoncorretto:17.0.13
 
 WORKDIR /app
-
-# Copy thư mục target từ stage build vào
-COPY --from=build /app/target /app/target
-
+COPY pom.xml .
+COPY src src 
 
 
-
-# Mở cổng ứng dụng, Spring Boot WAR mặc định chạy trên cổng 8080
-EXPOSE 8080
-
-# Chạy ứng dụng Java với file WAR tên ROOT.war
-ENTRYPOINT ["java", "-jar", "/app/target/teashop-0.0.1-SNAPSHOT.war"]
-
-# docker build -t project-javaspring:0.0.1 .
-
-# docker run --name project-java --network teashop-network -p 8080:8080 -e DB_URL=jdbc:mysql://mysql:3306/teashop project-javaspring:0.0.1
+RUN mvn package -Dskiptest
