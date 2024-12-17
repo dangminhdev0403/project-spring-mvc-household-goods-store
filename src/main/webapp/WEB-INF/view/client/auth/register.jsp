@@ -124,7 +124,7 @@ uri="http://www.springframework.org/tags/form" %>
       <!-- Auth content -->
       <div id="auth-content" class="auth__content hide">
         <div class="auth__content-inner">
-          <a href="client/" class="logo">
+          <a href="/" class="logo">
             <img
               src="client/assets/icons/logo.svg"
               alt="Thế Giới Gia Dụng"

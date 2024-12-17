@@ -64,7 +64,9 @@ const resConstraints = {
     format: {
       pattern: /^(?=.*[A-Z])(?=.*\d)(?=.*[\W_])[A-Za-z\d\W_]{6,}$/,
       message:
-        "Mật khẩu phải có ít nhất 6 ký tự, Một chữ cái hoa và một chữ số",
+   
+        "Mật khẩu phải có ít nhất 6 ký tự, Một chữ in cái hoa ,một chữ số,một ký tự đặc biệt",
+
     },
   },
   confirmPassword: {
@@ -301,7 +303,7 @@ const passResetConstraints = {
       pattern: /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d\W_]{6,}$/,
 
       message:
-        "Mật khẩu phải có ít nhất 6 ký tự, Một chữ cái hoa và một chữ số",
+        "Mật khẩu phải có ít nhất 6 ký tự, Một chữ in cái hoa ,một chữ số,một ký tự đặc biệt"
     },
   },
   confirmPassword: {

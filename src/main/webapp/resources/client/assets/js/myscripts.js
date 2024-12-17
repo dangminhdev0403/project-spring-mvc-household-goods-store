@@ -118,11 +118,13 @@ function updateCartTotal() {
 function submitForm() {
   e.preventDefault();
   let formOf = buttonSubmit.closest("form");
-  if(formOf)formOf.submit();
+  if (formOf) formOf.submit();
 }
 const buttonSubmits = document.querySelectorAll(".submit");
 if (buttonSubmits) {
   buttonSubmits.forEach((buttonSubmit) => {
+    let formOf = buttonSubmit.closest("form");
+
     if (formOf) {
       buttonSubmit.addEventListener("click", submitForm);
     }
@@ -296,7 +298,8 @@ function updateQuantityDisplay() {
 
 // Sự kiện cho nút tăng
 if (increaseBtn)
-  increaseBtn.addEventListener("click", () => {
+  increaseBtn.addEventListener("click", (e) => {
+    e.preventDefault();
     quantity++;
 
     updateQuantityDisplay();
@@ -304,7 +307,8 @@ if (increaseBtn)
 
 // Sự kiện cho nút giảm
 if (decreaseBtn)
-  decreaseBtn.addEventListener("click", () => {
+  decreaseBtn.addEventListener("click", (e) => {
+    e.preventDefault();
     if (quantity > 1) {
       // Đảm bảo số lượng không giảm dưới 1
       quantity--;
