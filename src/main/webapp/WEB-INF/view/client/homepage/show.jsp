@@ -60,8 +60,8 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
     <c:if test="${totalPages >= 1 }">
       <div class="row row-cols-5 row-cols-lg-2 row-cols-sm-1 g-3">
         <c:forEach var="product" items="${listProduct}">
-          <div class="col">
-            <article class="product-card">
+          <div class="col detail-sp"  >
+            <article class="product-card" style="cursor: pointer;">
               <div class="product-card__img-wrap">
                 <a href="/product/${product.slug}-${product.product_id}">
                   <img

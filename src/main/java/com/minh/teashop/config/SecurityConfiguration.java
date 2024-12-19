@@ -87,7 +87,7 @@ public class SecurityConfiguration {
                                 "/cancel-oder", "/?search", "/category/**", "/affiliate-overview",
                                 "/history-order/**",
                                 "/test",
-                                // "/place-now","/buy-now/**",
+                                "/place-now","/buy-now/**","/pay-success",
                                 "/about", "/contact", 
                                 "/error", "/reset-pass", "/forgot-pass", "/change-pass-home", "/reset-password",
                                 "/verify", "/category",

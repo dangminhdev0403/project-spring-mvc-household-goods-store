@@ -96,7 +96,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         <c:if test ="${not empty listProduct}">
           <c:forEach var="product" items="${listProduct}">
             <div class="col">
-              <article class="product-card">
+                <article class="product-card" style="cursor: pointer;">
                 <div class="product-card__img-wrap">
                   <a href="/product/${product.slug}-${product.product_id}">
                     <img

@@ -1,7 +1,10 @@
 package com.minh.teashop.service;
 
+import java.time.LocalDateTime;
 import java.time.Month;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Random;
 
@@ -106,9 +109,9 @@ public class OrderService {
 
     }
 
-    public long getTotalOrder(int year){
+    public long getTotalOrder(int year) {
 
-        long toltalOrder = 0 ;
+        long toltalOrder = 0;
 
         Specification<Order> spec = Specification.where(OrderSpecs.isOrderInYear(year));
 
@@ -117,5 +120,30 @@ public class OrderService {
         return toltalOrder;
     }
 
+    public Map<String, Object> getOrderDetailsMap(Order order) {
+        Map<String, Object> orderDetailsMap = new HashMap<>();
+
+        // Lấy ngày đặt
+        LocalDateTime orderDate = order.getOrderDate();
+
+        // Duyệt qua danh sách OrderDetail và lưu tên sản phẩm, giá và ngày đặt vào Map
+        for (OrderDetail orderDetail : order.getOrderDetail()) {
+            String productName = orderDetail.getProduct().getName(); // Giả sử bạn có phương thức getProduct() trả về
+                                                                     // sản phẩm
+            double price = orderDetail.getPrice(); // Giá sản phẩm
+
+            // Tạo một đối tượng chứa tên sản phẩm, giá và ngày đặt
+            Map<String, Object> productInfo = new HashMap<>();
+            productInfo.put("productName", productName);
+            productInfo.put("price", price);
+          
+
+            // Lưu thông tin vào Map với khóa là tên sản phẩm
+            orderDetailsMap.put(productName, productInfo);
+        }
+        orderDetailsMap.put("orderDate", orderDate); 
+
+        return orderDetailsMap;
+    }
 
 }

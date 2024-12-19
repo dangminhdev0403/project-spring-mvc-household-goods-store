@@ -40,7 +40,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
             <div class="cart-info__separate"></div>
             <div class="cart-info__list">
               <!-- Cart item 1 -->
-              <article class="cart-item">
+              <article class="cart-item" style="cursor: pointer">
                 <a href="/product/${product.slug}-${product.product_id}">
                   <img
                     src="${product.productImages[0].url}"
@@ -66,7 +66,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                         ${product.category.name}
                       </div>
                       <div class="cart-item__input quantity">
-                        <button class="cart-item__input-btn" id="prev-btn">
+                        <button class="cart-item__input-btn" id="prev-btn" type="button">
                           <img
                             class="icon"
                             src="/client/assets/icons/minus.svg"
@@ -74,7 +74,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                           />
                         </button>
                         <span class="quantity"> ${qty}</span>
-                        <button class="cart-item__input-btn" id="next-btn">
+                        <button class="cart-item__input-btn" id="next-btn" type="button">
                           <img
                             class="icon"
                             src="/client/assets/icons/plus.svg"
@@ -189,7 +189,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                   >Địa chỉ email</label
                 >
 
-                <c:if test="${ empty sessionScope.name}">
+                <!-- <c:if test="${ empty sessionScope.name}">
                   <p
                     style="
                       display: block;
@@ -199,7 +199,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                   >
                     Bạn có thể xem lịch sử đơn hàng tại email
                   </p>
-                </c:if>
+                </c:if> -->
 
                 <div class="form__text-input">
                   <input
@@ -291,7 +291,6 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                 name="productId"
                 value="${product.product_id}"
                 style="display: none"
-
               />
 
               <input

@@ -3,6 +3,7 @@ package com.minh.teashop.controller.client;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Logger;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -22,6 +23,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.minh.teashop.domain.Address;
 import com.minh.teashop.domain.Cart;
 import com.minh.teashop.domain.CartDetail;
@@ -29,7 +32,9 @@ import com.minh.teashop.domain.Order;
 import com.minh.teashop.domain.Payment;
 import com.minh.teashop.domain.Product;
 import com.minh.teashop.domain.User;
+import com.minh.teashop.domain.dto.OrderDetailNotLoginDTO;
 import com.minh.teashop.domain.dto.PayRequest;
+import com.minh.teashop.domain.mapper.OrderDetailMapper;
 import com.minh.teashop.domain.response.ResponseMessage;
 import com.minh.teashop.service.EmailService;
 import com.minh.teashop.service.OrderService;
@@ -37,7 +42,6 @@ import com.minh.teashop.service.PaymentService;
 import com.minh.teashop.service.ProductService;
 import com.minh.teashop.service.UserService;
 
-import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
@@ -45,11 +49,15 @@ import lombok.AllArgsConstructor;
 @Controller
 @AllArgsConstructor
 public class ItemController {
+    private static final Logger logger = Logger.getLogger(ItemController.class.getName());
+
     private final ProductService productService;
     private final UserService userService;
     private final PaymentService paymentService;
     private final EmailService emailService;
     private final OrderService orderService;
+
+    private OrderDetailMapper orderDetailMapper;
 
     @GetMapping("/product/{slug}-{id}")
     public String getDeitalProductPage(Model model, @PathVariable long id) {
@@ -262,8 +270,33 @@ public class ItemController {
         return "client/cart/pay-now";
     }
 
+    @GetMapping("/pay-success")
+    public String getPaySuccessPage(@RequestParam("customCode") String customCode, Model model,
+            RedirectAttributes redirectAttributes) throws JsonProcessingException {
+        // Kiểm tra xem model có chứa attribute "order"
+
+        if (customCode == null) {
+            redirectAttributes.addFlashAttribute("error",
+                    "Có lỗi xảy ra khi xử lý đơn hàng. Vui lòng thử lại sau.");
+            return "redirect:/"; // Quay về trang chủ nếu không có đơn hàng
+        }
+        Order order = this.orderService.getOrderByCustomerCode(customCode);
+        List<OrderDetailNotLoginDTO> orderDetailNotLoginDTOList = orderDetailMapper
+                .toOrderDetailNotLoginDTOList(order);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        String jsonOrderDetails = objectMapper.writeValueAsString(orderDetailNotLoginDTOList);
+
+        model.addAttribute("order", jsonOrderDetails);
+        model.addAttribute("orderDate", order.getOrderDate());
+        model.addAttribute("customCode", customCode);
+
+        // Trả về trang order-success khi có đơn hàng
+        return "client/page/order-success";
+    }
+
     @PostMapping("/place-now")
-    public String handlePlaceNow(RedirectAttributes redirectAttributes, PayRequest payRequest,
+    public String handlePlaceNow(RedirectAttributes redirectAttributes, PayRequest payRequest, Model model,
             HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         String referralCode = null;
@@ -293,8 +326,11 @@ public class ItemController {
                 newUser.setCustomerCode(custCode);
                 Order order = this.productService.handlePayNow(payRequest, newUser, referralCode);
 
-                this.emailService.sendEmailHistoryORder(payRequest.getEmail(), order);
-                redirectAttributes.addFlashAttribute("success", "Hãy kiểm tra hộp thư của bạn");
+                return "redirect:/pay-success?customCode=" + order.getCustomerCode();
+
+                // this.emailService.sendEmailHistoryORder(payRequest.getEmail(), order);
+                // redirectAttributes.addFlashAttribute("success", "Hãy kiểm tra hộp thư của
+                // bạn");
             } else {
                 long id = (long) session.getAttribute("id");
                 User currentUser = this.userService.getUserById(id);
@@ -303,11 +339,10 @@ public class ItemController {
                 redirectAttributes.addFlashAttribute("success", "Đặt hàng thành công");
                 return "redirect:/order-history";
             }
-        } catch (MessagingException e) {
-            // Log the exception
-            redirectAttributes.addFlashAttribute("error", "Có lỗi xảy ra khi gửi email. Vui lòng thử lại sau.");
         } catch (Exception e) {
+
             // Log the exception
+            logger.severe("Lỗi khi xử lý đơn hàng: " + e.getMessage());
             redirectAttributes.addFlashAttribute("error", "Có lỗi xảy ra khi xử lý đơn hàng. Vui lòng thử lại sau.");
         }
 

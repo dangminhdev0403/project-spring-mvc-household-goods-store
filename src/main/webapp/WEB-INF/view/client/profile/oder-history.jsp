@@ -95,7 +95,8 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                   </div>
 
                   <c:forEach var="orderDetail" items="${order.orderDetail}">
-                    <article class="cart-item">
+                    <
+                    <article class="cart-item" style="cursor: pointer">
                       <a href="/product/${orderDetail.product.product_id}">
                         <img
                           src="${orderDetail.product.productImages[0].url}"

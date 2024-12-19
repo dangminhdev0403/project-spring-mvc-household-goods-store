@@ -45,7 +45,7 @@ uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
             <div class="cart-info">
               <div class="cart-info__list">
                 <c:forEach var="detail" items="${cartDetails}" varStatus="s">
-                  <article class="cart-item">
+                  <   <article class="cart-item" style="cursor: pointer;">
                     <a href="/product/${detail.product.slug}-${detail.product.product_id}">
                     <a href="/product/${detail.product.slug}-${detail.product.product_id}">
                       <img

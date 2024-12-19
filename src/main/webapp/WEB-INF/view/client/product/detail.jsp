@@ -146,7 +146,6 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                     </div>
                   </div>
                   <div class="prod-info__card">
-                   
                     <p class="prod-info__total-price">
                       <c:choose>
                         <c:when test="${product.price != null}">
@@ -255,7 +254,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                 >
                   <!-- Product card 1 -->
                   <div class="col">
-                    <article class="product-card">
+                    <article class="product-card" style="cursor: pointer">
                       <div class="product-card__img-wrap">
                         <a href="/product/${pr.slug}-${pr.product_id}">
                           <img

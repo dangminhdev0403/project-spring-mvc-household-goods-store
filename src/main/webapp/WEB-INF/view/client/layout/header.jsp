@@ -55,7 +55,7 @@ uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://dangminhdev0403.github.io/lib-javascript/scripts.js"></script>
     <script src="https://unpkg.com/json5@2/dist/index.min.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/confetti-js"></script>
     
     <style>
       .alert {

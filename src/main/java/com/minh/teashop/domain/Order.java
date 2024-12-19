@@ -39,7 +39,7 @@ public class Order {
     private String receiverPhone;
     private String customerCode; // Trường mã khách hàng
 
-    @JsonFormat(pattern = "HH:mm dd/MM/yyyy")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime orderDate; // Thêm trường để lưu ngày đặt hàng
 
     @Enumerated(EnumType.STRING) // Lưu trạng thái dưới dạng chuỗi

@@ -799,6 +799,8 @@ function updateTotalPrice(quantity, index) {
 if (prevBtn) {
   prevBtn.addEventListener("click", function (e) {
     e.preventDefault();
+    e.stopPropagation(); // Ngăn chặn sự kiện click lan lên thẻ cha
+
     let shipPrice = 0;
     if (shipSpans) {
       shipSpans.forEach((shipSpan) => {
@@ -843,6 +845,8 @@ if (prevBtn) {
 if (nextBtn) {
   nextBtn.addEventListener("click", function (e) {
     e.preventDefault();
+    e.stopPropagation(); // Ngăn chặn sự kiện click lan lên thẻ cha
+
     let shipPrice = 0;
     if (shipSpans) {
       shipSpans.forEach((shipSpan) => {
@@ -883,3 +887,22 @@ if (nextBtn) {
     }
   });
 }
+function attachClickEventToElements(selector) {
+  const elements = document.querySelectorAll(selector);
+
+  if (elements.length > 0) {
+    elements.forEach((el) => {
+      el.addEventListener("click", () => {
+        const link = el.querySelector("a"); // Tìm thẻ <a> con
+        if (link) {
+          const hrefValue = link.getAttribute("href"); // Lấy giá trị href
+          window.location.href = hrefValue; // Điều hướng đến link
+        }
+      });
+    });
+  }
+}
+
+// Gọi hàm cho từng selector
+attachClickEventToElements(".product-card");
+attachClickEventToElements(".cart-item");
