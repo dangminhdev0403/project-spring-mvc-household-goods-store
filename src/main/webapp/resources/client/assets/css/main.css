@@ -1331,10 +1331,9 @@ strong {
   .d-md-none {
     display: none !important;
   }
-  .p-md-0{
+  .p-md-0 {
     padding: 0 !important;
   }
-  
 }
 @media (max-width: 575.98px) {
   .d-sm-block {
@@ -1391,7 +1390,7 @@ html.dark {
   --cate-item-title-color: #fff;
   --filter-btn-color: #fff;
   --filter-btn-bg: #171c28;
-  --product-card-bg:rgb(15 15 20 / 20%);
+  --product-card-bg: rgb(15 15 20 / 20%);
   --product-card-shadow: rgba(0, 0, 0, 0.2);
   --filter-form-bg: var(--dropdown-bg-color);
   --filter-form-shadow: rgba(0, 0, 0, 0.4);
@@ -2329,11 +2328,11 @@ html {
   position: relative;
   flex-shrink: 0;
   width: 100%;
-  padding-top: 26%;
+  /* padding-top: 26%; */
 }
 @media (max-width: 767.98px) {
   .slideshow__item {
-    padding-top: 50%;
+    /* padding-top: 50%; */
   }
 }
 .slideshow__img {
@@ -4647,12 +4646,11 @@ html {
 }
 
 .my-popup-class {
-  width: 600px;     /* Điều chỉnh kích thước */
-  padding: 30px;    /* Khoảng cách bên trong */
+  width: 600px; /* Điều chỉnh kích thước */
+  padding: 30px; /* Khoảng cách bên trong */
   font-size: 1.2em; /* Điều chỉnh cỡ chữ */
 }
 /*# sourceMappingURL=main.css.map */
-
 
 .container.pay-success {
   max-width: 800px;
@@ -4740,7 +4738,7 @@ html {
 }
 
 .pay-success .progress-line::before {
-  content: '';
+  content: "";
   position: absolute;
   left: 0;
   top: 0;
@@ -4793,17 +4791,15 @@ html {
 }
 
 .pay-success .summary-item {
-display: flex;
-flex-direction: column;
-text-align: center;
-justify-content: center;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
   padding: 1rem;
   border: 1px solid #e0e0e0;
   border-radius: 8px;
   text-align: center;
 }
-
-
 
 .pay-success .confetti-canvas {
   position: fixed;
@@ -4812,8 +4808,6 @@ justify-content: center;
   z-index: 1000;
   pointer-events: none;
 }
-
-
 
 .pay-success .floating-action {
   position: fixed;
@@ -4836,30 +4830,128 @@ justify-content: center;
   transform: scale(1.1);
 }
 
-
-
 @media (max-width: 768px) {
-.pay-success.container {
-  max-width: 100%;
-      padding: 0;
-      margin: 0;
+  .pay-success.container {
+    max-width: 100%;
+    padding: 0;
+    margin: 0;
   }
-  
+
   .pay-success .button {
-      width: 100%;
-      margin: 0.5rem 0;
+    width: 100%;
+    margin: 0.5rem 0;
   }
 
   .pay-success .progress-steps {
-      flex-direction: column;
-      align-items: center;
-      gap: 2rem;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
   }
 
   .pay-success .progress-line {
-      height: 100%;
-      width: 2px;
-      left: 50%;
-      top: 0;
+    height: 100%;
+    width: 2px;
+    left: 50%;
+    top: 0;
+  }
+}
+
+.banner-container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+  background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+}
+
+.banner {
+  width: 90%;
+  max-width: 1200px;
+  height: 80vh;
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.banner-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 5%;
+  background: rgba(0, 0, 0, 0.4);
+  color: white;
+}
+
+.banner-title {
+  font-size: 4em;
+  font-weight: 700;
+  margin-bottom: 20px;
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.banner-subtitle {
+  font-size: 1.5em;
+  margin-bottom: 30px;
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.banner-button {
+  padding: 15px 40px;
+  font-size: 1.2em;
+  background: #ffffff;
+  color: #000000;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.3s ease;
+}
+
+.banner-button:hover {
+  background: #e74c3c;
+  color: #ffffff;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+}
+
+.banner-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.1);
+}
+
+.floating-items {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.floating-item {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+}
+
+@media (max-width: 768px) {
+  .banner-title {
+    font-size: 2.5em;
+  }
+  .banner-subtitle {
+    font-size: 1.2em;
   }
 }

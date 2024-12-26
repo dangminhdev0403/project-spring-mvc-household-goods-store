@@ -15,7 +15,90 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
     <div class="slideshow">
       <div class="slideshow__inner">
         <div class="slideshow__item">
-          <a href="#!" class="slideshow__link">
+
+          <div class="banner-container">
+        <div class="banner">
+            <img src="https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" alt="Đồ gia dụng" class="banner-image">
+            <div class="banner-content">
+                <h1 class="banner-title">Đồ Gia Dụng Cao Cấp</h1>
+                <p class="banner-subtitle">Nâng tầm không gian sống của bạn với những sản phẩm chất lượng</p>
+                <button class="banner-button">Khám phá ngay</button>
+            </div>
+            <div class="floating-items">
+                <div class="floating-item"></div>
+                <div class="floating-item"></div>
+                <div class="floating-item"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Animation cho các phần tử
+        anime({
+            targets: '.banner-title',
+            opacity: [0, 1],
+            translateY: [30, 0],
+            duration: 1000,
+            easing: 'easeOutExpo',
+            delay: 300
+        });
+
+        anime({
+            targets: '.banner-subtitle',
+            opacity: [0, 1],
+            translateY: [30, 0],
+            duration: 1000,
+            easing: 'easeOutExpo',
+            delay: 500
+        });
+
+        anime({
+            targets: '.banner-button',
+            opacity: [0, 1],
+            translateY: [30, 0],
+            duration: 1000,
+            easing: 'easeOutExpo',
+            delay: 700
+        });
+
+        // Animation cho hình ảnh
+        anime({
+            targets: '.banner-image',
+            scale: [1.1, 1],
+            duration: 3000,
+            easing: 'easeOutExpo'
+        });
+
+        // Animation cho các item nổi
+        const floatingItems = document.querySelectorAll('.floating-item');
+        floatingItems.forEach((item, index) => {
+            const randomX = Math.random() * 80 + 10;
+            const randomY = Math.random() * 80 + 10;
+            
+            item.style.left = `${randomX}%`;
+            item.style.top = `${randomY}%`;
+
+            anime({
+                targets: item,
+                translateX: function() {
+                    return anime.random(-20, 20);
+                },
+                translateY: function() {
+                    return anime.random(-20, 20);
+                },
+                scale: [1, 1.2],
+                opacity: [0.5, 0.2],
+                duration: 3000,
+                direction: 'alternate',
+                loop: true,
+                easing: 'easeInOutSine',
+                delay: index * 200
+            });
+        });
+    </script>
+
+
+          <!-- <a href="#!" class="slideshow__link">
             <picture>
               <source
                 media="(max-width: 767.98px)"
@@ -27,7 +110,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
                 class="slideshow__img"
               />
             </picture>
-          </a>
+          </a> -->
         </div>
       </div>
 
