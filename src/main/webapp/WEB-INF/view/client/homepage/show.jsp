@@ -18,7 +18,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
           <div class="banner-container">
         <div class="banner">
-            <img src="https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" alt="Đồ gia dụng" class="banner-image">
+            <img src="https://res.cloudinary.com/dwjqosrrk/image/upload/f_auto,q_auto/icjeytyr2ccew4uoxyvx" alt="Đồ gia dụng" class="banner-image">
             <div class="banner-content">
                 <h1 class="banner-title">Đồ Gia Dụng Cao Cấp</h1>
                 <p class="banner-subtitle">Nâng tầm không gian sống của bạn với những sản phẩm chất lượng</p>
@@ -114,11 +114,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
         </div>
       </div>
 
-      <div class="slideshow__page">
-        <span class="slideshow__num">1</span>
-        <span class="slideshow__slider"></span>
-        <span class="slideshow__num">5</span>
-      </div>
+    
     </div>
   </div>
 
