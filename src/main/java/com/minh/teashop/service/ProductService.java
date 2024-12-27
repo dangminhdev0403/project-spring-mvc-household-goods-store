@@ -456,12 +456,21 @@ public class ProductService {
                             ProductImage productImage = new ProductImage();
                             productImage.setProduct(product);
                             productImage.setName(image);
-                            try {
-                                String urlImage = this.uploadService.getImageUrl(image);
-                                if (result != "") {
-                                    urlImage = this.uploadService.getImageUrl(image) + "." + result;
 
+                            try {
+                                String urlImage;
+
+                                // Kiểm tra nếu image là một URL hợp lệ
+                                if (UploadService.isValidUrl(image)) {
+                                    urlImage = image; // Sử dụng trực tiếp nếu là URL
+                                } else {
+                                    // Tạo URL từ Cloudinary nếu không phải là URL
+                                    urlImage = this.uploadService.getImageUrl(image);
+                                    if (!result.isEmpty()) {
+                                        urlImage = urlImage + "." + result; // Thêm phần mở rộng nếu cần
+                                    }
                                 }
+
                                 if (urlImage != null) {
                                     productImage.setUrl(urlImage);
                                     productImages.add(productImage); // Thêm vào danh sách thay vì lưu ngay lập tức
@@ -472,6 +481,7 @@ public class ProductService {
                         }
                     }
                 }
+
             }
         }
 

@@ -1,6 +1,8 @@
 package com.minh.teashop.service;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
@@ -87,7 +89,23 @@ public class UploadService {
 
     public String getImageUrl(String nameImage) {
         String cloudName = "dwjqosrrk";
+
+        // Kiểm tra nếu nameImage là một URL hợp lệ
+        if (isValidUrl(nameImage)) {
+            return nameImage; // Trả về URL nếu hợp lệ
+        }
+
+        // Nếu không, tạo URL từ Cloudinary
         return String.format("https://res.cloudinary.com/%s/image/upload/%s",
                 cloudName, nameImage);
+    }
+
+    public static boolean isValidUrl(String url) {
+        try {
+            new URL(url);
+            return true; // URL hợp lệ
+        } catch (MalformedURLException e) {
+            return false; // URL không hợp lệ
+        }
     }
 }

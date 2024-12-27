@@ -20,7 +20,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
           </a>
         </li>
         <li>
-          <a href="/category" class="breadcrumbs__link">
+          <a href="#" class="breadcrumbs__link">
             ${product.category.name}
             <img src="/client/assets/icons/arrow-right.svg" alt="" />
           </a>
