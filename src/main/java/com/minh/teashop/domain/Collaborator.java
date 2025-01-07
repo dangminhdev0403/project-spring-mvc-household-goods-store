@@ -52,7 +52,7 @@ public class Collaborator {
     public void setDefaultCommissionRate() {
         // Nếu commissionRate chưa được gán giá trị (ví dụ null), gán giá trị mặc định
         if (this.commissionRate == 0) {
-            this.commissionRate = 0.2;
+            this.commissionRate = 0.15;
         }
     }
 

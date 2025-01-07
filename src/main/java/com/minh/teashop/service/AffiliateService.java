@@ -161,7 +161,7 @@ public class AffiliateService {
         if (amount <= availableBalance) {
             availableBalance = availableBalance - amount;
             collaborator.setAvailableBalance(availableBalance);
-
+            
             this.collaboratorRepository.save(collaborator);
             Withdrawal withdrawal = new Withdrawal();
             withdrawal.setAmount(amount);

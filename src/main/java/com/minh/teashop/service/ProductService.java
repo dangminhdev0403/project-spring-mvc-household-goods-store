@@ -278,11 +278,13 @@ public class ProductService {
         orderDetail.setQuantity(qty);
         double price = qty * product.getPrice();
         orderDetail.setPrice(price);
-        if (affiUser != null) {
+        if (affiUser != null && affiUser.getRole().getName().equals("COLLABORATOR")) {
             double commission = 0;
             orderDetail.setAffiliate(affiUser);
             commission = price * affiUser.getCollaborator().getCommissionRate();
             orderDetail.setCommissionRate(affiUser.getCollaborator().getCommissionRate());
+
+            
             this.affiliateService.updateCollaborator(affiUser, commission);
 
         }

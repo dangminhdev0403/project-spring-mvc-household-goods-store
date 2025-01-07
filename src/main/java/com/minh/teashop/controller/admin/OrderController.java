@@ -22,8 +22,6 @@ import com.minh.teashop.domain.enumdomain.OrderStatus;
 import com.minh.teashop.service.AffiliateService;
 import com.minh.teashop.service.ExcelExportService;
 import com.minh.teashop.service.OrderService;
-import com.minh.teashop.service.ProductService;
-import com.minh.teashop.service.UserService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -34,10 +32,7 @@ import lombok.AllArgsConstructor;
 public class OrderController {
     private final ExcelExportService excelExportService;
     private final OrderService orderService;
-        private final AffiliateService affiliateService ;
-
-
-  
+    private final AffiliateService affiliateService;
 
     @GetMapping("/admin/order")
     public String getOrderAdminPage(Model model, HttpServletRequest request) {

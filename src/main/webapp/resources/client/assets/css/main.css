@@ -2589,6 +2589,9 @@ html {
   font-weight: 700;
   line-height: 150%;
 }
+.product-card__score{
+  display: none;
+}
 .product-card__brand {
   margin: 16px 0;
   color: #9e9da8;
@@ -2601,8 +2604,11 @@ html {
   margin-top: auto;
 }
 .product-card__star {
+  display: none;
   margin: 0 6px 0 auto;
 }
+
+
 
 .filter-wrap {
   position: relative;
