@@ -66,7 +66,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
               <tr>
                 <td>${withdraw.id}</td>
                 <td class="format-date">${withdraw.createdAt}</td>
-                <td>${withdraw.accountName}</td>
+                <td style="text-transform: uppercase;">${withdraw.accountName}</td>
                 <td>${withdraw.bankSelect}</td>
                 <td>${withdraw.accountNumber}</td>
                 <td class="format-price">${withdraw.amount}</td>
