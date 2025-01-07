@@ -485,6 +485,9 @@ function closeWithdrawModal() {
       if (withdrawForm) withdrawForm.reset();
     },
   });
+
+  location.reload();
+
 }
 
 const MIN_VALUE = 50000;
@@ -721,7 +724,7 @@ function showSuccess() {
             <h2 style="margin: 1rem 0;">Thành Công!</h2>
             <p style="margin-bottom: 2rem;">
                 Yêu cầu rút tiền đã được gửi.<br>
-                Chúng tôi sẽ xử lý trong vòng 24h.
+                Chúng tôi sẽ xử lý trong thời gian sớm nhất.
             </p>
             <button class="w24-submit-btn" onclick="closeWithdrawModal()">Đóng</button>
         </div>
@@ -894,31 +897,29 @@ function ctv_loadCustomerData() {
         </thead>
         <tbody>
             ${customers
-              .map(
-                (customer) => `
+        .map(
+          (customer) => `
                 <tr>
                     <td>#${customer.customerCode}</td>
                     <td>${customer.nameCustomer}</td>
                     <td>${customer.countOrders}</td>
                     <td>${formatNumber(customer.subTotal)}</td>
                     <td>
-                        <span class="ctv_dash_v2_status ctv_dash_v2_status_${
-                          customer.enabled == true ? "active" : "inactive"
-                        }">
+                        <span class="ctv_dash_v2_status ctv_dash_v2_status_${customer.enabled == true ? "active" : "inactive"
+            }">
 
 
-                            ${
-                              customer.enabled === true
-                                ? "Hoạt động"
-                                : "Tạm khoá "
-                            }
+                            ${customer.enabled === true
+              ? "Hoạt động"
+              : "Tạm khoá "
+            }
                         </span>
                     </td>
                    
                 </tr>
             `
-              )
-              .join("")}
+        )
+        .join("")}
         </tbody>
     </table>
 `;
@@ -1066,18 +1067,18 @@ function ctv_loadOrderData() {
           </thead>
           <tbody>
               ${orders
-                .map(
-                  (order) => `
+          .map(
+            (order) => `
                   <tr>
                       <td>${order.id}</td>
                       <td>${order.receiverName}</td>
                       <td>${processOrderDate(order.orderDate)}</td>
                       <td class ="format-price">${formatPrice(
-                        order.totalPrice
-                      )}</td>
+              order.totalPrice
+            )}</td>
                       <td>${formatPrice(
-                        order.commission * order.totalPrice
-                      )}</td>
+              order.commission * order.totalPrice
+            )}</td>
                       <td>
                        ${getStatusBadge(order.status)}
 
@@ -1086,8 +1087,8 @@ function ctv_loadOrderData() {
                       
                   </tr>
               `
-                )
-                .join("")}
+          )
+          .join("")}
           </tbody>
       </table>
   `;
