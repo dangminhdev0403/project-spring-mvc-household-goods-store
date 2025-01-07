@@ -113,7 +113,7 @@ public class EmailService {
         String content = createEmailContent(verificationUrl);
 
         try {
-            helper.setFrom("thegoidagung@tggd123321.com", "Thế giới gia dụng");
+            helper.setFrom("thegoidagung@tggd123321.com", "Chợ Gia Dụng");
         } catch (UnsupportedEncodingException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -155,7 +155,7 @@ public class EmailService {
         String subject = "Quên mật khẩu";
         String content = createResetPass(verificationUrl);
         try {
-            helper.setFrom("thegoidagung@tggd123321.com", "Thế giới gia dụng");
+            helper.setFrom("thegoidagung@tggd123321.com", "Chợ Gia Dụng");
         } catch (UnsupportedEncodingException | MessagingException e) {
             e.printStackTrace();
         } // Thay "Minh Dev" bằng tên bạn muốn hiển thị.
@@ -191,7 +191,7 @@ public class EmailService {
         String subject = "Xác thực tài khoản";
         String content = createEmailContentForReconfirmation(verificationUrl);
         try {
-            helper.setFrom("thegoidagung@tggd123321.com", "Thế giới gia dụng");
+            helper.setFrom("thegoidagung@tggd123321.com", "Chợ Gia Dụng");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         } catch (MessagingException e) {
@@ -219,7 +219,7 @@ public class EmailService {
         String subject = "Lịch sử đơn hàng";
         String content = createHistoryOrder(verificationUrl);
         try {
-            helper.setFrom("thegoidagung@tggd123321.com", "Thế giới gia dụng");
+            helper.setFrom("thegoidagung@tggd123321.com", "Chợ Gia Dụng");
         } catch (UnsupportedEncodingException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

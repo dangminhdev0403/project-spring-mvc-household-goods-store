@@ -22,10 +22,10 @@ uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
     <a href="/" class="logo top-bar__logo">
       <img
         src="/client/assets/icons/logo.svg"
-        alt="Thế Giới Gia Dụng"
+        alt="Chợ Gia Dụng"
         class="logo__img top-bar__logo-img"
       />
-      <h1 class="logo__title top-bar__logo-title">Thế Giới Gia Dụng</h1>
+      <h1 class="logo__title top-bar__logo-title">Chợ Gia Dụng</h1>
     </a>
 
     <!-- Navbar -->

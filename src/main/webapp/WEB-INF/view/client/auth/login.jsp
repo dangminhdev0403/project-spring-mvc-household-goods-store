@@ -103,10 +103,10 @@ uri="http://www.springframework.org/tags/form" %>
           <a href="/" class="logo">
             <img
               src="client/assets/icons/logo.svg"
-              alt="Thế Giới Gia Dụng"
+              alt="Chợ Gia Dụng"
               class="logo__img"
             />
-            <h2 class="logo__title">Thế Giới Gia Dụng</h2>
+            <h2 class="logo__title">Chợ Gia Dụng</h2>
           </a>
           <h1 class="auth__heading">Chào mừng bạn trở lại!</h1>
           <p class="auth__desc">
