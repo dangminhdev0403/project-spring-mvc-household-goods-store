@@ -55,7 +55,7 @@
 - 🖥️ **Frontend**: Thymeleaf, HTML/CSS, Bootstrap, JavaScript  
 - ☕ **Backend**: Java Spring Boot (Spring MVC)  
 - 🗄️ **Database**: MySQL  
-- 🔐 **Authentication**: Spring Security  
+- 🔐 **Authentication**: Spring Security + Session
 - 📦 **Build Tool**: Maven  
 - 🌐 **Affiliate Tracking**: Referral code and cookies
 
