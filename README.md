@@ -13,7 +13,7 @@
   ![User Login](assets/images/image-1.png)
 - Browse and search products by category or keyword
 - View product details, images, description  
-  ![Product Detail](assets/images/764CDFF1-54C8-4075-B57F-C1589953FF6F.png)
+  ![Product Detail](assets/images/detail.png)
 - **Guest Checkout** – Buy products without creating an account  
   ![Guest Checkout](assets/images/image.png)
 - Add products to cart and manage quantities  
@@ -42,7 +42,7 @@
 
 ### 🔗 Affiliate Program
 - Each user gets a unique affiliate link for every product  
-  ![Affiliate Link](assets/images/2E78A9D3-2F21-42F3-A34E-EBBBE51EF105.png)
+  ![Affiliate Link](assets/images/affilink.png)
 - Earn a percentage commission when someone purchases via your link
 - View affiliate dashboard: clicks, conversions, and total earnings  
   ![Affiliate Dashboard](assets/images/image-2.png)  
