@@ -5,6 +5,8 @@
 📺 **Demo Video**: [Watch here](https://youtu.be/049BbnEYXek?si=0amxHlCWogeEG8aE)
 
 ---
+ ## Home Page
+![Home Page](assets/images/image12.png)
 
 ## 🛍️ Key Features
 
